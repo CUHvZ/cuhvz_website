@@ -150,7 +150,7 @@
 .active, .dot:hover {
   background-color: #717171;
 }
-
+/*
 .fixed-nav-bar {
   position: fixed;
   top: 0;
@@ -163,30 +163,41 @@
 nav {
   text-align: center;
 }
-
-nav .cta {
-  background-color: #c34800;
-}
+*/
 
 nav a {
-  color: #fff;
+  color: rgba(255,255,255,.5);
   display: inline-block;
-  padding: 0px 20px;
-  text-decoration: none;
+  padding: 10px 20px 10px 20px;
   line-height: 40px;
-  font-size: 13px;
+  text-align: center;
+  position: relative;
+  margin: 5px;
+  font-size: 20px;
   font-family: 'Roboto', sans-serif;
   font-weight: 700;
-  letter-spacing: 0.05rem;
+  /*letter-spacing: 0.05rem;*/
   text-transform: uppercase;
   text-decoration: none;
 }
 
-nav a:hover, nav a:active {
+nav a:hover, a:active {
   background-color: #EA7B00;
+  text-decoration: none;
   color: #FFF;
 }
 
+nav a:visited, a:link{
+    color: rgba(255,255,255,.5);
+    text-decoration: none;
+}
+
+nav .active {
+  background-color: #EA7B00;
+  text-decoration: none;
+  color: #FFF;
+}
+/*
 nav .rightborder {  border-right: 1px solid rgba(255, 255, 255, 0.2); float: left;}
 
 nav .leftborder {  border-left: 1px solid rgba(255, 255, 255, 0.2); float:right;}
@@ -210,18 +221,18 @@ nav .leftborder {  border-left: 1px solid rgba(255, 255, 255, 0.2); float:right;
  nav .leftborder { border-left: none; border-bottom: 1px solid rgba(255, 255, 255, 0.2);}
 
 }
-
+*/
 body {
   background-color: #222;
   color: #D1D1D1;
 }
 
-.contentwithnav {  margin-top: 40px; }
+/*.contentwithnav {  margin-top: 40px; }*/
 
 /* COLORS
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 .white {
-	color: #FFFFFF;;
+	color: #FFFFFF;
 }
 
 .deeporange {

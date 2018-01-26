@@ -31,17 +31,16 @@ require('layout/header.php');
 
 <!-- Begin Document
 –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-
+<!--
 <nav class="fixed-nav-bar">
 <a href="#" class="rightborder">Home</a>
 <a href="#playerinfo" class="rightborder">What is Humans vs Zombies?</a>
-<!--<a href="#lockin" class="rightborder cta">Now open! Spring Lock-in Game</a>-->
 
 	<a href="subscribe.php" class="leftborder">Subscribe</a>
 	<a href="#weeklong" class="leftborder">Weeklong Game Stats</a>
 
 </nav>
-
+-->
 <!-- HVZ HEADLINE SECTION 
 ___________________________________________-->
 <!--
@@ -73,7 +72,7 @@ ___________________________________________-->
 </section> 
 -->
 <!-- END HVZ HEADLINE SECTION -->
-
+<?php include 'layout/navbar.php'; ?>
 
 <div class="lightslide contentwithnav" id="login">
 
@@ -134,7 +133,7 @@ ___________________________________________-->
       <hr>
 	  <p>Not a member? <a href='./'>Sign-up now.</a></p>
 
-			<form role="form" method="post" action="" autocomplete="on">
+			<form role="form" method="post" actionaction="" autocomplete="on">
 
 				<?php
 				//check for any errors

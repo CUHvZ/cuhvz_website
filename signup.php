@@ -65,7 +65,7 @@ if(isset($_POST['submit'])){
 		try {
 
 			// insert into database with a prepared statement
-			$stmt = $db->prepare('INSERT INTO weeklongF17 (username,password,firstName,lastName,email,phone,active,UserHex) VALUES (:username, :password, :firstName, :lastName, :email, :phone, :active, :UserHex)');
+			$stmt = $db->prepare('INSERT INTO members (username,password,firstName,lastName,email,phone,active,UserHex) VALUES (:username, :password, :firstName, :lastName, :email, :phone, :active, :UserHex)');
 			$stmt->execute(array(
 				':username' => $_POST['username'],
 				':password' => $hashedpassword,
@@ -114,12 +114,14 @@ require('layout/header.php');
 
 <!-- Begin Primary Document
 –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-
+<?php include 'layout/navbar.php' ?>
+<!--
 <nav>
 <center>
 <a href="#slideshow" class="cta">What is HVZ? Click to learn more.</a>
 </center>
 </nav>
+-->
 <!--
 <div class="darkslide">
 
@@ -164,7 +166,7 @@ require('layout/header.php');
   <div class="row">
 
 	<!-- HEADLINE -->
-    <div class="five columns">
+      <div class="five columns">
       <h1 class="section-heading">Humans
       <span class="white">versus</span> Zombies</h1>
       <h2 class="grey subheader">University of Colorado <strong class="deeporange">Boulder</strong></h2>
@@ -172,8 +174,10 @@ require('layout/header.php');
     </div> <!-- end headline -->
 
 	<!-- SIGNUP BOX -->
-    <div class="six columns lightslide-box">
-
+      <div class="six columns lightslide-box">   
+        <h4 class="white">Undergoing construction</h4>
+        <p class="white">Check back later for updates on our next event!</p>
+        <!--
       <h4 class="white">Register to play.</h4>
       <span class="white">Weeklong Game</span> (March 19th - March 23rd).
       <hr>
@@ -194,6 +198,7 @@ require('layout/header.php');
 		?>
 
 		<!-- BEGIN SIGNUP FORM -->
+<!--    
         <form role="form" method="post" action="" autocomplete="off">
 
           <div class="row">
@@ -230,7 +235,7 @@ require('layout/header.php');
             </div>
           </div>
           -->
-
+<!--
           <div class="row">
             <div class="twelve columns">
                 <input type="submit" name="submit" value="Submit" class="btn btn-primary btn-block btn-lg button-primary" tabindex="8">
@@ -246,6 +251,8 @@ require('layout/header.php');
  </div> <!-- end container -->
 
 </div> <!-- end signup section -->
+
+<br><br>
 
 <div class="darkslide" id="slideshow">
 <div class="slideshow-container">
