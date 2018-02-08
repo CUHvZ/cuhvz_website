@@ -1,14 +1,27 @@
 <?php require('includes/config.php');
 
+function isValid($str) {
+    return !preg_match('/[^A-Za-z0-9.#\\-$]/', $str);
+}
+
+function isValidName($str) {
+    return !preg_match('/[^A-Za-z.#\\-$]/', strip($str));
+}
+
+function strip($str){
+	return str_replace(' ', '', $str);
+}
 
 // if logged in redirect to user page
-if( $user->is_logged_in() ){ header('Location: profile.php'); }
+//if( $user->is_logged_in() ){ header('Location: profile.php'); }
 
 // if form has been submitted process it
 if(isset($_POST['submit'])){
 
 	// very basic validation
-	if(strlen($_POST['username']) < 3){
+	if(empty(isValid($_POST['username']))){
+		$error[] = 'Username contains invalid character';
+	}else if(strlen($_POST['username']) < 3){
 		$error[] = 'Username is too short.';
 	} else {
 		$stmt = $db->prepare('SELECT username FROM weeklongF17 WHERE username = :username');
@@ -21,19 +34,22 @@ if(isset($_POST['submit'])){
 	}
 
 	// password validation
-	if(strlen($_POST['password']) < 3){
-		$error[] = 'Password is too short.';
-	}
-	if(strlen($_POST['passwordConfirm']) < 3){
-		$error[] = 'Confirm password is too short.';
-	}
-	if($_POST['password'] != $_POST['passwordConfirm']){
-		$error[] = 'Passwords do not match.';
+	if(strlen(str_replace(' ', '', $_POST['password'])) == 0){
+		$error[] = 'Enter a password';
+	}else if(strlen($_POST['password']) < 3){
+		$error[] = 'Password is too short';
+	}else if(strlen($_POST['passwordConfirm']) == 0){
+		$error[] = 'You must confirm your password';
+	}else if($_POST['password'] != $_POST['passwordConfirm']){
+		$error[] = 'Passwords do not match';
 	}
 
 	// phone validation
-	if(strlen($_POST['phone']) != 10){
+	$phone = preg_replace('/[^0-9]/', '', $_POST['phone']);
+	if(strlen($phone) != 10 && strlen($phone) != 0){
 		$error[] = 'Invalid phone number. Please enter numbers only.';
+	}else if(strlen($phone) == 0){
+		$phone = false;
 	}
 
 	// email validation
@@ -48,6 +64,20 @@ if(isset($_POST['submit'])){
 			$error[] = 'Email provided is already in use.';
 		}
 	}
+
+	// name validation
+	if(strlen(strip($_POST['firstName'])) == 0){
+		$error[] = 'Enter your first name';
+	}else if(empty(isValidName($_POST['firstName']))){
+		$error[] = 'First name contains invalid character.';
+	}
+
+	if(strlen(strip($_POST['lastName'])) == 0){
+		$error[] = 'Enter your last name';
+	}else if(empty(isValidName($_POST['lastName']))){
+		$error[] = 'Last name contains invalid character.';
+	}
+
 
 
 	// if no errors have been created carry on
@@ -65,18 +95,30 @@ if(isset($_POST['submit'])){
 		try {
 
 			// insert into database with a prepared statement
-			$stmt = $db->prepare('INSERT INTO members (username,password,firstName,lastName,email,phone,active,UserHex) VALUES (:username, :password, :firstName, :lastName, :email, :phone, :active, :UserHex)');
-			$stmt->execute(array(
-				':username' => $_POST['username'],
-				':password' => $hashedpassword,
-				':firstName' => $_POST['firstName'],
-				':lastName' => $_POST['lastName'],
-				':email' => $_POST['email'],
-				':phone' => $_POST['phone'],
-				':active' => $activasion,
-				':UserHex' => $user_hex
-			));
-			$id = $db->lastInsertId('memberID');
+			if($phone){
+				$stmt = $db->prepare('INSERT INTO users (username,password,firstName,lastName,email,phone,activated) VALUES (:username, :password, :firstName, :lastName, :email, :phone, :activated)');
+				$stmt->execute(array(
+					':username' => $_POST['username'],
+					':password' => $hashedpassword,
+					':firstName' => $_POST['firstName'],
+					':lastName' => $_POST['lastName'],
+					':email' => $_POST['email'],
+					':phone' => $phone,
+					':activated' => $activasion
+				));
+				$id = $db->lastInsertId('memberID');
+			}else{
+				$stmt = $db->prepare('INSERT INTO users (username,password,firstName,lastName,email,phone,activated) VALUES (:username, :password, :firstName, :lastName, :email, NULL, :activated)');
+				$stmt->execute(array(
+					':username' => $_POST['username'],
+					':password' => $hashedpassword,
+					':firstName' => $_POST['firstName'],
+					':lastName' => $_POST['lastName'],
+					':email' => $_POST['email'],
+					':activated' => $activasion
+				));
+				$id = $db->lastInsertId('memberID');
+			}
 
 			// send email
 			$to = $_POST['email'];
@@ -109,55 +151,14 @@ $title = 'HVZ CU BOULDER';
 
 // include header template
 require('layout/header.php');
+
+include 'layout/navbar.php'
+
 ?>
 
 
 <!-- Begin Primary Document
 –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-<?php include 'layout/navbar.php' ?>
-<!--
-<nav>
-<center>
-<a href="#slideshow" class="cta">What is HVZ? Click to learn more.</a>
-</center>
-</nav>
--->
-<!--
-<div class="darkslide">
-
-<div class="slider">
-<img src="images/info/Fall2017/Slide01.jpg" />
-<img src="images/info/Fall2017/Slide02.jpg" />
-<img src="images/info/Fall2017/Slide03.jpg" />
-<img src="images/info/Fall2017/Slide04.jpg" />
-<img src="images/info/Fall2017/Slide05.jpg" />
-<img src="images/info/Fall2017/Slide06.jpg" />
-<img src="images/info/Fall2017/Slide07.jpg" />
-<img src="images/info/Fall2017/Slide08.jpg" />
-<img src="images/info/Fall2017/Slide09.jpg" />
-<img src="images/info/Fall2017/Slide10.jpg" />
-<img src="images/info/Fall2017/Slide11.jpg" />
-<img src="images/info/Fall2017/Slide12.jpg" />
-<img src="images/info/Fall2017/Slide13.jpg" />
-<img src="images/info/Fall2017/Slide14.jpg" />
-<img src="images/info/Fall2017/Slide15.jpg" />
-<img src="images/info/Fall2017/Slide16.jpg" />
-<img src="images/info/Fall2017/Slide17.jpg" />
-<img src="images/info/Fall2017/Slide18.jpg" />
-<img src="images/info/Fall2017/Slide19.jpg" />
-<img src="images/info/Fall2017/Slide20.jpg" />
-<img src="images/info/Fall2017/Slide21.jpg" />
-<img src="images/info/Fall2017/Slide22.jpg" />
-<img src="images/info/Fall2017/Slide23.jpg" />
-<img src="images/info/Fall2017/Slide24.jpg" />
-<img src="images/info/Fall2017/Slide25.jpg" />
-<img src="images/info/Fall2017/Slide26.jpg" />
-
-</div>
-
-</div>
--->
-<!-- SLIDE #1 - SIGNUP -->
 
 <div id="signup" class="lightslide">
 
@@ -174,12 +175,8 @@ require('layout/header.php');
     </div> <!-- end headline -->
 
 	<!-- SIGNUP BOX -->
-      <div class="six columns lightslide-box">   
-        <h4 class="white">Undergoing construction</h4>
-        <p class="white">Check back later for updates on our next event!</p>
-        <!--
+      <div class="six columns lightslide-box">
       <h4 class="white">Register to play.</h4>
-      <span class="white">Weeklong Game</span> (March 19th - March 23rd).
       <hr>
 	  <p>Already registered? <a href='login.php'>Login.</a></p>
 
@@ -198,7 +195,7 @@ require('layout/header.php');
 		?>
 
 		<!-- BEGIN SIGNUP FORM -->
-<!--    
+
         <form role="form" method="post" action="" autocomplete="off">
 
           <div class="row">
@@ -235,7 +232,7 @@ require('layout/header.php');
             </div>
           </div>
           -->
-<!--
+
           <div class="row">
             <div class="twelve columns">
                 <input type="submit" name="submit" value="Submit" class="btn btn-primary btn-block btn-lg button-primary" tabindex="8">
@@ -251,133 +248,6 @@ require('layout/header.php');
  </div> <!-- end container -->
 
 </div> <!-- end signup section -->
-
-<br><br>
-
-<div class="darkslide" id="slideshow">
-<div class="slideshow-container">
-  <div class="mySlides">
-    <img src="images/info/Fall2017/Slide01.jpg" style="width:100%">
-  </div>
-
-  <div class="mySlides">
-    <img src="images/info/Fall2017/Slide02.jpg" style="width:100%">
-  </div>
-
-  <div class="mySlides">
-    <img src="images/info/Fall2017/Slide03.jpg" style="width:100%">
-  </div>
-   <div class="mySlides fade">
-    <img src="images/info/Fall2017/Slide04.jpg" style="width:100%">
-  </div>
-
-  <div class="mySlides fade">
-    <img src="images/info/Fall2017/Slide05.jpg" style="width:100%">
-  </div>
-
-  <div class="mySlides fade">
-    <img src="images/info/Fall2017/Slide06.jpg" style="width:100%">
-  </div>
-  <div class="mySlides fade">
-    <img src="images/info/Fall2017/Slide07.jpg" style="width:100%">
-  </div>
-
-  <div class="mySlides fade">
-    <img src="images/info/Fall2017/Slide08.jpg" style="width:100%">
-  </div>
-
-  <div class="mySlides fade">
-    <img src="images/info/Fall2017/Slide09.jpg" style="width:100%">
-</div>
-
-      <div class="mySlides fade">
-    <img src="images/info/Fall2017/Slide10.jpg" style="width:100%">
-  </div>
-
-  <div class="mySlides fade">
-    <img src="images/info/Fall2017/Slide11.jpg" style="width:100%">
-  </div>
-
-  <div class="mySlides fade">
-    <img src="images/info/Fall2017/Slide12.jpg" style="width:100%">
-  </div>
-
-        <div class="mySlides fade">
-    <img src="images/info/Fall2017/Slide13.jpg" style="width:100%">
-  </div>
-
-  <div class="mySlides fade">
-    <img src="images/info/Fall2017/Slide14.jpg" style="width:100%">
-  </div>
-
-  <div class="mySlides fade">
-    <img src="images/info/Fall2017/Slide15.jpg" style="width:100%">
-  </div>
-
-        <div class="mySlides fade">
-    <img src="images/info/Fall2017/Slide16.jpg" style="width:100%">
-  </div>
-
-  <div class="mySlides fade">
-    <img src="images/info/Fall2017/Slide17.jpg" style="width:100%">
-  </div>
-
-  <div class="mySlides fade">
-    <img src="images/info/Fall2017/Slide18.jpg" style="width:100%">
-  </div>
-
-      <div class="mySlides fade">
-    <img src="images/info/Fall2017/Slide19.jpg" style="width:100%">
-  </div>
-
-  <div class="mySlides fade">
-    <img src="images/info/Fall2017/Slide20.jpg" style="width:100%">
-  </div>
-
-  <div class="mySlides fade">
-    <img src="images/info/Fall2017/Slide21.jpg" style="width:100%">
-  </div>
-
-    <div class="mySlides fade">
-    <img src="images/info/Fall2017/Slide22.jpg" style="width:100%">
-  </div>
-
-        <div class="mySlides fade">
-    <img src="images/info/Fall2017/Slide23.jpg" style="width:100%">
-  </div>
-
-  <div class="mySlides fade">
-    <img src="images/info/Fall2017/Slide24.jpg" style="width:100%">
-  </div>
-
-  <div class="mySlides fade">
-    <img src="images/info/Fall2017/Slide25.jpg" style="width:100%">
-  </div>
-
-        <div class="mySlides fade">
-    <img src="images/info/Fall2017/Slide26.jpg" style="width:100%">
-  </div>
-
-  <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-  <a class="next" onclick="plusSlides(1)">&#10095;</a>
-</div>
-<br>
-
-<!--<div style="text-align:center">
-  <span class="dot" onclick="currentSlide(1)"></span> 
-  <span class="dot" onclick="currentSlide(2)"></span> 
-  <span class="dot" onclick="currentSlide(3)"></span> 
-</div> -->
-</div>
-<script src="js/slider.js"></script>
-
-<?php
-// insert clock
-require('layout/clock.php');
-?>
-
-
-
 
 <!-- End Document
 –––––––––––––––––––––––––––––––––––––––––––––––––– -->

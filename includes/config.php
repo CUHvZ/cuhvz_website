@@ -15,6 +15,10 @@ define('DBNAME','cuhvmiwg_hvz');
 define('DIR','http://cuhvz.com/');
 define('SITEEMAIL','cuhvz@cuhvz.com');
 
+//weeklong table in database
+define("WEEKLONG","weeklongS18");
+$WEEKLONG = 'weeklongS18';
+
 try {
 
 	//create PDO connection
@@ -30,74 +34,11 @@ try {
 //include the user class, pass in the database connection
 include('classes/user.php');
 include('classes/phpmailer/mail.php');
+include('classes/weeklong.php');
 $user = new User($db);
+$weeklong = new Weeklong($db);
+if($weeklong->is_active()){
+  $weeklong->set_variables();
+}
 
 ?>
-
-<!--
-    -\-                                                     
-    \-- \-                                                  
-     \  - -\                                                
-      \      \\                                             
-       \       \                                            
-        \       \\                                              
-         \        \\                                            
-         \          \\                                        
-         \           \\\                                      
-          \            \\                                                 
-           \            \\                                              
-           \. .          \\                                  
-            \    .       \\                                 
-             \      .    \\                                            
-              \       .  \\                                 
-              \         . \\                                           
-              \            <=)                                         
-              \            <==)                                         
-              \            <=)                                           
-               \           .\\                                           _-
-               \         .   \\                                        _-//
-               \       .     \\                                     _-_/ /
-               \ . . .        \\                                 _--_/ _/
-                \              \\                              _- _/ _/
-                \               \\                      ___-(O) _/ _/ 
-                \                \                  __--  __   /_ /      ***********************************
-                \                 \\          ____--__----  /    \_       I AM A MOTHERFUCKING PTERODACTYL
-                 \                  \\       -------       /   \_  \_     HERE TO PTERO-YOU A NEW ASSHOLE
-                  \                   \                  //   // \__ \_   **********************************
-                   \                   \\              //   //      \_ \_ 
-                    \                   \\          ///   //          \__- 
-                    \                -   \\/////////    //            
-                    \            -         \_         //              
-                    /        -                      //                
-                   /     -                       ///                  
-                  /   -                       //                      
-             __--/                         ///
-  __________/                            // |               
-//-_________      ___                ////  |                
-        ____\__--/                /////    |                
-   -----______    -/---________////        |                
-     _______/  --/    \                   |                 
-   /_________-/       \                   |                 
-  //                  \                   /                 
-                       \.                 /                 
-                       \     .            /                 
-                        \       .        /                  
-                       \\           .    /                  
-                        \                /                  
-                        \              __|                  
-                        \              ==/                  
-                        /              //                   
-                        /          .  //                    
-                        /   .  .    //                      
-                       /.           /                       
-                      /            //                       
-                      /           /
-                     /          //
-                    /         //
-                 --/         /
-                /          //
-            ////         //
-         ///_________////
-
-
--->
