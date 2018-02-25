@@ -124,7 +124,9 @@ ___________________________________________-->
 				</div>
 				
 				<div class="row">
-					<div class="col-xs-6 col-md-6"><input type="submit" name="submit" value="Login" class="btn btn-primary btn-block btn-lg button-primary" tabindex="5"></div>
+					<div class="col-xs-6 col-md-6">
+						<input type="submit" name="submit" value="Login" class="btn btn-primary btn-block btn-lg button-primary" tabindex="5">
+					</div>
 				</div>
 
 				<div class="row">

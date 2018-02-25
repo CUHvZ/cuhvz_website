@@ -1,0 +1,6 @@
+Humans must collect twelve doodads (pictured below) which are planted across Norlin Quad.
+Humans will start at the stairs leading up to the front of Norlin.
+ Zombies will start at the opposite end of Norlin, near the Hale science building. Humans have an hour to gather all twelve doodads, but if any of them leave the rectangle of Norlin quad, they may not re-join the mission.
+<br><br>
+If humans win – they get a clue for that day’s code, OR, they may raise the zombie stun timer by one minute.
+If Zombies win - they get a clue for that day’s code, OR, they may lower the zombie stun timer by one minute.

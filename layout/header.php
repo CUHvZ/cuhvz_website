@@ -27,13 +27,24 @@
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <!--<link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet">-->
   <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">-->
-  <link rel="stylesheet" href="css/normalize.css">
-  <link rel="stylesheet" href="css/skeleton.css">
-  <link rel="stylesheet" href="css/custom.css">
+  <?php 
+  //echo "<link rel='stylesheet' href='".$_SERVER['DOCUMENT_ROOT']."/css/normalize.css'>";
+  //echo "<link rel='stylesheet' href='".$_SERVER['DOCUMENT_ROOT']."/css/skeleton.css'>";
+  //echo "<link rel='stylesheet' href='".$_SERVER['DOCUMENT_ROOT']."/css/custom.css'>";
+  //<link rel='stylesheet' href='css/skeleton.css'>
+  //<link rel='stylesheet' href='css/custom.css'>
+  ?>
+  <link rel='stylesheet' href='/css/normalize.css'>
+  <link rel='stylesheet' href='/css/skeleton.css'>
+  <link rel='stylesheet' href='/css/custom.css'>
 
   <!-- Favicon
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <link rel="icon" type="image/png" href="images/favicon.png">
+  <link rel="icon" type="image/png" href="/images/favicon.png">
+  <?php
+  //<link rel="icon" type="image/png" href="images/favicon.png">
+  //echo "<link rel='icon' type='image/png' href='".$_SERVER['DOCUMENT_ROOT']."/images/favicon.png'>";
+  ?>
   
   <!-- FB Meta Tags (Attempt by Philip) -->
   <meta property="og:site_name"		content="HVZ CU BOULDER" />
@@ -54,24 +65,12 @@
 
 </script>
 
-  <script src="js/jquery-3.1.1.min.js"></script>
-  <script src="js/checkbox.js"></script>
-  <script src="js/navbar_highlight.js"></script>
+  <script src="/js/jquery-3.1.1.min.js"></script>
+  <script src="/js/checkbox.js"></script>
+  <script src="/js/navbar_highlight.js"></script>
 
 </head>
 <body>
-
-<!-- Check for deceased zombies -->
-
-<?php
-
-$currTime = date('Y-m-d H:i:s');
-$sql = "UPDATE weeklongF17 SET status='deceased' WHERE StarveDate <= '$currTime'";
-    $stmt = $db->prepare($sql);
-    $stmt->execute();
-?>
-
-<!-- End check for deceased zombies -->
 
 
 

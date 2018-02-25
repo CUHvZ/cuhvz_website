@@ -15,10 +15,6 @@ define('DBNAME','cuhvmiwg_hvz');
 define('DIR','http://cuhvz.com/');
 define('SITEEMAIL','cuhvz@cuhvz.com');
 
-//weeklong table in database
-define("WEEKLONG","weeklongS18");
-$WEEKLONG = 'weeklongS18';
-
 try {
 
 	//create PDO connection
@@ -32,13 +28,19 @@ try {
 }
 
 //include the user class, pass in the database connection
-include('classes/user.php');
-include('classes/phpmailer/mail.php');
-include('classes/weeklong.php');
+include($_SERVER['DOCUMENT_ROOT'].'/classes/user.php');
+include($_SERVER['DOCUMENT_ROOT'].'/classes/phpmailer/mail.php');
+include($_SERVER['DOCUMENT_ROOT'].'/classes/weeklong.php');
 $user = new User($db);
 $weeklong = new Weeklong($db);
-if($weeklong->is_active()){
-  $weeklong->set_variables();
+if($weeklong->active_event()){
+	/*
+	if(!$weeklong->is_set()){
+		$weeklong->set_active_variables();
+	}*/
+	$weeklong->set_active_variables();
+	$weeklong->check_event_time();
+  	$weeklong->check_starve_dates();
 }
 
 ?>

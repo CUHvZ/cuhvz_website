@@ -308,7 +308,7 @@ include 'layout/navbar.php'
 
 <?php
 // insert clock
-if($weeklong->is_active()){
+if($weeklong->active_event()){
 	require('weeklong/clock.php');	
 }
 ?>

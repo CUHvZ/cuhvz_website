@@ -1,7 +1,7 @@
 <?php require('includes/config.php');
 
 // define page title
-$title = 'CU HvZ | About';
+$title = 'CU HvZ | Mod Team';
 
 // include header template
 require('layout/header.php');

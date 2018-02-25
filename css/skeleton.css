@@ -42,6 +42,10 @@
   .container {
     width: 85%;
     padding: 0; }
+  .player_container {
+  width: 95%;
+  padding: 0;
+  margin: auto }
 }
 
 /* For devices larger than 550px */
@@ -327,7 +331,7 @@ pre > code {
 th,
 td {
   padding: 12px 15px;
-  text-align: left;
+  text-align: center;
   /*border-bottom: 1px solid #E1E1E1;*/ }
 th:first-child,
 td:first-child {

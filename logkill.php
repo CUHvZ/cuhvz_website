@@ -1,21 +1,18 @@
-<?php require('includes/config.php');
+<?php 
+require('includes/config.php');
 
 // if not logged in redirect to login page
 if(!$user->is_logged_in()){ header('Location: login.php'); } 
 
-// define page title
-$title = 'HVZ CU BOULDER';
+$title = 'HVZ CU Log Kill';
 
 // include header template
 require('layout/header.php');
+
+require "layout/navbar.php";
 ?>
 
 <!-- BEGIN DOCUMENT -->
-
-<!-- NAVIGATION INCLUDE -->
-<?php
-require('layout/navbar-zombie.php'); 
-?>
 
 <!-- HVZ HEADLINE SECTION -->
 
@@ -67,67 +64,7 @@ require('layout/navbar-zombie.php');
 
 <?php
 
-// DATABASE CONNECTION INFORMATION
-// DATABASE CONNECTION INFORMATION
-$host = "server122.web-hosting.com";
-$user = "cuhvmiwg";
-$passwd = "Yummybrainz!2";
-$dbname = "cuhvmiwg_hvz";
-$cxn = mysqli_connect($host,$user,$passwd,$dbname) or die ("could not connect to server");
-
 $zombieFeeder = $_SESSION['username'];
-
-// CHECKS IF HEX MATCHES SOMETHING IN DATABASE AND RETURNS THE VICTIM'S EMAIL
-function findVictim($cxn, $hex)
-{
-    $query_rng = "SELECT * FROM weeklongF17";
-    $result_rng = mysqli_query($cxn,$query_rng) or die ("could not execute query_rng");
-    $victim = "none";
-
-    if(!empty($result_rng))
-    {
-        while ($row_rng = mysqli_fetch_array($result_rng))
-        {
-            $tempUsername = $row_rng['username'];
-            $tempHex = $row_rng['UserHex'];
-            if(strcmp($hex, $tempHex) == 0)
-            {
-                $victim = $tempUsername;
-            }
-        }
-    }
-    
-    return $victim;
-}
-
-// REGISTERS A KILL FOR A HUMAN
-// Takes victim's email address
-function regKill($cxn, $victim)
-{
-    // CHECK STATUS
-    $query_status = "SELECT * FROM weeklongF17 WHERE username='$victim'";
-    $result_status = mysqli_query($cxn,$query_status) or die ("could not execute query_status");
-    $row_status = mysqli_fetch_array($result_status);
-    $status = $row_status['status'];
-    
-    if(strcmp($status, "human") == 0)
-    {
-        $query_updateKill = "UPDATE weeklongF17 SET status='zombie' WHERE username='$victim'"; // CHANGE BACK TO 'ZOMBIE' AFTER TESTING
-        $result_updateKill = mysqli_query($cxn,$query_updateKill) or die ("could not execute query_updateKill");
-        return TRUE;
-    }
-    if(strcmp($status, "vaccine") == 0)
-    {
-        $query_updateKill = "UPDATE weeklongF17 SET status='usedVaccine' WHERE username='$victim'"; // CHANGE BACK TO 'ZOMBIE' AFTER TESTING
-        $result_updateKill = mysqli_query($cxn,$query_updateKill) or die ("could not execute query_updateKill");
-        return TRUE;
-    }
-    else
-    {
-        echo "<p class='bg-danger'>The system does not recognize this person as a human. Check with an admin if this seems to be incorrect.</p>";
-        return FALSE;
-    }
-}
 
 ?>
 
@@ -145,48 +82,50 @@ function regKill($cxn, $victim)
 
  <?php
   try {
-    $query = "SELECT username, status, KillCount, StarveDate FROM weeklongF17 WHERE status='zombie'";
+    $query = "SELECT username, kill_count, starve_date FROM ".$_SESSION['weeklong']." WHERE status='zombie' ORDER BY starve_date;";
 
-  print "
-    <form action='#' method='post' id='feedzombie'>
-    <div class='subheader white'>Input Victim User code:</div> <input type='text' name='hex' required>
+    print "
+      <form action='#' method='post' id='feedzombie'>
+      <div class='subheader white'>Input Victim User code:</div> <input type='text' name='hex' required>
 
-    <BR><BR>
+      <BR><BR>
 
-    <h2 class='subheader white'>Select zombies to feed:</h2>
-    <P>Choose up to three (3) zombies to feed. Click the table headers to sort.
-    <br>
-    <strong>Remember to select yourself if you wanna eat!</strong></p>
-    
-    <div id='playerlist' class='playerlist' data-max-answers='3'>
-    
-    <table id='table1' class='feedzombiestable'>
-    <tr class='subheader orange'>
-    <th class='select'>Select</th>
-    <th onclick='sortTable(1)'>Username</th>
-    <th onclick='sortTable(2)'>Status</th>
-    <th onclick='sortTable(3)'>Kill Count</th>
-    <th onclick='sortTable(4)' class='starve'>Starve Date</th>
-    </tr>
-    
-  ";
-
-  $data = $db->query($query);
-  $data->setFetchMode(PDO::FETCH_ASSOC);
-  foreach($data as $row){
-   print " 
-      <tr>
-      <td class='select'>
-      <input type='checkbox' name='check_list[]' value='$row[username]'>
-   ";
-   foreach ($row as $name=>$value){
-   print " <td>$value</td>";
-   } // end field loop
-   print " </tr>";
+      <h2 class='subheader white'>Select zombies to feed:</h2>
+      <P>Choose up to three (3) zombies to feed. Click the table headers to sort.
+      <br>
+      <strong>Remember to select yourself if you wanna eat!</strong></p>
+      
+      <div id='playerlist' class='playerlist' data-max-answers='3'>
+      
+      <table id='table1' class='feedzombiestable'>
+      <tr class='subheader orange'>
+      <th class='select'>Select</th>
+      <th onclick='sortTable(1)'>Username</th>
+      <th onclick='sortTable(2)'>Kill Count</th>
+      <th onclick='sortTable(3)' class='starve'>Time Remaining Unil Death</th>
+      </tr>
+      
+    ";
+    $data=$weeklong->get_zombies();
+    //$data = $db->query($query);
+    //$data->setFetchMode(PDO::FETCH_ASSOC);
+    foreach($data as $row){
+      print " 
+        <tr class='subheader white'>
+        <td class='select'>
+        <input type='checkbox' name='check_list[]' value='$row[username]'>";
+      echo "<td align='center'>".$row["username"]."</td>";
+      echo "<td align='center'>".$row["kill_count"]."</td>";
+    $current_time = new DateTime(date('Y-m-d H:i:s'));
+    $starve_date = new DateTime(date($row["starve_date"]));
+    $time_left = $current_time->diff($starve_date);
+    $hours = $time_left->format('%H')+($time_left->format('%a')*24);
+    print " <td class='red' align='center'>".$hours.$time_left->format(':%I:%S')."</td>";
+    print " </tr>";
   } // end record loop
   print "</table>";
   } catch(PDOException $e) {
-   echo 'ERROR: ' . $e->getMessage();
+    echo 'ERROR: ' . $e->getMessage();
   } // end try
  ?>
  </div> <!-- end playerlist list -->
@@ -198,66 +137,34 @@ function regKill($cxn, $victim)
 
 <?php 
 
-if (isset($_POST['check_list'])) 
-{
+if (isset($_POST['hex'])){
   $initHex = $_POST['hex'];
   $hex = strtolower($initHex);
-  $victim = findVictim($cxn, $hex);
+  $victim = $weeklong->findVictim($hex);
   $zombieFeedto = $_POST['check_list'];
 
-
-// UPDATES STARVE DATES
-// Takes victim's and zombie's email address
-function updateStarve($cxn, $victim, $zombieFeedto, $zombieFeeder)
-{
-    date_default_timezone_set('America/Denver');
-    
-    $currTime = date('Y-m-d H:i:s');
-    
-    // GET NEW STARVE TIME
-    $twoHrFut_Str = strtotime("$currTime +2 days");
-    $twoHrFut_Unix = date('Y-m-d H:i', $twoHrFut_Str);
-    $targetTime = date('Y-m-d H:i:s', strtotime($twoHrFut_Unix));
-    
-    // STARVE TIMER FOR ZOMBIE
-    $query_updateZombieStarve = "UPDATE weeklongF17 SET StarveDate='$targetTime' WHERE username IN('" . implode("','", array_map('trim', $zombieFeedto)) ."')";
-    $result_updateZombieStarve = mysqli_query($cxn,$query_updateZombieStarve) or die ("could not execute query_updateZombieStarve");
-    
-    $query_killRow = "SELECT * FROM weeklongF17 WHERE username='$zombieFeeder'";
-    $result_killRow = mysqli_query($cxn,$query_killRow) or die ("could not execute query_killRow");
-    $row_killRow = mysqli_fetch_array($result_killRow);
-    $currKill = $row_killRow['KillCount'];
-    
-    $newKill = $currKill + 1;
-    $query_updateKill = "UPDATE weeklongF17 SET KillCount='$newKill' WHERE username='$zombieFeeder'";
-    $result_updateKill = mysqli_query($cxn,$query_updateKill) or die ("could not execute query_updateKill");
-    
-    // STARVE TIMER FOR HUMAN-NOW-ZOMBIE
-    $query_newZombieStarve = "UPDATE weeklongF17 SET StarveDate='$targetTime' WHERE username = '$victim'";
-    $result_newZombieStarve = mysqli_query($cxn,$query_newZombieStarve) or die ("could not execute query_newZombieStarve");
-    
-    return TRUE;
-}
-
-
-if(strcmp($victim, "none") == 0)
-{
-    echo "<p class='bg-danger'>Not a valid code.</p><br>";
-}
-else
-{
-    $killReg = regKill($cxn, $victim);
-    if($killReg)
-    {
-        //echo "Kill Registered <br>";
-        $starveUpdate = updateStarve($cxn, $victim, $zombieFeedto, $zombieFeeder);
-        if($starveUpdate)
-        {
-            header("Location: profile.php?success=1#profile");
+  if(strcmp($victim, "none") == 0)
+  {
+      echo "<p class='bg-danger'>Not a valid code.</p><br>";
+  }
+  else
+  {
+      $killReg = $weeklong->regKill($victim, $hex);
+      if($killReg)
+      {
+        if($victim == "vaccine"){
+          $weeklong->cure_zombie($zombieFeeder);
+          header("Location: profile.php?success=2#profile");
+        }else{
+          $starveUpdate = $weeklong->updateStarve($victim, $zombieFeedto, $zombieFeeder);
+          if($starveUpdate)
+          {
+            //echo implode("','", array_map('trim', $zombieFeedto));
+              header("Location: profile.php?success=1#profile");
+          }
         }
-    }
-}
-
+      }
+  }
 }
 ?>
 
@@ -269,31 +176,6 @@ else
 </div>
 </section>
 <!-- END TEST TABLE #2 -->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   <script src="js/sort.js"></script>
 
 </body>

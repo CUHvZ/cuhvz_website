@@ -1,59 +1,47 @@
 <?php
 /*
+//$to = "jobr3255@colorado.edu";
+$to = "golfinjosh@yahoo.com";
+$subject = "My subject";
+$txt = "Hello world!";
+$headers = "From: @noreply" . "\r\n" .
+"CC: somebodyelse@example.com";
 
-This file is for creating test users for the users database
-
+mail($to,$subject,$txt,$headers);
 */
 
-define('DBHOST','localhost');
-define('DBUSER','cuhvmiwg');
-define('DBPASS','Yummybrainz!2');
-define('DBNAME','cuhvmiwg_hvz');
+$to = "golfinjosh@yahoo.com";
+$subject = "HTML email";
 
-try {
-		//create PDO connection
-		$db = new PDO("mysql:host=".DBHOST.";dbname=".DBNAME, DBUSER, DBPASS);
-		$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+$message = "
+<html>
+<head>
+<title>HTML email</title>
+</head>
+<body>
+<p>This email contains HTML Tags!</p>
+<table>
+<tr>
+<th>Firstname</th>
+<th>Lastname</th>
+</tr>
+<tr>
+<td>John</td>
+<td>Doe</td>
+</tr>
+</table>
+</body>
+</html>
+";
 
-	} catch(PDOException $e) {
-		//show error
-	    echo '<p class="bg-danger">'.$e->getMessage().'</p>';
-	    exit;
-	}
-	//include the user class, pass in the database connection
-	include('../classes/user.php');
-	$user = new User($db);
+// Always set content-type when sending HTML email
+$headers = "MIME-Version: 1.0" . "\r\n";
+$headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
 
-createUser($db,"testuser","Password","test","user","test@gmail.com");
-createUser($db,"Admin","Password","test","admin","admin@gmail.com");
+// More headers
+$headers .= 'From: <webmaster@example.com>' . "\r\n";
+$headers .= 'Cc: myboss@example.com' . "\r\n";
 
-
-function createUser($db,$username,$password,$firstName,$lastName,$email){
-	
-
-	$activasion = md5(uniqid(rand(),true));
-	// hash the password
-	$hashedpassword = password_hash($password, PASSWORD_BCRYPT);
-
-	try {
-
-		// insert into database with a prepared statement
-		$stmt = $db->prepare('INSERT INTO users (username,password,firstName,lastName,email,activated) VALUES (:username, :password, :firstName, :lastName, :email, :activated)');
-		$stmt->execute(array(
-			':username' => $username,
-			':password' => $hashedpassword,
-			':firstName' => $firstName,
-			':lastName' => $lastName,
-			':email' => $email,
-			':activated' => $activasion
-		));
-		echo "success";
-
-	// else catch the exception and show the error
-	} catch(PDOException $e) {
-	    echo $e;
-	}
-	echo "\n";
-}
+mail($to,$subject,$message,$headers);
 
 ?>

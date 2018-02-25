@@ -1,0 +1,4 @@
+For day four, the humans must defend three deely boppers at Harlow Platts park. There will be two stationary deely boppers, and one which is being worn by an NPC. The NPC will circle the lake repeatedly for the 45 minutes. The other two deely boppers will be located at the Southwest and Northwest areas of the park (see map). If a zombie tags the NPC, that zombie gets the deely boppers and becomes a special infected.  
+<br><br>
+If the humans successfully defend all 3 deely boppers – the zombie stun timer is raised by one minute, and 20 vaccines are distributed among the surviving players (limit 1 each)
+For each deely-bopper the zombies steal, the zombie stun-timer is lowered by one minute for the following day.

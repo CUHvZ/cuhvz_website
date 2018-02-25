@@ -45,7 +45,7 @@
 <br><br>
 
   <div class="row">
-    <h2 class="subheadline"><span class="white"><?= $countusers ?> Gamers</span> Playing</h2>
+    <h2 class="subheadline"><span class="white"><?= $countusers ?> Players Registered</span></h2>
     <p><a href="#">Wanna play? Be sure to register for the game.</a></p>
     <img src="images/zombie.png" class="u-max-full-width">
   </div>

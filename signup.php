@@ -24,7 +24,7 @@ if(isset($_POST['submit'])){
 	}else if(strlen($_POST['username']) < 3){
 		$error[] = 'Username is too short.';
 	} else {
-		$stmt = $db->prepare('SELECT username FROM weeklongF17 WHERE username = :username');
+		$stmt = $db->prepare('SELECT username FROM users WHERE username = :username');
 		$stmt->execute(array(':username' => $_POST['username']));
 		$row = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -56,7 +56,7 @@ if(isset($_POST['submit'])){
 	if(!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)){
 	    $error[] = 'Please enter a valid email address.';
 	} else {
-		$stmt = $db->prepare('SELECT email FROM weeklongF17 WHERE email = :email');
+		$stmt = $db->prepare('SELECT email FROM users WHERE email = :email');
 		$stmt->execute(array(':email' => $_POST['email']));
 		$row = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -106,7 +106,7 @@ if(isset($_POST['submit'])){
 					':phone' => $phone,
 					':activated' => $activasion
 				));
-				$id = $db->lastInsertId('memberID');
+				$id = $db->lastInsertId('id');
 			}else{
 				$stmt = $db->prepare('INSERT INTO users (username,password,firstName,lastName,email,phone,activated) VALUES (:username, :password, :firstName, :lastName, :email, NULL, :activated)');
 				$stmt->execute(array(
@@ -117,7 +117,7 @@ if(isset($_POST['submit'])){
 					':email' => $_POST['email'],
 					':activated' => $activasion
 				));
-				$id = $db->lastInsertId('memberID');
+				$id = $db->lastInsertId('id');
 			}
 
 			// send email

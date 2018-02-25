@@ -1,37 +1,49 @@
-<?php require('includes/config.php'); 
+<?php 
+
+require('includes/config.php'); 
 
 //if not logged in redirect to login page
 if(!$user->is_logged_in()){ header('Location: login.php'); } 
 
 //define page title
-$title = 'HVZ CU BOULDER';
+$title = 'HVZ CU Profile';
 
 //include header template
-require('layout/header.php'); 
+require('layout/header.php');
 
+//include navigation
+require "layout/navbar.php";
 ?>
 
 
 <!-- BEGIN DOCUMENT -->
 
-<!-- THE FIRST IS INTERESTING -->
-
-<!-- NAVIGATION INCLUDE -->
-<?php
-  include "layout/navbar.php";
-  /*
-  if($row['status'] == 'human'){
-     require('layout/navbar-human.php');
-  } else {
-  require('layout/navbar-zombie.php');
-  }
-  */
-?>
-<!-- NAVIGATION INCLUDE -->
-
 <!-- HVZ HEADLINE SECTION 
 ___________________________________________-->
-
+<?php
+if(isset($_GET['join']) && isset($_GET['eventId'])){
+  $eventName = $_GET['join'];
+  if($user->join_event($_GET['eventId'])){
+    echo "<p class='bg-success' style='margin: 0;'> &#10003; <strong>Thanks for signing up for $eventName!</strong> <br> We'll send you an updates, so makes sure to check your email!</p>";
+  }
+}
+if(isset($_GET['leave']) && isset($_GET['eventId'])){
+  $eventName = $_GET['join'];
+  if($user->leave_event($_GET['eventId'])){
+    echo "<p class='bg-success' style='margin: 0;'> &#10003; <strong>Sorry to see you go!</strong></p>";
+  }
+}
+if(isset($_GET['kys'])){
+  if($user->get_game_stats()["user_hex"] == $_GET['kys']){
+    echo "<p class='bg-success' style='margin: 0;'> &#10003; <strong>Congratulations, you killed yoself.</strong></p>";
+    echo "\n<script>\n";
+    echo "document.getElementById('logkill_button').parentNode.style.display = 'block';\n";
+    echo "document.getElementById('kys_button').parentNode.style.display = 'none';\n";
+    echo "</script>\n";
+    $user->kys();
+  }
+}
+?>
 <section class="lightslide contentwithnav">
 
  <div class="container">
@@ -65,7 +77,24 @@ ___________________________________________-->
     </div> 
   
   </div> <!-- end row -->
-
+  <?php
+  require('playerinfo.php');
+  if($weeklong->active_event()){
+    if($user->is_in_event($_SESSION["weeklong"])){
+      include "weeklong/playerstats.php";
+      echo "\n<script>\n";
+      if($user->get_game_stats()["status"] == "human"){
+        echo "document.getElementById('kys_button').parentNode.style.display = 'block';\n";
+        echo "document.getElementById('logkill_button').parentNode.style.display = 'none';\n";
+      }else{
+        echo "document.getElementById('logkill_button').parentNode.style.display = 'block';\n";
+        echo "document.getElementById('kys_button').parentNode.style.display = 'none';\n";
+      }
+      echo "</script>\n";
+      
+    }
+  }
+  ?>
   </div> <!-- end container -->
 
 </section> 
@@ -81,30 +110,15 @@ ___________________________________________-->
 <!-- GAME TIME COUNTDOWN SECTION
 ___________________________________________-->
 
-<!-- <?php /* require('countdown.php'); */ ?> -->
-
-<!-- END GAME TIME COUNTDOWN SECTION -->
-
-
-<!-- THE SECOND IS RECOMMENDED -->
-
-<!-- PROFILE INFO SECTION
-___________________________________________-->
-
 <?php
-//include "weeklong/player_stats.php";
+// insert clock
+
+if($weeklong->active_event()){
+  if($user->is_in_event($_SESSION["weeklong"])){
+    require('weeklong/clock.php');  
+  }
+}
 ?>
-
-<!-- END PROFILE INFO SECTION -->
-
-<?php 
-//require('playerinfo.php'); 
-?>
-
-
-<!-- END DOCUMENT -->
-
-<!-- THE LAST IS THE DEATH RATTLE -->
 
 
 <?php 
