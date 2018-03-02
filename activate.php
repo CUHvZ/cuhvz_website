@@ -6,13 +6,13 @@ $memberID = trim($_GET['x']);
 $active = trim($_GET['y']);
 
 //if id is number and the active token is not empty carry on
-if(is_numeric($memberID) && !empty($active)){
+if(is_numeric($user_id) && !empty($active_token)){
 
 	//update users record set the active column to Yes where the memberID and active value match the ones provided in the array
-	$stmt = $db->prepare("UPDATE weeklongF17 SET active = 'Yes' WHERE memberID = :memberID AND active = :active");
+	$stmt = $db->prepare("UPDATE users SET activated = 'Yes' WHERE id = :user_id AND activated = :active_token");
 	$stmt->execute(array(
-		':memberID' => $memberID,
-		':active' => $active
+		':user_id' => $user_id,
+		':active_token' => $active_token
 	));
 
 	//if the row was updated redirect the user
@@ -23,7 +23,7 @@ if(is_numeric($memberID) && !empty($active)){
 		exit;
 
 	} else {
-		echo "Your account could not be activated."; 
+		echo "Your account could not be activated. Please contact the mod team."; 
 	}
 	
 }
