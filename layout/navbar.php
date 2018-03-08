@@ -97,7 +97,7 @@ $(document).ready(function(){
               $logkill_button_display = "block";
             }
           }
-          echo "<li style='display: ".$kys_button_display.";'><a id='kys_button' href='kys.php'>Join The Horde</a></li>";
+          echo "<li style='display: ".$kys_button_display.";'><a id='kys_button' href='/kys.php'>Join The Horde</a></li>";
           echo "<li style='display: ".$logkill_button_display.";'><a id='logkill_button' href='/logkill.php'>Log Kill</a></li>";
         }
         echo "<li><a style='float: right;' id='logout_button' href='/logout.php'>Logout</a></li>";

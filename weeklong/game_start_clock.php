@@ -1,6 +1,6 @@
 <?php
   $weeklong_name = $_SESSION['weeklong'];
-  $countusers = $db->query("SELECT count(1) FROM $weeklong_name WHERE status='human' OR status='zombie' OR status='deceased'")->fetchColumn();
+  $countusers = $db->query("SELECT count(1) FROM $weeklong_name WHERE status='human' OR status='zombie' OR status='zombie(OZ)' OR status='zombie(suicide)' OR status='deceased'")->fetchColumn();
 ?>
  
 
@@ -9,7 +9,7 @@
   <div class="container center">
 
     <div class="row">
-      <img src="images/grave.png" class="u-max-full-width">
+      <img src="/images/grave.png" class="u-max-full-width">
       <h2 class="section-heading orange">Weeklong Game</h2>
       <h5 class="orange">
       <?php 
@@ -43,11 +43,19 @@
   </div> <!-- end row -->
 
 <br><br>
+<?php
+$signupLink = "";
+if($user->is_logged_in()){
+  $signupLink = "'/profile.php?join=".$_SESSION['title']."&eventId=".$_SESSION['weeklong']."'";  
+}else{
+  $signupLink = "'/login.php?join=".$_SESSION['title']."&eventId=".$_SESSION['weeklong']."'";  
+}
+?>
 
   <div class="row">
     <h2 class="subheadline"><span class="white"><?= $countusers ?> Players Registered</span></h2>
-    <p><a href="#">Wanna play? Be sure to register for the game.</a></p>
-    <img src="images/zombie.png" class="u-max-full-width">
+    <p><a href=<?php echo $signupLink; ?>>Wanna play? Be sure to register for the game.</a></p>
+    <img src="/images/zombie.png" class="u-max-full-width">
   </div>
 
  </div> <!-- end container -->
@@ -55,4 +63,4 @@
 </div>
 
 
-<script src="js/clock.js"></script>
+<script src="/js/clock.js"></script>

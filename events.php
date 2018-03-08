@@ -27,10 +27,10 @@ include 'layout/navbar.php' ?>
                               if($user->is_logged_in()){
                                     if($user->is_in_event($event["name"])){
                                           echo "Wanna leave this event?<h3 style='margin: 0;'>";
-                                          echo "<a href='/profile.php?leave=".$event["title"]."&eventId=".$event["name"]."'' >Leave event</a>";
+                                          echo "<a href='/profile.php?leave=".$event["title"]."&eventId=".$event["name"]."' >Leave event</a>";
                                     }else{
                                           echo "Wanna play in this event?<h3 style='margin: 0;'>";
-                                          echo "<a href='/profile.php?join=".$event["title"]."&eventId=".$event["name"]."'' >Join Now!</a>";
+                                          echo "<a href='/profile.php?join=".$event["title"]."&eventId=".$event["name"]."' >Join Now!</a>";
                                     }
                               }else{
                                     echo "Wanna play in this event?<h3 style='margin: 0;'>";
@@ -47,7 +47,7 @@ include 'layout/navbar.php' ?>
                         echo "<p>".$event["display_dates"].", ".substr($event["start_date"],0,4)." | ";
                         echo "<a href='weeklong/info.php?name=".$event["name"]."' >mission details</a> | ";
                         echo "<a href='weeklong/stats.php?name=".$event["name"]."' >stats</a></p>"; 
-                        echo "<p>".$weeklong->get_short_details($event["name"])."</p>";
+                        echo "<p>".$weeklong->get_details($event["name"])."</p>";
                         echo "</div>";
                   }
             ?>

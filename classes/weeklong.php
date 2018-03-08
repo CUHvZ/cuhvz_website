@@ -18,6 +18,7 @@ class Weeklong{
 			$stmt->execute(array());
 			$row = $stmt->fetch();
 			$_SESSION["weeklong"] = $row["name"];
+			$_SESSION["title"] = $row["title"];
 			//$_SESSION["active"] = $row["active"];
 			$_SESSION["weeklong_dates"] = $row["display_dates"];
 			$_SESSION["start_date"] = $row["start_date"];
@@ -41,13 +42,10 @@ class Weeklong{
 		}
 	}
 
-	public function get_short_details($name){
+	public function get_details($name){
 		$path = $_SERVER['DOCUMENT_ROOT']."/weeklong/".$name."/details.txt";
-		$fullDetails = file_get_contents($path);
-		$count = 20;
-  		preg_match("/(?:\w+(?:\W+|$)){0,$count}/", $fullDetails, $matches);
-  		$shortDetails = $matches[0]."...";
-  		return $shortDetails;
+		$fullDetails = explode(" ", file_get_contents($path));
+		return implode(" ", $fullDetails);
 	}
 
 	// This will return true if the there is an active game
@@ -244,7 +242,7 @@ class Weeklong{
 	// returns array of zombies in the week long
 	public function get_zombies(){
 		try{
-	        $stmt = $this->_db->prepare("SELECT username, kill_count, starve_date FROM ".$_SESSION['weeklong']." WHERE (status='zombie' OR status='zombie(suicide)' OR status='zombie(OZ)') ORDER BY starve_date;");
+	        $stmt = $this->_db->prepare("SELECT username, kill_count, starve_date, status FROM ".$_SESSION['weeklong']." WHERE (status='zombie' OR status='zombie(suicide)' OR status='zombie(OZ)') ORDER BY starve_date;");
 	        $stmt->execute();
 	        $data = $stmt->fetchAll();
 	        return $data;
@@ -256,7 +254,7 @@ class Weeklong{
 	// returns array of zombies in the week long
 	public function get_zombies_from($weeklong){
 		try{
-	        $stmt = $this->_db->prepare("SELECT username, kill_count, starve_date FROM ".$weeklong." WHERE (status='zombie' OR status='zombie(suicide)' OR status='zombie(OZ)') ORDER BY starve_date;");
+	        $stmt = $this->_db->prepare("SELECT username, kill_count, starve_date, status FROM ".$weeklong." WHERE (status='zombie' OR status='zombie(suicide)' OR status='zombie(OZ)') ORDER BY starve_date;");
 	        $stmt->execute();
 	        $data = $stmt->fetchAll();
 	        return $data;

@@ -45,4 +45,4 @@
 
 
 
-<script src="js/countdown.js"></script>
+<script src="/js/countdown.js"></script>

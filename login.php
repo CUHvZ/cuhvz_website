@@ -11,8 +11,7 @@ if(isset($_POST['submit'])){
 	$username = $_POST['username'];
 	$password = $_POST['password'];
 	
-	if($user->login($username,$password)){ 
-		$_SESSION['username'] = $username;
+	if($user->login($username,$password)){
 		if(isset($_GET['join']) && isset($_GET['eventId'])){
 			header('Location: profile.php?join='.$_GET['join']."&eventId=".$_GET['eventId']);
 		}

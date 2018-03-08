@@ -1,1 +1,2 @@
-Details on this weeklong blah blah blah
+In a nutshell, the missions are designed as follows: successful completion of an on-campus mission lets the humans who completed it either choose to lengthen the zombie stun timer for the following day, or get a clue to help with that day’s code.
+Solving the code will give the location of the off-campus game, which starts at 5:00pm each day. Off-campus missions involve finding and defending one or more deely-boppers, which the zombies are trying to capture. When a zombie captures a deely-bopper, that zombie becomes a special infected.

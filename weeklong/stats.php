@@ -6,7 +6,18 @@ require($_SERVER['DOCUMENT_ROOT'].'/includes/config.php');
 // include header template
 require('../layout/header.php');
 
-include $_SERVER['DOCUMENT_ROOT'].'/layout/navbar.php' ?>
+include $_SERVER['DOCUMENT_ROOT'].'/layout/navbar.php';
+
+function getZombieType($status){
+  if($status == "zombie"){
+    return "regular";
+  }else if($status == "zombie(suicide)"){
+    return "suicide";
+  }else if($status == "zombie(OZ)"){
+    return "OZ";
+  }
+}
+?>
 
 
 
@@ -49,12 +60,13 @@ include $_SERVER['DOCUMENT_ROOT'].'/layout/navbar.php' ?>
         </div>
 
 
-        <div class='nonhuman-container'>
+        <div class='zombie-container'>
           <div class='subheader white center'><h3><strong>Zombies</strong></h3></div>
           <div class='subheader orange'>
             <div class='username'>Username</div>
-            <div class='kills'>Kills</div>
-            <div class='date'>Until Death</div>
+            <div class='zombie-type'>Type</div>
+            <div class='zombie-kills'>Kills</div>
+            <div class='zombie-date'>Until Death</div>
           </div>
           <?php
             if($displayStats){
@@ -62,19 +74,20 @@ include $_SERVER['DOCUMENT_ROOT'].'/layout/navbar.php' ?>
               foreach($data as $zombie){
                 echo "<div class='subheader white'>";
                 echo "<div class='username'>".$zombie["username"]."</div>";
-                echo "<div class='kills'>".($zombie["kill_count"]+0)."</div>";
+                echo "<div class='zombie-type'>".getZombieType($zombie["status"])."</div>";
+                echo "<div class='zombie-kills'>".($zombie["kill_count"]+0)."</div>";
                 $starve_date = new DateTime(date($zombie["starve_date"]));
                 $current_time = new DateTime(date('Y-m-d H:i:s'));
                 $time_left = $current_time->diff($starve_date);
                 $hours = $time_left->format('%H')+($time_left->format('%a')*24);
-                echo "<div class='date red'>".$hours.$time_left->format(':%I:%S')."</div>";
+                echo "<div class='zombie-date red'>".$hours.$time_left->format(':%I:%S')."</div>";
                 echo "</div>";
               }
             }
           ?>
         </div>
 
-        <div class='nonhuman-container'>
+        <div class='dead-container'>
           <div class='subheader white center'><h3><strong>Deceased</strong></h3></div>
           <div class='subheader orange'>
             <div class='username'>Username</div>
@@ -108,6 +121,11 @@ include $_SERVER['DOCUMENT_ROOT'].'/layout/navbar.php' ?>
 
 <script src="/js/sort.js"></script>
 <?php
+// insert clock
+if($weeklong->active_event()){
+  require('clock.php');  
+}
+
 // include footer template
 require($_SERVER['DOCUMENT_ROOT'].'/layout/footer.php');
 ?>

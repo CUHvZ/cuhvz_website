@@ -24,7 +24,7 @@ try {
 	//include($_SERVER['DOCUMENT_ROOT'].'/classes/user.php');
 	//$user = new User($db);
 for($i = 1; $i<=20; $i++){
-	//createUser($db,"testuser".$i,"Password","test","user","test".$i."@gmail.com");
+	createUser($db,"testuser".$i,"Password","test","user","test".$i."@gmail.com");
 	$temp = get_user_hash($db,"testuser".$i);
 	//print_r($temp);
 	join_event($db,$temp["id"],"testuser".$i);
@@ -64,7 +64,7 @@ function createUser($db,$username,$password,$firstName,$lastName,$email){
 function join_event($db, $user_id, $username){
 $user_hex = substr(md5(uniqid(rand(),'')),0,5);
 try{
-	$stmt = $db->prepare('INSERT INTO testweeklong (user_id,username, user_hex) VALUES (:user_id, :username, :user_hex)');
+	$stmt = $db->prepare('INSERT INTO weeklongS18 (user_id,username, user_hex) VALUES (:user_id, :username, :user_hex)');
 	$stmt->execute(array(
 		':user_id' => $user_id,
 		':username' => $username,
