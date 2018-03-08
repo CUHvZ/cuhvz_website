@@ -1,5 +1,4 @@
 For the final on-campus mission, human players must make a human pyramid on Farrand field. Mods will mark out an area using the flag football cones near the center. The pyramid must be built within that area, must contain at least 10 players, and from the moment the 10th player is in the top spot, it must stand for a full 10 count (ten “mississippis”). Having achieved that, the humans win the mission, and are granted safe passage off of Farrand Field. If the pyramid is toppled, or is not built within the necessary time period, the zombies win.
-<br><br>
+
 If the humans win – they increase the zombie stun timer by one minute for the final mission.
-<br>
 If the zombies win – the final mission will have a stun timer of 3 minutes, not 5.

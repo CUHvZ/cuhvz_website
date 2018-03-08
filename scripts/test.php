@@ -9,7 +9,7 @@ $headers = "From: @noreply" . "\r\n" .
 
 mail($to,$subject,$txt,$headers);
 */
-
+/*
 $to = "golfinjosh@yahoo.com";
 $subject = "HTML email";
 
@@ -42,6 +42,55 @@ $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
 $headers .= 'From: <webmaster@example.com>' . "\r\n";
 $headers .= 'Cc: myboss@example.com' . "\r\n";
 
-mail($to,$subject,$message,$headers);
+mail($to,$subject,$message,$headers);*/
 
 ?>
+
+<html> 
+	<head> 
+	<title>Ajax at work</title> 
+
+	<script language="javascript">
+		<?php
+			require "test.js";
+		?>
+
+		function getData2(dataSource, divID) 
+		{ 
+			var XMLHttpRequestObject = false; 
+
+			if (window.XMLHttpRequest) {
+				XMLHttpRequestObject = new XMLHttpRequest();
+			} else if (window.ActiveXObject) {
+				XMLHttpRequestObject = new ActiveXObject("Microsoft.XMLHTTP");
+			}
+
+			if(XMLHttpRequestObject) {
+				var obj = document.getElementById(divID); 
+				XMLHttpRequestObject.open("GET", dataSource); 
+
+				XMLHttpRequestObject.onreadystatechange = function() 
+				{ 
+					if (XMLHttpRequestObject.readyState == 4 && XMLHttpRequestObject.status == 200) { 
+						var data = XMLHttpRequestObject.responseText;
+						obj.innerHTML = data;
+					} 
+				} 
+
+				XMLHttpRequestObject.send(null); 
+			}
+		}
+		window.onload = evt => { 
+			getData2('test.txt', 'targetDiv'); 
+			getData('test2.txt', 'other'); 
+		};
+	</script>
+	</head> 
+
+	<body>
+		<div id="targetDiv">DIV 1</div> 
+		<br><br><br>
+		<div id="other">DIV 2</div> 
+
+	</body> 
+</html>

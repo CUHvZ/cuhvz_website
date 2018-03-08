@@ -8,134 +8,96 @@ require('../layout/header.php');
 
 include $_SERVER['DOCUMENT_ROOT'].'/layout/navbar.php' ?>
 
-<script>
-function getQueryVariable(variable)
-{
-       var query = window.location.search.substring(1);
-       var vars = query.split("&");
-       for (var i=0;i<vars.length;i++) {
-               var pair = vars[i].split("=");
-               if(pair[0] == variable){return pair[1];}
-       }
-       return(false);
-}
-function setContent(file,id)
-{
-    var rawFile = new XMLHttpRequest();
-    rawFile.open("GET", file, false);
-    rawFile.onreadystatechange = function ()
-    {
-        if(rawFile.readyState === 4)
-        {
-            if(rawFile.status === 200 || rawFile.status == 0)
-            {
-                var allText = rawFile.responseText;
-                document.getElementById(id).innerHTML = allText;
-            }
-        }
-    }
-    //rawFile.send(null);
-}
-$(document).ready(function(){
-	var weeklong = getQueryVariable("name");
-	var active = 0<?php if($weeklong->active_event()){ echo "+1"; } ?>;
-  var page = "#events_button";
-  $(page).attr("class", "active");
-	if(!weeklong && active){
-		weeklong = <?php echo '"'.$_SESSION["weeklong"].'"';?>;
-	}
-	if(weeklong.length>1){
-		setContent(weeklong+"/details.txt","details"); 
-		setContent(weeklong+"/on_campus_1.txt","on_campus_1"); 
-		setContent(weeklong+"/on_campus_2.txt","on_campus_2"); 
-		setContent(weeklong+"/on_campus_3.txt","on_campus_3"); 
-		setContent(weeklong+"/on_campus_4.txt","on_campus_4"); 
-		setContent(weeklong+"/on_campus_5.txt","on_campus_5"); 
-		setContent(weeklong+"/off_campus_1.txt","off_campus_1"); 
-		setContent(weeklong+"/off_campus_2.txt","off_campus_2"); 
-		setContent(weeklong+"/off_campus_3.txt","off_campus_3"); 
-		setContent(weeklong+"/off_campus_4.txt","off_campus_4"); 
-		setContent(weeklong+"/off_campus_5.txt","off_campus_5"); 
-	}
-});
-</script>
+
 
 <div class="lightslide">
 
   <div class="player_container">
 
-
-    <!-- SIGNUP BOX -->
     <div class="content lightslide-list" style="overflow: auto;">
-    <div class="subheadline orange" style="margin-left: 50px; text-align: center; font-size: 50px;">Player Statistics</div><br>
-      
+      <div class="subheadline orange" style="margin: 0; text-align: center; font-size: 50px;">Player Statistics</div>
+      <div class="statistics">
+        <?php
+          $displayStats = false;
+          if(isset($_GET["name"])){
+            $name = $_GET["name"];
+            if($weeklong->get_weeklong($name)){
+              $displayStats = true;
+              echo "<p class='subheadline' style='margin: 0; text-align: center; color: white; font-size: 20px;'>";
+              echo "Humans: ".sizeof($weeklong->get_humans_from($name));
+              echo " &emsp; Zombies: ".sizeof($weeklong->get_zombies_from($name));
+              echo " &emsp; Deceased: ".sizeof($weeklong->get_deceased_from($name));
+              echo "</p>";
+            }
+          }
+        ?>
+        <div class='human-container'>
+          <div class='subheader white center'><h3><strong>Humans</strong></h3></div>
+          <div class='subheader orange'>
+            <div class='center'>Username</div>
+          </div>
+          <?php
+            if($displayStats){
+              $data=$weeklong->get_humans_from($name);
+              foreach($data as $human){
+                echo "<div class='subheader white'>";
+                echo "<div class='human'>".$human["username"]."</div>";
+                echo "</div>";
+              }
+            }
+          ?>
+        </div>
 
-      <?php
-      if(isset($_GET["name"])){
-        $name = $_GET["name"];
-        $data=$weeklong->get_humans_from($name);
-        echo "
-        <div class='border_container human'>
-        <table class='humanlist'>
-        <tr class='subheader white'><th><h3><strong>Humans: ".sizeof($data)."</strong></h3></th></tr>
-        <tr class='subheader orange'>
-        <th>Username</th>
-        </tr>";
-        foreach($data as $row){
-          echo "<tr class='subheader white'>";
-          echo "<td align='center'>".$row["username"]."</td>";
-          //echo "<td align='center'>".$row["kill_count"]."</td>";
-          $current_time = new DateTime(date('Y-m-d H:i:s'));
-          $starve_date = new DateTime(date($row["starve_date"]));
-          $time_left = $current_time->diff($starve_date);
-          $hours = $time_left->format('%H')+($time_left->format('%a')*24);
-          echo " </tr>";
-        }
-        echo "</table></div>";
-        $data=$weeklong->get_zombies_from($name);        
-        echo "
-        <div class='border_container zombie'>
-        <table class='zombielist'>
-          <tr class='subheader white' style='align: center;'><th></th><th><h3><strong>Zombies: ".sizeof($data)."</strong></h3></th></tr>
-          <tr class='subheader orange'>
-          <th>Username</th>
-          <th>Kill Count</th>
-          <th>Time Remaining Unil Death</th>";
-          foreach($data as $zombie){
-            echo "<tr class='subheader white'>";
-            echo "<td align='center'>".$zombie["username"]."</td>";
-            echo "<td align='center'>".$zombie["kill_count"]."</td>";
-            $current_time = new DateTime(date('Y-m-d H:i:s'));
-            $starve_date = new DateTime(date($zombie["starve_date"]));
-            $time_left = $current_time->diff($starve_date);
-            $hours = $time_left->format('%H')+($time_left->format('%a')*24);
-            echo " <td class='red' align='center'>".$hours.$time_left->format(':%I:%S')."</td>";
-            echo " </tr>";
-          }
-          echo "</tr>";
-        echo "</table></div>";
-          $data=$weeklong->get_deceased_from($name);
-        echo "
-        <div class='deceased'>
-        <table class='deadlist'>
-          <tr class='subheader white' style='align: center;'><th></th><th><h3><strong>Deceased: ".sizeof($data)."</strong></h3></th></tr>
-          <tr class='subheader orange'>
-          <th>Username</th>
-          <th>Kill Count</th>
-          <th class='starve'>Time of Death</th>";
-          foreach($data as $dead){
-            echo "<tr class='subheader white'>";
-            echo "<td align='center'>".$dead["username"]."</td>";
-            echo "<td align='center'>".$dead["kill_count"]."</td>";
-            $starve_date = new DateTime(date($dead["starve_date"]));
-            echo " <td class='red' align='center'>".$starve_date->format('H:i m-d-Y')."</td>";
-            echo " </tr>";
-          }
-          echo "</tr>";
-        echo "</table></div>";
-      }
-      ?>
+
+        <div class='nonhuman-container'>
+          <div class='subheader white center'><h3><strong>Zombies</strong></h3></div>
+          <div class='subheader orange'>
+            <div class='username'>Username</div>
+            <div class='kills'>Kills</div>
+            <div class='date'>Until Death</div>
+          </div>
+          <?php
+            if($displayStats){
+              $data=$weeklong->get_zombies_from($name); 
+              foreach($data as $zombie){
+                echo "<div class='subheader white'>";
+                echo "<div class='username'>".$zombie["username"]."</div>";
+                echo "<div class='kills'>".($zombie["kill_count"]+0)."</div>";
+                $starve_date = new DateTime(date($zombie["starve_date"]));
+                $current_time = new DateTime(date('Y-m-d H:i:s'));
+                $time_left = $current_time->diff($starve_date);
+                $hours = $time_left->format('%H')+($time_left->format('%a')*24);
+                echo "<div class='date red'>".$hours.$time_left->format(':%I:%S')."</div>";
+                echo "</div>";
+              }
+            }
+          ?>
+        </div>
+
+        <div class='nonhuman-container'>
+          <div class='subheader white center'><h3><strong>Deceased</strong></h3></div>
+          <div class='subheader orange'>
+            <div class='username'>Username</div>
+            <div class='kills'>Kills</div>
+            <div class='date'>Time of Death</div>
+          </div>
+          <?php
+            if($displayStats){
+              $data=$weeklong->get_deceased_from($name);
+              foreach($data as $dead){
+                  echo "<div class='subheader white'>";
+                  echo "<div class='username'>".$dead["username"]."</div>";
+                  echo "<div class='kills'>".($dead["kill_count"]+0)."</div>";
+                  $starve_date = new DateTime(date($dead["starve_date"]));
+                  echo "<div class='date red'>".$starve_date->format('H:i m-d-Y')."</div>";
+                  echo "</div>";
+              }
+            }
+          ?>
+        </div>
+
       </div>
+    </div>
 
   </div> <!-- end container -->
 

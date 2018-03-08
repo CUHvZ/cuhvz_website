@@ -304,7 +304,7 @@ include 'layout/navbar.php'
   <span class="dot" onclick="currentSlide(3)"></span> 
 </div> -->
 </div>
-<script src="js/slider.js"></script>
+<!--<script src="js/slider.js"></script>-->
 
 <?php
 // insert clock

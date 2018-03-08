@@ -13,7 +13,12 @@ if(isset($_POST['submit'])){
 	
 	if($user->login($username,$password)){ 
 		$_SESSION['username'] = $username;
-		header('Location: profile.php');
+		if(isset($_GET['join']) && isset($_GET['eventId'])){
+			header('Location: profile.php?join='.$_GET['join']."&eventId=".$_GET['eventId']);
+		}
+		else{
+			header('Location: profile.php');
+		}
 		exit;
 	
 	} else {
@@ -77,7 +82,7 @@ ___________________________________________-->
 <div class="lightslide contentwithnav" id="login">
 
 <div class="container">	 
-	 <div class="lightslide-box" align="center" style="width: 400px; margin: 0 auto;">
+	 <div class="login lightslide-box" align="center">
       <h4 class="white">Please login.</h4>
       <!--<p>Registration for the Spring 2017 Weeklong Game has closed. Missed it? <a href="subscribe.php">Subscribe</a> for future game updates.<br></p>-->
       <hr>
@@ -115,16 +120,16 @@ ___________________________________________-->
 
 				<div class="form-group">
 					<label>Username/Email</label>
-					<input type="text" name="username" id="username" class="form-control input-lg" placeholder="Username/Email" value="<?php if(isset($error)){ echo $_POST['username']; } ?>" tabindex="1">
+					<input type="text" name="username" id="username" class="form-control input-lg u-full-width" placeholder="Username/Email" value="<?php if(isset($error)){ echo $_POST['username']; } ?>" tabindex="1">
 				</div>
 
 				<div class="form-group">
 					<label>Password</label>
-					<input type="password" name="password" id="password" class="form-control input-lg" placeholder="Password" tabindex="3">
+					<input type="password" name="password" id="password" class="form-control input-lg u-full-width" placeholder="Password" tabindex="3">
 				</div>
 				
 				<div class="row">
-					<div class="col-xs-6 col-md-6">
+					<div style="float: left;">
 						<input type="submit" name="submit" value="Login" class="btn btn-primary btn-block btn-lg button-primary" tabindex="5">
 					</div>
 				</div>

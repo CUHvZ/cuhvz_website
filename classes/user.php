@@ -93,6 +93,9 @@ class User extends Password{
 
 	// this will remove a user that is signed from an event
 	public function leave_event($event){
+		if(!$this->is_in_event($event)){
+			return false;
+		}
 		try{
 			$stmt = $this->_db->prepare('DELETE FROM '.$event.' WHERE user_id=:user_id');
 			$stmt->execute(array(

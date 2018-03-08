@@ -1,4 +1,4 @@
-Between 10:00 and 4:00, humans must <a href="https://goo.gl/maps/T3qu61iSeds">go here</a>, to the stone monument in the center of the little park,
+Between 10:00 and 4:00, humans must LINK[go here][https://goo.gl/maps/T3qu61iSeds], to the stone monument in the center of the little park,
 and sign their name to the list. By the time 4:00 rolls around, if 2/3 of the human population has not signed their name to the list, the zombies win. If there are enough signatures, then the humans win and receive the location of the first off-campus mission.
 If the humans win – they will receive a hint to the code which gives them the location of the off-campus mission
 If the zombies win – they will get that hint

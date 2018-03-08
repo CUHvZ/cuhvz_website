@@ -1,3 +1,3 @@
 The first off-campus mission will be at Martin Park. This is where we will introduce the deely-bopper game element, and humans will likely win this mission. There will be a single bopper, located at the far end of the park away from the street/bus stop. Humans will have to defend this single, stationary area from 5:00 to 5:45. If a zombie is able to grab the deely bopper (not just touch it, but physically grab it) then that zombie becomes a Special Infected and the humans lose the mission.
-<br><br>
+
 If the zombies win – Stun Timers for the next day will decrease by 1 minute.

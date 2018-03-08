@@ -10,10 +10,5 @@
 </div> <!-- end footerbox -->
 </div> <!-- end footer section -->
 
-<!--
-The key is to be used only once. Discard immediately after use. Valid only for Thursday November 2 2017
-HHXWIYTGUGXSCVSDTFAWHQUAHDCZAVTOGIYSSMTIAYGWXDMSTBTAQWIRBSTXSNPHWHISROGMTWITSSKXKKOZRLNOO
--->
-
 </body>
 </html>

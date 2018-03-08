@@ -20,11 +20,11 @@ try {
 	    echo '<p class="bg-danger">'.$e->getMessage().'</p>';
 	    exit;
 	}
-	//include the user class, pass in the database connection
-	include('../classes/user.php');
-	$user = new User($db);
+//include the user class, pass in the database connection
+require('../classes/user.php');
+$user = new User($db);
 
-createUser($db,"testuser","Password","test","user","test@gmail.com");
+//createUser($db,"testuser","Password","test","user","test@gmail.com");
 createUser($db,"Admin","Password","test","admin","admin@gmail.com");
 
 

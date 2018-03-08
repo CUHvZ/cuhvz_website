@@ -278,7 +278,8 @@ label,
 legend {
   display: block;
   margin-bottom: .5rem;
-  font-weight: 600; }
+  font-weight: 600;
+  text-align: left }
 fieldset {
   padding: 0;
   border-width: 0; }

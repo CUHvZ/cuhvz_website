@@ -1,7 +1,6 @@
 For day four, humans will have to defend a certain number of zones of the soccer pitch near Smith dormitory. Humans will arrange themselves in the zones. If a zombie is able to pick up the cone in each of the zones, no humans may enter that zone, but they may leave it. In this way, as zombies overrun each zone, the humans flee and cannot return. A human who leaves the soccer pitch entirely is out of the game, but is not zombified.
-<br>
+
 In order to win, humans must defend at least 1/3 of the zones of the soccer pitch for 20 minutes (or more/less depending upon player turnout). Zombie stun timer during this event is also based on player turnout.
-<br><br>
+
 If the humans win – they can either get a clue for the day’s code, OR they can increase the zombie stun timer by one minute for the next day.
-<br>
 If the zombies win – they can either get a clue for that day’s code, OR they can lower the zombie stun timer for one minute for the following day.

@@ -75,6 +75,18 @@ class Weeklong{
 		}
 	}
 
+	// returns specific array of variable for a week long event given the name of the weeklong
+	public function get_weeklong($name){
+		try {
+			$stmt = $this->_db->prepare("SELECT * FROM weeklongs where name=:name;");
+			$stmt->execute(array(':name' => $name));
+			return $stmt->fetch();
+
+		} catch(PDOException $e) {
+		    return false;
+		}
+	}
+
 	public function check_starve_dates(){
 		// Check for deceased zombies
 		$current_time = new DateTime(date('Y-m-d H:i:s'));
@@ -225,7 +237,7 @@ class Weeklong{
 	        $data = $stmt->fetchAll();
 	        return $data;
 	    }catch(PDOException $e){
-	        echo '<p class="bg-danger">'.$e->getMessage().' get_humans</p>';
+	        return false;
 	    }
 	}
 
@@ -249,7 +261,7 @@ class Weeklong{
 	        $data = $stmt->fetchAll();
 	        return $data;
 	    }catch(PDOException $e){
-	        echo '<p class="bg-danger">'.$e->getMessage().' get_zombies</p>';
+	        return false;
 	    }
 	}
 
@@ -273,7 +285,7 @@ class Weeklong{
 	        $data = $stmt->fetchAll();
 	        return $data;
 	    }catch(PDOException $e){
-	        echo '<p class="bg-danger">'.$e->getMessage().' get_deceased</p>';
+	        return false;
 	    }
 	}
 
