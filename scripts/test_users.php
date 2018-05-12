@@ -24,7 +24,7 @@ try {
 require('../classes/user.php');
 $user = new User($db);
 
-//createUser($db,"testuser","Password","test","user","test@gmail.com");
+createUser($db,"testuser","Password","test","user","test@gmail.com");
 createUser($db,"Admin","Password","test","admin","admin@gmail.com");
 
 

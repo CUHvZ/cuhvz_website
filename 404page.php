@@ -1,7 +1,7 @@
 <?php require('includes/config.php');
 
 // define page title
-$title = 'CU HvZ | Mod Team';
+$title = 'CU HvZ | About';
 
 // include header template
 require('layout/header.php');
@@ -11,9 +11,8 @@ include 'layout/navbar.php' ?>
 <div class="lightslide">
 	<div class="container">
 		<div class="row">
-		<div class="content lightslide-box">   
-			<h4 class="white">Undergoing construction</h4>
-			<p class="white">Check back later to see all of our beautiful mods!</p>
+		<div class="content lightslide-box white">   
+			<h1><strong>Error 404 Page not found</strong></h1>
 		</div> <!-- end row -->
 	</div> <!-- end container -->
 </div> <!-- end signup section -->

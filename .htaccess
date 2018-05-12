@@ -1,0 +1,5 @@
+ErrorDocument 404 http://www.cuhvz.com/404page.php
+
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^([^\.]+)$ $1.php [NC,L]

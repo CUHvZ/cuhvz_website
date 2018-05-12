@@ -18,6 +18,7 @@ include 'layout/navbar.php' ?>
 
 	<!-- SIGNUP BOX -->
       <div class="content lightslide-box">
+            <h1 class='white' ><strong>Week Longs</strong></h1>
             <?php
                   foreach ($weeklong->get_weeklongs() as $event) {
                         echo "<div class='white'>";
@@ -51,6 +52,11 @@ include 'layout/navbar.php' ?>
                         echo "</div>";
                   }
             ?>
+            <h1 class='white' ><strong>Lock-Ins</strong></h1>
+            <div class='white'>
+                  <h3 class='title-link' style='margin: 0;'><a href='/lockin/info.php'>Close Encounters of the Undead Kind</a></h3>
+                  <p>March 23, 10pm - 2am</p>
+            </div>
       </div>
   </div> <!-- end row -->
 

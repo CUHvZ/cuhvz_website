@@ -49,11 +49,11 @@ require('layout/header.php');
 	<?php
 	if(isset($_POST['submit'])){
 
-		$stmt = $db->prepare('SELECT memberID, email, username, active FROM weeklongF17 WHERE email = :email');
+		$stmt = $db->prepare('SELECT id, email, username, active FROM users WHERE email = :email');
 		$stmt->execute(array(':email' => $_POST['email']));
 		$row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-		$memberID = $row['memberID'];
+		$memberID = $row['id'];
 		$active = $row['active'];
 
 		if(!empty($row['email'])){
