@@ -8,14 +8,14 @@
       <img src="images/grave.png" class="u-max-full-width">
       <h2 class="section-heading orange">Weeklong Game</h2>
       <h5 class="deeporange">
-      <?php 
+      <?php
       if(isset($_SESSION["weeklong_dates"]))
       echo $_SESSION["weeklong_dates"];
       ?></h5>
       <br>
 
       <h5 class="subheader">Gametime Remaining</h5>
-  
+
       <!-- Countdown Clock -->
       <div id="clockdiv">
         <div class="offset-by-two two columns">
@@ -41,8 +41,11 @@
  </div> <!-- end container -->
 
 </div>
-
-
-
-
+<?php
+  $end_date = $_SESSION["start_date"];
+?>
 <script src="/js/countdown.js"></script>
+<script>
+var end = <?= "\"".$end_date."\"" ?>;
+initializeClock('clockdiv', end);
+</script>
