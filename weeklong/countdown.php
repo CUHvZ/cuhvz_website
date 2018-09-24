@@ -1,5 +1,4 @@
 
-
 <!-- WEEKLONG SECTION -->
 <div class="darkslide">
   <div class="container center">
@@ -37,6 +36,26 @@
       </div>
       <!-- End Countdown Clock -->
   </div> <!-- end row -->
+
+  <br><br>
+  <?php
+  $signupLink = "";
+  if($user->is_logged_in()){
+    $signupLink = "'/profile.php?join=".$_SESSION['title']."&eventId=".$_SESSION['weeklong']."'";
+  }else{
+    $signupLink = "'/login.php?join=".$_SESSION['title']."&eventId=".$_SESSION['weeklong']."'";
+  }
+  ?>
+
+    <div class="row">
+      <h2 class="subheadline"><span class="white" id="registered"><?php $countusers ?> Players Registered</span></h2>
+      <p><a href=<?php echo $signupLink; ?>>Wanna play? Be sure to register for the game.</a></p>
+      <img src="/images/zombie.png" class="u-max-full-width">
+    </div>
+
+   </div> <!-- end container -->
+
+  </div>
 
  </div> <!-- end container -->
 
