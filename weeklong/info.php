@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 require($_SERVER['DOCUMENT_ROOT'].'/includes/config.php');
 
@@ -42,9 +42,9 @@ function formatData(data){
   return formated;
 }
 
-function setContent(dataSource, divID) 
-{ 
-  var XMLHttpRequestObject = false; 
+function setContent(dataSource, divID)
+{
+  var XMLHttpRequestObject = false;
 
   if (window.XMLHttpRequest) {
     XMLHttpRequestObject = new XMLHttpRequest();
@@ -53,19 +53,19 @@ function setContent(dataSource, divID)
   }
 
   if(XMLHttpRequestObject) {
-    var obj = document.getElementById(divID); 
-    XMLHttpRequestObject.open("GET", dataSource); 
+    var obj = document.getElementById(divID);
+    XMLHttpRequestObject.open("GET", dataSource);
 
-    XMLHttpRequestObject.onreadystatechange = function() 
-    { 
-      if (XMLHttpRequestObject.readyState == 4 && XMLHttpRequestObject.status == 200) { 
+    XMLHttpRequestObject.onreadystatechange = function()
+    {
+      if (XMLHttpRequestObject.readyState == 4 && XMLHttpRequestObject.status == 200) {
         var data = XMLHttpRequestObject.responseText;
         obj.innerHTML = formatData(data);
-        
-      } 
-    } 
 
-    XMLHttpRequestObject.send(null); 
+      }
+    }
+
+    XMLHttpRequestObject.send(null);
   }
 }
 $(document).ready(function(){
@@ -75,19 +75,20 @@ $(document).ready(function(){
   //$(page).attr("class", "active");
 	if(!weeklong && active){
 		weeklong = <?php echo '"'.$_SESSION["weeklong"].'"';?>;
+    console.log(weeklong);
 	}
 	if(weeklong.length>1){
-		setContent(weeklong+"/details.txt","details"); 
-		setContent(weeklong+"/on_campus_1.txt","on_campus_1"); 
-		setContent(weeklong+"/on_campus_2.txt","on_campus_2"); 
-		setContent(weeklong+"/on_campus_3.txt","on_campus_3"); 
-		setContent(weeklong+"/on_campus_4.txt","on_campus_4"); 
-		setContent(weeklong+"/on_campus_5.txt","on_campus_5"); 
-		setContent(weeklong+"/off_campus_1.txt","off_campus_1"); 
-		setContent(weeklong+"/off_campus_2.txt","off_campus_2"); 
-		setContent(weeklong+"/off_campus_3.txt","off_campus_3"); 
-		setContent(weeklong+"/off_campus_4.txt","off_campus_4"); 
-		setContent(weeklong+"/off_campus_5.txt","off_campus_5"); 
+		setContent(weeklong+"/details.txt","details");
+		setContent(weeklong+"/on_campus_1.txt","on_campus_1");
+		setContent(weeklong+"/on_campus_2.txt","on_campus_2");
+		setContent(weeklong+"/on_campus_3.txt","on_campus_3");
+		setContent(weeklong+"/on_campus_4.txt","on_campus_4");
+		setContent(weeklong+"/on_campus_5.txt","on_campus_5");
+		setContent(weeklong+"/off_campus_1.txt","off_campus_1");
+		setContent(weeklong+"/off_campus_2.txt","off_campus_2");
+		setContent(weeklong+"/off_campus_3.txt","off_campus_3");
+		setContent(weeklong+"/off_campus_4.txt","off_campus_4");
+		setContent(weeklong+"/off_campus_5.txt","off_campus_5");
 	}
 });
 </script>
@@ -105,7 +106,7 @@ $(document).ready(function(){
             $event = $weeklong->get_weeklong($_GET["name"]);
             echo "<h3 class='title-link' style='margin: 0;'><a href='/weeklong/info.php?name=".$event["name"]."'>".$event["title"]."</a></h3>";
             echo "<p>".$event["display_dates"].", ".substr($event["start_date"],0,4)." | ";
-            echo "<a href='/weeklong/stats.php?name=".$event["name"]."' >stats</a></p>"; 
+            echo "<a href='/weeklong/stats.php?name=".$event["name"]."' >stats</a></p>";
           }
           if($weeklong->is_active($event["id"])){ // Displays if event options
             echo "Wanna play in this event?";
@@ -120,7 +121,7 @@ $(document).ready(function(){
                   echo "<a href='/login.php?join=".$event["title"]."&eventId=".$event["name"]."' >Join Now!</a></td>";
             }
             echo "</h3>";
-                
+
           }else{
             if($event["active"] == 0){
                 //echo "Event has ended</td>"."\n";
@@ -139,7 +140,7 @@ $(document).ready(function(){
           <h3><strong>Monday</strong></h3>
           <h5>On Campus</h5><p id="on_campus_1"></p>
           <h5>Off Campus</h5><p id="off_campus_1"></p>
-        </div>        
+        </div>
         <div class="white">
           <h3><strong>Tuesday</strong></h3>
           <h5>On Campus</h5><p id="on_campus_2"></p>

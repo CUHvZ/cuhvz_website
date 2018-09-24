@@ -1,3 +1,4 @@
 Location(s): Soccer field by Wolf Law
 Time: 2pm - 3pm
 Mission: Soccer defense
+Hold sectors and fend off attackers until time runs out.

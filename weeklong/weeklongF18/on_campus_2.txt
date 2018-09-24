@@ -1,3 +1,4 @@
-Location: UMC Fountains -> Theatre -> Koi pond/Hale -> Old Main -> Norlin Fountains -> REC -> Ralphie 
-Time: 2pm - 3pm
+Location: UMC Fountains -> Theatre -> Koi pond/Hale -> Old Main -> Norlin Fountains -> REC -> Ralphie
+Time: 10am and 2pm
 Mission: Escort
+Escort the scientist so he can collect data.

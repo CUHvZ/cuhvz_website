@@ -40,7 +40,7 @@ if($weeklong->active_event()){
 	}*/
 	$weeklong->set_active_variables();
 	$weeklong->check_event_time();
-  	$weeklong->check_starve_dates();
+  $weeklong->check_starve_dates();
 }
 
 ?>

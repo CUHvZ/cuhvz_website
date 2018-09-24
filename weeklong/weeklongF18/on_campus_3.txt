@@ -1,3 +1,7 @@
-Location(s): EC green, Norlin quad (Eaton?), Farrand field
-Time: 1pm - 2pm
-Mission: Have stations across campus that must be controlled
+Location(s): Norlin quad, Farrand field
+Time: 11am - 5pm
+Mission: Stations across campus must be controlled.
+To control a station:
+Humans: Move bandanna above marked line
+Zombies: Move bandanna below marked line
+Flags will be checked hourly and the score will be tracked.

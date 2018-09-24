@@ -1,3 +1,3 @@
-Location: LINK[Beach park][https://goo.gl/maps/9L62BGE9eFB2]
-Time: 5pm - 6:30pm
-Mission: Mobile Defense 
+Location: LINK[Beach park][https://www.google.com/maps/place/Beach+Park/@40.0048439,-105.2777321,16.71z/data=!4m8!1m2!2m1!1sbeach+park!3m4!1s0x0:0x68c652cd71473e8f!8m2!3d40.0048652!4d-105.2767923]
+Time: 6pm - 7pm
+Mission: Defense

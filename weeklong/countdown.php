@@ -14,7 +14,7 @@
       ?></h5>
       <br>
 
-      <h5 class="subheader">Gametime Remaining</h5>
+      <h5 class="subheader" id="game_state">Gametime Remaining</h5>
 
       <!-- Countdown Clock -->
       <div id="clockdiv">
@@ -46,6 +46,9 @@
 ?>
 <script src="/js/countdown.js"></script>
 <script>
+/*
 var end = <?= "\"".$end_date."\"" ?>;
+console.log(end);
 initializeClock('clockdiv', end);
+*/
 </script>
