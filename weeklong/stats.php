@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 require($_SERVER['DOCUMENT_ROOT'].'/includes/config.php');
 
@@ -45,14 +45,20 @@ function getZombieType($status){
         <div class='human-container'>
           <div class='subheader white center'><h3><strong>Humans</strong></h3></div>
           <div class='subheader orange'>
-            <div class='center'>Username</div>
+            <div class='username'>Username</div>
+            <div class='points'>Points</div>
           </div>
           <?php
             if($displayStats){
               $data=$weeklong->get_humans_from($name);
               foreach($data as $human){
                 echo "<div class='subheader white'>";
-                echo "<div class='human'>".$human["username"]."</div>";
+                echo "<span class='human'>".$human["username"]."</span>";
+                $points = $human["points"];
+                if($points == null){
+                  $points = 0;
+                }
+                echo "<span class='score'>".$points."</span>";
                 echo "</div>";
               }
             }
@@ -66,11 +72,12 @@ function getZombieType($status){
             <div class='username'>Username</div>
             <div class='zombie-type'>Type</div>
             <div class='zombie-kills'>Kills</div>
-            <div class='zombie-date'>Until Death</div>
+            <div class='starve-date'>Starves</div>
+            <div class='points'>Points</div>
           </div>
           <?php
             if($displayStats){
-              $data=$weeklong->get_zombies_from($name); 
+              $data=$weeklong->get_zombies_from($name);
               foreach($data as $zombie){
                 echo "<div class='subheader white'>";
                 echo "<div class='username'>".$zombie["username"]."</div>";
@@ -81,6 +88,11 @@ function getZombieType($status){
                 $time_left = $current_time->diff($starve_date);
                 $hours = $time_left->format('%H')+($time_left->format('%a')*24);
                 echo "<div class='zombie-date red'>".$hours.$time_left->format(':%I:%S')."</div>";
+                $points = $zombie["points"];
+                if($points == null){
+                  $points = 0;
+                }
+                echo "<span class='score'>".$points."</span>";
                 echo "</div>";
               }
             }
@@ -92,7 +104,8 @@ function getZombieType($status){
           <div class='subheader orange'>
             <div class='username'>Username</div>
             <div class='kills'>Kills</div>
-            <div class='date'>Time of Death</div>
+            <div class='date'>Starved</div>
+            <div class='points'>Points</div>
           </div>
           <?php
             if($displayStats){
@@ -103,6 +116,11 @@ function getZombieType($status){
                   echo "<div class='kills'>".($dead["kill_count"]+0)."</div>";
                   $starve_date = new DateTime(date($dead["starve_date"]));
                   echo "<div class='date red'>".$starve_date->format('H:i m-d-Y')."</div>";
+                  $points = $dead["points"];
+                  if($points == null){
+                    $points = 0;
+                  }
+                  echo "<span class='score'>".$points."</span>";
                   echo "</div>";
               }
             }
@@ -123,7 +141,7 @@ function getZombieType($status){
 <?php
 // insert clock
 if($weeklong->active_event()){
-  require('clock.php');  
+  require('clock.php');
 }
 
 // include footer template

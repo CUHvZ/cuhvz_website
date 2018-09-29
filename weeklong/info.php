@@ -89,6 +89,11 @@ $(document).ready(function(){
 		setContent(weeklong+"/off_campus_3.txt","off_campus_3");
 		setContent(weeklong+"/off_campus_4.txt","off_campus_4");
 		setContent(weeklong+"/off_campus_5.txt","off_campus_5");
+		setContent(weeklong+"/monday.txt","monday");
+		setContent(weeklong+"/tuesday.txt","tuesday");
+		setContent(weeklong+"/wednesday.txt","wednesday");
+		setContent(weeklong+"/thursday.txt","thursday");
+		setContent(weeklong+"/friday.txt","friday");
 	}
 });
 </script>
@@ -138,26 +143,31 @@ $(document).ready(function(){
         </div>
         <div class="white">
           <h3><strong>Monday</strong></h3>
+          <p id="monday"></p>
           <h5>On Campus</h5><p id="on_campus_1"></p>
           <h5>Off Campus</h5><p id="off_campus_1"></p>
         </div>
         <div class="white">
           <h3><strong>Tuesday</strong></h3>
+          <p id="tuesday"></p>
           <h5>On Campus</h5><p id="on_campus_2"></p>
           <h5>Off Campus</h5><p id="off_campus_2"></p>
         </div>
         <div class="white">
           <h3><strong>Wednesday</strong></h3>
+          <p id="wednesday"></p>
           <h5>On Campus</h5><p id="on_campus_3"></p>
           <h5>Off Campus</h5><p id="off_campus_3"></p>
         </div>
         <div class="white">
           <h3><strong>Thursday</strong></h3>
+          <p id="thursday"></p>
           <h5>On Campus</h5><p id="on_campus_4"></p>
           <h5>Off Campus</h5><p id="off_campus_4"></p>
         </div>
         <div class="white">
           <h3><strong>Friday</strong></h3>
+          <p id="friday"></p>
           <h5>On Campus</h5><p id="on_campus_5"></p>
           <h5>Off Campus</h5><p id="off_campus_5"></p>
         </div>

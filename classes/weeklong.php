@@ -102,7 +102,7 @@ class Weeklong{
 		    $stmt->execute(array(':starve_date' => $starve_date->format('Y-m-d H:i:s')));
 		} catch(PDOException $e) {
 		    echo '<p class="bg-danger" style="margin: 0;">'.$e->getMessage().'</p>';
-		} 
+		}
 	}
 
 	// returns the username of a user given their user hex
@@ -156,11 +156,11 @@ class Weeklong{
 	public function updateStarve($victim, $zombieFeedto, $zombieFeeder)
 	{
 	    date_default_timezone_set('America/Denver');
-	    
+
 	    $current_time = new DateTime(date('Y-m-d H:i:s'));
 	    $starve_date = date_add($current_time, date_interval_create_from_date_string('2 days'));
 	    $new_starve = $starve_date->format('Y-m-d H:i:s');
-	    
+
 	    // STARVE TIMER FOR ZOMBIE
 	    try{
     		$stmt = $this->_db->prepare("UPDATE ".$_SESSION['weeklong']." SET starve_date=:new_starve WHERE username IN('" . implode("','", array_map('trim', $zombieFeedto)) ."');");
@@ -171,13 +171,13 @@ class Weeklong{
     	}
 
 	    try{
-    		$stmt = $this->_db->prepare("UPDATE ".$_SESSION['weeklong']." SET kill_count=kill_count+1 WHERE username=:zombieFeeder;");
+    		$stmt = $this->_db->prepare("UPDATE ".$_SESSION['weeklong']." SET kill_count=kill_count+1,points=points+5 WHERE username=:zombieFeeder;");
     		$stmt->execute(array(':zombieFeeder' => $zombieFeeder));
     	}catch(PDOException $e){
     		echo '<p class="bg-danger">'.$e->getMessage().' update2</p>';
     		return false;
     	}
-	    
+
 	    // STARVE TIMER FOR HUMAN-NOW-ZOMBIE
 	    try{
     		$stmt = $this->_db->prepare("UPDATE ".$_SESSION['weeklong']." SET starve_date=:new_starve WHERE username=:victim;");
@@ -254,7 +254,7 @@ class Weeklong{
 	// returns array of zombies in the week long
 	public function get_zombies_from($weeklong){
 		try{
-	        $stmt = $this->_db->prepare("SELECT username, kill_count, starve_date, status FROM ".$weeklong." WHERE (status='zombie' OR status='zombie(suicide)' OR status='zombie(OZ)') ORDER BY starve_date;");
+	        $stmt = $this->_db->prepare("SELECT username, kill_count, starve_date, status, points FROM ".$weeklong." WHERE (status='zombie' OR status='zombie(suicide)' OR status='zombie(OZ)') ORDER BY starve_date;");
 	        $stmt->execute();
 	        $data = $stmt->fetchAll();
 	        return $data;
@@ -266,7 +266,7 @@ class Weeklong{
 	// returns array of deceased plaers in the week long
 	public function get_deceased(){
 		try{
-	        $stmt = $this->_db->prepare("SELECT username, kill_count, starve_date FROM ".$_SESSION['weeklong']." WHERE status='deceased' ORDER BY starve_date;");
+	        $stmt = $this->_db->prepare("SELECT username, kill_count, starve_date, points FROM ".$_SESSION['weeklong']." WHERE status='deceased' ORDER BY starve_date;");
 	        $stmt->execute();
 	        $data = $stmt->fetchAll();
 	        return $data;
@@ -278,7 +278,7 @@ class Weeklong{
 	// returns array of deceased plaers in the week long
 	public function get_deceased_from($weeklong){
 		try{
-	        $stmt = $this->_db->prepare("SELECT username, kill_count, starve_date FROM ".$weeklong." WHERE status='deceased' ORDER BY starve_date;");
+	        $stmt = $this->_db->prepare("SELECT username, kill_count, starve_date, points FROM ".$weeklong." WHERE status='deceased' ORDER BY starve_date;");
 	        $stmt->execute();
 	        $data = $stmt->fetchAll();
 	        return $data;

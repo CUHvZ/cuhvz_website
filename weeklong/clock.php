@@ -6,12 +6,12 @@ if($activeLevel == 1){
 	$activeLevel = "level 1";
 	$stateDisplay = "Game Begins In...";
 	$date = $_SESSION["start_date"];
-	include "weeklong/countdown.php";
+	include "countdown.php";
 }else if ($activeLevel == 2){
 	$activeLevel = "level 2";
 	$stateDisplay = "Gametime Remaining";
 	$date = $_SESSION["end_date"];
-	include "weeklong/countdown.php";
+	include "countdown.php";
 }else{
 	$activeLevel = "not 1 or 2";
 	include "countdown.php";
