@@ -11,13 +11,8 @@ include $_SERVER['DOCUMENT_ROOT'].'/layout/navbar.php' ?>
 <script>
 function getQueryVariable(variable)
 {
-       var query = window.location.search.substring(1);
-       var vars = query.split("&");
-       for (var i=0;i<vars.length;i++) {
-               var pair = vars[i].split("=");
-               if(pair[0] == variable){return pair[1];}
-       }
-       return(false);
+  var weeklongName = <?php echo "'".$_GET["name"]."'"?>;
+  return(weeklongName);
 }
 function formatData(data){
   // adds <br> tags where there are line breaks
