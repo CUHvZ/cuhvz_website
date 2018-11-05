@@ -20,7 +20,7 @@ $lockinName = $_GET["name"];
         <div class="white">
           <?php
             include $detail_directory.'/'.$lockinName.'/title.php';
-            echo "<br/>Doors open at 9pm and close at 10pm</p><p>";
+            echo "<p>";
             include $detail_directory.'/'.$lockinName.'/details.php';
             echo "</p>";
           ?>
