@@ -114,53 +114,6 @@ include 'layout/navbar.php'
 
 ?>
 
-
-<!-- Begin Primary Document
-–––––––––––––––––––––––––––––––––––––––––––––––––– -->
-<!--
-<nav>
-<center>
-<a href="#slideshow" class="cta">What is HVZ? Click to learn more.</a>
-</center>
-</nav>
--->
-<!--
-<div class="darkslide">
-
-<div class="slider">
-<img src="images/info/Fall2017/Slide01.jpg" />
-<img src="images/info/Fall2017/Slide02.jpg" />
-<img src="images/info/Fall2017/Slide03.jpg" />
-<img src="images/info/Fall2017/Slide04.jpg" />
-<img src="images/info/Fall2017/Slide05.jpg" />
-<img src="images/info/Fall2017/Slide06.jpg" />
-<img src="images/info/Fall2017/Slide07.jpg" />
-<img src="images/info/Fall2017/Slide08.jpg" />
-<img src="images/info/Fall2017/Slide09.jpg" />
-<img src="images/info/Fall2017/Slide10.jpg" />
-<img src="images/info/Fall2017/Slide11.jpg" />
-<img src="images/info/Fall2017/Slide12.jpg" />
-<img src="images/info/Fall2017/Slide13.jpg" />
-<img src="images/info/Fall2017/Slide14.jpg" />
-<img src="images/info/Fall2017/Slide15.jpg" />
-<img src="images/info/Fall2017/Slide16.jpg" />
-<img src="images/info/Fall2017/Slide17.jpg" />
-<img src="images/info/Fall2017/Slide18.jpg" />
-<img src="images/info/Fall2017/Slide19.jpg" />
-<img src="images/info/Fall2017/Slide20.jpg" />
-<img src="images/info/Fall2017/Slide21.jpg" />
-<img src="images/info/Fall2017/Slide22.jpg" />
-<img src="images/info/Fall2017/Slide23.jpg" />
-<img src="images/info/Fall2017/Slide24.jpg" />
-<img src="images/info/Fall2017/Slide25.jpg" />
-<img src="images/info/Fall2017/Slide26.jpg" />
-
-</div>
-
-</div>
--->
-<!-- SLIDE #1 - SIGNUP -->
-
 <div id="signup" class="lightslide">
 
  <div class="container">
@@ -176,11 +129,11 @@ include 'layout/navbar.php'
     </div> <!-- end headline -->
 
 	<!-- SIGNUP BOX -->
-      <div class="six columns lightslide-box">   
+      <div class="six columns lightslide-box">
         <h5>
           Humans vs Zombies is a modified tag game in which students use Nerf blasters, tactics, and teamwork to survive a mock zombie apocalypse. Once tagged by a zombie player, the human becomes a zombie. The nerf equipment is used to stun and temporarily disable the oncoming zombie threat. Humans vs Zombies at CU Boulder is an organization that hold large scale events where CU students, alumni, and students from other schools can gather and survive the apocalypse together.
         </h5>
-        
+
 
 
  </div> <!-- end container -->
@@ -188,141 +141,19 @@ include 'layout/navbar.php'
 </div> <!-- end signup section -->
 
 <br><br>
-<!--
-<div class="darkslide" id="slideshow">
-<div class="slideshow-container">
-  <div class="mySlides">
-    <img src="images/info/Fall2017/Slide01.jpg" style="width:100%">
-  </div>
 
-  <div class="mySlides">
-    <img src="images/info/Fall2017/Slide02.jpg" style="width:100%">
-  </div>
-
-  <div class="mySlides">
-    <img src="images/info/Fall2017/Slide03.jpg" style="width:100%">
-  </div>
-   <div class="mySlides fade">
-    <img src="images/info/Fall2017/Slide04.jpg" style="width:100%">
-  </div>
-
-  <div class="mySlides fade">
-    <img src="images/info/Fall2017/Slide05.jpg" style="width:100%">
-  </div>
-
-  <div class="mySlides fade">
-    <img src="images/info/Fall2017/Slide06.jpg" style="width:100%">
-  </div>
-  <div class="mySlides fade">
-    <img src="images/info/Fall2017/Slide07.jpg" style="width:100%">
-  </div>
-
-  <div class="mySlides fade">
-    <img src="images/info/Fall2017/Slide08.jpg" style="width:100%">
-  </div>
-
-  <div class="mySlides fade">
-    <img src="images/info/Fall2017/Slide09.jpg" style="width:100%">
-</div>
-
-      <div class="mySlides fade">
-    <img src="images/info/Fall2017/Slide10.jpg" style="width:100%">
-  </div>
-
-  <div class="mySlides fade">
-    <img src="images/info/Fall2017/Slide11.jpg" style="width:100%">
-  </div>
-
-  <div class="mySlides fade">
-    <img src="images/info/Fall2017/Slide12.jpg" style="width:100%">
-  </div>
-
-        <div class="mySlides fade">
-    <img src="images/info/Fall2017/Slide13.jpg" style="width:100%">
-  </div>
-
-  <div class="mySlides fade">
-    <img src="images/info/Fall2017/Slide14.jpg" style="width:100%">
-  </div>
-
-  <div class="mySlides fade">
-    <img src="images/info/Fall2017/Slide15.jpg" style="width:100%">
-  </div>
-
-        <div class="mySlides fade">
-    <img src="images/info/Fall2017/Slide16.jpg" style="width:100%">
-  </div>
-
-  <div class="mySlides fade">
-    <img src="images/info/Fall2017/Slide17.jpg" style="width:100%">
-  </div>
-
-  <div class="mySlides fade">
-    <img src="images/info/Fall2017/Slide18.jpg" style="width:100%">
-  </div>
-
-      <div class="mySlides fade">
-    <img src="images/info/Fall2017/Slide19.jpg" style="width:100%">
-  </div>
-
-  <div class="mySlides fade">
-    <img src="images/info/Fall2017/Slide20.jpg" style="width:100%">
-  </div>
-
-  <div class="mySlides fade">
-    <img src="images/info/Fall2017/Slide21.jpg" style="width:100%">
-  </div>
-
-    <div class="mySlides fade">
-    <img src="images/info/Fall2017/Slide22.jpg" style="width:100%">
-  </div>
-
-        <div class="mySlides fade">
-    <img src="images/info/Fall2017/Slide23.jpg" style="width:100%">
-  </div>
-
-  <div class="mySlides fade">
-    <img src="images/info/Fall2017/Slide24.jpg" style="width:100%">
-  </div>
-
-  <div class="mySlides fade">
-    <img src="images/info/Fall2017/Slide25.jpg" style="width:100%">
-  </div>
-
-        <div class="mySlides fade">
-    <img src="images/info/Fall2017/Slide26.jpg" style="width:100%">
-  </div>
-
-  <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-  <a class="next" onclick="plusSlides(1)">&#10095;</a>
-</div>
-<br>
--->
-
-<!--<div style="text-align:center">
-  <span class="dot" onclick="currentSlide(1)"></span> 
-  <span class="dot" onclick="currentSlide(2)"></span> 
-  <span class="dot" onclick="currentSlide(3)"></span> 
-</div> -->
 </div>
 <!--<script src="js/slider.js"></script>-->
 
 <?php
 // insert clock
 if($weeklong->active_event()){
-	require('weeklong/clock.php');	
+	require('weeklong/clock.php');
 }
 ?>
-
-
-
-
-<!-- End Document
-–––––––––––––––––––––––––––––––––––––––––––––––––– -->
 
 
 <?php
 // include footer template
 require('layout/footer.php');
 ?>
-

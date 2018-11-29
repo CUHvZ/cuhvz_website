@@ -71,9 +71,6 @@ $(document).ready(function(){
         </div>
       </div>-->
       <div id="menu_button" class="menu_button menu-container dropdown navbar" onclick="toggle_menu()">
-        <div class="bar1"></div>
-        <div class="bar2"></div>
-        <div class="bar3"></div>
         <div class="dropdown-content" id="dropdown_menu">
           <a class="menu_button" id="index_button_dropdown" href="/index.php">Home</a>
           <a class="menu_button" id="about_button_dropdown" href="/about.php">About</a>

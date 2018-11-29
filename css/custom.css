@@ -627,9 +627,10 @@ a:hover {
 /* SECTIONS
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 .section {
-  padding: 5rem 0 7rem;
+  padding: 5rem 0 5rem;
   background-color: #000000;
   color: #D1D1D1;
+  overflow: auto;
 }
 
 .section-heading {
@@ -768,16 +769,26 @@ a:hover {
 /* FOOTER
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 
+.footer-container {
+  overflow: auto;
+  width: 80%;
+  margin: auto;
+}
+
 .footer {
-  background-image: url('../images/cover-invert.png');
-  background-size: cover;
-  color: #222;
+  /*background-image: url('../images/cover-invert.png');
+  background-size: cover;*/
+  background-color: rgba(0,0,0,0.7);
 }
 
 .footer-box {
-  background-color: rgba(255, 255, 255, 0.7);
-  padding: 7em 1em;
+  /*background-color: rgba(255, 255, 255, 0.7);*/
+  padding: 10px;
   text-align: center;
+  display: block;
+  width: 20%;
+  margin: 10px;
+  float: left;
 }
 
 
@@ -801,13 +812,15 @@ a:hover {
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 
 /* Bigger than 550 */
+/*
 @media (min-width: 550px) {
   .section {
     padding: 12rem 0 11rem;
   }
 }
-
+*/
 /* Bigger than 750 */
+/*
 @media (min-width: 750px) {
   .section {
     padding: 4rem 0 15rem;
@@ -818,14 +831,15 @@ a:hover {
     margin-right: auto;
   }
 }
-
+*/
 /* Bigger than 1000 */
+/*
 @media (min-width: 1000px) {
   .section {
     padding: 15rem 0 19rem;
   }
 }
-
+*/
 
 /* LOGIN STYLING
 ––––––––––––––––––––––––––––––––––––––––––––––––––*/
