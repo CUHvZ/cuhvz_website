@@ -1,3 +1,6 @@
+<p>
+  Doors open at 9pm and close at 10pm
+</p>
 <div>
   <p>
     In the 6th dynasty of the golden age of Ancient Egypt, there lived the son of Montu, a Pharaoh of divine blood with Sekhmet’s fury raging in his soul. A Pharaoh whose soul was tainted, who became a harbinger of destruction; his name so cursed that few dare to speak it. His reign was paved with blood and fire, and so too was his death.

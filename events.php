@@ -22,11 +22,10 @@ $lockin_events = array("fall18", "spring18");
   <div class="row">
 
       <div class="content lightslide-box">
-            <!-- Upcoming -->
+            <!-- Upcoming
             <h1 class='white' ><strong>Upcoming Event</strong></h1>
             <div class='white'>
-              <?php include $_SERVER['DOCUMENT_ROOT'].'/lockin/details/fall18/title.php'; ?>
-            </div>
+            </div> -->
             <!-- Weeklongs -->
             <h1 class='white' ><strong>Week Longs</strong></h1>
             <?php

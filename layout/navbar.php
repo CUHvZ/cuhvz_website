@@ -1,5 +1,5 @@
 <script>
-/* When the user clicks on the button, 
+/* When the user clicks on the button,
 toggle between hiding and showing the dropdown content */
 function myFunction(x) {
     document.getElementById("myDropdown2").classList.toggle("show");
@@ -52,10 +52,10 @@ $(document).ready(function(){
   	  <li></li>
       <li><a class="hideable" id="index_button" href="/index.php">Home</a></li>
       <li><a class="hideable" id="about_button" href="/about.php">About</a></li>
-      <li><a class="hideable" id="mod_team_button" href="/mod_team.php">Mod Team</a></li>
+      <!--<li><a class="hideable" id="mod_team_button" href="/mod_team.php">Mod Team</a></li>-->
       <li><a class="hideable" id="rules_button" href="/rules.php">Rules</a></li>
       <li><a class="hideable" id="events_button" href="/events.php">Events</a></li>
-      <li><a class="hideable" id="media_button" href="/media.php">Media</a></li>
+      <!--<li><a class="hideable" id="media_button" href="/media.php">Media</a></li>-->
       <!--
       <div class="dropdown navbar">
         <button class="dropbtn" onclick="myFunction(this)">Menu
@@ -77,15 +77,15 @@ $(document).ready(function(){
         <div class="dropdown-content" id="dropdown_menu">
           <a class="menu_button" id="index_button_dropdown" href="/index.php">Home</a>
           <a class="menu_button" id="about_button_dropdown" href="/about.php">About</a>
-          <a class="menu_button" id="mod_team_button_dropdown" href="/mod_team.php">Mod Team</a>
+          <!--<a class="menu_button" id="mod_team_button_dropdown" href="/mod_team.php">Mod Team</a>-->
           <a class="menu_button" id="rules_button_dropdown" href="/rules.php">Rules</a>
           <a class="menu_button" id="events_button_dropdown" href="/events.php">Events</a>
-          <a class="menu_button" id="media_button_dropdown" href="/media.php">Media</a>
+          <!--<a class="menu_button" id="media_button_dropdown" href="/media.php">Media</a>-->
         </div>
       </div>
       <?php
       if($user->is_logged_in()){
-      	
+
         if($weeklong->active_event()){
           $kys_button_display = "none";
           $logkill_button_display = "none";
@@ -109,8 +109,8 @@ $(document).ready(function(){
       	echo "<li><a style='float: right;' id='login_button' href='/login.php'>Login</a></li>";
       	echo "<li><a style='float: right;' id='signup_button' href='/signup.php'>Sign Up</a></li>";
       }
-      
-      
+
+
       ?>
       </ul>
 </nav>

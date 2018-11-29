@@ -1,5 +1,3 @@
-<a href="https://www.eventbrite.com/e/cu-hvz-close-encounters-of-the-undead-kind-tickets-44082774766?aff=es2" target="_blank">Sign up on the eventbrite to get your ticket!</a>
-<br/>
 Don't forget to sign and bring your wavier! <br/>
 <a href="/lockin/waivers/lockin_waiver_spring18.pdf" target="_blank" >Close Encounters of the Undead Kind Lock-In waiver</a>
 <br/>
