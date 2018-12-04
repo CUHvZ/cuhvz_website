@@ -13,7 +13,8 @@ class User extends Password{
 	private function get_user_hash($username){
 
 		try {
-			$stmt = $this->_db->prepare('SELECT * FROM users WHERE (username = :username OR email = :username ) AND activated="Yes";');
+      // 'SELECT * FROM users WHERE (username = :username OR email = :username ) AND activated="Yes";'
+			$stmt = $this->_db->prepare('SELECT * FROM users WHERE (username = :username OR email = :username );');
 			$stmt->execute(array('username' => $username));
 
 			return $stmt->fetch();
@@ -65,6 +66,18 @@ class User extends Password{
 			$stmt->execute(array('id' => $_SESSION['id']));
 			$row = $stmt->fetch();
 			return $row["admin"];
+
+		} catch(PDOException $e) {
+		    echo '<p class="bg-danger">'.$e->getMessage().'</p>';
+		}
+	}
+
+  public function is_activated(){
+		try {
+			$stmt = $this->_db->prepare('SELECT activated FROM users WHERE id=:id;');
+			$stmt->execute(array('id' => $_SESSION['id']));
+			$row = $stmt->fetch();
+			return $row["activated"] == "Yes";
 
 		} catch(PDOException $e) {
 		    echo '<p class="bg-danger">'.$e->getMessage().'</p>';
