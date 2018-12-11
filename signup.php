@@ -135,7 +135,9 @@ if(isset($_POST['submit'])){
 			$mail->send();
 
 			// redirect to index page
-			header('Location: signup.php?action=joined');
+      $user->login($_POST['username'],$hashedpassword);
+      //header('Location: signup.php?action=joined');
+      header('Location: profile.php');
 			exit;
 
 		// else catch the exception and show the error
@@ -191,7 +193,7 @@ include 'layout/navbar.php'
 		// if action is joined show success message
 		if(isset($_GET['action']) && $_GET['action'] == 'joined'){
 		echo "<p class='bg-success'> &#10003; <strong>Thanks for signing up!</strong> <br> We sent you an activation link to complete your registration. Please check your email inbox.</p>";
-		} 
+		}
 		?>
 
 		<!-- BEGIN SIGNUP FORM -->
@@ -205,7 +207,7 @@ include 'layout/navbar.php'
             <input type="email" name="email" id="email" class="form-control input-lg u-full-width" placeholder="Email Address" value="<?php if(isset($error)){ echo $_POST['email']; } ?>" tabindex="3">
             </div>
           </div>
-		  
+
 		  <div class="row">
             <div class="six columns">
                 <input type="text" name="firstName" id="firstName" class="form-control input-lg u-full-width" placeholder="First Name" value="<?php if(isset($error)){ echo $_POST['firstName']; } ?>" tabindex="4">
@@ -257,4 +259,3 @@ include 'layout/navbar.php'
 // include footer template
 require('layout/footer.php');
 ?>
-
