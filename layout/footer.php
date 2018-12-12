@@ -3,16 +3,20 @@
 
 <div class="section footer">
   <div class="footer-container">
-    <div class="container footer-box" style="width: 25%">
+    <div class="container footer-box">
       Contact us with any questions <br/>
       <a class="button button-primary" href="mailto:humansvszombies@Colorado.edu">Email Us</a>
+    </div>
+    <div class="container footer-box">
+      Join our discord! <br/>
+      <a class="button button-primary" href="https://discord.gg/nzqG7Wk">Discord</a>
     </div>
     <div class="container footer-box">
       Follow us <br/>
       <a class="button button-primary" href="http://www.facebook.com/HvZatCU/" target="_blank">Facebook</a>
     </div>
-    <div class="container footer-box" style="width: 25%">
-      Interested in joining the mod team? <br/>
+    <div class="container footer-box">
+      Want to join the team? <br/>
       <a class="button button-primary" href="https://docs.google.com/forms/d/e/1FAIpQLSeCbxWdl3ozaa_9fqwBj_W7CT-RRn2lHCZfvQvCITCujijF7g/viewform?usp=sf_link" target="_blank">Apply here!</a>
     </div>
     <div class="container footer-box">
