@@ -29,7 +29,7 @@ function resendEmail(){
 ___________________________________________-->
 <?php
 //echo '<p class="bg-danger">'.$error.'</p>';
-if(!$user->is_activated()){
+if(!$user->is_activated() && $_SESSION["username"] == "Tester"){
     if(isset($_GET['action']) && $_GET['action']=="resend"){
       $mail = $user->make_activation_email();
       $mail->send();
