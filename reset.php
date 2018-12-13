@@ -7,7 +7,8 @@ if( $user->is_logged_in() ){ header('Location: memberpage.php'); }
 if(isset($_POST['submit'])){
 
 	//email validation
-	if(!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)){
+	$email = $_POST['email'];
+	if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
 	    $error[] = 'Please enter a valid email address.';
 	} else {
 		$stmt = $db->prepare('SELECT email FROM weeklongF17 WHERE email = :email');
@@ -15,7 +16,7 @@ if(isset($_POST['submit'])){
 		$row = $stmt->fetch(PDO::FETCH_ASSOC);
 
 		if(empty($row['email'])){
-			$error[] = 'Email provided is not on recognized.';
+			$error[] = 'Email provided is not recognized.';
 		}
 
 	}
@@ -66,7 +67,7 @@ if(isset($_POST['submit'])){
 $title = 'HVZ CU BOULDER';
 
 // include header template
-require('layout/header.php'); 
+require('layout/header.php');
 ?>
 
 <!-- Begin Document
@@ -136,7 +137,7 @@ require('layout/header.php');
 <!-- End Document
 –––––––––––––––––––––––––––––––––––––––––––––––––– -->
 
-<?php 
+<?php
 //include header template
-require('layout/footer.php'); 
+require('layout/footer.php');
 ?>
