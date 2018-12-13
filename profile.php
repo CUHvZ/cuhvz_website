@@ -16,18 +16,8 @@ require "layout/navbar.php";
 
 function resendEmail(){
   // send email
-  $to = $_POST['email'];
-  $subject = "CU Boulder HvZ Registration Confirmation";
-  $body = "<p>Thank you for registering to play Humans vs Zombies at CU Boulder.</p>
-  <p>To activate your account, please click on this link: <a href='".DIR."activate.php?x=$id&y=$activasion'>".DIR."activate.php?x=$id&y=$activasion</a></p>
-  <p>- CU BOULDER HVZ TEAM</p>";
 
-  $mail = new Mail();
-  $mail->setFrom(SITEEMAIL);
-  $mail->addAddress($to);
-  $mail->subject($subject);
-  $mail->body($body);
-  $mail->send();
+
   //echo "<script>console.log("..")</script>";
 }
 ?>
@@ -41,19 +31,7 @@ ___________________________________________-->
 //echo '<p class="bg-danger">'.$error.'</p>';
 if(!$user->is_activated()){
     if(isset($_GET['action']) && $_GET['action']=="resend"){
-      //resendEmail();
-      // send email
-      $to = $_POST['email'];
-      $subject = "CU Boulder HvZ Registration Confirmation";
-      $body = "<p>Thank you for registering to play Humans vs Zombies at CU Boulder.</p>";
-      //<p>To activate your account, please click on this link: <a href='".DIR."activate.php?x=$id&y=$activasion'>".DIR."activate.php?x=$id&y=$activasion</a></p>
-      //<p>- CU BOULDER HVZ TEAM</p>";
-
-      $mail = new Mail();
-      $mail->setFrom(SITEEMAIL);
-      $mail->addAddress($to);
-      $mail->subject($subject);
-      $mail->body($body);
+      $mail = $user->make_activation_email();
       $mail->send();
       echo "<p class='bg-success' style='margin: 0;'> &#10003; Activation email sent.</p>";
     } else {
