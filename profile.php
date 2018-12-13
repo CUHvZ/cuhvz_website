@@ -45,9 +45,9 @@ if(!$user->is_activated()){
       // send email
       $to = $_POST['email'];
       $subject = "CU Boulder HvZ Registration Confirmation";
-      $body = "<p>Thank you for registering to play Humans vs Zombies at CU Boulder.</p>
-      <p>To activate your account, please click on this link: <a href='".DIR."activate.php?x=$id&y=$activasion'>".DIR."activate.php?x=$id&y=$activasion</a></p>
-      <p>- CU BOULDER HVZ TEAM</p>";
+      $body = "<p>Thank you for registering to play Humans vs Zombies at CU Boulder.</p>";
+      //<p>To activate your account, please click on this link: <a href='".DIR."activate.php?x=$id&y=$activasion'>".DIR."activate.php?x=$id&y=$activasion</a></p>
+      //<p>- CU BOULDER HVZ TEAM</p>";
 
       $mail = new Mail();
       $mail->setFrom(SITEEMAIL);
