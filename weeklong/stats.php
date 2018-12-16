@@ -26,7 +26,7 @@ function getZombieType($status){
   <div class="player_container">
 
     <div class="content lightslide-list" style="overflow: auto;">
-      <div class="subheadline orange" style="margin: 0; text-align: center; font-size: 50px;">Player Statistics</div>
+      <div class="stats_header orange">Player Statistics</div>
       <div><!-- class="statistics"-->
         <?php
           $displayStats = false;
@@ -34,7 +34,7 @@ function getZombieType($status){
             $name = $_GET["name"];
             if($weeklong->get_weeklong($name)){
               $displayStats = true;
-              echo "<p class='subheadline' style='margin: 0; text-align: center; color: white; font-size: 20px;'>";
+              echo "<p class='status_header'>";
               echo "Humans: ".sizeof($weeklong->get_humans_from($name));
               echo " &emsp; Zombies: ".sizeof($weeklong->get_zombies_from($name));
               echo " &emsp; Deceased: ".sizeof($weeklong->get_deceased_from($name));
@@ -42,11 +42,15 @@ function getZombieType($status){
             }
           }
         ?>
-        <div class="tab">
-          <button class="tablinks active" onclick="openTab(event, 'Humans')">Humans</button>
-          <button class="tablinks" onclick="openTab(event, 'Zombies')">Zombies</button>
-          <button class="tablinks" onclick="openTab(event, 'Deceased')">Deceased</button>
-          <button class="tablinks" onclick="openTab(event, 'Activity')">Activity</button>
+        <div style="margin: auto; text-align: center;">
+          <span class="tab">
+            <button class="tablink active" onclick="openTab(event, 'Humans')">Humans</button>
+            <button class="tablink" onclick="openTab(event, 'Zombies')">Zombies</button>
+          </span>
+          <span class="tab">
+            <button class="tablink" onclick="openTab(event, 'Deceased')">Deceased</button>
+            <button class="tablink" onclick="openTab(event, 'Activity')">Activity</button>
+          </span>
         </div>
 
         <div id="Humans" class="tabcontent" style="display: block;">
