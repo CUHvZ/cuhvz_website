@@ -40,18 +40,34 @@
 }
 /* Display player tables
 ––––––––––––––––––––––––––––––––––––––––––––––––––*/
-.stats_row tr {
+.bottom-row tr {
   border-bottom: 1px solid white;
+}
+
+.add-line {
+  border-bottom: 1px solid white;
+}
+
+.stats-row tr {
   color: #D1D1D1;
   font-weight: 400;
   font-size: 20px;
 }
 
-.stats_row {
+.stats-row th, td {
+  text-align: left;
+}
+
+.stats-row {
   margin: auto;
 }
 
-.row_header {
+.stats-table {
+  width: 60%;
+  line-height: 1em;
+}
+
+.row-header {
   text-align: center;
 }
 
@@ -95,7 +111,7 @@
   border-top: none;
 }
 
-.stats_header{
+.stats-header{
   margin: 0;
   text-align: center;
   font-size: 30px;
@@ -105,6 +121,30 @@
   margin-bottom: 15px;
   text-transform: uppercase;
   text-decoration: none;
+}
+.table-show-mobile {
+  display: none;
+    }
+.table-hide-mobile {
+  display: table-row;
+}
+@media (max-width: 600px){
+  .statistics{
+    overflow: auto;
+    display: block;
+      margin-left: auto;
+      margin-right: auto;
+      width: 680px;
+  }
+  .stats-table {
+    width: 100%;
+  }
+  .table-show-mobile {
+    display: table-row;
+      }
+  .table-hide-mobile {
+    display: none;
+  }
 }
 
 @media (min-width: 735px) and (max-width: 1300px){
@@ -185,7 +225,7 @@
   text-align: center;
 }
 
-.status_header {
+.status-header {
   margin: 0;
   text-align: center;
   color: white;
@@ -196,7 +236,7 @@
 }
 
 @media (max-width: 480px){
-  .status_header {
+  .status-header {
     font-size: 12px;
   }
 }
@@ -742,8 +782,8 @@ a:hover {
 
 .footer-container {
   overflow: auto;
-  width: 80%;
   margin: auto;
+  text-align: center;
 }
 
 .footer {
@@ -757,12 +797,10 @@ a:hover {
 
 .footer-box {
   /*background-color: rgba(255, 255, 255, 0.7);*/
-  padding: 10px;
   text-align: center;
-  display: block;
-  width: 150px;
-  margin: 10px;
-  float: left;
+  display: inline-block;
+  width: 160px;
+  margin: auto;
 }
 
 
