@@ -27,7 +27,7 @@ function getZombieType($status){
 
     <div class="content lightslide-list" style="overflow: auto;">
       <div class="subheadline orange" style="margin: 0; text-align: center; font-size: 50px;">Player Statistics</div>
-      <div class="statistics">
+      <div><!-- class="statistics"-->
         <?php
           $displayStats = false;
           if(isset($_GET["name"])){
@@ -42,90 +42,147 @@ function getZombieType($status){
             }
           }
         ?>
-        <div class='human-container'>
-          <div class='subheader white center'><h3><strong>Humans</strong></h3></div>
-          <div class='subheader orange'>
-            <div class='username'>Username</div>
-            <div class='points'>Points</div>
-          </div>
-          <?php
-            if($displayStats){
-              $data=$weeklong->get_humans_from($name);
-              foreach($data as $human){
-                echo "<div class='subheader white'>";
-                echo "<span class='human'>".$human["username"]."</span>";
-                $points = $human["points"];
-                if($points == null){
-                  $points = 0;
-                }
-                echo "<span class='score'>".$points."</span>";
-                echo "</div>";
-              }
-            }
-          ?>
+        <div class="tab">
+          <button class="tablinks active" onclick="openTab(event, 'Humans')">Humans</button>
+          <button class="tablinks" onclick="openTab(event, 'Zombies')">Zombies</button>
+          <button class="tablinks" onclick="openTab(event, 'Deceased')">Deceased</button>
+          <button class="tablinks" onclick="openTab(event, 'Activity')">Activity</button>
         </div>
 
-
-        <div class='zombie-container'>
-          <div class='subheader white center'><h3><strong>Zombies</strong></h3></div>
-          <div class='subheader orange'>
-            <div class='username'>Username</div>
-            <div class='zombie-type'>Type</div>
-            <div class='zombie-kills'>Kills</div>
-            <div class='starve-date'>Starves</div>
-            <div class='points'>Points</div>
-          </div>
-          <?php
-            if($displayStats){
-              $data=$weeklong->get_zombies_from($name);
-              foreach($data as $zombie){
-                echo "<div class='subheader white'>";
-                echo "<div class='username'>".$zombie["username"]."</div>";
-                echo "<div class='zombie-type'>".getZombieType($zombie["status"])."</div>";
-                echo "<div class='zombie-kills'>".($zombie["kill_count"]+0)."</div>";
-                $starve_date = new DateTime(date($zombie["starve_date"]));
-                $current_time = new DateTime(date('Y-m-d H:i:s'));
-                $time_left = $current_time->diff($starve_date);
-                $hours = $time_left->format('%H')+($time_left->format('%a')*24);
-                echo "<div class='zombie-date red'>".$hours.$time_left->format(':%I:%S')."</div>";
-                $points = $zombie["points"];
-                if($points == null){
-                  $points = 0;
-                }
-                echo "<span class='score'>".$points."</span>";
-                echo "</div>";
-              }
-            }
-          ?>
-        </div>
-
-        <div class='dead-container'>
-          <div class='subheader white center'><h3><strong>Deceased</strong></h3></div>
-          <div class='subheader orange'>
-            <div class='username'>Username</div>
-            <div class='kills'>Kills</div>
-            <div class='date'>Starved</div>
-            <div class='points'>Points</div>
-          </div>
-          <?php
-            if($displayStats){
-              $data=$weeklong->get_deceased_from($name);
-              foreach($data as $dead){
-                  echo "<div class='subheader white'>";
-                  echo "<div class='username'>".$dead["username"]."</div>";
-                  echo "<div class='kills'>".($dead["kill_count"]+0)."</div>";
-                  $starve_date = new DateTime(date($dead["starve_date"]));
-                  echo "<div class='date red'>".$starve_date->format('H:i m-d-Y')."</div>";
-                  $points = $dead["points"];
+        <div id="Humans" class="tabcontent" style="display: block;">
+          <h3 class="row_header">Humans</h3>
+          <table style="width:60%" class="stats_row">
+            <tr>
+              <th>Username</th>
+              <th>Starve Timer</th>
+              <th>Points</th>
+            </tr>
+            <?php
+              if($displayStats){
+                $data=$weeklong->get_humans_from($name);
+                foreach($data as $human){
+                  echo "<tr>";
+                  echo "<td>".$human["username"]."</td>";
+                  $starve_date = new DateTime(date($human["starve_date"]));
+                  $current_time = new DateTime(date('Y-m-d H:i:s'));
+                  $end_time = new DateTime(date($weeklong->get_weeklong($name)["end_date"]));
+                  if($current_time > $end_time){
+                    $current_time = $end_time;
+                  }
+                  $time_left = $current_time->diff($starve_date);
+                  $hours = $time_left->format('%H')+($time_left->format('%a')*24);
+                  echo "<th class='red'>".$hours.$time_left->format(':%I:%S')."</th>";
+                  $points = $human["points"];
                   if($points == null){
                     $points = 0;
                   }
-                  echo "<span class='score'>".$points."</span>";
-                  echo "</div>";
+                  echo "<td>".$points."</td>";
+                  echo "</tr>";
+                }
               }
-            }
-          ?>
+            ?>
+          </table>
         </div>
+
+        <div id="Zombies" class="tabcontent">
+          <h3 class="row_header">Zombies</h3>
+          <table style="width:60%" class="stats_row">
+            <tr>
+              <th>Username</th>
+              <th>Type</th>
+              <th>Kills</th>
+              <th>Starve Timer</th>
+              <th>Points</th>
+            </tr>
+            <?php
+            $data=$weeklong->get_deceased_from($name);
+              if($displayStats && $data != null){
+                $data=$weeklong->get_zombies_from($name);
+                foreach($data as $zombie){
+                  echo "<tr>";
+                  echo "<th>".$zombie["username"]."</th>";
+                  echo "<th>".getZombieType($zombie["status"])."</th>";
+                  echo "<th>".($zombie["kill_count"]+0)."</th>";
+                  $starve_date = new DateTime(date($zombie["starve_date"]));
+                  $current_time = new DateTime(date('Y-m-d H:i:s'));
+                  $end_time = new DateTime(date($weeklong->get_weeklong($name)["end_date"]));
+                  if($current_time > $end_time){
+                    $current_time = $end_time;
+                  }
+                  $time_left = $current_time->diff($starve_date);
+                  $hours = $time_left->format('%H')+($time_left->format('%a')*24);
+                  echo "<th class='red'>".$hours.$time_left->format(':%I:%S')."</th>";
+                  $points = $zombie["points"];
+                  if($points == null){
+                    $points = 0;
+                  }
+                  echo "<th>".$points."</th>";
+                  echo "</tr>";
+                }
+              }
+            ?>
+          </table>
+        </div>
+
+        <div id="Deceased" class="tabcontent">
+          <h3 class="row_header">Deceased</h3>
+          <table style="width:60%" class="stats_row">
+            <tr>
+              <th>Username</th>
+              <th>Starved</th>
+              <th>Kills</th>
+              <th>Points</th>
+            </tr>
+            <?php
+              $data=$weeklong->get_deceased_from($name);
+              if($displayStats && $data!=null){
+                //$data=$weeklong->get_deceased_from($name);
+                foreach($data as $dead){
+                    echo "<tr>";
+                    echo "<th>".$dead["username"]."</th>";
+                    $starve_date = new DateTime(date($dead["starve_date"]));
+                    echo "<th class='red'>".$starve_date->format('H:i m-d-Y')."</th>";
+                    echo "<th>".($dead["kill_count"])."</th>";
+                    $points = $dead["points"];
+                    if($points == null){
+                      $points = 0;
+                    }
+                    echo "<th>".$points."</th>";
+                    echo "</tr>";
+                }
+              }
+            ?>
+          </table>
+        </div>
+
+        <div id="Activity" class="tabcontent">
+          <h3 class="row_header">Activity</h3>
+          <table style="width:60%" class="stats_row">
+            <tr>
+              <th></th>
+              <th>Activity</th>
+              <th></th>
+              <th>Time</th>
+            </tr>
+            <?php
+              $data=$weeklong->get_activity($name);
+              if($data == null){
+                $filename = $_SERVER['DOCUMENT_ROOT']."/weeklong/".$name."/stats.csv";
+                include_once($_SERVER['DOCUMENT_ROOT']."/scripts/readcsvfile.php");
+              }
+              foreach($data as $activity){
+                  echo "<tr>";
+                  echo "<th>".$user->get_user_username($activity["user_1"])."</th>";
+                  echo "<th>".$activity["action"]."</th>";
+                  echo "<th>".$user->get_user_username($activity["user_2"])."</th>";
+                  echo "<th>".$activity["time"]."</th>";
+                  echo "</tr>";
+              }
+            ?>
+          </table>
+        </div>
+
+        <script src="/js/tabs.js"></script>
 
       </div>
     </div>

@@ -24,7 +24,7 @@ class User extends Password{
 		}
 	}
 
-	private function get_user_username($id){
+	public function get_user_username($id){
 		try {
 			$stmt = $this->_db->prepare('SELECT username FROM users WHERE id=:id;');
 			$stmt->execute(array('id' => $id));

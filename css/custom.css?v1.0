@@ -1,3 +1,7 @@
+.test {
+  border-bottom: 1px solid white;
+}
+
 .mod a {
   color: #fff;
   display: inline-block;
