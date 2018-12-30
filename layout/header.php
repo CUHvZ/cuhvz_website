@@ -1,7 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-
   <!-- Basic Page Needs
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <meta charset="utf-8">
@@ -68,6 +64,3 @@
   <script src="/js/jquery-3.1.1.min.js"></script>
   <script src="/js/checkbox.js"></script>
   <script src="/js/navbar_highlight.js"></script>
-
-</head>
-<body>

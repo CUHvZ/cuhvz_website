@@ -1,14 +1,14 @@
-<?php require('includes/config.php');
-
-// define page title
-$title = 'HVZ CU BOULDER';
-
-// include header template
-require('layout/header.php');
-
-include 'layout/navbar.php'
-
+<!DOCTYPE html>
+<html lang="en">
+<?php
+require('includes/config.php');
+$title = 'CU Boulder HvZ';
 ?>
+<head>
+	<?php require('layout/header.php'); ?>
+</head>
+<body>
+	<?php include 'layout/navbar.php'; ?>
 
 <div id="signup" class="lightslide">
 
@@ -88,3 +88,5 @@ if($weeklong->active_event()){
 // include footer template
 require('layout/footer.php');
 ?>
+</body>
+</html>

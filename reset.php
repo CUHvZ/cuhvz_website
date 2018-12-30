@@ -1,4 +1,17 @@
-<?php require('includes/config.php');
+<!DOCTYPE html>
+<html lang="en">
+<?php
+require('includes/config.php');
+$title = 'CU HvZ | ';
+?>
+<head>
+	<?php require('layout/header.php'); ?>
+</head>
+<body>
+	<?php include 'layout/navbar.php'; ?>
+
+
+<?php
 
 //if logged in redirect to user page
 if( $user->is_logged_in() ){ header('Location: memberpage.php'); }
@@ -141,3 +154,6 @@ require('layout/header.php');
 //include header template
 require('layout/footer.php');
 ?>
+
+</body>
+</html>

@@ -163,6 +163,11 @@
     overflow:hidden;
   }
 }
+
+
+.data tr {
+  display: none;
+}
 /*
 
 @media (min-width: 481px) and (max-width: 790px){

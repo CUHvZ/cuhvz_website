@@ -1,12 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
 <?php
-
 require($_SERVER['DOCUMENT_ROOT'].'/includes/config.php');
-
-
-// include header template
-require('../layout/header.php');
-
-include $_SERVER['DOCUMENT_ROOT'].'/layout/navbar.php' ?>
+$title = 'CU HvZ | ';
+?>
+<head>
+	<?php require($_SERVER['DOCUMENT_ROOT'].'/layout/header.php'); ?>
+</head>
+<body>
+	<?php include $_SERVER['DOCUMENT_ROOT'].'/layout/navbar.php'; ?>
 
 <script>
 function getQueryVariable(variable)
@@ -180,3 +182,6 @@ $(document).ready(function(){
 // include footer template
 require($_SERVER['DOCUMENT_ROOT'].'/layout/footer.php');
 ?>
+
+</body>
+</html>

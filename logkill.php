@@ -1,15 +1,18 @@
-<?php 
+<!DOCTYPE html>
+<html lang="en">
+<?php
 require('includes/config.php');
+$title = 'CU HvZ | Log Kill';
+?>
+<head>
+	<?php require('layout/header.php'); ?>
+</head>
+<body>
+	<?php include 'layout/navbar.php'; ?>
 
+<?php
 // if not logged in redirect to login page
-if(!$user->is_logged_in()){ header('Location: login.php'); } 
-
-$title = 'HVZ CU Log Kill';
-
-// include header template
-require('layout/header.php');
-
-require "layout/navbar.php";
+if(!$user->is_logged_in()){ header('Location: login.php'); }
 ?>
 
 <!-- BEGIN DOCUMENT -->
@@ -22,7 +25,7 @@ require "layout/navbar.php";
   <div class="row">
 
     <!-- Start HVZ Headline Columns -->
-    
+
     <div class="two columns">
       <img src="images/skull.png" class="u-max-full-width">
     </div>
@@ -48,15 +51,15 @@ require "layout/navbar.php";
       <span class="deeporange">&#10006; &#10006; &#10006;</span>
       </p>
 
-    </div> 
+    </div>
 
     <!-- End headline columns -->
-  
+
   </div> <!-- end row -->
 
   </div> <!-- end container -->
 
-</section> 
+</section>
 
 <!-- END HVZ HEADLINE SECTION -->
 
@@ -94,9 +97,9 @@ $zombieFeeder = $_SESSION['username'];
       <P>Choose up to three (3) zombies to feed. Click the table headers to sort.
       <br>
       <strong>Remember to select yourself if you wanna eat!</strong></p>
-      
+
       <div id='playerlist' class='playerlist' data-max-answers='3'>
-      
+
       <table id='table1' class='feedzombiestable'>
       <tr class='subheader orange'>
       <th class='select'>Select</th>
@@ -104,13 +107,13 @@ $zombieFeeder = $_SESSION['username'];
       <th onclick='sortTable(2)'>Kill Count</th>
       <th onclick='sortTable(3)' class='starve'>Time Remaining Unil Death</th>
       </tr>
-      
+
     ";
     $data=$weeklong->get_zombies();
     //$data = $db->query($query);
     //$data->setFetchMode(PDO::FETCH_ASSOC);
     foreach($data as $row){
-      print " 
+      print "
         <tr class='subheader white'>
         <td class='select'>
         <input type='checkbox' name='check_list[]' value='$row[username]'>";
@@ -133,9 +136,9 @@ $zombieFeeder = $_SESSION['username'];
 
 <BR><BR>
 
- 
 
-<?php 
+
+<?php
 
 if (isset($_POST['hex'])){
   $initHex = $_POST['hex'];

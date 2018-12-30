@@ -1,25 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
 <?php
-
 require('includes/config.php');
+$title = 'CU HvZ | Profile';
+?>
+<head>
+	<?php require('layout/header.php'); ?>
+</head>
+<body>
+	<?php include 'layout/navbar.php'; ?>
 
+
+<?php
 //if not logged in redirect to login page
 if(!$user->is_logged_in()){ header('Location: login.php'); }
-
-//define page title
-$title = 'HVZ CU Profile';
-
-//include header template
-require('layout/header.php');
-
-//include navigation
-require "layout/navbar.php";
-
-function resendEmail(){
-  // send email
-
-
-  //echo "<script>console.log("..")</script>";
-}
 ?>
 
 
@@ -143,3 +137,6 @@ if($weeklong->active_event()){
 //include header template
 require('layout/footer.php');
 ?>
+
+</body>
+</html>
