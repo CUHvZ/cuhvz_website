@@ -30,6 +30,19 @@
   .hide{
     display: none;
   }
+  .outer-div
+{
+  padding: 30px;
+  text-align: center;
+  background-color: #f3f3f3;
+}
+.inner-div
+{
+  display: inline-block;
+  padding: 50px;
+  background-color: #ccc;
+  border-radius: 3px;
+}
   </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script>
@@ -44,16 +57,17 @@ $.fn.pageMe = function(opts){
 
     var listElement = $this;
     var perPage = settings.perPage;
-    var children = listElement.children();
-    var filteredChildren = children.filter(function() {
+    var children = listElement.children().filter(function() {
       if(this.className != 'hide')
         return $(this);
     });
-    children = filteredChildren;
     var pager = $('.pager');
 
     if (typeof settings.childSelector!="undefined") {
-        children = listElement.find(settings.childSelector);
+        children = listElement.find(settings.childSelector).filter(function() {
+          if(this.className != 'hide')
+            return $(this);
+        });
     }
 
     if (typeof settings.pagerSelector!="undefined") {
@@ -88,7 +102,6 @@ $.fn.pageMe = function(opts){
     //console.log(pager.children().eq(1).children());
   	//pager.children().eq(1).addClass("active");
     pager.children().eq(1).children().addClass("active");
-
     children.hide();
     children.slice(0, perPage).show();
 
@@ -117,13 +130,13 @@ $.fn.pageMe = function(opts){
     }
 
     function goTo(page){
-        var startAt = page * perPage,
-            endOn = startAt + perPage;
-        var filteredChildren = children.filter(function() {
+        var startAt = page * perPage;
+        var endOn = startAt + perPage;
+        children = listElement.children().filter(function() {
           if(this.className != 'hide')
             return $(this);
         });
-        children = filteredChildren;
+        console.log(children.css('display','none').slice(startAt, endOn));
         children.css('display','none').slice(startAt, endOn).show();
 
         if (page>=1) {
@@ -147,86 +160,70 @@ $.fn.pageMe = function(opts){
     }
 };
 
+
 $(document).ready(function(){
 
-  $('#data').pageMe({pagerSelector:'#myPager',showPrevNext:true,hidePageNumbers:false,perPage:4});
+  $('#data').pageMe({pagerSelector:'#data-pager',showPrevNext:true,hidePageNumbers:false,perPage:4});
   $('#human-table').pageMe({pagerSelector:'#human-table-pager',showPrevNext:true,hidePageNumbers:false,perPage:10});
 
 });
-function sortTable(id, index) {
-  var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+function sortTable(id, sortColumnIndex, perPage) {
+  var table, rows, sorting, i, x, y, shouldSwap, dir, switchcount = 0;
   table = document.getElementById(id);
-  //console.log(table);
-  switching = true;
+  sorting = true;
   dir = table.value;
-  //Set the sorting direction to ascending:
-  if(dir == null)
+  // Set the sorting direction to ascending:
+  if(table.value == null) {
     dir = "asc";
-  /*Make a loop that will continue until
-  no switching has been done:*/
+    sortAscending = true;
+  } else {
+    sortAscending = table.value == "asc";
+  }
+  // Counter in case infinite loop is encountered
+  rows = table.getElementsByTagName("tr");
   counter = 0;
-  while (switching && counter < 10000) {
+  counterMax = rows.length * 1000;
+  while (sorting && counter < 10000) {
     counter++;
-    //start by saying: no switching is done:
-    switching = false;
-    rows = table.getElementsByTagName("tr");
-    /*Loop through all table rows (except the
-    first, which contains table headers):*/
+    sorting = false;
     for (i = 0; i < (rows.length - 1); i++) {
-      //start by saying there should be no switching:
-      shouldSwitch = false;
-      /*Get the two elements you want to compare,
-      one from current row and one from the next:*/
-      x = rows[i].getElementsByTagName("TD")[index];
-      y = rows[i + 1].getElementsByTagName("TD")[index];
+      // start by saying there should be no switching:
+      shouldSwap = false;
+      // Get the text from the two elements you want to compare, one from current row and one from the next
+      x = rows[i].getElementsByTagName("TD")[sortColumnIndex].outerText.toLowerCase();
+      y = rows[i + 1].getElementsByTagName("TD")[sortColumnIndex].outerText.toLowerCase();
       rows[i].style.display = 'none';
-      /*check if the two rows should switch place,
-      based on the direction, asc or desc:*/
-      //console.log(x);
-      //console.log(y);
-      if (dir == "asc") {
-        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
-          //if so, mark as a switch and break the loop:
-          shouldSwitch= true;
+      if(sortAscending) {
+        if (x > y) {
+          shouldSwap= true;
           break;
         }
-      } else if (dir == "desc") {
-        if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
-          //if so, mark as a switch and break the loop:
-          shouldSwitch= true;
-          break;
-        }
+      } else if(!sortAscending && x < y){
+        shouldSwap= true;
+        break;
       }
     }
-    if (shouldSwitch) {
-      /*If a switch has been marked, make the switch
-      and mark that a switch has been done:*/
+    // make the swap
+    if (shouldSwap) {
       rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
-      switching = true;
-      //Each time a switch is done, increase this count by 1:
+      sorting = true;
       switchcount ++;
-    } else {
-      /*If no switching has been done AND the direction is "asc",
-      set the direction to "desc" and run the while loop again.*/
-      if (switchcount == 0 && dir == "asc") {
-        dir = "desc";
-        switching = true;
-      }
     }
   }
-  for(i=0; i<10; i++){
-    rows[i].style.display = '';
+  // Display correct amount of items per page
+  var index = 0, displayCount = 0;
+  while(index < rows.length && displayCount < perPage){
+    if(rows[index].className != "hide"){
+      rows[index].style.display = '';
+      displayCount++;
+    }
+    index++;
   }
   paginator = document.getElementById(id+"-pager");
   links = paginator.getElementsByTagName("li");
   for(i=0;i<links.length;i++){
-    //links[i].className = "paginater";
     links[i].firstChild.className = "page_link page-link";
   }
-  //paginator.getElementsByTagName("li")[1].className = "paginater active";
-  //console.log(paginator.getElementsByTagName("li"));
-  //console.log(paginator.getElementsByTagName("li")[1].firstChild);
-  //paginator.getElementsByTagName("li")[1].getElementsByTagName("a")[1].className = "page_link page-link active";
   paginator.getElementsByTagName("li")[1].firstChild.className = "page_link page-link active";
   if(counter == 10000)
     console.log("counter limit reached")
@@ -238,51 +235,53 @@ function sortTable(id, index) {
 </script>
 </head>
 <body>
+  <div class="outer-div"><div class="inner-div"></div></div>
+
   <table>
     <thead>
       <tr class='table-hide-mobile add-line'>
-        <th onclick="sortTable('data', 0)">Name</th>
-        <th onclick="sortTable('data', 1)">Points</th>
+        <th onclick="sortTable('data', 0, 4)">Name</th>
+        <th onclick="sortTable('data', 1, 4)">Points</th>
       </tr>
     </thead>
     <tbody id="data">
-    <tr class="hide"> <td>Row 54 Hidden</td> <td>0</td></tr>
-    <tr class="hide"> <td>Row 23 Hidden</td> <td>0</td></tr>
-    <tr class="hide"> <td>Row 32 Hidden</td> <td>0</td></tr>
-      <tr> <td>Row 4</td> <td>0</td></tr>
-      <tr> <td>Row 9</td> <td>3</td></tr>
-      <tr class="hide"> <td>Row 33 Hidden</td> <td>1</td></tr>
-      <tr class="hide"> <td>Row 15 Hidden</td> <td>0</td></tr>
-      <tr> <td>Row 2</td> <td>6</td></tr>
-      <tr> <td>Row 35</td> <td>3</td></tr>
-      <tr class="hide"> <td>Row 12 Hidden</td> <td>3</td></tr>
-      <tr class="hide"> <td>Row 17 Hidden</td> <td>10</td></tr>
-      <tr class="hide"> <td>Row 4 Hidden</td> <td>8</td></tr>
-      <tr> <td>Row 65</td> <td>3</td></tr>
-      <tr> <td>Row 23</td> <td>7</td></tr>
-      <tr> <td>Row 7</td> <td>0</td></tr>
-      <tr> <td>Row 12</td> <td>1</td></tr>
-      <tr class="hide"> <td>Row 17 Hidden</td> <td>3</td></tr>
-      <tr class="hide"> <td>Row 8 Hidden</td> <td>7</td></tr>
-      <tr class="hide"> <td>Row 29 Hidden</td> <td>9</td></tr>
-      <tr> <td>Row 65</td> <td>1</td></tr>
-      <tr> <td>Row 13</td> <td>0</td></tr>
-      <tr> <td>Row 75</td> <td>6</td></tr>
-      <tr class="hide"> <td>Row 25 Hidden</td> <td>20</td></tr>
-      <tr class="hide"> <td>Row 16 Hidden</td> <td>0</td></tr>
-      <tr> <td>Row 34</td> <td>1</td></tr>
-      <tr> <td>Row 13</td> <td>0</td></tr>
+    <tr class="hide"> <td>Row b Hidden</td> <td>0</td></tr>
+    <tr class="hide"> <td>Row d Hidden</td> <td>0</td></tr>
+    <tr class="hide"> <td>Row k Hidden</td> <td>0</td></tr>
+      <tr> <td>Row j</td> <td>0</td></tr>
+      <tr> <td>Row s</td> <td>3</td></tr>
+      <tr class="hide"> <td>Row e Hidden</td> <td>1</td></tr>
+      <tr class="hide"> <td>Row w Hidden</td> <td>0</td></tr>
+      <tr> <td>Row d</td> <td>6</td></tr>
+      <tr> <td>Row x</td> <td>3</td></tr>
+      <tr class="hide"> <td>Row v Hidden</td> <td>3</td></tr>
+      <tr class="hide"> <td>Row o Hidden</td> <td>10</td></tr>
+      <tr class="hide"> <td>Row j Hidden</td> <td>8</td></tr>
+      <tr> <td>Row n</td> <td>3</td></tr>
+      <tr> <td>Row c</td> <td>7</td></tr>
+      <tr> <td>Row m</td> <td>0</td></tr>
+      <tr> <td>Row w</td> <td>1</td></tr>
+      <tr class="hide"> <td>Row j Hidden</td> <td>3</td></tr>
+      <tr class="hide"> <td>Row c Hidden</td> <td>7</td></tr>
+      <tr class="hide"> <td>Row o Hidden</td> <td>9</td></tr>
+      <tr> <td>Row s</td> <td>1</td></tr>
+      <tr> <td>Row i</td> <td>0</td></tr>
+      <tr> <td>Row y</td> <td>6</td></tr>
+      <tr class="hide"> <td>Row w Hidden</td> <td>20</td></tr>
+      <tr class="hide"> <td>Row f Hidden</td> <td>0</td></tr>
+      <tr> <td>Row kj</td> <td>1</td></tr>
+      <tr> <td>Row f</td> <td>0</td></tr>
     </tbody>
   </table>
 <div class="col-md-12 text-center">
-  <ul class="pagination pagination-lg pager" id="myPager"></ul>
+  <ul class="pagination pagination-lg pager" id="data-pager"></ul>
 </div>
 <table>
   <thead>
     <tr class='table-hide-mobile add-line'>
-      <th onclick="sortTable('human-table', 0)">Username</th>
-      <th onclick="sortTable('human-table', 1)">Points</th>
-      <th onclick="sortTable('human-table', 2)">Starve Timer</th>
+      <th onclick="sortTable('human-table', 0, 10)">Username</th>
+      <th onclick="sortTable('human-table', 1, 10)">Points</th>
+      <th onclick="sortTable('human-table', 2, 10)">Starve Timer</th>
     </tr>
   </thead>
   <tbody  id="human-table">

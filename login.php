@@ -80,7 +80,6 @@ ___________________________________________-->
 </section>
 -->
 <!-- END HVZ HEADLINE SECTION -->
-<?php include 'layout/navbar.php'; ?>
 
 <div class="lightslide contentwithnav" id="login">
 

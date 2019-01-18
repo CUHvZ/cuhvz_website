@@ -59,12 +59,13 @@
 }
 
 .stats-row {
-  margin: auto;
+
 }
 
 .stats-table {
   width: 60%;
   line-height: 1em;
+  margin: auto;
 }
 
 .row-header {

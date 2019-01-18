@@ -17,6 +17,7 @@ $title = 'CU HvZ | ';
       margin: 5px;
       padding: 10px;
       display: inline-block;
+      color: white;
   }
 
   .page-link:hover{
@@ -28,219 +29,206 @@ $title = 'CU HvZ | ';
   }
   .page-link:visited, .page-link:link{
     text-decoration: none;
-    color: black;
   }
+  .outer-div
+{
+  padding: 0 30px 0 30px;
+  text-align: center;
+}
+.inner-div
+{
+  display: inline-block;
+  padding: 0 50px 0 50px;
+}
   </style>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script>
   $.fn.pageMe = function(opts){
-    var $this = this,
-        defaults = {
-            perPage: 4,
-            showPrevNext: false,
-            hidePageNumbers: false
-        },
-        settings = $.extend(defaults, opts);
+      var $this = this,
+          defaults = {
+              perPage: 4,
+              showPrevNext: false,
+              hidePageNumbers: false
+          },
+          settings = $.extend(defaults, opts);
 
-    var listElement = $this;
-    var perPage = settings.perPage;
-    var children = listElement.children();
-    var pager = $('.pager');
+      var listElement = $this;
+      var perPage = settings.perPage;
+      var children = listElement.children().filter(function() {
+        if(this.className != 'hide')
+          return $(this);
+      });
+      var pager = $('.pager');
 
-    if (typeof settings.childSelector!="undefined") {
-        children = listElement.find(settings.childSelector);
-    }
+      if (typeof settings.childSelector!="undefined") {
+          children = listElement.find(settings.childSelector).filter(function() {
+            if(this.className != 'hide')
+              return $(this);
+          });
+      }
 
-    if (typeof settings.pagerSelector!="undefined") {
-        pager = $(settings.pagerSelector);
-    }
+      if (typeof settings.pagerSelector!="undefined") {
+          pager = $(settings.pagerSelector);
+      }
 
-    var numItems = children.length;
-    var numPages = Math.ceil(numItems/perPage);
+      var numItems = children.length;
+      var numPages = Math.ceil(numItems/perPage);
 
-    pager.data("curr",0);
+      pager.data("curr",0);
 
-    if (settings.showPrevNext){
-        $('<li class="paginater"><a href="#" class="prev_link page-link">«</a></li>').appendTo(pager);
-    }
+      if (settings.showPrevNext){
+          $('<li class="paginater"><a href="#" class="prev_link page-link">«</a></li>').appendTo(pager);
+      }
 
-    var curr = 0;
-    while(numPages > curr && (settings.hidePageNumbers==false)){
-        $('<li class="paginater"><a href="#" class="page_link page-link">'+(curr+1)+'</a></li>').appendTo(pager);
-        curr++;
-    }
+      var curr = 0;
+      while(numPages > curr && (settings.hidePageNumbers==false)){
+          $('<li class="paginater"><a href="#" class="page_link page-link">'+(curr+1)+'</a></li>').appendTo(pager);
+          curr++;
+      }
 
-    if (settings.showPrevNext){
-        $('<li class="paginater"><a href="#" class="next_link page-link">»</a></li>').appendTo(pager);
-    }
+      if (settings.showPrevNext){
+          $('<li class="paginater"><a href="#" class="next_link page-link">»</a></li>').appendTo(pager);
+      }
 
-    //pager.find('.page_link:first').addClass('active');
-    pager.find('.prev_link').hide();
-    if (numPages<=1) {
-        pager.find('.next_link').hide();
-    }
-    //console.log(pager.children().eq(1));
-    //console.log(pager.children().eq(1).children());
-    //pager.children().eq(1).addClass("active");
-    pager.children().eq(1).children().addClass("active");
+      //pager.find('.page_link:first').addClass('active');
+      pager.find('.prev_link').hide();
+      if (numPages<=1) {
+          pager.find('.next_link').hide();
+      }
+      //console.log(pager.children().eq(1));
+      //console.log(pager.children().eq(1).children());
+    	//pager.children().eq(1).addClass("active");
+      pager.children().eq(1).children().addClass("active");
+      children.hide();
+      children.slice(0, perPage).show();
 
-    children.hide();
-    children.slice(0, perPage).show();
+      pager.find('li .page_link').click(function(){
+          var clickedPage = $(this).html().valueOf()-1;
+          goTo(clickedPage,perPage);
+          return false;
+      });
+      pager.find('li .prev_link').click(function(){
+          previous();
+          return false;
+      });
+      pager.find('li .next_link').click(function(){
+          next();
+          return false;
+      });
 
-    pager.find('li .page_link').click(function(){
-        var clickedPage = $(this).html().valueOf()-1;
-        goTo(clickedPage,perPage);
-        return false;
-    });
-    pager.find('li .prev_link').click(function(){
-        previous();
-        return false;
-    });
-    pager.find('li .next_link').click(function(){
-        next();
-        return false;
-    });
+      function previous(){
+          var goToPage = parseInt(pager.data("curr")) - 1;
+          goTo(goToPage);
+      }
 
-    function previous(){
-        var goToPage = parseInt(pager.data("curr")) - 1;
-        goTo(goToPage);
-    }
+      function next(){
+          goToPage = parseInt(pager.data("curr")) + 1;
+          goTo(goToPage);
+      }
 
-    function next(){
-        goToPage = parseInt(pager.data("curr")) + 1;
-        goTo(goToPage);
-    }
+      function goTo(page){
+          var startAt = page * perPage;
+          var endOn = startAt + perPage;
+          children = listElement.children().filter(function() {
+            if(this.className != 'hide')
+              return $(this);
+          });
+					console.log("page = "+page+" of "+numPages);
+          children.css('display','none').slice(startAt, endOn).show();
+          if (page>=1) {
+						console.log(pager.find('.prev_link'));
+              pager.find('.prev_link').show();
+          }
+          else {
+              pager.find('.prev_link').hide();
+          }
+          if (page<(numPages-1)) {
+              pager.find('.next_link').show();
+          }
+          else {
+              pager.find('.next_link').hide();
+          }
 
-    function goTo(page){
-        var startAt = page * perPage,
-            endOn = startAt + perPage;
+          pager.data("curr",page);
+        	pager.children().children().removeClass("active");
+          pager.children().eq(page+1).children().addClass("active");
 
-        children.css('display','none').slice(startAt, endOn).show();
-
-        if (page>=1) {
-            pager.find('.prev_link').show();
-        }
-        else {
-            pager.find('.prev_link').hide();
-        }
-
-        if (page<(numPages-1)) {
-            pager.find('.next_link').show();
-        }
-        else {
-            pager.find('.next_link').hide();
-        }
-
-        pager.data("curr",page);
-        pager.children().children().removeClass("active");
-        pager.children().eq(page+1).children().addClass("active");
-
-    }
+      }
   };
+
 
   $(document).ready(function(){
 
-  $('#data').pageMe({pagerSelector:'#myPager',showPrevNext:true,hidePageNumbers:false,perPage:4});
-  $('#human-table').pageMe({pagerSelector:'#human-table-pager',showPrevNext:true,hidePageNumbers:false,perPage:10});
+		var settings = {
+			pagerSelector:'#human-table-pager',
+			showPrevNext:true,
+			hidePageNumbers:false,
+			perPage:10
+		};
+    $('#human-table').pageMe(settings);
 
   });
-  /*
-  paginate(id){
-  $('#'+id).after('<div id="nav'+id+'"></div>');
-  var rowsShown = 4;
-  var rowsTotal = $('#'+id+' tbody tr').length;
-  var numPages = rowsTotal/rowsShown;
-  for(var i = 0;i < numPages;i++) {
-      var pageNum = i + 1;
-      $('#nav'+id).append('<a href="#" rel="'+i+'">'+pageNum+'</a> ');
-  }
-  $('#'+id+' tbody tr').hide();
-  $('#'+id+' tbody tr').slice(0, rowsShown).show();
-  $('#nav'+id+' a:first').addClass('active');
-  $('#nav'+id+' a').bind('click', function(){
-
-      $('#nav'+id+' a').removeClass('active');
-      $(this).addClass('active');
-      var currPage = $(this).attr('rel');
-      var startItem = currPage * rowsShown;
-      var endItem = startItem + rowsShown;
-      $('#'+id+' tbody tr').css('opacity','0.0').hide().slice(startItem, endItem).css('display','table-row').animate({opacity:1}, 300);
-  });
-  }*/
-  function sortTable(id, index) {
-    var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+  function sortTable(id, sortColumnIndex, perPage) {
+    var table, rows, sorting, i, x, y, shouldSwap, dir, switchcount = 0;
     table = document.getElementById(id);
-    //console.log(table);
-    switching = true;
+    sorting = true;
     dir = table.value;
-    //Set the sorting direction to ascending:
-    if(dir == null)
+    // Set the sorting direction to ascending:
+    if(table.value == null) {
       dir = "asc";
-    /*Make a loop that will continue until
-    no switching has been done:*/
+      sortAscending = true;
+    } else {
+      sortAscending = table.value == "asc";
+    }
+    // Counter in case infinite loop is encountered
+    rows = table.getElementsByTagName("tr");
     counter = 0;
-    while (switching && counter < 10000) {
+    counterMax = rows.length * 1000;
+    while (sorting && counter < 10000) {
       counter++;
-      //start by saying: no switching is done:
-      switching = false;
-      rows = table.getElementsByTagName("tr");
-      /*Loop through all table rows (except the
-      first, which contains table headers):*/
+      sorting = false;
       for (i = 0; i < (rows.length - 1); i++) {
-        //start by saying there should be no switching:
-        shouldSwitch = false;
-        /*Get the two elements you want to compare,
-        one from current row and one from the next:*/
-        x = rows[i].getElementsByTagName("TD")[index];
-        y = rows[i + 1].getElementsByTagName("TD")[index];
+        // start by saying there should be no switching:
+        shouldSwap = false;
+        // Get the text from the two elements you want to compare, one from current row and one from the next
+        x = rows[i].getElementsByTagName("TD")[sortColumnIndex].outerText.toLowerCase();
+        y = rows[i + 1].getElementsByTagName("TD")[sortColumnIndex].outerText.toLowerCase();
         rows[i].style.display = 'none';
-        /*check if the two rows should switch place,
-        based on the direction, asc or desc:*/
-        //console.log(x);
-        //console.log(y);
-        if (dir == "asc") {
-          if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
-            //if so, mark as a switch and break the loop:
-            shouldSwitch= true;
+        if(sortAscending) {
+          if (x > y) {
+            shouldSwap= true;
             break;
           }
-        } else if (dir == "desc") {
-          if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
-            //if so, mark as a switch and break the loop:
-            shouldSwitch= true;
-            break;
-          }
+        } else if(!sortAscending && x < y){
+          shouldSwap= true;
+          break;
         }
       }
-      if (shouldSwitch) {
-        /*If a switch has been marked, make the switch
-        and mark that a switch has been done:*/
+      // make the swap
+      if (shouldSwap) {
         rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
-        switching = true;
-        //Each time a switch is done, increase this count by 1:
+        sorting = true;
         switchcount ++;
-      } else {
-        /*If no switching has been done AND the direction is "asc",
-        set the direction to "desc" and run the while loop again.*/
-        if (switchcount == 0 && dir == "asc") {
-          dir = "desc";
-          switching = true;
-        }
       }
     }
-    for(i=0; i<10; i++){
-      rows[i].style.display = '';
+    // Display correct amount of items per page
+    var index = 0, displayCount = 0;
+    while(index < rows.length && displayCount < perPage){
+      if(rows[index].className != "hide"){
+        rows[index].style.display = '';
+        displayCount++;
+      }
+      index++;
     }
     paginator = document.getElementById(id+"-pager");
     links = paginator.getElementsByTagName("li");
-    for(i=0;i<links.length;i++){
-      //links[i].className = "paginater";
+    var pager = $('.pager');
+    pager.data("curr",0);
+    pager.find('.prev_link').hide();
+    pager.find('.next_link').show();
+    for(i=1;i<links.length-1;i++){
       links[i].firstChild.className = "page_link page-link";
     }
-    //paginator.getElementsByTagName("li")[1].className = "paginater active";
-    //console.log(paginator.getElementsByTagName("li"));
-    //console.log(paginator.getElementsByTagName("li")[1].firstChild);
-    //paginator.getElementsByTagName("li")[1].getElementsByTagName("a")[1].className = "page_link page-link active";
     paginator.getElementsByTagName("li")[1].firstChild.className = "page_link page-link active";
     if(counter == 10000)
       console.log("counter limit reached")
@@ -308,8 +296,8 @@ function getZombieType($status){
           <table class="stats-row stats-table">
             <thead>
               <tr class='table-hide-mobile add-line'>
-                <th onclick="sortTable('human-table', 0)">Username</th>
-                <th>Points</th>
+                <th onclick="sortTable('human-table', 0, 15)">Username</th>
+                <th onclick="sortTable('human-table', 1, 15)">Points</th>
                 <th>Starve Timer</th>
               </tr>
               <tr class='table-show-mobile'>
@@ -343,7 +331,28 @@ function getZombieType($status){
                   echo "<td>".$points."</td>"."\n";
                   echo "<td class='red'>".$formatTime."</td>"."\n";
                   echo "</tr>"."\n";
-                  /*
+                }
+              }
+            ?>
+          </tbody>
+          <tbody id="human-table-mobile">
+            <?php
+              if($displayStats){
+                $data=$weeklong->get_humans_from($name);
+                foreach($data as $human){
+                  $starve_date = new DateTime(date($human["starve_date"]));
+                  $current_time = new DateTime(date('Y-m-d H:i:s'));
+                  $end_time = new DateTime(date($weeklong->get_weeklong($name)["end_date"]));
+                  if($current_time > $end_time){
+                    $current_time = $end_time;
+                  }
+                  $time_left = $current_time->diff($starve_date);
+                  $hours = $time_left->format('%H')+($time_left->format('%a')*24);
+                  $formatTime = $hours.$time_left->format(':%I:%S');
+                  $points = $human["points"];
+                  if($points == null){
+                    $points = 0;
+                  }
                   echo "<tr class='table-show-mobile'>"."\n";
                   echo "<td colspan='2'>".$human["username"]."</td>"."\n";
                   echo "</tr>"."\n";
@@ -352,15 +361,16 @@ function getZombieType($status){
                   echo "<td>".$points."</td>"."\n";
                   echo "<td class='red'>".$formatTime."</td>"."\n";
                   echo "</tr>"."\n";
-                  */
                 }
               }
             ?>
           </tbody>
           </table>
-          <div class="col-md-12 text-center">
-            <ul class="pagination pagination-lg pager" id="human-table-pager"></ul>
-          </div>
+            <div class="outer-div">
+              <div class="inner-div">
+                <ul class="pagination pagination-lg pager" id="human-table-pager"></ul>
+              </div>
+            </div>
         </div>
 
         <div id="Zombies" class="tabcontent">
