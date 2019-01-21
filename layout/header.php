@@ -1,7 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-
   <!-- Basic Page Needs
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <meta charset="utf-8">
@@ -27,7 +23,7 @@
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <!--<link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet">-->
   <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">-->
-  <?php 
+  <?php
   //echo "<link rel='stylesheet' href='".$_SERVER['DOCUMENT_ROOT']."/css/normalize.css'>";
   //echo "<link rel='stylesheet' href='".$_SERVER['DOCUMENT_ROOT']."/css/skeleton.css'>";
   //echo "<link rel='stylesheet' href='".$_SERVER['DOCUMENT_ROOT']."/css/custom.css'>";
@@ -36,7 +32,7 @@
   ?>
   <link rel='stylesheet' href='/css/normalize.css'>
   <link rel='stylesheet' href='/css/skeleton.css'>
-  <link rel='stylesheet' href='/css/custom.css'>
+  <link rel='stylesheet' href='/css/custom_v1.3.css'>
 
   <!-- Favicon
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
@@ -45,7 +41,7 @@
   //<link rel="icon" type="image/png" href="images/favicon.png">
   //echo "<link rel='icon' type='image/png' href='".$_SERVER['DOCUMENT_ROOT']."/images/favicon.png'>";
   ?>
-  
+
   <!-- FB Meta Tags (Attempt by Philip) -->
   <meta property="og:site_name"		content="HVZ CU BOULDER" />
   <meta property="og:type"			content="website" />
@@ -68,10 +64,3 @@
   <script src="/js/jquery-3.1.1.min.js"></script>
   <script src="/js/checkbox.js"></script>
   <script src="/js/navbar_highlight.js"></script>
-
-</head>
-<body>
-
-
-
-

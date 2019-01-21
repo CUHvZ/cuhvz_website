@@ -1,23 +1,20 @@
-<?php 
-
+<!DOCTYPE html>
+<html lang="en">
+<?php
 require($_SERVER['DOCUMENT_ROOT'].'/includes/config.php');
-
-
-// include header template
-require('../layout/header.php');
-
-include $_SERVER['DOCUMENT_ROOT'].'/layout/navbar.php' ?>
+$title = 'CU HvZ | ';
+?>
+<head>
+	<?php require($_SERVER['DOCUMENT_ROOT'].'/layout/header.php'); ?>
+</head>
+<body>
+	<?php include $_SERVER['DOCUMENT_ROOT'].'/layout/navbar.php'; ?>
 
 <script>
 function getQueryVariable(variable)
 {
-       var query = window.location.search.substring(1);
-       var vars = query.split("&");
-       for (var i=0;i<vars.length;i++) {
-               var pair = vars[i].split("=");
-               if(pair[0] == variable){return pair[1];}
-       }
-       return(false);
+  var weeklongName = <?php echo "'".$_GET["name"]."'"?>;
+  return(weeklongName);
 }
 function formatData(data){
   // adds <br> tags where there are line breaks
@@ -42,9 +39,9 @@ function formatData(data){
   return formated;
 }
 
-function setContent(dataSource, divID) 
-{ 
-  var XMLHttpRequestObject = false; 
+function setContent(dataSource, divID)
+{
+  var XMLHttpRequestObject = false;
 
   if (window.XMLHttpRequest) {
     XMLHttpRequestObject = new XMLHttpRequest();
@@ -53,19 +50,19 @@ function setContent(dataSource, divID)
   }
 
   if(XMLHttpRequestObject) {
-    var obj = document.getElementById(divID); 
-    XMLHttpRequestObject.open("GET", dataSource); 
+    var obj = document.getElementById(divID);
+    XMLHttpRequestObject.open("GET", dataSource);
 
-    XMLHttpRequestObject.onreadystatechange = function() 
-    { 
-      if (XMLHttpRequestObject.readyState == 4 && XMLHttpRequestObject.status == 200) { 
+    XMLHttpRequestObject.onreadystatechange = function()
+    {
+      if (XMLHttpRequestObject.readyState == 4 && XMLHttpRequestObject.status == 200) {
         var data = XMLHttpRequestObject.responseText;
         obj.innerHTML = formatData(data);
-        
-      } 
-    } 
 
-    XMLHttpRequestObject.send(null); 
+      }
+    }
+
+    XMLHttpRequestObject.send(null);
   }
 }
 $(document).ready(function(){
@@ -75,19 +72,25 @@ $(document).ready(function(){
   //$(page).attr("class", "active");
 	if(!weeklong && active){
 		weeklong = <?php echo '"'.$_SESSION["weeklong"].'"';?>;
+    console.log(weeklong);
 	}
 	if(weeklong.length>1){
-		setContent(weeklong+"/details.txt","details"); 
-		setContent(weeklong+"/on_campus_1.txt","on_campus_1"); 
-		setContent(weeklong+"/on_campus_2.txt","on_campus_2"); 
-		setContent(weeklong+"/on_campus_3.txt","on_campus_3"); 
-		setContent(weeklong+"/on_campus_4.txt","on_campus_4"); 
-		setContent(weeklong+"/on_campus_5.txt","on_campus_5"); 
-		setContent(weeklong+"/off_campus_1.txt","off_campus_1"); 
-		setContent(weeklong+"/off_campus_2.txt","off_campus_2"); 
-		setContent(weeklong+"/off_campus_3.txt","off_campus_3"); 
-		setContent(weeklong+"/off_campus_4.txt","off_campus_4"); 
-		setContent(weeklong+"/off_campus_5.txt","off_campus_5"); 
+		setContent(weeklong+"/details.txt","details");
+		setContent(weeklong+"/on_campus_1.txt","on_campus_1");
+		setContent(weeklong+"/on_campus_2.txt","on_campus_2");
+		setContent(weeklong+"/on_campus_3.txt","on_campus_3");
+		setContent(weeklong+"/on_campus_4.txt","on_campus_4");
+		setContent(weeklong+"/on_campus_5.txt","on_campus_5");
+		setContent(weeklong+"/off_campus_1.txt","off_campus_1");
+		setContent(weeklong+"/off_campus_2.txt","off_campus_2");
+		setContent(weeklong+"/off_campus_3.txt","off_campus_3");
+		setContent(weeklong+"/off_campus_4.txt","off_campus_4");
+		setContent(weeklong+"/off_campus_5.txt","off_campus_5");
+		setContent(weeklong+"/monday.txt","monday");
+		setContent(weeklong+"/tuesday.txt","tuesday");
+		setContent(weeklong+"/wednesday.txt","wednesday");
+		setContent(weeklong+"/thursday.txt","thursday");
+		setContent(weeklong+"/friday.txt","friday");
 	}
 });
 </script>
@@ -105,7 +108,7 @@ $(document).ready(function(){
             $event = $weeklong->get_weeklong($_GET["name"]);
             echo "<h3 class='title-link' style='margin: 0;'><a href='/weeklong/info.php?name=".$event["name"]."'>".$event["title"]."</a></h3>";
             echo "<p>".$event["display_dates"].", ".substr($event["start_date"],0,4)." | ";
-            echo "<a href='/weeklong/stats.php?name=".$event["name"]."' >stats</a></p>"; 
+            echo "<a href='/weeklong/stats.php?name=".$event["name"]."' >stats</a></p>";
           }
           if($weeklong->is_active($event["id"])){ // Displays if event options
             echo "Wanna play in this event?";
@@ -120,7 +123,7 @@ $(document).ready(function(){
                   echo "<a href='/login.php?join=".$event["title"]."&eventId=".$event["name"]."' >Join Now!</a></td>";
             }
             echo "</h3>";
-                
+
           }else{
             if($event["active"] == 0){
                 //echo "Event has ended</td>"."\n";
@@ -137,26 +140,31 @@ $(document).ready(function(){
         </div>
         <div class="white">
           <h3><strong>Monday</strong></h3>
+          <p id="monday"></p>
           <h5>On Campus</h5><p id="on_campus_1"></p>
           <h5>Off Campus</h5><p id="off_campus_1"></p>
-        </div>        
+        </div>
         <div class="white">
           <h3><strong>Tuesday</strong></h3>
+          <p id="tuesday"></p>
           <h5>On Campus</h5><p id="on_campus_2"></p>
           <h5>Off Campus</h5><p id="off_campus_2"></p>
         </div>
         <div class="white">
           <h3><strong>Wednesday</strong></h3>
+          <p id="wednesday"></p>
           <h5>On Campus</h5><p id="on_campus_3"></p>
           <h5>Off Campus</h5><p id="off_campus_3"></p>
         </div>
         <div class="white">
           <h3><strong>Thursday</strong></h3>
+          <p id="thursday"></p>
           <h5>On Campus</h5><p id="on_campus_4"></p>
           <h5>Off Campus</h5><p id="off_campus_4"></p>
         </div>
         <div class="white">
           <h3><strong>Friday</strong></h3>
+          <p id="friday"></p>
           <h5>On Campus</h5><p id="on_campus_5"></p>
           <h5>Off Campus</h5><p id="off_campus_5"></p>
         </div>
@@ -174,3 +182,6 @@ $(document).ready(function(){
 // include footer template
 require($_SERVER['DOCUMENT_ROOT'].'/layout/footer.php');
 ?>
+
+</body>
+</html>

@@ -2,9 +2,9 @@
 require('includes/config.php');
 
 //collect values from the url
-$memberID = trim($_GET['x']);
-$active = trim($_GET['y']);
-
+$user_id = trim($_GET['x']);
+$active_token = trim($_GET['y']);
+//error_log("something", 0);
 //if id is number and the active token is not empty carry on
 if(is_numeric($user_id) && !empty($active_token)){
 
@@ -23,8 +23,8 @@ if(is_numeric($user_id) && !empty($active_token)){
 		exit;
 
 	} else {
-		echo "Your account could not be activated. Please contact the mod team."; 
+		echo "Your account could not be activated. Please contact the mod team.";
 	}
-	
+
 }
 ?>

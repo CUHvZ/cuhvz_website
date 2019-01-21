@@ -1,26 +1,38 @@
-<?php 
+<!DOCTYPE html>
+<html lang="en">
+<?php
+require('includes/config.php');
+$title = 'CU HvZ | Profile';
+?>
+<head>
+	<?php require('layout/header.php'); ?>
+</head>
+<body>
+	<?php include 'layout/navbar.php'; ?>
 
-require('includes/config.php'); 
 
+<?php
 //if not logged in redirect to login page
-if(!$user->is_logged_in()){ header('Location: login.php'); } 
-
-//define page title
-$title = 'HVZ CU Profile';
-
-//include header template
-require('layout/header.php');
-
-//include navigation
-require "layout/navbar.php";
+if(!$user->is_logged_in()){ header('Location: login.php'); }
 ?>
 
 
 <!-- BEGIN DOCUMENT -->
 
-<!-- HVZ HEADLINE SECTION 
+<!-- HVZ HEADLINE SECTION
 ___________________________________________-->
 <?php
+//echo '<p class="bg-danger">'.$error.'</p>';
+if(!$user->is_activated() && $_SESSION["username"] == "Tester"){
+    if(isset($_GET['action']) && $_GET['action']=="resend"){
+      $mail = $user->make_activation_email();
+      $mail->send();
+      echo "<p class='bg-success' style='margin: 0;'> &#10003; Activation email sent.</p>";
+    } else {
+      echo "<p class='bg-danger' style='margin: 0;'> &#10003; Your account is not activated yet.
+      <a href='profile.php?action=resend' class='resend'>Resend activation email.</a></p>";
+    }
+}
 if(isset($_GET['join']) && isset($_GET['eventId'])){
   $eventName = $_GET['join'];
   if($user->join_event($_GET['eventId'])){
@@ -48,7 +60,7 @@ if(isset($_GET['kys'])){
 
  <div class="container">
   <div class="row">
-    
+
     <div class="two columns">
       <img src="images/skull.png" class="u-max-full-width">
     </div>
@@ -74,8 +86,8 @@ if(isset($_GET['kys'])){
       <!-- <span class="deeporange">&#10006; &#10006; &#10006;</span> -->
       </p>
 
-    </div> 
-  
+    </div>
+
   </div> <!-- end row -->
   <?php
   require('playerinfo.php');
@@ -91,13 +103,13 @@ if(isset($_GET['kys'])){
         echo "document.getElementById('kys_button').parentNode.style.display = 'none';\n";
       }
       echo "</script>\n";
-      
+
     }
   }
   ?>
   </div> <!-- end container -->
 
-</section> 
+</section>
 
 <!-- END HVZ HEADLINE SECTION -->
 
@@ -115,13 +127,16 @@ ___________________________________________-->
 
 if($weeklong->active_event()){
   if($user->is_in_event($_SESSION["weeklong"])){
-    require('weeklong/clock.php');  
+    require('weeklong/clock.php');
   }
 }
 ?>
 
 
-<?php 
+<?php
 //include header template
-require('layout/footer.php'); 
+require('layout/footer.php');
 ?>
+
+</body>
+</html>

@@ -1,12 +1,46 @@
-<?php 
-
+<!DOCTYPE html>
+<html lang="en">
+<?php
 require($_SERVER['DOCUMENT_ROOT'].'/includes/config.php');
+$title = 'CU HvZ | ';
+?>
+<head>
+	<?php require($_SERVER['DOCUMENT_ROOT'].'/layout/header.php'); ?>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="/js/paginate.js"></script>
+	<script src="/js/sort.js"></script>
+  <script>
 
 
-// include header template
-require('../layout/header.php');
+  $(document).ready(function(){
 
-include $_SERVER['DOCUMENT_ROOT'].'/layout/navbar.php';
+		var settings = {
+			pagerSelector:'#human-table-pager',
+			showPrevNext:true,
+			hidePageNumbers:false,
+			perPage:15
+		};
+  	$('#human-table').pageMe(settings);
+		settings["pagerSelector"] = '#human-table-mobile-pager';
+  	$('#human-table-mobile').pageMe(settings);
+		settings["pagerSelector"] = '#zombie-table-pager';
+  	$('#zombie-table').pageMe(settings);
+		settings["pagerSelector"] = '#zombie-table-mobile-pager';
+  	$('#zombie-table-mobile').pageMe(settings);
+		settings["pagerSelector"] = '#deceased-table-pager';
+  	$('#deceased-table').pageMe(settings);
+		settings["pagerSelector"] = '#deceased-table-mobile-pager';
+  	$('#deceased-table-mobile').pageMe(settings);
+
+  });
+  </script>
+
+</head>
+<body>
+	<?php include $_SERVER['DOCUMENT_ROOT'].'/layout/navbar.php'; ?>
+
+
+<?php
 
 function getZombieType($status){
   if($status == "zombie"){
@@ -26,15 +60,15 @@ function getZombieType($status){
   <div class="player_container">
 
     <div class="content lightslide-list" style="overflow: auto;">
-      <div class="subheadline orange" style="margin: 0; text-align: center; font-size: 50px;">Player Statistics</div>
-      <div class="statistics">
+      <div class="stats-header orange">Player Statistics</div>
+      <div><!-- class="statistics"-->
         <?php
           $displayStats = false;
           if(isset($_GET["name"])){
             $name = $_GET["name"];
             if($weeklong->get_weeklong($name)){
               $displayStats = true;
-              echo "<p class='subheadline' style='margin: 0; text-align: center; color: white; font-size: 20px;'>";
+              echo "<p class='status-header'>";
               echo "Humans: ".sizeof($weeklong->get_humans_from($name));
               echo " &emsp; Zombies: ".sizeof($weeklong->get_zombies_from($name));
               echo " &emsp; Deceased: ".sizeof($weeklong->get_deceased_from($name));
@@ -42,72 +76,82 @@ function getZombieType($status){
             }
           }
         ?>
-        <div class='human-container'>
-          <div class='subheader white center'><h3><strong>Humans</strong></h3></div>
-          <div class='subheader orange'>
-            <div class='center'>Username</div>
-          </div>
-          <?php
-            if($displayStats){
-              $data=$weeklong->get_humans_from($name);
-              foreach($data as $human){
-                echo "<div class='subheader white'>";
-                echo "<div class='human'>".$human["username"]."</div>";
-                echo "</div>";
-              }
-            }
-          ?>
+        <div style="margin: auto; text-align: center;">
+          <span class="tab">
+            <button class="tablink active" onclick="openTab(event, 'Humans')">Humans</button>
+            <button class="tablink" onclick="openTab(event, 'Zombies')">Zombies</button>
+          </span>
+          <span class="tab">
+            <button class="tablink" onclick="openTab(event, 'Deceased')">Deceased</button>
+            <button class="tablink" onclick="openTab(event, 'Activity')">Activity</button>
+          </span>
         </div>
 
-
-        <div class='zombie-container'>
-          <div class='subheader white center'><h3><strong>Zombies</strong></h3></div>
-          <div class='subheader orange'>
-            <div class='username'>Username</div>
-            <div class='zombie-type'>Type</div>
-            <div class='zombie-kills'>Kills</div>
-            <div class='zombie-date'>Until Death</div>
-          </div>
-          <?php
-            if($displayStats){
-              $data=$weeklong->get_zombies_from($name); 
-              foreach($data as $zombie){
-                echo "<div class='subheader white'>";
-                echo "<div class='username'>".$zombie["username"]."</div>";
-                echo "<div class='zombie-type'>".getZombieType($zombie["status"])."</div>";
-                echo "<div class='zombie-kills'>".($zombie["kill_count"]+0)."</div>";
-                $starve_date = new DateTime(date($zombie["starve_date"]));
-                $current_time = new DateTime(date('Y-m-d H:i:s'));
-                $time_left = $current_time->diff($starve_date);
-                $hours = $time_left->format('%H')+($time_left->format('%a')*24);
-                echo "<div class='zombie-date red'>".$hours.$time_left->format(':%I:%S')."</div>";
-                echo "</div>";
-              }
-            }
-          ?>
+        <div id="Humans" class="tabcontent" style="display: block;">
+          <h3 class="row-header">Humans</h3>
+            <?php
+              include $_SERVER['DOCUMENT_ROOT']."/components/human-table.php";
+            ?>
         </div>
 
-        <div class='dead-container'>
-          <div class='subheader white center'><h3><strong>Deceased</strong></h3></div>
-          <div class='subheader orange'>
-            <div class='username'>Username</div>
-            <div class='kills'>Kills</div>
-            <div class='date'>Time of Death</div>
-          </div>
-          <?php
-            if($displayStats){
-              $data=$weeklong->get_deceased_from($name);
-              foreach($data as $dead){
-                  echo "<div class='subheader white'>";
-                  echo "<div class='username'>".$dead["username"]."</div>";
-                  echo "<div class='kills'>".($dead["kill_count"]+0)."</div>";
-                  $starve_date = new DateTime(date($dead["starve_date"]));
-                  echo "<div class='date red'>".$starve_date->format('H:i m-d-Y')."</div>";
-                  echo "</div>";
-              }
-            }
-          ?>
+        <div id="Zombies" class="tabcontent">
+          <h3 class="row-header">Zombies</h3>
+					<?php
+						include $_SERVER['DOCUMENT_ROOT']."/components/zombie-table.php";
+					?>
         </div>
+
+        <div id="Deceased" class="tabcontent">
+          <h3 class="row-header">Deceased</h3>
+					<?php
+						include $_SERVER['DOCUMENT_ROOT']."/components/deceased-table.php";
+					?>
+        </div>
+
+        <div id="Activity" class="tabcontent">
+          <h3 class="row-header">Activity</h3>
+          <table class="stats-row stats-table">
+            <tr class='table-hide-mobile'>
+              <th></th>
+              <th>Activity</th>
+              <th></th>
+              <th>Time</th>
+            </tr>
+            <tr class='table-show-mobile'>
+              <th>Activity</th>
+            </tr>
+            <tr class='table-show-mobile add-line'>
+              <th>Time</th>
+            </tr>
+            <?php
+              $data=$weeklong->get_activity($name);
+              if($data == null){
+                $filename = $_SERVER['DOCUMENT_ROOT']."/weeklong/".$name."/stats.csv";
+                include_once($_SERVER['DOCUMENT_ROOT']."/scripts/readcsvfile.php");
+              }
+              foreach($data as $activity){
+                $user_1 = $user->get_user_username($activity["user_1"]);
+                $action = $activity["action"];
+                $user_2 = $user->get_user_username($activity["user_2"]);
+                $time = $activity["time"];
+                echo "<tr class='table-hide-mobile add-line'>";
+	                echo "<td>".$user_1."</td>";
+	                echo "<td>".$action."</td>";
+	                echo "<td>".$user_2."</td>";
+	                echo "<td>".$time."</td>";
+                echo "</tr>";
+
+                echo "<tr class='table-show-mobile'><td>".$user_1."</td></tr>";
+                echo "<tr class='table-show-mobile'><td>".$action."</td></tr>";
+                if($user_2 != null)
+                  echo "<tr class='table-show-mobile'><td>".$user_2."</td></tr>";
+                echo "<tr class='table-show-mobile add-line'><td>".$time."</td></tr>";
+              }
+            ?>
+          </table>
+        </div>
+
+        <script src="/js/tabs.js"></script>
 
       </div>
     </div>
@@ -119,13 +163,18 @@ function getZombieType($status){
 <!-- End Document
 –––––––––––––––––––––––––––––––––––––––––––––––––– -->
 
-<script src="/js/sort.js"></script>
+<!--<script src="/js/sort.js"></script>-->
 <?php
 // insert clock
 if($weeklong->active_event()){
-  require('clock.php');  
+  require('clock.php');
 }
 
 // include footer template
 require($_SERVER['DOCUMENT_ROOT'].'/layout/footer.php');
 ?>
+
+
+
+</body>
+</html>

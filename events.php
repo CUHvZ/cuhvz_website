@@ -1,12 +1,22 @@
-<?php require('includes/config.php');
-
-// define page title
+<!DOCTYPE html>
+<html lang="en">
+<?php
+require('includes/config.php');
 $title = 'CU HvZ | Events';
+?>
+<head>
+	<?php require('layout/header.php'); ?>
+</head>
+<body>
+	<?php include 'layout/navbar.php'; ?>
 
-// include header template
-require('layout/header.php');
 
-include 'layout/navbar.php' ?>
+<?php
+
+// TODO make this not hard coded
+$lockin_events = array("fall18", "spring18");
+
+?>
 
 
 
@@ -16,13 +26,17 @@ include 'layout/navbar.php' ?>
 
   <div class="row">
 
-	<!-- SIGNUP BOX -->
       <div class="content lightslide-box">
+            <!-- Upcoming
+            <h1 class='white' ><strong>Upcoming Event</strong></h1>
+            <div class='white'>
+            </div> -->
+            <!-- Weeklongs -->
             <h1 class='white' ><strong>Week Longs</strong></h1>
             <?php
                   foreach ($weeklong->get_weeklongs() as $event) {
                         echo "<div class='white'>";
-                        echo "<h3 class='title-link' style='margin: 0;'><a href='weeklong/info.php?name=".$event["name"]."'>".$event["title"]."</a></h3>";
+                        echo "<h4 class='title-link' style='margin: 0;'><a href='weeklong/info.php?name=".$event["name"]."'>".$event["title"]."</a></h3>";
                         if($weeklong->is_active($event["id"])){ // Displays if event options
                               //echo "<h3 style='margin: 0;'>";
                               if($user->is_logged_in()){
@@ -47,16 +61,19 @@ include 'layout/navbar.php' ?>
                         }
                         echo "<p>".$event["display_dates"].", ".substr($event["start_date"],0,4)." | ";
                         echo "<a href='weeklong/info.php?name=".$event["name"]."' >mission details</a> | ";
-                        echo "<a href='weeklong/stats.php?name=".$event["name"]."' >stats</a></p>"; 
-                        echo "<p>".$weeklong->get_details($event["name"])."</p>";
+                        echo "<a href='weeklong/stats.php?name=".$event["name"]."' >stats</a></p>";
                         echo "</div>";
                   }
             ?>
+            <!-- Lockins -->
             <h1 class='white' ><strong>Lock-Ins</strong></h1>
-            <div class='white'>
-                  <h3 class='title-link' style='margin: 0;'><a href='/lockin/info.php'>Close Encounters of the Undead Kind</a></h3>
-                  <p>March 23, 10pm - 2am</p>
-            </div>
+            <?php
+                  foreach ($lockin_events as $eventName) {
+                        echo "<div class='white'>";
+                        include $_SERVER['DOCUMENT_ROOT'].'/lockin/details/'.$eventName.'/title.php';
+                        echo "</div>";
+                  }
+            ?>
       </div>
   </div> <!-- end row -->
 
@@ -70,3 +87,5 @@ include 'layout/navbar.php' ?>
 // include footer template
 require('layout/footer.php');
 ?>
+</body>
+</html>

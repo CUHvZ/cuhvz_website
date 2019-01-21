@@ -9,3 +9,6 @@ $ php -S localhost:8000
 
 To run php scripts on the command line use
 $ php -f <file.php>
+
+Connect to cPanel terminal
+$ ssh cuhvmiwg@server122.web-hosting.com -p21098

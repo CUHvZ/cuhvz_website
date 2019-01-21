@@ -1,16 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
 <?php
-//include config
-require_once('includes/config.php');
+require('includes/config.php');
+$title = 'CU HvZ | login';
+?>
+<head>
+	<?php require('layout/header.php'); ?>
+</head>
+<body>
+	<?php include 'layout/navbar.php'; ?>
+
+<?php
 
 // check if already logged in move to home page
-if( $user->is_logged_in() ){ header('Location: profile.php'); } 
+if( $user->is_logged_in() ){ header('Location: profile.php'); }
 
 // process login form if submitted
 if(isset($_POST['submit'])){
 
 	$username = $_POST['username'];
 	$password = $_POST['password'];
-	
+
 	if($user->login($username,$password)){
 		if(isset($_GET['join']) && isset($_GET['eventId'])){
 			header('Location: profile.php?join='.$_GET['join']."&eventId=".$_GET['eventId']);
@@ -19,18 +29,12 @@ if(isset($_POST['submit'])){
 			header('Location: profile.php');
 		}
 		exit;
-	
+
 	} else {
 		$error[] = 'Wrong username/email password combination or your account has not been activated.';
 	}
 
-}// end if submit
-
-// define page title
-$title = 'HVZ CU BOULDER';
-
-// include header template
-require('layout/header.php'); 
+}
 ?>
 
 <!-- Begin Document
@@ -45,14 +49,14 @@ require('layout/header.php');
 
 </nav>
 -->
-<!-- HVZ HEADLINE SECTION 
+<!-- HVZ HEADLINE SECTION
 ___________________________________________-->
 <!--
 <section class="lightslide contentwithnav">
 
  <div class="container">
   <div class="row">
-    
+
     <div class="two columns">
       <img src="images/skull.png" class="u-max-full-width">
     </div>
@@ -67,20 +71,19 @@ ___________________________________________-->
         Humans <span class="white">versus</span> Zombies
       </h1>
 
-    </div> 
-  
-  </div> 
+    </div>
 
-  </div> 
+  </div>
 
-</section> 
+  </div>
+
+</section>
 -->
 <!-- END HVZ HEADLINE SECTION -->
-<?php include 'layout/navbar.php'; ?>
 
 <div class="lightslide contentwithnav" id="login">
 
-<div class="container">	 
+<div class="container">
 	 <div class="login lightslide-box" align="center">
       <h4 class="white">Please login.</h4>
       <!--<p>Registration for the Spring 2017 Weeklong Game has closed. Missed it? <a href="subscribe.php">Subscribe</a> for future game updates.<br></p>-->
@@ -114,7 +117,7 @@ ___________________________________________-->
 
 				}
 
-				
+
 				?>
 
 				<div class="form-group">
@@ -126,7 +129,7 @@ ___________________________________________-->
 					<label>Password</label>
 					<input type="password" name="password" id="password" class="form-control input-lg u-full-width" placeholder="Password" tabindex="3">
 				</div>
-				
+
 				<div class="row">
 					<div style="float: left;">
 						<input type="submit" name="submit" value="Login" class="btn btn-primary btn-block btn-lg button-primary" tabindex="5">
@@ -134,7 +137,7 @@ ___________________________________________-->
 				</div>
 
 				<div class="row">
-					<a href='retrieveUsername.php'>Forgot Username?</a> | 
+					<a href='retrieveUsername.php'>Forgot Username?</a> |
 					<a href='reset.php'>Forgot Password?</a>
 				</div>
 
@@ -151,6 +154,9 @@ ___________________________________________-->
 <!-- End Document
 –––––––––––––––––––––––––––––––––––––––––––––––––– -->
 
-<?php 
-require('layout/footer.php'); 
+<?php
+require('layout/footer.php');
 ?>
+
+</body>
+</html>

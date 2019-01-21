@@ -1,20 +1,23 @@
-<?php 
+<!DOCTYPE html>
+<html lang="en">
+<?php
 require('includes/config.php');
+$title = 'CU HvZ | KYS';
+?>
+<head>
+	<?php require('layout/header.php'); ?>
+</head>
+<body>
+	<?php include 'layout/navbar.php'; ?>
+<?php
 
 // if not logged in redirect to login page
-if(!$user->is_logged_in()){ 
-  header('Location: login.php'); 
-} 
-if(!$weeklong->active_event() || !$user->is_in_event($_SESSION["weeklong"]) || $user->get_game_stats()["status"] != "human"){
-  header('Location: profile.php'); 
+if(!$user->is_logged_in()){
+  header('Location: login.php');
 }
-
-$title = 'HVZ CU Log KYS';
-
-// include header template
-require('layout/header.php');
-
-require "layout/navbar.php";
+if(!$weeklong->active_event() || !$user->is_in_event($_SESSION["weeklong"]) || $user->get_game_stats()["status"] != "human"){
+  header('Location: profile.php');
+}
 ?>
 
 <!-- BEGIN DOCUMENT -->
@@ -83,13 +86,15 @@ if(isset($_POST["submit"])){
 
 if($weeklong->active_event()){
   if($user->is_in_event($_SESSION["weeklong"])){
-    require('weeklong/clock.php');  
+    require('weeklong/clock.php');
   }
 }
 ?>
 
 
-<?php 
+<?php
 //include header template
-require('layout/footer.php'); 
+require('layout/footer.php');
 ?>
+</body>
+</html>
