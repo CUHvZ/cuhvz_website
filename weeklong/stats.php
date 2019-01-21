@@ -6,155 +6,10 @@ $title = 'CU HvZ | ';
 ?>
 <head>
 	<?php require($_SERVER['DOCUMENT_ROOT'].'/layout/header.php'); ?>
-
-  <style>
-  .paginater{
-    display: inline;
-  }
-  .page-link{
-      text-decoration: none;
-      text-align: center;
-      margin: 5px;
-      padding: 10px;
-      display: inline-block;
-      color: white;
-  }
-
-  .page-link:hover{
-    background-color: rgba(234, 123, 0, 0.4);
-    transition: 0.3s;
-  }
-  .active {
-    background-color: rgb(234, 123, 0);
-  }
-  .page-link:visited, .page-link:link{
-    text-decoration: none;
-  }
-  .outer-div
-{
-  padding: 0 30px 0 30px;
-  text-align: center;
-}
-.inner-div
-{
-  display: inline-block;
-  padding: 0 50px 0 50px;
-}
-  </style>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="/js/paginate.js"></script>
+	<script src="/js/sort.js"></script>
   <script>
-  $.fn.pageMe = function(opts){
-      var $this = this,
-          defaults = {
-              perPage: 4,
-              showPrevNext: false,
-              hidePageNumbers: false
-          },
-          settings = $.extend(defaults, opts);
-
-      var listElement = $this;
-      var perPage = settings.perPage;
-      var children = listElement.children().filter(function() {
-        if(this.className != 'hide')
-          return $(this);
-      });
-      var pager = $('.pager');
-
-      if (typeof settings.childSelector!="undefined") {
-          children = listElement.find(settings.childSelector).filter(function() {
-            if(this.className != 'hide')
-              return $(this);
-          });
-      }
-
-      if (typeof settings.pagerSelector!="undefined") {
-          pager = $(settings.pagerSelector);
-      }
-
-      var numItems = children.length;
-      var numPages = Math.ceil(numItems/perPage);
-
-      pager.data("curr",0);
-
-      if (settings.showPrevNext){
-          $('<li class="paginater"><a href="#" class="prev_link page-link">«</a></li>').appendTo(pager);
-      }
-
-      var curr = 0;
-      while(numPages > curr && (settings.hidePageNumbers==false)){
-          $('<li class="paginater"><a href="#" class="page_link page-link">'+(curr+1)+'</a></li>').appendTo(pager);
-          curr++;
-      }
-
-      if (settings.showPrevNext){
-          $('<li class="paginater"><a href="#" class="next_link page-link">»</a></li>').appendTo(pager);
-      }
-
-      //pager.find('.page_link:first').addClass('active');
-      pager.find('.prev_link').hide();
-      if (numPages<=1) {
-          pager.find('.next_link').hide();
-      }
-      //console.log(pager.children().eq(1));
-      //console.log(pager.children().eq(1).children());
-    	//pager.children().eq(1).addClass("active");
-      pager.children().eq(1).children().addClass("active");
-      children.hide();
-      children.slice(0, perPage).show();
-
-      pager.find('li .page_link').click(function(){
-          var clickedPage = $(this).html().valueOf()-1;
-          goTo(clickedPage,perPage);
-          return false;
-      });
-      pager.find('li .prev_link').click(function(){
-          previous();
-          return false;
-      });
-      pager.find('li .next_link').click(function(){
-          next();
-          return false;
-      });
-
-      function previous(){
-          var goToPage = parseInt(pager.data("curr")) - 1;
-          goTo(goToPage);
-      }
-
-      function next(){
-          goToPage = parseInt(pager.data("curr")) + 1;
-          goTo(goToPage);
-      }
-
-      function goTo(page){
-          var startAt = page * perPage;
-          var endOn = startAt + perPage;
-          children = listElement.children().filter(function() {
-            if(this.className != 'hide')
-              return $(this);
-          });
-					console.log("page = "+page+" of "+numPages);
-          children.css('display','none').slice(startAt, endOn).show();
-          if (page>=1) {
-						console.log(pager.find('.prev_link'));
-              pager.find('.prev_link').show();
-          }
-          else {
-              pager.find('.prev_link').hide();
-          }
-          if (page<(numPages-1)) {
-              pager.find('.next_link').show();
-          }
-          else {
-              pager.find('.next_link').hide();
-          }
-
-          pager.data("curr",page);
-        	pager.children().children().removeClass("active");
-          pager.children().eq(page+1).children().addClass("active");
-
-      }
-  };
 
 
   $(document).ready(function(){
@@ -163,80 +18,13 @@ $title = 'CU HvZ | ';
 			pagerSelector:'#human-table-pager',
 			showPrevNext:true,
 			hidePageNumbers:false,
-			perPage:10
+			perPage:15
 		};
-    $('#human-table').pageMe(settings);
+  	$('#human-table').pageMe(settings);
+		settings["pagerSelector"] = '#human-table-mobile-pager';
+  	$('#human-table-mobile').pageMe(settings);
 
   });
-  function sortTable(id, sortColumnIndex, perPage) {
-    var table, rows, sorting, i, x, y, shouldSwap, dir, switchcount = 0;
-    table = document.getElementById(id);
-    sorting = true;
-    dir = table.value;
-    // Set the sorting direction to ascending:
-    if(table.value == null) {
-      dir = "asc";
-      sortAscending = true;
-    } else {
-      sortAscending = table.value == "asc";
-    }
-    // Counter in case infinite loop is encountered
-    rows = table.getElementsByTagName("tr");
-    counter = 0;
-    counterMax = rows.length * 1000;
-    while (sorting && counter < 10000) {
-      counter++;
-      sorting = false;
-      for (i = 0; i < (rows.length - 1); i++) {
-        // start by saying there should be no switching:
-        shouldSwap = false;
-        // Get the text from the two elements you want to compare, one from current row and one from the next
-        x = rows[i].getElementsByTagName("TD")[sortColumnIndex].outerText.toLowerCase();
-        y = rows[i + 1].getElementsByTagName("TD")[sortColumnIndex].outerText.toLowerCase();
-        rows[i].style.display = 'none';
-        if(sortAscending) {
-          if (x > y) {
-            shouldSwap= true;
-            break;
-          }
-        } else if(!sortAscending && x < y){
-          shouldSwap= true;
-          break;
-        }
-      }
-      // make the swap
-      if (shouldSwap) {
-        rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
-        sorting = true;
-        switchcount ++;
-      }
-    }
-    // Display correct amount of items per page
-    var index = 0, displayCount = 0;
-    while(index < rows.length && displayCount < perPage){
-      if(rows[index].className != "hide"){
-        rows[index].style.display = '';
-        displayCount++;
-      }
-      index++;
-    }
-    paginator = document.getElementById(id+"-pager");
-    links = paginator.getElementsByTagName("li");
-    var pager = $('.pager');
-    pager.data("curr",0);
-    pager.find('.prev_link').hide();
-    pager.find('.next_link').show();
-    for(i=1;i<links.length-1;i++){
-      links[i].firstChild.className = "page_link page-link";
-    }
-    paginator.getElementsByTagName("li")[1].firstChild.className = "page_link page-link active";
-    if(counter == 10000)
-      console.log("counter limit reached")
-    if(dir == "asc")
-      table.value = "desc";
-    else if(dir == "desc")
-      table.value = "asc";
-  }
   </script>
 
 </head>
@@ -296,19 +84,12 @@ function getZombieType($status){
           <table class="stats-row stats-table">
             <thead>
               <tr class='table-hide-mobile add-line'>
-                <th onclick="sortTable('human-table', 0, 15)">Username</th>
-                <th onclick="sortTable('human-table', 1, 15)">Points</th>
-                <th>Starve Timer</th>
-              </tr>
-              <tr class='table-show-mobile'>
-                <th colspan="2">Username</th>
-              </tr>
-              <tr class="add-line table-show-mobile">
-                <th>Points</th>
-                <th>Starve Timer</th>
+                <th onclick="sortTable('human-table', 'username', 15)">Username</th>
+                <th onclick="sortTable('human-table', 'points', 15)">Points</th>
+                <th onclick="sortTable('human-table', 'starve', 15)">Starve Timer</th>
               </tr>
             </thead>
-            <tbody id="human-table">
+            <tbody id="human-table" class="hide-mobile">
             <?php
               if($displayStats){
                 $data=$weeklong->get_humans_from($name);
@@ -321,21 +102,36 @@ function getZombieType($status){
                   }
                   $time_left = $current_time->diff($starve_date);
                   $hours = $time_left->format('%H')+($time_left->format('%a')*24);
-                  $formatTime = $hours.$time_left->format(':%I:%S');
+                  $formatTime = $hours.$time_left->format(':%I');
                   $points = $human["points"];
                   if($points == null){
                     $points = 0;
                   }
                   echo "<tr class='table-hide-mobile add-line'>"."\n";
-                  echo "<td>".$human["username"]."</td>"."\n";
-                  echo "<td>".$points."</td>"."\n";
-                  echo "<td class='red'>".$formatTime."</td>"."\n";
+                  echo "<td id='username'>".$human["username"]."</td>"."\n";
+                  echo "<td id='points'>".$points."</td>"."\n";
+                  echo "<td class='red' id='starve'>".$formatTime."</td>"."\n";
                   echo "</tr>"."\n";
                 }
               }
             ?>
           </tbody>
-          <tbody id="human-table-mobile">
+						<thead>
+							<tr class='table-show-mobile add-line'>
+								<th>
+									<div class="mobile-table-line-1" onclick="sortTable('human-table-mobile', 'username', 15)">Username</div>
+									<div>
+										<div class="mobile-table-line-2" onclick="sortTable('human-table-mobile', 'points', 15)">
+											Points
+										</div>
+										<div class="mobile-table-line-2" onclick="sortTable('human-table-mobile', 'starve', 15)">
+											Starve Timer
+										</div>
+									</div>
+								</th>
+							</tr>
+						</thead>
+          <tbody id="human-table-mobile" class="show-mobile">
             <?php
               if($displayStats){
                 $data=$weeklong->get_humans_from($name);
@@ -353,14 +149,14 @@ function getZombieType($status){
                   if($points == null){
                     $points = 0;
                   }
-                  echo "<tr class='table-show-mobile'>"."\n";
-                  echo "<td colspan='2'>".$human["username"]."</td>"."\n";
-                  echo "</tr>"."\n";
 
-                  echo "<tr class='table-show-mobile add-line'>"."\n";
-                  echo "<td>".$points."</td>"."\n";
-                  echo "<td class='red'>".$formatTime."</td>"."\n";
-                  echo "</tr>"."\n";
+									echo "<tr class='add-line table-show-mobile'><td>";
+											echo "<div class='mobile-table-line-1' id='username'>".$human["username"]."</div>";
+											echo "<div>";
+												echo "<div class='mobile-table-line-2' id='points'>".$points."</div>";
+												echo "<div class='mobile-table-line-2 red' id='starve'>".$formatTime."</div>";
+											echo "</div>";
+									echo "</td></tr>";
                 }
               }
             ?>
@@ -368,8 +164,13 @@ function getZombieType($status){
           </table>
             <div class="outer-div">
               <div class="inner-div">
-                <ul class="pagination pagination-lg pager" id="human-table-pager"></ul>
+                <ul class="pagination pagination-lg pager hide-mobile" id="human-table-pager"></ul>
               </div>
+            </div>
+            <div class="outer-div">
+							<div class="inner-div">
+								<ul class="pagination pagination-lg pager show-mobile" id="human-table-mobile-pager"></ul>
+							</div>
             </div>
         </div>
 
