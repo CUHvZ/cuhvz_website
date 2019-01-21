@@ -1,17 +1,20 @@
-<?php require('includes/config.php');
-
-// define page title
+<!DOCTYPE html>
+<html lang="en">
+<?php
+require('includes/config.php');
 $title = 'CU HvZ | Rules';
+?>
+<head>
+	<?php require('layout/header.php'); ?>
+</head>
+<body>
+	<?php include 'layout/navbar.php'; ?>
 
-// include header template
-require('layout/header.php');
-
-include 'layout/navbar.php' ?>
 
 <div class="lightslide">
 	<div class="container">
 		<div class="row">
-		<div class="content lightslide-box white">   
+		<div class="content lightslide-box white">
 			<h2><strong>Week Long</strong></h2>
 			<p>
 				<h5>1. Don’t be a douchebag</h5>
@@ -64,4 +67,7 @@ include 'layout/navbar.php' ?>
 <?php
 // include footer template
 require('layout/footer.php');
-?> 
+?>
+
+</body>
+</html>

@@ -1,6 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
 <?php
-//include config
-require_once('includes/config.php');
+require('includes/config.php');
+$title = 'CU HvZ | login';
+?>
+<head>
+	<?php require('layout/header.php'); ?>
+</head>
+<body>
+	<?php include 'layout/navbar.php'; ?>
+
+<?php
 
 // check if already logged in move to home page
 if( $user->is_logged_in() ){ header('Location: profile.php'); }
@@ -24,13 +34,7 @@ if(isset($_POST['submit'])){
 		$error[] = 'Wrong username/email password combination or your account has not been activated.';
 	}
 
-}// end if submit
-
-// define page title
-$title = 'HVZ CU BOULDER';
-
-// include header template
-require('layout/header.php');
+}
 ?>
 
 <!-- Begin Document
@@ -76,7 +80,6 @@ ___________________________________________-->
 </section>
 -->
 <!-- END HVZ HEADLINE SECTION -->
-<?php include 'layout/navbar.php'; ?>
 
 <div class="lightslide contentwithnav" id="login">
 
@@ -154,3 +157,6 @@ ___________________________________________-->
 <?php
 require('layout/footer.php');
 ?>
+
+</body>
+</html>

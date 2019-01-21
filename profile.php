@@ -1,34 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
 <?php
-
 require('includes/config.php');
+$title = 'CU HvZ | Profile';
+?>
+<head>
+	<?php require('layout/header.php'); ?>
+</head>
+<body>
+	<?php include 'layout/navbar.php'; ?>
 
+
+<?php
 //if not logged in redirect to login page
 if(!$user->is_logged_in()){ header('Location: login.php'); }
-
-//define page title
-$title = 'HVZ CU Profile';
-
-//include header template
-require('layout/header.php');
-
-//include navigation
-require "layout/navbar.php";
-
-function resendEmail(){
-  // send email
-  $to = $_POST['email'];
-  $subject = "CU Boulder HvZ Registration Confirmation";
-  $body = "<p>Thank you for registering to play Humans vs Zombies at CU Boulder.</p>
-  <p>To activate your account, please click on this link: <a href='".DIR."activate.php?x=$id&y=$activasion'>".DIR."activate.php?x=$id&y=$activasion</a></p>
-  <p>- CU BOULDER HVZ TEAM</p>";
-
-  $mail = new Mail();
-  $mail->setFrom(SITEEMAIL);
-  $mail->addAddress($to);
-  $mail->subject($subject);
-  $mail->body($body);
-  $mail->send();
-}
 ?>
 
 
@@ -38,9 +23,10 @@ function resendEmail(){
 ___________________________________________-->
 <?php
 //echo '<p class="bg-danger">'.$error.'</p>';
-if(!$user->is_activated()){
+if(!$user->is_activated() && $_SESSION["username"] == "Tester"){
     if(isset($_GET['action']) && $_GET['action']=="resend"){
-      resendEmail();
+      $mail = $user->make_activation_email();
+      $mail->send();
       echo "<p class='bg-success' style='margin: 0;'> &#10003; Activation email sent.</p>";
     } else {
       echo "<p class='bg-danger' style='margin: 0;'> &#10003; Your account is not activated yet.
@@ -151,3 +137,6 @@ if($weeklong->active_event()){
 //include header template
 require('layout/footer.php');
 ?>
+
+</body>
+</html>

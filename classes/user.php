@@ -24,7 +24,7 @@ class User extends Password{
 		}
 	}
 
-	private function get_user_username($id){
+	public function get_user_username($id){
 		try {
 			$stmt = $this->_db->prepare('SELECT username FROM users WHERE id=:id;');
 			$stmt->execute(array('id' => $id));
@@ -161,6 +161,24 @@ class User extends Password{
 		    return false;
 		}
 	}
+
+  public function make_activation_email(){
+    $row = $this->get_user_hash($username);
+    $to = $row["email"];
+    $id = $row["id"];
+    $activasion = $row["activated"];
+    $subject = "CU Boulder HvZ Registration Confirmation";
+    $body = "<p>Thank you for registering to play Humans vs Zombies at CU Boulder.</p>
+    <p>To activate your account, please click on this link: <a href='".DIR."activate.php?x=$id&y=$activasion'>".DIR."activate.php?x=$id&y=$activasion</a></p>
+    <p>- CU BOULDER HVZ TEAM</p>";
+
+    $mail = new Mail();
+    $mail->setFrom(SITEEMAIL);
+    $mail->addAddress($to);
+    $mail->subject($subject);
+    $mail->body($body);
+    return $mail;
+  }
 }
 
 

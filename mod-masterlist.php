@@ -1,13 +1,18 @@
-<?php require('includes/config.php'); 
+<!--
+THIS PAGE IS NOT DONE
+-->
+
+
+<?php require('includes/config.php');
 
 //if not logged in redirect to login page
-if(!$user->is_logged_in()){ header('Location: login.php'); } 
+if(!$user->is_logged_in()){ header('Location: login.php'); }
 
 //define page title
 $title = 'HVZ CU BOULDER';
 
 //include header template
-require('layout/header.php'); 
+require('layout/header.php');
 
 ?>
 
@@ -62,7 +67,7 @@ Session 1 (2:00pm): <?php echo $Session1 ?><br>
 Session 2 (2:20pm): <?php echo $Session2 ?><br>
 Session 3 (2:40pm): <?php echo $Session3 ?><br>
 
- </div> 
+ </div>
  </div>
  </div>
  </section>
@@ -82,7 +87,7 @@ Session 3 (2:40pm): <?php echo $Session3 ?><br>
     $query = "SELECT username, UserHex, status, StarveDate FROM weeklongF17 WHERE status='vaccine' OR status='UsedVaccine' ORDER BY username";
 
   print "
-    
+
     <table id='table2'>
     <tr class='subheader orange'>
     <th>Username</th>
@@ -90,13 +95,13 @@ Session 3 (2:40pm): <?php echo $Session3 ?><br>
     <th>Status</th>
     <th class='starve'>Date Used</th>
     </tr>
-    
+
   ";
 
   $data = $db->query($query);
   $data->setFetchMode(PDO::FETCH_ASSOC);
   foreach($data as $row){
-   print " 
+   print "
       <tr>
    ";
    foreach ($row as $name=>$value){
@@ -128,7 +133,7 @@ Session 3 (2:40pm): <?php echo $Session3 ?><br>
     $query = "SELECT username, UserHex, status, KillCount, StarveDate FROM weeklongF17 WHERE status='human' OR status='zombie' OR status='deceased' ORDER BY StarveDate DESC";
 
   print "
-    
+
     <table id='table1'>
     <tr class='subheader orange'>
     <th onclick='sortTable(0)'>Username</th>
@@ -137,13 +142,13 @@ Session 3 (2:40pm): <?php echo $Session3 ?><br>
     <th onclick='sortTable(3)'>Kill Count</th>
     <th onclick='sortTable(4)' class='starve'>Starve Date</th>
     </tr>
-    
+
   ";
 
   $data = $db->query($query);
   $data->setFetchMode(PDO::FETCH_ASSOC);
   foreach($data as $row){
-   print " 
+   print "
       <tr>
    ";
    foreach ($row as $name=>$value){

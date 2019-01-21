@@ -1,7 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-
   <!-- Basic Page Needs
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <meta charset="utf-8">
@@ -36,7 +32,7 @@
   ?>
   <link rel='stylesheet' href='/css/normalize.css'>
   <link rel='stylesheet' href='/css/skeleton.css'>
-  <link rel='stylesheet' href='/css/custom.css?v=1.0'>
+  <link rel='stylesheet' href='/css/custom_v1.3.css'>
 
   <!-- Favicon
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
@@ -68,6 +64,3 @@
   <script src="/js/jquery-3.1.1.min.js"></script>
   <script src="/js/checkbox.js"></script>
   <script src="/js/navbar_highlight.js"></script>
-
-</head>
-<body>

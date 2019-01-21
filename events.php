@@ -1,12 +1,17 @@
-<?php require('includes/config.php');
-
-// define page title
+<!DOCTYPE html>
+<html lang="en">
+<?php
+require('includes/config.php');
 $title = 'CU HvZ | Events';
+?>
+<head>
+	<?php require('layout/header.php'); ?>
+</head>
+<body>
+	<?php include 'layout/navbar.php'; ?>
 
-// include header template
-require('layout/header.php');
 
-include 'layout/navbar.php';
+<?php
 
 // TODO make this not hard coded
 $lockin_events = array("fall18", "spring18");
@@ -82,3 +87,5 @@ $lockin_events = array("fall18", "spring18");
 // include footer template
 require('layout/footer.php');
 ?>
+</body>
+</html>

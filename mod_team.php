@@ -1,3 +1,7 @@
+<!--
+THIS PAGE IS NOT DONE
+-->
+
 <?php require('includes/config.php');
 
 // define page title
@@ -11,7 +15,7 @@ include 'layout/navbar.php' ?>
 <div class="lightslide">
 	<div class="container">
 		<div class="row">
-		<div class="content lightslide-box">   
+		<div class="content lightslide-box">
 			<h4 class="white">Undergoing construction</h4>
 			<p class="white">Check back later to see all of our beautiful mods!</p>
 		</div> <!-- end row -->
@@ -25,4 +29,4 @@ include 'layout/navbar.php' ?>
 <?php
 // include footer template
 require('layout/footer.php');
-?> 
+?>

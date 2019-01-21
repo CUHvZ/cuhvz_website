@@ -1,4 +1,4 @@
-<?php require('includes/config.php');
+<?php
 
 function isValid($str) {
     return !preg_match('/[^A-Za-z0-9.#\\-$]/', $str);
@@ -147,20 +147,23 @@ if(isset($_POST['submit'])){
 	}
 }
 
-
-// define page title
-$title = 'HVZ CU BOULDER';
-
-// include header template
-require('layout/header.php');
-
-include 'layout/navbar.php'
-
 ?>
 
 
 <!-- Begin Primary Document
 –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<!DOCTYPE html>
+<html lang="en">
+<?php
+require('includes/config.php');
+$title = 'CU HvZ | ';
+?>
+<head>
+	<?php require('layout/header.php'); ?>
+</head>
+<body>
+	<?php include 'layout/navbar.php'; ?>
+
 
 <div id="signup" class="lightslide">
 
@@ -259,3 +262,6 @@ include 'layout/navbar.php'
 // include footer template
 require('layout/footer.php');
 ?>
+
+</body>
+</html>

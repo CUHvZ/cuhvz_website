@@ -287,6 +287,17 @@ class Weeklong{
 	    }
 	}
 
+  public function get_activity($weeklong){
+		try{
+	        $stmt = $this->_db->prepare("SELECT * FROM ".$weeklong."_activity;");
+	        $stmt->execute();
+	        $data = $stmt->fetchAll();
+	        return $data;
+	    }catch(PDOException $e){
+	        return false;
+	    }
+	}
+
 	public function event_status(){
 		try{
     		$stmt = $this->_db->prepare("SELECT active FROM weeklongs WHERE name=:name;");

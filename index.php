@@ -1,14 +1,14 @@
-<?php require('includes/config.php');
-
-// define page title
-$title = 'HVZ CU BOULDER';
-
-// include header template
-require('layout/header.php');
-
-include 'layout/navbar.php'
-
+<!DOCTYPE html>
+<html lang="en">
+<?php
+require('includes/config.php');
+$title = 'CU Boulder HvZ';
 ?>
+<head>
+	<?php require('layout/header.php'); ?>
+</head>
+<body>
+	<?php include 'layout/navbar.php'; ?>
 
 <div id="signup" class="lightslide">
 
@@ -39,6 +39,41 @@ include 'layout/navbar.php'
 <br><br>
 
 </div>
+<script>
+
+$(document).ready(function() {
+  openFile("file.csv");
+});
+
+function openFile(fileName){
+  $.ajax({
+      type: "GET",
+      url: fileName,
+      dataType: "text",
+      success: function(data) {processData(data);}
+   });
+}
+
+function processData(allText) {
+  var allTextLines = allText.split(/\r\n|\n/);
+  var headers = allTextLines[0].split(',');
+  var lines = [];
+
+  for (var i=1; i<allTextLines.length; i++) {
+  		var data = allTextLines[i].split(',');
+  		if (data.length == headers.length) {
+
+  				var tarr = [];
+  				for (var j=0; j<headers.length; j++) {
+  						tarr[headers[j]] = data[j];
+  				}
+  				lines.push(tarr);
+  		}
+  }
+
+  console.log(lines);
+}
+</script>
 <!--<script src="js/slider.js"></script>-->
 
 <?php
@@ -53,3 +88,5 @@ if($weeklong->active_event()){
 // include footer template
 require('layout/footer.php');
 ?>
+</body>
+</html>

@@ -1,3 +1,7 @@
+<!--
+THIS PAGE IS NOT DONE
+-->
+
 <?php require('includes/config.php');
 
 // if form has been submitted process it
@@ -153,4 +157,3 @@ require('layout/header.php');
 // include footer template
 require('layout/footer.php');
 ?>
-
