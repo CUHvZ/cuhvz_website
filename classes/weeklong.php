@@ -65,7 +65,7 @@ class Weeklong{
 	// returns ordered array of week long events
 	public function get_weeklongs(){
 		try {
-			$stmt = $this->_db->prepare("SELECT * FROM weeklongs ORDER BY start_date DESC;");
+			$stmt = $this->_db->prepare("SELECT * FROM weeklongs WHERE display=1;");
 			$stmt->execute();
 			return $stmt->fetchAll();
 

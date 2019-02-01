@@ -63,7 +63,7 @@ $lockin_events = array("fall18", "spring18");
                         echo "<a href='weeklong/info.php?name=".$event["name"]."' >mission details</a> | ";
                         echo "<a href='weeklong/stats.php?name=".$event["name"]."' >stats</a></p>";
                         echo "</div>";
-                  }
+											}
             ?>
             <!-- Lockins -->
             <h1 class='white' ><strong>Lock-Ins</strong></h1>

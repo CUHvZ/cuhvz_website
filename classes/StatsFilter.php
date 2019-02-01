@@ -27,7 +27,6 @@ class StatsFilter {
     function filterOut($arrayToFilter, $type){
       if($type == "human"){
         return array_filter($arrayToFilter, function($var) {
-          error_log($var["status"], 0);
           return($var["status"] == "human");
         });
       } elseif($type == "zombie"){
