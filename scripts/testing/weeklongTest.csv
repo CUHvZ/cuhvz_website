@@ -2,14 +2,14 @@ memberID,username,status,user_hex,kill_count,starve_date,waiver,bandanna,points
 7,ghost,human,d8ca9,,"2017-11-16 15:00:00",,,0
 6,janderson,human,9563f,,"2017-11-16 15:00:00",,,0
 5,NerdyDruid,deceased,51a17,,"2017-11-03 15:59:00",,,0
-9,CaptainPixels,zombie,306b0,,"2017-11-16 15:00:00",,,0
+9,CaptainPixels,human,306b0,,"2017-11-16 15:00:00",,,0
 11,clayton,human,4fce6,,"2017-11-16 15:00:00",,,0
 12,Turncoat,human,d4c71,,"2017-11-16 15:00:00",,,0
 13,woodyb2,human,e970a,,"2017-11-16 15:00:00",,,0
 14,kspitz17,human,ad966,,"2017-11-16 15:00:00",,,0
 15,Conner312,human,4972f,,"2017-11-16 15:00:00",,,0
 16,Luci5,human,ae470,,"2017-11-16 15:00:00",,,0
-17,"Abhishek Kumar",zombie,4d69c,,"2017-11-16 15:00:00",,,0
+17,"Abhishek Kumar",human,4d69c,,"2017-11-16 15:00:00",,,0
 18,lakeeffectqueer,deceased,0452d,1,"2017-11-05 11:04:00",,,0
 19,soap_is_dope,human,c9253,,"2017-11-16 15:00:00",,,0
 20,nickyp4real,human,8de22,,"2017-11-16 15:00:00",,,0
@@ -110,7 +110,7 @@ memberID,username,status,user_hex,kill_count,starve_date,waiver,bandanna,points
 117,Amandaaeag,human,77e89,,"2017-11-16 15:00:00",,,0
 118,ydeath,human,ba203,,"2017-11-16 15:00:00",,,0
 119,Callum,human,10224,,"2017-11-16 15:00:00",,,0
-120,jackdapogo,human,4ab97,,"2017-11-16 15:00:00",,,0
+120,jackdapogo,zombie,4ab97,,"2017-11-16 15:00:00",,,0
 121,"venkata uddaraju",human,d9d7d,,"2017-11-16 15:00:00",,,0
 122,DNThavehands42,human,9b2e0,,"2017-11-16 15:00:00",,,0
 123,Joca8873,human,3f1b1,,"2017-11-16 15:00:00",,,0
@@ -119,7 +119,7 @@ memberID,username,status,user_hex,kill_count,starve_date,waiver,bandanna,points
 126,Yarrow,human,0cb3b,,"2017-11-16 15:00:00",,,0
 127,Dabrander,deceased,3eb39,,"2017-11-04 09:27:00",,,0
 128,jkillelea,deceased,d9ce3,,"2017-11-04 10:15:00",,,0
-129,Tristan,human,2f3bb,,"2017-11-16 15:00:00",,,0
+129,Tristan,zombie,2f3bb,,"2017-11-16 15:00:00",,,0
 130,HarrisonB,human,c3ef2,,"2017-11-16 15:00:00",,,0
 131,DaneFisher,human,f9965,,"2017-11-16 15:00:00",,,0
 132,allyfarraway,human,a3a7c,,"2017-11-16 15:00:00",,,0
@@ -138,14 +138,14 @@ memberID,username,status,user_hex,kill_count,starve_date,waiver,bandanna,points
 145,Joso4992,human,644dc,,"2017-11-16 15:00:00",,,0
 146,Darkfire,human,4e1ed,,"2017-11-16 15:00:00",,,0
 147,DEADication,human,d026f,,"2017-11-16 15:00:00",,,0
-148,megaBITES,human,ba81b,,"2017-11-16 15:00:00",,,0
+148,megaBITES,zombie,ba81b,,"2017-11-16 15:00:00",,,0
 149,Anubis65,human,14596,,"2017-11-16 15:00:00",,,0
 150,algathordk,human,bbc92,,"2017-11-16 15:00:00",,,0
 151,phhe1263,human,e1ed2,,"2017-11-16 15:00:00",,,0
 152,saal1800,human,ab5f2,,"2017-11-16 15:00:00",,,0
 156,"Lekshmi Prathap",human,e5300,,"2017-11-16 15:00:00",,,0
 154,shraddhadangi,human,13449,,"2017-11-16 15:00:00",,,0
-157,Darkrider97,human,3ba6a,,"2017-11-16 15:00:00",,,0
+157,Darkrider97,zombie,3ba6a,,"2017-11-16 15:00:00",,,0
 158,shaurya,human,f76c3,,"2017-11-16 15:00:00",,,0
 159,jkscool,human,5eaa9,,"2017-11-16 15:00:00",,,0
 160,"Erickrehbiel ",human,59ba0,,"2017-11-16 15:00:00",,,0

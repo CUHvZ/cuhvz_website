@@ -23,15 +23,19 @@
           }
           $time_left = $current_time->diff($starve_date);
           $hours = $time_left->format('%H')+($time_left->format('%a')*24);
-          $formatTime = $hours.$time_left->format(':%I:%S');
+          $formatTime = $hours.$time_left->format(':%I');
           $points = $zombie["points"];
           if($points == null){
             $points = 0;
           }
+          $kills = $zombie["kill_count"];
+          if($kills == null){
+            $kills = 0;
+          }
           echo "<tr class='table-hide-mobile add-line'>";
           echo "<td id='username'>".$zombie["username"]."</td>";
           echo "<td>".$status."</td>";
-          echo "<td id='kills'>".($zombie["kill_count"]+0)."</td>";
+          echo "<td id='kills'>".$kills."</td>";
           echo "<td class='red' id='starve'>".$formatTime."</td>";
           echo "<td id='points'>".$points."</td>";
           echo "</tr>";
@@ -67,16 +71,20 @@
           }
           $time_left = $current_time->diff($starve_date);
           $hours = $time_left->format('%H')+($time_left->format('%a')*24);
-          $formatTime = $hours.$time_left->format(':%I:%S');
+          $formatTime = $hours.$time_left->format(':%I');
           $points = $zombie["points"];
           if($points == null){
             $points = 0;
+          }
+          $kills = $zombie["kill_count"];
+          if($kills == null){
+            $kills = 0;
           }
           echo "<tr class='add-line table-show-mobile'><td>";
               echo "<div class='mobile-table-line-1' id='username'>".$zombie["username"]."</div>";
               echo "<div class='mobile-table-line-1 red' style='float: right;'>".$status."</div>";
               echo "<div>";
-                echo "<div class='mobile-table-line-2' id='kills'>".($zombie["kill_count"]+0)."</div>";
+                echo "<div class='mobile-table-line-2' id='kills'>".$kills."</div>";
                 echo "<div class='mobile-table-line-2' id='points'>".$points."</div>";
                 echo "<div class='mobile-table-line-2 red' id='starve'>".$formatTime."</div>";
               echo "</div>";

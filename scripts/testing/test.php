@@ -1,4 +1,31 @@
 <?php
+
+class StatsFilter {
+    private $filterArray;
+
+    function __construct($filterArray) {
+      $this->filterArray = $filterArray;
+    }
+
+    function filterArray($var)
+    {
+      return in_array($var, $this->filterArray);
+    }
+
+    function matchArray($arrayToFilter) {
+      $temp = array_filter($arrayToFilter, array($this, "filterArray"), ARRAY_FILTER_USE_KEY );
+      return $temp;
+    }
+
+    function matchDataSet($data){
+      $temp = [];
+      foreach ($data as $entry) {
+        array_push($temp, $this->matchArray($entry));
+      }
+      return $temp;
+    }
+}
+
 //database credentials
 define('DBHOST','localhost');
 define('DBUSER','cuhvmiwg');
@@ -20,8 +47,43 @@ try {
     echo '<p class="bg-danger">'.$e->getMessage().'</p>';
     exit;
 }
+$data = [];
+$file = fopen("weeklongTest.csv","r");
+$fields = fgetcsv($file);
+$counter = 0;
+if($file){
+  while(!feof($file) && $counter < 1000)
+    {
+      $counter++;
+      $array = fgetcsv($file);
+      if(!empty($array)){
+        array_push($data, array_combine($fields, $array));
+      }
+    }
+}
+fclose($file);
+$test = [];
+$filter = new StatsFilter(array("username", "memberID"));
+$test = $filter->matchDataSet($data);
+//print_r($test);
+
+foreach($data as $human){
+
+	$points = $human["points"];
+	if($points == null){
+		$points = 0;
+	}
+	echo $human["username"]." ".$points."\n";
+}
+
+
+
+
+
+/*
+$table = "weeklongTest";
 try{
-	$stmt = $db->prepare("SELECT * FROM weeklongF18_activity;");
+	$stmt = $db->prepare("SELECT * FROM ".$table.";");
 	$stmt->execute();
 	$data = $stmt->fetchAll();
 	print_r($data);
@@ -32,7 +94,6 @@ try{
 	echo "database not found";
 }
 
-$table = "weeklongF18_activity";
 $stmt = $db->prepare('show columns from '.$table.';');
 $stmt->execute();
 $fieldData = $stmt->fetchAll();
@@ -40,12 +101,12 @@ $fields = [];
 foreach ($fieldData as $value) {
 	array_push($fields,$value["Field"]);
 }
-/*
-$stmt = $db->prepare('select * from '.$table.';');
-$stmt->execute();
-$data = $stmt->fetchAll();
-*/
-$fp = fopen('file.csv', 'w');
+
+// $stmt = $db->prepare('select * from '.$table.';');
+// $stmt->execute();
+// $data = $stmt->fetchAll();
+
+$fp = fopen('weeklongTest.csv', 'w');
 fputcsv($fp, $fields);
 foreach ($data as $line) {
 	$data_line = [];
@@ -57,5 +118,5 @@ foreach ($data as $line) {
 }
 
 fclose($fp);
-
+*/
 ?>

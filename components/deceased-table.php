@@ -1,10 +1,10 @@
 <table class="stats-row stats-table" id="dead-table">
   <thead>
-    <tr class='table-hide-mobile'>
-      <th>Username</th>
-      <th>Starved</th>
-      <th>Kills</th>
-      <th>Points</th>
+    <tr class='table-hide-mobile add-line'>
+      <th onclick="sortTable('deceased-table', 'username', 15)">Username</th>
+      <th onclick="sortTable('deceased-table', 'starve', 15)">Starved</th>
+      <th onclick="sortTable('deceased-table', 'kills', 15)">Kills</th>
+      <th onclick="sortTable('deceased-table', 'points', 15)">Points</th>
     </tr>
   </thead>
   <tbody id="deceased-table" class="hide-mobile">
@@ -18,11 +18,15 @@
             if($points == null){
               $points = 0;
             }
+            $kills = $dead["kill_count"];
+            if($kills == null){
+              $kills = 0;
+            }
             echo "<tr class='table-hide-mobile add-line'>";
-            echo "<td>".$dead["username"]."</td>";
-            echo "<td class='red'>".$formatTime."</td>";
-            echo "<td>".($dead["kill_count"])."</td>";
-            echo "<td>".$points."</td>";
+            echo "<td id='username'>".$dead["username"]."</td>";
+            echo "<td class='red' id='starve'>".$formatTime."</td>";
+            echo "<td id='kills'>".$kills."</td>";
+            echo "<td id='points'>".$points."</td>";
             echo "</tr>";
         }
       }
@@ -51,9 +55,13 @@
             if($points == null){
               $points = 0;
             }
+            $kills = $dead["kill_count"];
+            if($kills == null){
+              $kills = 0;
+            }
             echo "<tr class='add-line table-show-mobile'><td>";
                 echo "<div class='mobile-table-line-1' id='username'>".$dead["username"]."</div>";
-                echo "<div class='mobile-table-line-2' id='kills' style='float: right'>".($dead["kill_count"]+0)."</div>";
+                echo "<div class='mobile-table-line-2' id='kills' style='float: right'>".$kills."</div>";
                 echo "<div>";
                   echo "<div class='mobile-table-line-1 red' id='starve'>".$formatTime."</div>";
                   echo "<div class='mobile-table-line-2' id='points' style='float: right'>".$points."</div>";

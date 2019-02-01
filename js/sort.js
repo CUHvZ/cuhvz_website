@@ -13,13 +13,38 @@ function sortTable(id, sortColumn, perPage) {
   }
   // Counter in case infinite loop is encountered
   rows = table.getElementsByTagName("tr");
-  console.log(rows);
-  rows = sortList(rows, sortColumn, sortAscending, (element) => {
-    return element.querySelector("#"+sortColumn).outerText.toLowerCase();
+  function getElement(e){
+    return e.querySelector("#"+sortColumn).outerText.toLowerCase();
+  }
+  function compare(a, b){
+    a = getElement(a);
+    b = getElement(b);
+    // TODO
+    var isnum = /^\d+$/.test(a);
+    if(isnum){
+      return (parseInt(a) < parseInt(b)) ? 1 : -1;
+    }
+    var resA = a.match(/[0-9]{1,2}:[0-9]{1,2}/g);
+    if(resA != null){
+      var arrayA = a.split(":");
+      var arrayB = b.split(":");
+      var timeA = parseInt(arrayA[0])*60+parseInt(arrayA[1]);
+      var timeB = parseInt(arrayB[0])*60+parseInt(arrayB[1]);
+      return (timeA > timeB) ? 1 : -1;
+    }
+    return a.localeCompare(b);
+  }
+  var tableLength = rows.length;
+  [].slice.call(rows).sort(function(a, b) {
+    if(sortAscending)
+      return compare(a, b);
+    else {
+      return compare(b, a);
+    }
+  }).forEach(function(val, index) {
+    val.parentNode.appendChild(val);
   });
   resetPaginator(id, rows, perPage);
-  if(counter == 10000)
-    console.log("counter limit reached")
   if(dir == "asc")
     table.value = "desc";
   else if(dir == "desc")
@@ -46,49 +71,4 @@ function resetPaginator(id, rows, perPage){
     links[i].firstChild.className = "page_link page-link";
   }
   paginator.getElementsByTagName("li")[1].firstChild.className = "page_link page-link active";
-}
-
-function sortList(rows, sortType, sortAscending, elementFunction) {
-  var sorting, x, y, shouldSwap, switchcount = 0;
-  sorting = true;
-  // Counter in case infinite loop is encountered
-  counter = 0;
-  counterMax = rows.length * 1000;
-  while (sorting && counter < 10000) {
-    counter++;
-    sorting = false;
-    for(var i = 0; i < (rows.length - 1); i++) {
-      // start by saying there should be no switching:
-      shouldSwap = false;
-      // Get the text from the two elements you want to compare, one from current row and one from the next
-      x = elementFunction(rows[i]);
-      y = elementFunction(rows[i+1]);
-      rows[i].style.display = 'none';
-      if(sortType == "points" || sortType == "kills"){
-        x = parseInt(x, 10);
-        y = parseInt(y, 10);
-      }else if(sortType == "starve"){
-        var tempArray = x.split(':');
-        x = tempArray[0]*60 + tempArray[1];
-        var tempArray = y.split(':');
-        y = tempArray[0]*60 + tempArray[1];
-      }
-      if(sortAscending) {
-        if (x > y) {
-          shouldSwap= true;
-          break;
-        }
-      } else if(!sortAscending && x < y){
-        shouldSwap= true;
-        break;
-      }
-    }
-    // make the swap
-    if (shouldSwap) {
-      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
-      sorting = true;
-      switchcount ++;
-    }
-  }
-  return rows;
 }

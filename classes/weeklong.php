@@ -1,4 +1,5 @@
 <?php
+include "StatsFilter.php";
 class Weeklong{
 
     private $_db;
@@ -235,7 +236,10 @@ class Weeklong{
 	        $data = $stmt->fetchAll();
 	        return $data;
 	    }catch(PDOException $e){
-	        return false;
+        $data = $this->get_stats_file($name);
+        $filter = new StatsFilter(null);
+        $filtered = $filter->filterOut($data, "human");
+        return $filtered;
 	    }
 	}
 
@@ -259,7 +263,11 @@ class Weeklong{
 	        $data = $stmt->fetchAll();
 	        return $data;
 	    }catch(PDOException $e){
-	        return false;
+          $data = $this->get_stats_file($weeklong);
+          $filter = new StatsFilter(array("username", "kill_count", "starve_date", "status", "points"));
+          $temp = $filter->matchDataSet($data);
+          $filtered = $filter->filterOut($temp, "zombie");
+          return $filtered;
 	    }
 	}
 
@@ -283,19 +291,90 @@ class Weeklong{
 	        $data = $stmt->fetchAll();
 	        return $data;
 	    }catch(PDOException $e){
-	        return false;
+          $data = $this->get_stats_file($weeklong);
+          $filter = new StatsFilter(array("username", "kill_count", "starve_date", "status", "points"));
+          $temp = $filter->matchDataSet($data);
+          $filtered = $filter->filterOut($temp, "deceased");
+          return $filtered;
 	    }
 	}
 
   public function get_activity($weeklong){
+    $data = null;
 		try{
 	        $stmt = $this->_db->prepare("SELECT * FROM ".$weeklong."_activity;");
 	        $stmt->execute();
 	        $data = $stmt->fetchAll();
-	        return $data;
+	        $data;
 	    }catch(PDOException $e){
-	        return false;
+        //error_log($e, 0);
+        $data = [];
+        $filename = $_SERVER['DOCUMENT_ROOT']."/weeklong/".$weeklong."/activity.csv";
+        $file = fopen($filename,"r");
+        $fields = fgetcsv($file);
+        $counter = 0;
+        if($file){
+          while(!feof($file) && $counter < 1000)
+            {
+              $counter++;
+              $array = fgetcsv($file);
+              if(!empty($array)){
+                array_push($data, array_combine($fields, $array));
+              }
+            }
+        }
+        fclose($file);
 	    }
+      return $data;
+	}
+
+  public function get_stats($weeklong){
+    $data = null;
+		try{
+	        $stmt = $this->_db->prepare("SELECT * FROM ".$weeklong);
+	        $stmt->execute();
+	        $data = $stmt->fetchAll();
+	        $data;
+	    }catch(PDOException $e){
+        $data = [];
+        $filename = $_SERVER['DOCUMENT_ROOT']."/weeklong/".$weeklong."/stats.csv";
+        $file = fopen($filename,"r");
+        $fields = fgetcsv($file);
+        $counter = 0;
+        if($file){
+          while(!feof($file) && $counter < 1000)
+            {
+              $counter++;
+              $array = fgetcsv($file);
+              if(!empty($array)){
+                array_push($data, array_combine($fields, $array));
+              }
+            }
+        }
+        fclose($file);
+	    }
+      return $data;
+	}
+
+  public function get_stats_file($weeklong){
+    $data = null;
+    $data = [];
+    $filename = $_SERVER['DOCUMENT_ROOT']."/weeklong/".$weeklong."/stats.csv";
+    $file = fopen($filename,"r");
+    $fields = fgetcsv($file);
+    $counter = 0;
+    if($file){
+      while(!feof($file) && $counter < 1000)
+        {
+          $counter++;
+          $array = fgetcsv($file);
+          if(!empty($array)){
+            array_push($data, array_combine($fields, $array));
+          }
+        }
+    }
+    fclose($file);
+      return $data;
 	}
 
 	public function event_status(){

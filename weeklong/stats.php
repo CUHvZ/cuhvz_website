@@ -11,7 +11,6 @@ $title = 'CU HvZ | ';
 	<script src="/js/sort.js"></script>
   <script>
 
-
   $(document).ready(function(){
 
 		var settings = {
@@ -111,7 +110,7 @@ function getZombieType($status){
         <div id="Activity" class="tabcontent">
           <h3 class="row-header">Activity</h3>
           <table class="stats-row stats-table">
-            <tr class='table-hide-mobile'>
+            <tr class='table-hide-mobile add-line'>
               <th></th>
               <th>Activity</th>
               <th></th>
@@ -125,10 +124,6 @@ function getZombieType($status){
             </tr>
             <?php
               $data=$weeklong->get_activity($name);
-              if($data == null){
-                $filename = $_SERVER['DOCUMENT_ROOT']."/weeklong/".$name."/stats.csv";
-                include_once($_SERVER['DOCUMENT_ROOT']."/scripts/readcsvfile.php");
-              }
               foreach($data as $activity){
                 $user_1 = $user->get_user_username($activity["user_1"]);
                 $action = $activity["action"];
