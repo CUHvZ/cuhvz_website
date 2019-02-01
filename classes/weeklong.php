@@ -231,11 +231,14 @@ class Weeklong{
 	// returns array of humans in the week long
 	public function get_humans_from($name){
 		try{
-	        $stmt = $this->_db->prepare("SELECT * FROM ".$name." WHERE status='human';");
+          $query = "SELECT $name.*, users.username FROM $name INNER JOIN users ON $name.user_id=users.id  WHERE status='human';";
+	        $stmt = $this->_db->prepare($query);
 	        $stmt->execute();
 	        $data = $stmt->fetchAll();
 	        return $data;
 	    }catch(PDOException $e){
+        error_log($name." table not found. Loading humans from csv file...", 0);
+        error_log($e, 0);
         $data = $this->get_stats_file($name);
         $filter = new StatsFilter(null);
         $filtered = $filter->filterOut($data, "human");
@@ -258,11 +261,13 @@ class Weeklong{
 	// returns array of zombies in the week long
 	public function get_zombies_from($weeklong){
 		try{
-	        $stmt = $this->_db->prepare("SELECT username, kill_count, starve_date, status, points FROM ".$weeklong." WHERE (status='zombie' OR status='zombie(suicide)' OR status='zombie(OZ)') ORDER BY starve_date;");
+          $query = "SELECT $weeklong.*, users.username FROM $weeklong INNER JOIN users ON $weeklong.user_id=users.id  WHERE (status='zombie' OR status='zombie(suicide)' OR status='zombie(OZ)') ORDER BY starve_date;";
+	        $stmt = $this->_db->prepare($query);
 	        $stmt->execute();
 	        $data = $stmt->fetchAll();
 	        return $data;
 	    }catch(PDOException $e){
+        error_log($weeklong." table not found. Loading zombies from csv file...", 0);
           $data = $this->get_stats_file($weeklong);
           $filter = new StatsFilter(array("username", "kill_count", "starve_date", "status", "points"));
           $temp = $filter->matchDataSet($data);
@@ -286,11 +291,13 @@ class Weeklong{
 	// returns array of deceased plaers in the week long
 	public function get_deceased_from($weeklong){
 		try{
-	        $stmt = $this->_db->prepare("SELECT username, kill_count, starve_date, points FROM ".$weeklong." WHERE status='deceased' ORDER BY starve_date;");
+          $query = "SELECT $weeklong.*, users.username FROM $weeklong INNER JOIN users ON $weeklong.user_id=users.id  WHERE status='deceased' ORDER BY starve_date;";
+	        $stmt = $this->_db->prepare($query);
 	        $stmt->execute();
 	        $data = $stmt->fetchAll();
 	        return $data;
 	    }catch(PDOException $e){
+        error_log($weeklong." table not found. Loading deceased from csv file...", 0);
           $data = $this->get_stats_file($weeklong);
           $filter = new StatsFilter(array("username", "kill_count", "starve_date", "status", "points"));
           $temp = $filter->matchDataSet($data);

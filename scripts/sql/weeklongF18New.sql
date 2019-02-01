@@ -1,5 +1,5 @@
 -- This is a template for creating a new weeklong game
-CREATE TABLE IF NOT EXISTS weeklongXXX (
+CREATE TABLE IF NOT EXISTS weeklongF18 (
   user_id int(11) NOT NULL,
   status varchar(255) NOT NULL DEFAULT 'human',
   username varchar(255) NOT NULL,
@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS weeklongXXX (
 --   (67, 'human', '967a5'),
 --   (113, 'human', 'ffb6b');
 
-INSERT INTO `weeklongXXX` (`user_id`, `username`, `status`, `user_hex`, `kill_count`, `starve_date`, `points`, `waiver`, `bandanna`) VALUES
+INSERT INTO `weeklongF18` (`user_id`, `username`, `status`, `user_hex`, `kill_count`, `starve_date`, `points`, `waiver`, `bandanna`) VALUES
 (69, 'Savvycappy', 'human', '5674b', '0', NULL, 0, NULL, NULL),
 (67, 'claudiasellis', 'human', '967a5', '0', NULL, 0, 1, 1),
 (113, 'magickayla', 'human', 'ffb6b', '0', NULL, 0, 1, 1),
@@ -144,3 +144,7 @@ INSERT INTO `weeklongXXX` (`user_id`, `username`, `status`, `user_hex`, `kill_co
 (224, 'joor228', 'human', '2bdc5', '0', NULL, 0, 1, 1),
 (227, 'Mast7851', 'human', 'ce3c5', '0', NULL, 0, NULL, NULL),
 (232, 'Evan', 'human', '5c597', '0', NULL, 0, NULL, NULL);
+
+ALTER TABLE weeklongF18 DROP COLUMN username;
+ALTER TABLE weeklongF18 DROP COLUMN waiver;
+ALTER TABLE weeklongF18 DROP COLUMN bandanna;
