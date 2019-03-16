@@ -1,5 +1,6 @@
 <?php
 include('password.php');
+include('Database.php');
 class User extends Password{
 
     private $_db;
@@ -47,6 +48,7 @@ class User extends Password{
 		    $_SESSION['id'] = $row['id'];
 		    return true;
 		}
+    return false;
 	}
 
 	public function logout(){
@@ -73,15 +75,11 @@ class User extends Password{
 	}
 
   public function is_activated(){
-		try {
-			$stmt = $this->_db->prepare('SELECT activated FROM users WHERE id=:id;');
-			$stmt->execute(array('id' => $_SESSION['id']));
-			$row = $stmt->fetch();
-			return $row["activated"] == "Yes";
-
-		} catch(PDOException $e) {
-		    echo '<p class="bg-danger">'.$e->getMessage().'</p>';
-		}
+    $database = new Database();
+    $data = $database->executeQueryFetchAll("select activated from users where id=".$_SESSION['id']);
+    //$data = $database->joinWithUsers("user_stats", "id", "users.id=".$_SESSION['id']);
+    //error_log( print_r($data, TRUE) );
+    return $data["activated"];
 	}
 
 	// this will add a user that is signed in to the event

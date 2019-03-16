@@ -15,6 +15,9 @@ if(is_numeric($user_id) && !empty($active_token)){
 		':active_token' => $active_token
 	));
 
+	//$database = new Database();
+	//$data = $database->joinWithUsers("user_stats", "id", "users.id=".$_SESSION['id']);
+
 	//if the row was updated redirect the user
 	if($stmt->rowCount() == 1){
 

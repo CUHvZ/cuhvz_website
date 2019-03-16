@@ -43,8 +43,8 @@ CREATE TABLE `weeklongs` (
   `display_dates` varchar(255) NOT NULL,
   `start_date` timestamp NULL DEFAULT NULL,
   `end_date` timestamp NULL DEFAULT NULL,
-  display boolean DEFAULT false,
-  active boolean DEFAULT false
+   display boolean DEFAULT false,
+   active boolean DEFAULT false
 );
 
 --

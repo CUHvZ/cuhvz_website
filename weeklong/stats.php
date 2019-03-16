@@ -106,7 +106,7 @@ function getZombieType($status){
 						include $_SERVER['DOCUMENT_ROOT']."/components/deceased-table.php";
 					?>
         </div>
-
+				<!--
         <div id="Activity" class="tabcontent">
           <h3 class="row-header">Activity</h3>
           <table class="stats-row stats-table">
@@ -123,6 +123,7 @@ function getZombieType($status){
               <th>Time</th>
             </tr>
             <?php
+						/*
               $data=$weeklong->get_activity($name);
               foreach($data as $activity){
                 $user_1 = $user->get_user_username($activity["user_1"]);
@@ -142,9 +143,11 @@ function getZombieType($status){
                   echo "<tr class='table-show-mobile'><td>".$user_2."</td></tr>";
                 echo "<tr class='table-show-mobile add-line'><td>".$time."</td></tr>";
               }
+							*/
             ?>
           </table>
         </div>
+			-->
 
         <script src="/js/tabs.js"></script>
 

@@ -1,10 +1,9 @@
 -- The script used to create the users table
-CREATE TABLE if not exists UserStats (
-id int(11) NOT NULL AUTO_INCREMENT ,
-join_date timestamp NULL DEFAULT NULL,
-weeklongs_played varchar(30) NOT NULL ,
-lockins_played varchar(30) NOT NULL ,
-activated varchar(255) NOT NULL,
+CREATE TABLE if not exists user_stats (
+id int(11) NOT NULL ,
+join_date timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+weeklongs_played varchar(30) NULL ,
+lockins_played varchar(30) NULL ,
+activated boolean NOT NULL DEFAULT false,
 PRIMARY KEY ( id ) ,
-UNIQUE KEY id ( id ),
-UNIQUE KEY email ( email ) );
+UNIQUE KEY id ( id ) );
