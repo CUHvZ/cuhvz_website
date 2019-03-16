@@ -33,6 +33,7 @@ if(!$user->is_activated() && $_SESSION["username"] == "Tester"){
       <a href='profile.php?action=resend' class='resend'>Resend activation email.</a></p>";
     }
 }
+
 if(isset($_GET['join']) && isset($_GET['eventId'])){
   $eventName = $_GET['join'];
   if($user->join_event($_GET['eventId'])){

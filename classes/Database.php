@@ -23,23 +23,34 @@ class Database {
 		$this->db = $db;
 	}
 
+	public function getUserData($userID){
+		$query = "SELECT user_stats.*, users.* FROM user_stats INNER JOIN users ON user_stats.id = users.id where users.id = $userID;";
+		$data = self::executeQueryFetch($query);
+		return $data;
+	}
+
 	public function joinWithUsers($table, $key, $condition=null){
 		$query = "SELECT $table.*, users.* FROM $table INNER JOIN users ON $table.$key=users.id";
 		if($condition != null){
 			$query = $query." where ".$condition;
 		}
-		$data = self::executeQuery($query);
+		$data = self::executeQueryFetchAll($query);
     // if only one result, return result instead of array
     if(sizeof($data) == 1)
       return $data[0];
 		return $data;
 	}
 
-  public function update($table, $key, $condition=null){
-    $query = "UPDATE users SET activated = 'Yes' WHERE id = :user_id AND activated = :active_token";
-    if($condition != null){
-			$query = $query." where ".$condition;
-		}
+  public function update($table, $set, $condition){
+    $query = "UPDATE $table SET $set WHERE $condition";
+		print_r($query."\n");
+		return self::executeQuery($query);
+  }
+
+  public function delete($table, $condition){
+    $query = "DELETE FROM $table WHERE $condition";
+		print_r($query."\n");
+		return self::executeQuery($query);
   }
 
 	public function createWeeklong($semester, $title, $displayDates, $startDate, $endDate){
@@ -94,6 +105,18 @@ class Database {
 		}
 	}
 
+	public function executeQueryFetch($query){
+		try {
+			$stmt = $this->db->prepare($query);
+			$stmt->execute();
+			$data = $stmt->fetch();
+			return $data;
+		} catch(PDOException $e) {
+				error_log($e, 0);
+        return false;
+		}
+	}
+
 	public function executeQuery($query, $showError=true){
 		try {
 			$stmt = $this->db->prepare($query);
@@ -106,6 +129,7 @@ class Database {
 		}
 	}
 
+	/*
   private function buildConditions($conditions){
     $whereClause = " where";
     if(sizeof($data) == 1){
@@ -117,13 +141,16 @@ class Database {
 
   private function buildMultipleConditions($conditions){
     $whereClause = " where";
-    /*
+
     foreach ($conditions as $key => $value) {
-        " "
-    }*/
+
+    }
   }
+	*/
 }
 
+// Putting this on hold
+/*
 class Condition {
 
   public static $AND = "AND";
@@ -158,7 +185,6 @@ class Condition {
     $conditional->prev = $this;
     $this->case = Condition::$OR;
   }
-
-
 }
+*/
 ?>

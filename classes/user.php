@@ -4,6 +4,7 @@ include('Database.php');
 class User extends Password{
 
     private $_db;
+    private $id;
 
     function __construct($db){
     	parent::__construct();
@@ -42,10 +43,11 @@ class User extends Password{
 		$username = $this->get_user_username($row['id']);
 		if($this->password_verify($password,$row['password']) == 1){
 		    $_SESSION['loggedin'] = true;
-		    $_SESSION['name'] = $row['firstName'];
+		    $_SESSION['name'] = $row['first_name'];
 		    $_SESSION['username'] = $row['username'];
 		    $_SESSION['email'] = $row['email'];
 		    $_SESSION['id'] = $row['id'];
+        $this->id = $row['id'];
 		    return true;
 		}
     return false;
@@ -76,11 +78,24 @@ class User extends Password{
 
   public function is_activated(){
     $database = new Database();
-    $data = $database->executeQueryFetchAll("select activated from users where id=".$_SESSION['id']);
-    //$data = $database->joinWithUsers("user_stats", "id", "users.id=".$_SESSION['id']);
+    $userID = $_SESSION['id'];
+    if(!$userID)
+      $userID = $this->id;
+    //$data = $database->executeQueryFetchAll("select activated from users where id=".$_SESSION['id']);
+    $data = $database->getUserData($userID);
     //error_log( print_r($data, TRUE) );
     return $data["activated"];
 	}
+
+  public function activateAccount(){
+  	$database = new Database();
+    $userID = $_SESSION['id'];
+    if(!$userID)
+      $userID = $this->id;
+  	$result = $database->update("user_stats", "activated = true", "id = $userID");
+  	$database->delete("tokens", "user_id = $userID AND token_type = 'ACTIVATION'");
+  	return $result;
+  }
 
 	// this will add a user that is signed in to the event
 	public function join_event($event){

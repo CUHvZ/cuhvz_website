@@ -4,22 +4,11 @@ require('includes/config.php');
 //collect values from the url
 $user_id = trim($_GET['x']);
 $active_token = trim($_GET['y']);
-//error_log("something", 0);
+
 //if id is number and the active token is not empty carry on
 if(is_numeric($user_id) && !empty($active_token)){
-
-	//update users record set the active column to Yes where the memberID and active value match the ones provided in the array
-	$stmt = $db->prepare("UPDATE users SET activated = 'Yes' WHERE id = :user_id AND activated = :active_token");
-	$stmt->execute(array(
-		':user_id' => $user_id,
-		':active_token' => $active_token
-	));
-
-	//$database = new Database();
-	//$data = $database->joinWithUsers("user_stats", "id", "users.id=".$_SESSION['id']);
-
-	//if the row was updated redirect the user
-	if($stmt->rowCount() == 1){
+	$result = activateAccount($user_id);
+	if($result){
 
 		//redirect to login page
 		header('Location: login.php?action=active');
@@ -29,5 +18,12 @@ if(is_numeric($user_id) && !empty($active_token)){
 		echo "Your account could not be activated. Please contact the mod team.";
 	}
 
+}
+
+function activateAccount($userID){
+	$database = new Database();
+	$result = $database->update("user_stats", "activated = true", "id = $userID");
+	$database->delete("tokens", "user_id = $userID AND token_type = 'ACTIVATION'");
+	return $result;
 }
 ?>

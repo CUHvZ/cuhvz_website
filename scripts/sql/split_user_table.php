@@ -1,5 +1,7 @@
 <?php
 
+// drop table users; drop table user_stats; drop table tokens; source users.sql;
+
 $root = $_SERVER["DOCUMENT_ROOT"];
 if(empty($root)){
   $root = "/home/josh/cuhvz_website/";
@@ -19,6 +21,10 @@ function alterUsers($db){
   dropColumn($db, "activated");
   dropColumn($db, "resetToken");
   dropColumn($db, "resetComplete");
+
+  $db->executeQuery("ALTER TABLE users CHANGE firstName first_name varchar(30);");
+  $db->executeQuery("ALTER TABLE users CHANGE lastName last_name varchar(30);");
+
   print_r("Done.\n");
 }
 
