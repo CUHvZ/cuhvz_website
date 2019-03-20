@@ -12,6 +12,11 @@ function strip($str){
 	return str_replace(' ', '', $str);
 }
 
+require('includes/config.php');
+//require $_SERVER["DOCUMENT_ROOT"]."/classes/Database.php";
+
+$database = new Database();
+
 // if logged in redirect to user page
 //if( $user->is_logged_in() ){ header('Location: profile.php'); }
 
@@ -24,9 +29,8 @@ if(isset($_POST['submit'])){
 	}else if(strlen($_POST['username']) < 3){
 		$error[] = 'Username is too short.';
 	} else {
-		$stmt = $db->prepare('SELECT username FROM users WHERE username = :username');
-		$stmt->execute(array(':username' => $_POST['username']));
-		$row = $stmt->fetch(PDO::FETCH_ASSOC);
+    $username = $_POST['username'];
+		$row = $database->executeQueryFetch("SELECT username FROM users WHERE username = '$username'");
 
 		if(!empty($row['username'])){
 			$error[] = 'Username provided is already in use.';
@@ -56,9 +60,8 @@ if(isset($_POST['submit'])){
 	if(!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)){
 	    $error[] = 'Please enter a valid email address.';
 	} else {
-		$stmt = $db->prepare('SELECT email FROM users WHERE email = :email');
-		$stmt->execute(array(':email' => $_POST['email']));
-		$row = $stmt->fetch(PDO::FETCH_ASSOC);
+    $email = $_POST['email'];
+		$row = $database->executeQueryFetch("SELECT email FROM users WHERE email = '$email'");
 
 		if(!empty($row['email'])){
 			$error[] = 'Email provided is already in use.';
@@ -66,15 +69,15 @@ if(isset($_POST['submit'])){
 	}
 
 	// name validation
-	if(strlen(strip($_POST['firstName'])) == 0){
+	if(strlen(strip($_POST['first_name'])) == 0){
 		$error[] = 'Enter your first name';
-	}else if(empty(isValidName($_POST['firstName']))){
+	}else if(empty(isValidName($_POST['first_name']))){
 		$error[] = 'First name contains invalid character.';
 	}
 
-	if(strlen(strip($_POST['lastName'])) == 0){
+	if(strlen(strip($_POST['last_name'])) == 0){
 		$error[] = 'Enter your last name';
-	}else if(empty(isValidName($_POST['lastName']))){
+	}else if(empty(isValidName($_POST['last_name']))){
 		$error[] = 'Last name contains invalid character.';
 	}
 
@@ -94,31 +97,27 @@ if(isset($_POST['submit'])){
 
 		try {
 
-			// insert into database with a prepared statement
+      $username = $_POST['username'];
+      $first_name = $_POST['first_name'];
+      $last_name = $_POST['last_name'];
+      $email = $_POST['email'];
+
+      $fields = "username,password,first_name,last_name,email";
+      $values = "'$username', '$hashedpassword', '$first_name', '$last_name', '$email'";
+
+      // insert into database
 			if($phone){
-				$stmt = $db->prepare('INSERT INTO users (username,password,firstName,lastName,email,phone,activated) VALUES (:username, :password, :firstName, :lastName, :email, :phone, :activated)');
-				$stmt->execute(array(
-					':username' => $_POST['username'],
-					':password' => $hashedpassword,
-					':firstName' => $_POST['firstName'],
-					':lastName' => $_POST['lastName'],
-					':email' => $_POST['email'],
-					':phone' => $phone,
-					':activated' => $activasion
-				));
-				$id = $db->lastInsertId('id');
-			}else{
-				$stmt = $db->prepare('INSERT INTO users (username,password,firstName,lastName,email,phone,activated) VALUES (:username, :password, :firstName, :lastName, :email, NULL, :activated)');
-				$stmt->execute(array(
-					':username' => $_POST['username'],
-					':password' => $hashedpassword,
-					':firstName' => $_POST['firstName'],
-					':lastName' => $_POST['lastName'],
-					':email' => $_POST['email'],
-					':activated' => $activasion
-				));
-				$id = $db->lastInsertId('id');
+        $fields = "username,password,first_name,last_name,email,phone";
+        $values = "'$username', '$hashedpassword', '$first_name', '$last_name', '$email', '$phone'";
 			}
+      $database->insert("users", $fields, $values);
+      $id = $database->lastInsertId('id');
+
+      $database->insert("user_stats", "id", $id);
+
+      $fields = "user_id, token, token_type, expiration";
+      $values = "$id, '$activasion', 'ACTIVATION', NOW() + INTERVAL 1 DAY";
+      $database->insert("tokens", $fields, $values);
 
 			// send email
 			$to = $_POST['email'];
@@ -132,10 +131,12 @@ if(isset($_POST['submit'])){
 			$mail->addAddress($to);
 			$mail->subject($subject);
 			$mail->body($body);
+      error_log("Sending message with body: ".$body,0);
+      $mail->isSMTP();
 			$mail->send();
 
-			// redirect to index page
-      $user->login($_POST['username'],$hashedpassword);
+			// redirect to profile page
+      $user->login($_POST['username'], $_POST['password']);
       //header('Location: signup.php?action=joined');
       header('Location: profile.php');
 			exit;
@@ -155,7 +156,6 @@ if(isset($_POST['submit'])){
 <!DOCTYPE html>
 <html lang="en">
 <?php
-require('includes/config.php');
 $title = 'CU HvZ | ';
 ?>
 <head>
@@ -213,10 +213,10 @@ $title = 'CU HvZ | ';
 
 		  <div class="row">
             <div class="six columns">
-                <input type="text" name="firstName" id="firstName" class="form-control input-lg u-full-width" placeholder="First Name" value="<?php if(isset($error)){ echo $_POST['firstName']; } ?>" tabindex="4">
+                <input type="text" name="first_name" id="first_name" class="form-control input-lg u-full-width" placeholder="First Name" value="<?php if(isset($error)){ echo $_POST['first_name']; } ?>" tabindex="4">
             </div>
             <div class="six columns">
-                <input type="text" name="lastName" id="lastName" class="form-control input-lg u-full-width" placeholder="Last Name" value="<?php if(isset($error)){ echo $_POST['lastName']; } ?>" tabindex="5">
+                <input type="text" name="last_name" id="last_name" class="form-control input-lg u-full-width" placeholder="Last Name" value="<?php if(isset($error)){ echo $_POST['last_name']; } ?>" tabindex="5">
             </div>
           </div>
 

@@ -1,48 +1,83 @@
-<?php require('includes/config.php'); 
+<!DOCTYPE html>
+<html lang="en">
+<?php
+require('includes/config.php');
+// require($_SERVER['DOCUMENT_ROOT'].'/classes/phpmailer/Mail.php');
+$title = 'CU HvZ | ';
+?>
+<head>
+	<?php require('layout/header.php'); ?>
+</head>
+<body>
+<?php
+include 'layout/navbar.php';
+
+$errors = [];
 
 //if logged in redirect to user page
-if( $user->is_logged_in() ){ header('Location: memberpage.php'); } 
+if( $user->is_logged_in() ){ header('Location: profile.php'); }
 
-$stmt = $db->prepare('SELECT resetToken, resetComplete FROM weeklongF17 WHERE resetToken = :token');
-$stmt->execute(array(':token' => $_GET['key']));
-$row = $stmt->fetch(PDO::FETCH_ASSOC);
-
-//if no token from db then kill the page
-if(empty($row['resetToken'])){
-	$stop = 'Invalid token provided, please use the link provided in the reset email.';
-} elseif($row['resetComplete'] == 'Yes') {
-	$stop = 'Your password has already been changed!';
+$database = new Database();
+$userID = 0;
+$tokenID = 0;
+if(isset($_GET['key'])){
+	$activationToken = $_GET['key'];
+	$query = "select * from tokens where token='$activationToken'";
+	$result = $database->executeQueryFetch($query);
+	// token does not exist in database
+	if(!$result){
+		$stop = "Invalid token provided, please use the link provided in the reset email.";
+	}
+	// an error occured executing database query
+	else	if(isset($result["error"])){
+		$stop = "Error occured validating token.";
+	}	else {
+		$tokenID = $result["id"];
+		// test if token has expired
+		$expired = $database->isTokenExpired($tokenID);
+		if($expired){
+			$stop = "Reset token has expired.";
+		}else{
+			$userID = $result["user_id"];
+		}
+	}
 }
 
 //if form has been submitted process it
 if(isset($_POST['submit'])){
 
-	//basic validation
-	if(strlen($_POST['password']) < 3){
-		$error[] = 'Password is too short.';
+	// get userID value
+	if(isset($_POST['userID'])){
+		$userID = $_POST['userID'];
+	}else{
+		array_push($errors, "ERROR: User id is null.");
 	}
 
-	if(strlen($_POST['passwordConfirm']) < 3){
-		$error[] = 'Confirm password is too short.';
+	// get tokenID value
+	if(isset($_POST['tokenID'])){
+		$tokenID = $_POST['tokenID'];
+	}else{
+		array_push($errors, "ERROR: Token id is null.");
+	}
+
+	//basic validation
+	if(strlen($_POST['password']) < 8){
+		array_push($errors, "Password must be 8 characters or longer.");
 	}
 
 	if($_POST['password'] != $_POST['passwordConfirm']){
-		$error[] = 'Passwords do not match.';
+		array_push($errors, "Passwords do not match.");
 	}
 
 	//if no errors have been created carry on
-	if(!isset($error)){
+	if(empty($errors)){
 
 		//hash the password
 		$hashedpassword = $user->password_hash($_POST['password'], PASSWORD_BCRYPT);
 
 		try {
-
-			$stmt = $db->prepare("UPDATE weeklongF17 SET password = :hashedpassword, resetComplete = 'Yes'  WHERE resetToken = :token");
-			$stmt->execute(array(
-				':hashedpassword' => $hashedpassword,
-				':token' => $row['resetToken']
-			));
+			$database->update("users", "password='$hashedpassword'", "id=$userID");
+			$database->delete("tokens", "id=$tokenID");
 
 			//redirect to index page
 			header('Location: login.php?action=resetAccount');
@@ -50,18 +85,13 @@ if(isset($_POST['submit'])){
 
 		//else catch the exception and show the error.
 		} catch(PDOException $e) {
-		    $error[] = $e->getMessage();
+				error_log($e, 0);
+				array_push($errors, "Error occured updating your password.");
 		}
 
 	}
 
 }
-
-//define page title
-$title = 'HVZ CU BOULDER';
-
-//include header template
-require('layout/header.php'); 
 ?>
 
 
@@ -91,6 +121,7 @@ require('layout/header.php');
 	    	<?php if(isset($stop)){
 
 	    		echo "<p class='bg-danger'>$stop</p>";
+					echo "<p><a href='reset.php'>Forgot Password?</a></p>";
 
 	    	} else { ?>
 
@@ -98,14 +129,14 @@ require('layout/header.php');
 
 					<?php
 					//check for any errors
-					if(isset($error)){
-						foreach($error as $error){
+					if(isset($errors)){
+						foreach($errors as $error){
 							echo '<p class="bg-danger">'.$error.'</p>';
 						}
 					}
 
 					//check the action
-					/**
+					/*
 					switch ($_GET['action']) {
 						case 'active':
 							echo "<h2 class='bg-success'>Your account is now active you may now log in.</h2>";
@@ -114,7 +145,7 @@ require('layout/header.php');
 							echo "<h2 class='bg-success'>Please check your inbox for a reset link.</h2>";
 							break;
 					}
-					**/
+					*/
 					?>
 
 
@@ -130,7 +161,8 @@ require('layout/header.php');
 							</div>
 						</div>
 					</div>
-					
+					<input type="hidden" name="userID" id="userID" value="<?php echo $userID; ?>">
+					<input type="hidden" name="tokenID" id="tokenID" value="<?php echo $tokenID; ?>">
 					<div class="row">
 						<div class="col-xs-6 col-md-6"><input type="submit" name="submit" value="Change Password" class="btn btn-primary btn-block btn-lg button-primary" tabindex="3"></div>
 					</div>
@@ -144,7 +176,7 @@ require('layout/header.php');
 
 </div>
 
-<?php 
+<?php
 //include header template
-require('layout/footer.php'); 
+require('layout/footer.php');
 ?>

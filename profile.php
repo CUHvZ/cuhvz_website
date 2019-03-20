@@ -23,10 +23,14 @@ if(!$user->is_logged_in()){ header('Location: login.php'); }
 ___________________________________________-->
 <?php
 //echo '<p class="bg-danger">'.$error.'</p>';
-if(!$user->is_activated() && $_SESSION["username"] == "Tester"){
+if(!$user->is_activated()){
     if(isset($_GET['action']) && $_GET['action']=="resend"){
-      $mail = $user->make_activation_email();
-      $mail->send();
+			$email  = "josh.brown.3255@gmail.com";
+			$subject   = "My subject";
+			$message = "Text message !";
+			mail($email, $subject, $message);
+      // $mail = $user->make_activation_email();
+      // $mail->send();
       echo "<p class='bg-success' style='margin: 0;'> &#10003; Activation email sent.</p>";
     } else {
       echo "<p class='bg-danger' style='margin: 0;'> &#10003; Your account is not activated yet.

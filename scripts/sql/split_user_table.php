@@ -4,7 +4,7 @@
 
 $root = $_SERVER["DOCUMENT_ROOT"];
 if(empty($root)){
-  $root = "/home/josh/cuhvz_website/";
+  $root = "/home/josh/cuhvz_website";
 }
 
 require $root."/classes/Database.php";

@@ -29,6 +29,12 @@ class Database {
 		return $data;
 	}
 
+	public function getUserDataByEmail($userEmail){
+		$query = "SELECT user_stats.*, users.* FROM user_stats INNER JOIN users ON user_stats.id = users.id where users.email = '$userEmail';";
+		$data = self::executeQueryFetch($query);
+		return $data;
+	}
+
 	public function joinWithUsers($table, $key, $condition=null){
 		$query = "SELECT $table.*, users.* FROM $table INNER JOIN users ON $table.$key=users.id";
 		if($condition != null){
@@ -41,15 +47,21 @@ class Database {
 		return $data;
 	}
 
+	public function insert($table, $fields, $values){
+		//$fields = implode(", ",$fieldsArray);
+		//$values = implode(", ",$valuesArray);
+    $query = "INSERT INTO $table ($fields) VALUES ($values)";
+		//error_log($query, 0);
+		return self::executeQuery($query);
+  }
+
   public function update($table, $set, $condition){
     $query = "UPDATE $table SET $set WHERE $condition";
-		print_r($query."\n");
 		return self::executeQuery($query);
   }
 
   public function delete($table, $condition){
     $query = "DELETE FROM $table WHERE $condition";
-		print_r($query."\n");
 		return self::executeQuery($query);
   }
 
@@ -94,6 +106,7 @@ class Database {
 	}
 
 	public function executeQueryFetchAll($query){
+		// error_log($query, 0);
 		try {
 			$stmt = $this->db->prepare($query);
 			$stmt->execute();
@@ -101,11 +114,12 @@ class Database {
 			return $data;
 		} catch(PDOException $e) {
 				error_log($e, 0);
-        return false;
+        return array("error" => $e);
 		}
 	}
 
 	public function executeQueryFetch($query){
+		// error_log($query, 0);
 		try {
 			$stmt = $this->db->prepare($query);
 			$stmt->execute();
@@ -113,19 +127,69 @@ class Database {
 			return $data;
 		} catch(PDOException $e) {
 				error_log($e, 0);
-        return false;
+        return array("error" => $e);
 		}
 	}
 
-	public function executeQuery($query, $showError=true){
+	public function executeQuery($query){
+		// error_log($query, 0);
 		try {
 			$stmt = $this->db->prepare($query);
 			$stmt->execute();
-			return true;
 		} catch(PDOException $e) {
-			if($showError)
-				error_log($e, 0);
-      return false;
+			error_log($e, 0);
+      return array("error" => $e);
+		}
+	}
+
+	public function executeQueryCount($query){
+		// error_log($query, 0);
+		try {
+			$stmt = $this->db->prepare($query);
+			$stmt->execute();
+			$data = $stmt->fetch();
+			return $data[0];
+		} catch(PDOException $e) {
+			error_log($e, 0);
+      return array("error" => $e);
+		}
+	}
+
+	public function lastInsertId(){
+		try {
+			return $this->db->lastInsertId('id');
+		} catch(PDOException $e) {
+			error_log($e, 0);
+      return array("error" => $e);
+		}
+	}
+
+	public function isTokenExpired($tokenID){
+		$query = "select * from tokens where id=$tokenID";
+		$data = self::executeQueryFetch($query);
+		$expire = $data["expiration"];
+		$tokenExpired = time() > strtotime($expire);
+		if($tokenExpired){
+			error_log("token has expired so delete it", 0);
+			self::delete("tokens", "id=$tokenID");
+			return true;
+		}
+		return false;
+	}
+
+	public function deleteDuplicateTokens($userID, $tokenType){
+		$query = "select * from tokens where user_id=$userID and token_type='$tokenType'";
+		$data = self::executeQueryFetchAll($query);
+		$count = sizeof($data);
+		if($count == 1){
+			$tokenID = $data[0]["id"];
+			self::delete("tokens", "id=$tokenID");
+		}else if($count > 1){
+			// delete all tokens if multiple of same token exist
+			foreach ($data as $entry) {
+				$id = $entry["id"];
+				self::delete("tokens", "id=$id");
+			}
 		}
 	}
 

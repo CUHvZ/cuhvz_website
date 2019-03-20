@@ -31,8 +31,8 @@ SET time_zone = "+00:00";
 CREATE TABLE `weeklongF17` (
   `memberID` int(11) NOT NULL,
   `username` varchar(255) NOT NULL,
-  `firstName` text NOT NULL,
-  `lastName` text NOT NULL,
+  `first_name` text NOT NULL,
+  `last_name` text NOT NULL,
   `active` varchar(255) NOT NULL,
   `status` varchar(255) NOT NULL DEFAULT 'human',
   `user_hex` varchar(5) NOT NULL,
@@ -47,7 +47,7 @@ CREATE TABLE `weeklongF17` (
 -- Dumping data for table `weeklongF17`
 --
 
-INSERT INTO `weeklongF17` (`memberID`, `username`, `firstName`, `lastName`, `active`, `status`, `user_hex`, `kill_count`, `starve_date`, `waiver`, `bandanna`, `orient`) VALUES
+INSERT INTO `weeklongF17` (`memberID`, `username`, `first_name`, `last_name`, `active`, `status`, `user_hex`, `kill_count`, `starve_date`, `waiver`, `bandanna`, `orient`) VALUES
 (7, 'ghost', 'Scarlett', 'Harris', 'Yes', 'human', 'd8ca9', '', NULL, NULL, NULL, NULL),
 (6, 'janderson', 'Jennifer', 'Anderson', 'Yes', 'human', '9563f', '', NULL, NULL, NULL, NULL),
 (5, 'NerdyDruid', 'colleen', 'feuerborn', 'Yes', 'deceased', '51a17', '', '2017-11-03 21:59:00', NULL, NULL, NULL),

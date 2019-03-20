@@ -137,7 +137,7 @@ ___________________________________________-->
 				</div>
 
 				<div class="row">
-					<a href='retrieveUsername.php'>Forgot Username?</a> |
+					<!--<a href='retrieveUsername.php'>Forgot Username?</a> |-->
 					<a href='reset.php'>Forgot Password?</a>
 				</div>
 

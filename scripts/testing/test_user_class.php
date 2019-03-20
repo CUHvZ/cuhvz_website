@@ -26,8 +26,9 @@ if($loggedIn){
 
   // testActivateUser($user);
   // testIsActivated($user);
-
-
+  $fields = array("user_id", "token", "token_type", "expiration");
+  $values = array(269, '"72195b20868a796a66df194156cb315a"', '"ACTIVATION"', "NOW() + INTERVAL 1 DAY");
+  $db->insert("tokens", $fields, $values);
 
 
 }else{

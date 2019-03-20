@@ -2,6 +2,7 @@
 <html lang="en">
 <?php
 require('includes/config.php');
+// require($_SERVER['DOCUMENT_ROOT'].'/classes/phpmailer/Mail.php');
 $title = 'CU HvZ | ';
 ?>
 <head>
@@ -13,67 +14,87 @@ $title = 'CU HvZ | ';
 
 <?php
 
+$errors = [];
+
 //if logged in redirect to user page
 if( $user->is_logged_in() ){ header('Location: memberpage.php'); }
 
 //if form has been submitted process it
 if(isset($_POST['submit'])){
 
+  $database = new Database();
 	//email validation
 	$email = $_POST['email'];
-	if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
-	    $error[] = 'Please enter a valid email address.';
+	validateEmail($database, $email, $errors);
+
+	if(empty($errors)){
+		$resetToken = md5(uniqid(rand(),true));
+		$data = $database->getUserDataByEmail($email);
+		if(isset($data["error"])){
+			array_push($errors, "Error occured accessing user data.");
+		}else{
+			$userID = $data["id"];
+			$token = new Token($userID, Token::$PASS_RESET);
+			// delete any duplicate entries
+			$database->deleteDuplicateTokens($userID, Token::$PASS_RESET);
+			// insert new token
+			$error = $database->executeQuery($token->getQuery());
+			if(!isset($error["error"])){
+				sendPasswordResetEmail($email, $token->getValue(), $errors);
+			}
+			if(empty($errors)){
+				//redirect to profile page
+				header('Location: login.php?action=reset');
+				exit;
+			}
+		}
+	}
+}
+
+function validateEmail($db, $email, &$errors){
+	$indexAt = strpos($email, "@");
+	// checks is email is blank before @
+	if(empty(substr($email, 0, $indexAt))){
+		array_push($errors, 'Please enter a valid email address.');
+	}
+	// checks if email is in a valid format
+	else if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
+		array_push($errors, 'Please enter a valid email address.');
 	} else {
-		$stmt = $db->prepare('SELECT email FROM weeklongF17 WHERE email = :email');
-		$stmt->execute(array(':email' => $_POST['email']));
-		$row = $stmt->fetch(PDO::FETCH_ASSOC);
-
-		if(empty($row['email'])){
-			$error[] = 'Email provided is not recognized.';
+		$data = $db->executeQueryFetch("SELECT email FROM users WHERE email = '$email'");
+		//error_log($data, 0);
+		if(isset($data["error"])){
+			error_log("error occured validating email.", 0);
+			array_push($errors, "An error occured trying to access the database. Please contact the Mod team.");
+		}else{
+			if(!isset($data["email"]))
+				array_push($errors, 'Email does not exist.');
 		}
-
 	}
+}
 
-	//if no errors have been created carry on
-	if(!isset($error)){
+function sendPasswordResetEmail($email, $token, &$errors){
+	try{
+		$to = $email;
+		$subject = "CU Boulder HvZ Password Reset";
+		$body = "<p>Someone requested that the password associated with your CU Boulder HvZ account be reset.</p>
+		<p>If this was a mistake, please ignore this email.</p>
+		<p>To reset your password, click here: <a href='".DIR."resetPassword.php?key=$token'>".DIR."resetPassword.php?key=$token</a></p>
+		<p>- CU Boulder HvZ Team";
 
-		//create the activasion code
-		$token = md5(uniqid(rand(),true));
-
-		try {
-
-			$stmt = $db->prepare("UPDATE weeklongF17 SET resetToken = :token, resetComplete='No' WHERE email = :email");
-			$stmt->execute(array(
-				':email' => $row['email'],
-				':token' => $token
-			));
-
-			//send email
-			$to = $row['email'];
-			$subject = "CU Boulder HvZ Password Reset";
-			$body = "<p>Someone requested that the password associated with your CU Boulder HvZ account be reset.</p>
-			<p>If this was a mistake, please ignore this email.</p>
-			<p>To reset your password, click here: <a href='".DIR."resetPassword.php?key=$token'>".DIR."resetPassword.php?key=$token</a></p>
-			<p>- CU Boulder HvZ Team";
-
-			$mail = new Mail();
-			$mail->setFrom(SITEEMAIL);
-			$mail->addAddress($to);
-			$mail->subject($subject);
-			$mail->body($body);
-			$mail->send();
-
-			//redirect to index page
-			header('Location: login.php?action=reset');
-			exit;
-
-		//else catch the exception and show the error.
-		} catch(PDOException $e) {
-		    $error[] = $e->getMessage();
-		}
-
+		$mail = new Mail();
+		$mail->setFrom(SITEEMAIL);
+		$mail->addAddress($to);
+		$mail->subject($subject);
+		$mail->body($body);
+		error_log($mail->Mailer, 0);
+		$mail->isSMTP();
+		$mail->send();
+	//else catch the exception and show the error.
+	} catch(PDOException $e) {
+		error_log($e, 0);
+		array_push($errors, 'Error occured send email.');
 	}
-
 }
 
 // define page title
@@ -111,22 +132,22 @@ require('layout/header.php');
 
 				<?php
 				//check for any errors
-				if(isset($error)){
-					foreach($error as $error){
+				if(!empty($errors)){
+					foreach($errors as $error){
 						echo '<p class="bg-danger">'.$error.'</p>';
 					}
-				}
+				}else{
+					if(isset($_GET['action'])){
 
-				if(isset($_GET['action'])){
-
-					//check the action
-					switch ($_GET['action']) {
-						case 'active':
-							echo "<p class='bg-success'>Your account is now active you may now log in.</p>";
-							break;
-						case 'reset':
-							echo "<p class='bg-success'>Please check your inbox for a reset link.</p>";
-							break;
+						//check the action
+						switch ($_GET['action']) {
+							case 'active':
+								echo "<p class='bg-success'>Your account is now active you may now log in.</p>";
+								break;
+							case 'reset':
+								echo "<p class='bg-success'>Please check your inbox for a reset link.</p>";
+								break;
+						}
 					}
 				}
 				?>

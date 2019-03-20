@@ -29,7 +29,7 @@ createUser($db,"Admin","Password","test","admin","admin@gmail.com");
 
 
 function createUser($db,$username,$password,$firstName,$lastName,$email){
-	
+
 
 	$activasion = md5(uniqid(rand(),true));
 	// hash the password
@@ -37,17 +37,7 @@ function createUser($db,$username,$password,$firstName,$lastName,$email){
 
 	try {
 
-		// insert into database with a prepared statement
-		$stmt = $db->prepare('INSERT INTO users (username,password,firstName,lastName,email,activated) VALUES (:username, :password, :firstName, :lastName, :email, :activated)');
-		$stmt->execute(array(
-			':username' => $username,
-			':password' => $hashedpassword,
-			':firstName' => $firstName,
-			':lastName' => $lastName,
-			':email' => $email,
-			':activated' => $activasion
-		));
-		echo "success";
+		
 
 	// else catch the exception and show the error
 	} catch(PDOException $e) {

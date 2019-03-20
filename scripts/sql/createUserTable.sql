@@ -2,8 +2,8 @@
 CREATE TABLE if not exists users (
 id int(11) NOT NULL AUTO_INCREMENT ,
 username varchar(30) NOT NULL ,
-firstName varchar(30) NOT NULL ,
-lastName varchar(30) NOT NULL ,
+first_name varchar(30) NOT NULL ,
+last_name varchar(30) NOT NULL ,
 email varchar(50) NOT NULL ,
 password varchar(255) NOT NULL ,
 phone varchar(12),

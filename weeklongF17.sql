@@ -30,8 +30,8 @@ CREATE TABLE IF NOT EXISTS `weeklongF17` (
   `memberID` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `firstName` text NOT NULL,
-  `lastName` text NOT NULL,
+  `first_name` text NOT NULL,
+  `last_name` text NOT NULL,
   `email` varchar(255) NOT NULL,
   `phone` varchar(10) NOT NULL,
   `active` varchar(255) NOT NULL,
@@ -49,7 +49,7 @@ CREATE TABLE IF NOT EXISTS `weeklongF17` (
 -- Dumping data for table `weeklongF17`
 --
 
-INSERT INTO `weeklongF17` (`memberID`, `username`, `password`, `firstName`, `lastName`, `email`, `phone`, `active`, `status`, `UserHex`, `KillCount`, `StarveDate`, `resetToken`, `resetComplete`, `orient`) VALUES
+INSERT INTO `weeklongF17` (`memberID`, `username`, `password`, `first_name`, `last_name`, `email`, `phone`, `active`, `status`, `UserHex`, `KillCount`, `StarveDate`, `resetToken`, `resetComplete`, `orient`) VALUES
 (7, 'ghost', '$2y$10$rT944InBA/GFXY4oX/yMUufXbA4tKr3pn0BFn/IuNoRLU85vdKU9W', 'Scarlett', 'Harris', 'scarley.harris@gmail.com', '7192170838', 'Yes', 'human', 'd8ca9', '', NULL, NULL, 'No', NULL),
 (6, 'janderson', '$2y$10$Km4lM.cReebQlXSdewBuJuXgOIo5U9RpfnAM3ADzJ.tkN8a5l8qZC', 'Jennifer', 'Anderson', 'jenniferhorses@gmail.com', '7209383122', 'Yes', 'human', '9563f', '', NULL, NULL, 'No', NULL),
 (5, 'NerdyDruid', '$2y$10$vkm0XeFkT.u6LP4UX6Zwo.tUtaF2AsmfdsHmpeesk2TObHKlVH2Yu', 'colleen', 'feuerborn', 'Colleenrfeuerborn@gmail.com', '7203276770', 'Yes', 'deceased', '51a17', '', '2017-11-03 21:59:00', NULL, 'No', NULL),
