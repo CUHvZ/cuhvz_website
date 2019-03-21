@@ -113,19 +113,20 @@ class Database {
 			$data = $stmt->fetchAll();
 			return $data;
 		} catch(PDOException $e) {
+			error_log("Error executing: $query", 0);
 				error_log($e, 0);
         return array("error" => $e);
 		}
 	}
 
 	public function executeQueryFetch($query){
-		// error_log($query, 0);
 		try {
 			$stmt = $this->db->prepare($query);
 			$stmt->execute();
 			$data = $stmt->fetch();
 			return $data;
 		} catch(PDOException $e) {
+			error_log("Error executing: $query", 0);
 				error_log($e, 0);
         return array("error" => $e);
 		}
@@ -137,6 +138,7 @@ class Database {
 			$stmt = $this->db->prepare($query);
 			$stmt->execute();
 		} catch(PDOException $e) {
+			error_log("Error executing: $query", 0);
 			error_log($e, 0);
       return array("error" => $e);
 		}
@@ -150,6 +152,7 @@ class Database {
 			$data = $stmt->fetch();
 			return $data[0];
 		} catch(PDOException $e) {
+			error_log("Error executing: $query", 0);
 			error_log($e, 0);
       return array("error" => $e);
 		}

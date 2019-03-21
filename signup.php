@@ -131,7 +131,6 @@ if(isset($_POST['submit'])){
 			$mail->addAddress($to);
 			$mail->subject($subject);
 			$mail->body($body);
-      error_log("Sending message with body: ".$body,0);
       $mail->isSMTP();
 			$mail->send();
 

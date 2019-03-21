@@ -31,7 +31,7 @@ if(isset($_POST['submit'])){
 		exit;
 
 	} else {
-		$error[] = 'Wrong username/email password combination or your account has not been activated.';
+		$error[] = 'Wrong username/email password combination.';
 	}
 
 }

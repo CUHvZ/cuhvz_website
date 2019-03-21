@@ -23,19 +23,36 @@ if(!$user->is_logged_in()){ header('Location: login.php'); }
 ___________________________________________-->
 <?php
 //echo '<p class="bg-danger">'.$error.'</p>';
+$database = new Database();
 if(!$user->is_activated()){
     if(isset($_GET['action']) && $_GET['action']=="resend"){
-			$email  = "josh.brown.3255@gmail.com";
-			$subject   = "My subject";
-			$message = "Text message !";
-			mail($email, $subject, $message);
-      // $mail = $user->make_activation_email();
-      // $mail->send();
-      echo "<p class='bg-success' style='margin: 0;'> &#10003; Activation email sent.</p>";
+			$userID = $_SESSION['id'];
+			$userEmail = $_SESSION['email'];
+      $token = new Token($userID, Token::$ACTIVATE);
+      $error = $database->executeQuery($token->getQuery());
+			if(!isset($error["error"])){
+				$tokenValue = $token->getValue();
+				$subject = "CU Boulder HvZ Registration Confirmation";
+				$body = "<p>To activate your account, please click on this link: <a href='".DIR."activate.php?x=$userID&y=$tokenValue'>".DIR."activate.php?x=$userID&y=$tokenValue</a></p>
+				<p>- CU BOULDER HVZ TEAM</p>";
+
+				$mail = new Mail();
+				$mail->setFrom(SITEEMAIL);
+				$mail->addAddress($userEmail);
+				$mail->subject($subject);
+				$mail->body($body);
+	      $mail->isSMTP();
+				$mail->send();
+	      echo "<p class='bg-success' style='margin: 0;'> &#10003; Activation email sent.</p>";
+			}
     } else {
       echo "<p class='bg-danger' style='margin: 0;'> &#10003; Your account is not activated yet.
       <a href='profile.php?action=resend' class='resend'>Resend activation email.</a></p>";
     }
+}
+
+if(isset($_GET['action']) && $_GET['action']=="activated"){
+	echo "<p class='bg-success' style='margin: 0;'> &#10003; Your account has been activated.</p>";
 }
 
 if(isset($_GET['join']) && isset($_GET['eventId'])){
