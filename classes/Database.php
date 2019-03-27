@@ -195,26 +195,27 @@ class Database {
 			}
 		}
 	}
-
-	/*
-  private function buildConditions($conditions){
-    $whereClause = " where";
-    if(sizeof($data) == 1){
-      foreach ($conditions as $key => $value) {
-          return " where $key=$value";
-      }
-    }
-  }
-
-  private function buildMultipleConditions($conditions){
-    $whereClause = " where";
-
-    foreach ($conditions as $key => $value) {
-
-    }
-  }
-	*/
 }
+
+
+/*
+private function buildConditions($conditions){
+	$whereClause = " where";
+	if(sizeof($data) == 1){
+		foreach ($conditions as $key => $value) {
+				return " where $key=$value";
+		}
+	}
+}
+
+private function buildMultipleConditions($conditions){
+	$whereClause = " where";
+
+	foreach ($conditions as $key => $value) {
+
+	}
+}
+*/
 
 // Putting this on hold
 /*
