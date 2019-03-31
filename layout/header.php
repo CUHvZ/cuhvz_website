@@ -32,7 +32,7 @@
   ?>
   <link rel='stylesheet' href='/css/normalize.css'>
   <link rel='stylesheet' href='/css/skeleton.css'>
-  <link rel='stylesheet' href='/css/custom_v1.4.css'>
+  <link rel='stylesheet' href='/css/custom_v1.5.css'>
 
 
   <!-- Favicon
