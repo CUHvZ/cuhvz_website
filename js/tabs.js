@@ -9,5 +9,10 @@ function openTab(evt, tabName) {
     tablinks[i].className = tablinks[i].className.replace(" active", "");
   }
   document.getElementById(tabName).style.display = "block";
-  evt.currentTarget.className += " active";
+  var button = document.getElementById(tabName+"-button");
+  console.log(button);
+  if(button == null)
+    evt.currentTarget.className += " active";
+  else
+    button.className += " active";
 }

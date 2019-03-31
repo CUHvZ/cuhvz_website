@@ -52,9 +52,9 @@ CREATE TABLE `weeklongs` (
 --
 
 INSERT INTO `weeklongs` (`id`, `name`, `title`, `display_dates`, `start_date`, `end_date`, `display`, `active`) VALUES
-(1, 'weeklongF18', 'Close Encounters of the Undead Kind', 'September 24th - 28th', '2018-09-24 13:00:00', '2018-09-28 21:00:00', true, false),
-(2, 'weeklongF17', 'Lovecraft', 'November 12th - 16th', '2017-11-12 16:00:00', '2017-11-20 00:00:00', true, false),
-(3, 'weeklongS17', 'Souljourn Preamble', 'March 20th - 24th', '2017-04-20 15:00:00', '2017-03-24 23:00:00', true, false);
+(1, 'weeklongF18', 'Close Encounters of the Undead Kind', 'September 24th - 28th, 2018', '2018-09-24 09:00:00', '2018-09-28 17:00:00', true, false),
+(2, 'weeklongF17', 'Lovecraft', 'November 12th - 16th, 2017', '2017-11-12 09:00:00', '2017-11-20 17:00:00', true, false),
+(3, 'weeklongS17', 'Souljourn Preamble', 'March 20th - 24th, 2017', '2017-04-20 09:00:00', '2017-03-24 17:00:00', true, false);
 
 --
 -- Indexes for dumped tables

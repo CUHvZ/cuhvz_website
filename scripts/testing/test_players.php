@@ -21,7 +21,7 @@ try {
 	    exit;
 	}
 	//include the user class, pass in the database connection
-	//include($_SERVER['DOCUMENT_ROOT'].'/classes/user.php');
+	//include($_SERVER['DOCUMENT_ROOT'].'/classes/User.php');
 	//$user = new User($db);
 for($i = 1; $i<=20; $i++){
 	createUser($db,"testuser".$i,"Password","test","user","test".$i."@gmail.com");

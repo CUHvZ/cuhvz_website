@@ -8,6 +8,7 @@ define('DBNAME','cuhvmiwg_hvz');
 class Database {
 
 	private $db;
+	private $showErrors;
 
 	function __construct(){
 		try {
@@ -21,6 +22,15 @@ class Database {
 		    exit;
 		}
 		$this->db = $db;
+		$this->showErrors = true;
+	}
+
+	public function suppressErrors(){
+		$this->showErrors = false;
+	}
+
+	public function showErrors(){
+		$this->showErrors = true;
 	}
 
 	public function getUserData($userID){
@@ -113,9 +123,11 @@ class Database {
 			$data = $stmt->fetchAll();
 			return $data;
 		} catch(PDOException $e) {
-			error_log("Error executing: $query", 0);
+			if($this->showErrors){
+				error_log("Error executing: $query", 0);
 				error_log($e, 0);
-        return array("error" => $e);
+			}
+      return array("error" => $e);
 		}
 	}
 
@@ -126,9 +138,11 @@ class Database {
 			$data = $stmt->fetch();
 			return $data;
 		} catch(PDOException $e) {
-			error_log("Error executing: $query", 0);
+			if($this->showErrors){
+				error_log("Error executing: $query", 0);
 				error_log($e, 0);
-        return array("error" => $e);
+			}
+      return array("error" => $e);
 		}
 	}
 
@@ -138,8 +152,10 @@ class Database {
 			$stmt = $this->db->prepare($query);
 			$stmt->execute();
 		} catch(PDOException $e) {
-			error_log("Error executing: $query", 0);
-			error_log($e, 0);
+			if($this->showErrors){
+				error_log("Error executing: $query", 0);
+				error_log($e, 0);
+			}
       return array("error" => $e);
 		}
 	}
@@ -152,8 +168,10 @@ class Database {
 			$data = $stmt->fetch();
 			return $data[0];
 		} catch(PDOException $e) {
-			error_log("Error executing: $query", 0);
-			error_log($e, 0);
+			if($this->showErrors){
+				error_log("Error executing: $query", 0);
+				error_log($e, 0);
+			}
       return array("error" => $e);
 		}
 	}
@@ -162,7 +180,9 @@ class Database {
 		try {
 			return $this->db->lastInsertId('id');
 		} catch(PDOException $e) {
-			error_log($e, 0);
+			if($this->showErrors){
+				error_log($e, 0);
+			}
       return array("error" => $e);
 		}
 	}

@@ -81,7 +81,7 @@ if(isset($_GET['kys'])){
 <section class="lightslide contentwithnav">
 
  <div class="container">
-  <div class="row">
+  <div class="row hide-mobile">
 
     <div class="two columns">
       <img src="images/skull.png" class="u-max-full-width">

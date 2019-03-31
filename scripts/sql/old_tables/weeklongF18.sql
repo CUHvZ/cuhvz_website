@@ -1,28 +1,50 @@
--- This is a template for creating a new weeklong game
-CREATE TABLE IF NOT EXISTS weeklongXXX (
-  user_id int(11) NOT NULL,
-  status varchar(255) NOT NULL DEFAULT 'human',
-  username varchar(255) NOT NULL,
-  status_type varchar(255),
-  user_hex varchar(5) NOT NULL,
-  points int(5) DEFAULT '0',
-  kill_count varchar(5) NOT NULL DEFAULT 0,
-  starve_date timestamp NULL DEFAULT NULL,
-  time_joined timestamp DEFAULT CURRENT_TIMESTAMP,
-  registered boolean DEFAULT false,
-  starve_timer int(20) DEFAULT NULL,
-  waiver boolean DEFAULT false,
-  bandanna boolean DEFAULT false,
-  PRIMARY KEY (user_id),
-  UNIQUE KEY user_id ( user_id )
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 ;
+-- phpMyAdmin SQL Dump
+-- version 4.8.3
+-- https://www.phpmyadmin.net/
+--
+-- Host: localhost:3306
+-- Generation Time: Mar 27, 2019 at 04:58 PM
+-- Server version: 10.1.38-MariaDB-cll-lve
+-- PHP Version: 7.2.7
 
--- insert into weeklongXXX (user_id, status, user_hex) VALUES
---   (69, 'human', '5674b'),
---   (67, 'human', '967a5'),
---   (113, 'human', 'ffb6b');
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
+SET time_zone = "+00:00";
 
-INSERT INTO `weeklongXXX` (`user_id`, `username`, `status`, `user_hex`, `kill_count`, `starve_date`, `points`, `waiver`, `bandanna`) VALUES
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `cuhvmiwg_hvz`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `weeklongF18`
+--
+
+CREATE TABLE `weeklongF18` (
+  `user_id` int(11) NOT NULL,
+  `username` varchar(30) NOT NULL,
+  `status` varchar(255) NOT NULL DEFAULT 'human',
+  `user_hex` varchar(5) NOT NULL,
+  `kill_count` varchar(5) NOT NULL DEFAULT '0',
+  `starve_date` timestamp NULL DEFAULT NULL,
+  `points` int(5) DEFAULT '0',
+  `waiver` tinyint(1) DEFAULT NULL,
+  `bandanna` tinyint(1) DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `weeklongF18`
+--
+
+INSERT INTO `weeklongF18` (`user_id`, `username`, `status`, `user_hex`, `kill_count`, `starve_date`, `points`, `waiver`, `bandanna`) VALUES
 (69, 'Savvycappy', 'human', '5674b', '0', NULL, 0, NULL, NULL),
 (67, 'claudiasellis', 'human', '967a5', '0', NULL, 0, 1, 1),
 (113, 'magickayla', 'human', 'ffb6b', '0', NULL, 0, 1, 1),
@@ -144,3 +166,19 @@ INSERT INTO `weeklongXXX` (`user_id`, `username`, `status`, `user_hex`, `kill_co
 (224, 'joor228', 'human', '2bdc5', '0', NULL, 0, 1, 1),
 (227, 'Mast7851', 'human', 'ce3c5', '0', NULL, 0, NULL, NULL),
 (232, 'Evan', 'human', '5c597', '0', NULL, 0, NULL, NULL);
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `weeklongF18`
+--
+ALTER TABLE `weeklongF18`
+  ADD PRIMARY KEY (`user_id`),
+  ADD UNIQUE KEY `user_id` (`user_id`);
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

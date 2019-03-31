@@ -103,7 +103,7 @@ $(document).ready(function(){
         echo "<li><a style='float: right;' id='logout_button' href='/logout.php'>Logout</a></li>";
         echo "<li><a style='float: right;' id='profile_button' href='/profile.php'>Profile</a></li>";
         if($user->is_admin()){
-          echo "<li><a style='float: right;' id='admin_button' href='#'>Admin</a></li>";
+          echo "<li><a style='float: right;' id='admin_button' href='/admin.php'>Admin</a></li>";
         }
       }else{
       	echo "<li><a style='float: right;' id='login_button' href='/login.php'>Login</a></li>";

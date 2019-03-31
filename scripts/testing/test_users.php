@@ -21,7 +21,7 @@ try {
 	    exit;
 	}
 //include the user class, pass in the database connection
-require('../classes/user.php');
+require('../classes/User.php');
 $user = new User($db);
 
 createUser($db,"testuser","Password","test","user","test@gmail.com");

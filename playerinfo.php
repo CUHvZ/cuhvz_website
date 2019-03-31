@@ -1,5 +1,4 @@
-<div class="four columns">
-	<div class="section-heading darkgrey">Profile</div>
+<div>
 
 	<table>
 		<tr>

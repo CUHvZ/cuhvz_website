@@ -69,6 +69,7 @@ class User extends Password{
 			$stmt = $this->_db->prepare('SELECT admin FROM users WHERE id=:id;');
 			$stmt->execute(array('id' => $_SESSION['id']));
 			$row = $stmt->fetch();
+      // error_log("checking if admin for id ".$_SESSION['id']." : ".$row["admin"], 0);
 			return $row["admin"];
 
 		} catch(PDOException $e) {

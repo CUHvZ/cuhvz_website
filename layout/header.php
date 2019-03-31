@@ -17,7 +17,7 @@
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Anton" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,900|Arimo:400,700|Roboto:400,700,900" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,900|Arimo:400,700|Roboto:400,700,900" rel="stylesheet">
 
   <!-- CSS
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
@@ -32,7 +32,8 @@
   ?>
   <link rel='stylesheet' href='/css/normalize.css'>
   <link rel='stylesheet' href='/css/skeleton.css'>
-  <link rel='stylesheet' href='/css/custom_v1.3.css'>
+  <link rel='stylesheet' href='/css/custom_v1.4.css'>
+
 
   <!-- Favicon
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
@@ -61,6 +62,18 @@
 
 </script>
 
+<!-- javascript
+–––––––––––––––––––––––––––––––––––––––––––––––––– -->
+
   <script src="/js/jquery-3.1.1.min.js"></script>
   <script src="/js/checkbox.js"></script>
   <script src="/js/navbar_highlight.js"></script>
+<!--
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.css" rel="stylesheet"/>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker3.standalone.min.css" />
+  <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js"></script>
+-->

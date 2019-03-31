@@ -1,3 +1,23 @@
+-- phpMyAdmin SQL Dump
+-- version 4.8.3
+-- https://www.phpmyadmin.net/
+--
+-- Host: localhost:3306
+-- Generation Time: Mar 27, 2019 at 04:33 PM
+-- Server version: 10.1.38-MariaDB-cll-lve
+-- PHP Version: 7.2.7
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
 --
 -- Database: `cuhvmiwg_hvz`
 --
@@ -8,30 +28,27 @@
 -- Table structure for table `users`
 --
 
-CREATE TABLE if not exists users (
-  id int(11) NOT NULL AUTO_INCREMENT ,
-  username varchar(30) NOT NULL ,
-  first_name varchar(30) NOT NULL ,
-  last_name varchar(30) NOT NULL ,
-  email varchar(50) NOT NULL ,
-  password varchar(255) NOT NULL ,
-  phone varchar(12),
-  activated varchar(255) NOT NULL,
-  admin boolean DEFAULT False ,
-  subscribed boolean DEFAULT True ,
-  resetToken varchar(255),
-  resetComplete varchar(3) DEFAULT "No",
-  PRIMARY KEY ( id ) ,
-  UNIQUE KEY id ( id ),
-  UNIQUE KEY email ( email )
-);
+CREATE TABLE `users` (
+  `id` int(11) NOT NULL,
+  `username` varchar(30) NOT NULL,
+  `firstName` varchar(30) NOT NULL,
+  `lastName` varchar(30) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `phone` varchar(12) DEFAULT NULL,
+  `activated` varchar(255) NOT NULL,
+  `admin` tinyint(1) DEFAULT '0',
+  `subscribed` tinyint(1) DEFAULT '1',
+  `resetToken` varchar(255) DEFAULT NULL,
+  `resetComplete` varchar(3) DEFAULT 'No'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `username`, `first_name`, `last_name`, `email`, `password`, `phone`, `activated`, `admin`, `subscribed`, `resetToken`, `resetComplete`) VALUES
-(1, 'LegendaryCrypt', 'Josh', 'Brown', 'jobr3255@colorado.edu', '$2y$10$I8/LQM3KB7190xHKYWTaKemyj7UY/RVNK77PMVmX7L.kIY4H1.yMq', '3038191330', 'Yes', 0, 1, NULL, 'No'),
+INSERT INTO `users` (`id`, `username`, `firstName`, `lastName`, `email`, `password`, `phone`, `activated`, `admin`, `subscribed`, `resetToken`, `resetComplete`) VALUES
+(1, 'LegendaryCrypt', 'Josh', 'Brown', 'jobr3255@colorado.edu', '$2y$10$I8/LQM3KB7190xHKYWTaKemyj7UY/RVNK77PMVmX7L.kIY4H1.yMq', '3038191330', 'Yes', 1, 1, NULL, 'No'),
 (28, 'LilBisch', 'Devon', 'Ricken', 'devonr363@gmail.com', '$2y$10$GmkbWv6xdfEGjHM15vFXDON9qy4fpVK/azdx9DN/mdOLwXASyh4q2', '7202997200', 'Yes', 0, 1, NULL, 'No'),
 (29, 'ghost', 'Scarlett', 'Harris', 'scarley.harris@gmail.com', '$2y$10$FuwGzxZzBOF4j7QxFzt7/eU6KP8I3jaJp4.6rNqLNVSSo2LuGmiGC', '7192170839', 'Yes', 0, 1, NULL, 'No'),
 (31, 'NerdyDruid', 'Colleen', 'Feuerborn', 'colleenrfeuerborn@gmail.com', '$2y$10$1B1g2xTsVW.ljmXdBLexfeg23aT/KY8tSwJ4a8yIZpqt8LW2TiFc6', '7203276770', 'Yes', 0, 1, NULL, 'No'),
@@ -66,7 +83,7 @@ INSERT INTO `users` (`id`, `username`, `first_name`, `last_name`, `email`, `pass
 (60, 'Nadiv', 'Nadiv', 'Edelstein', 'nadivge@gmail.com', '$2y$10$S9Rje9jPPkDoR8MdZpQLuepO3dBxh9KQeM4NqBZaWVpZyIslmjKLS', '7202357772', 'Yes', 0, 1, NULL, 'No'),
 (61, 'JuciaPucia', 'Julia', 'Bierylo', 'jubi8194@colorado.edu', '$2y$10$YVq69AczjRnJA4z9SeKqRee7zbgE3D3cpy3jrg3DvxS0aocZKH6zG', '7209174562', 'Yes', 0, 1, NULL, 'No'),
 (62, 'darthvid1', 'David', 'Wells', 'david.wells@colorado.edu', '$2y$10$C1saCbypyoh38Spu8klTTudznBYSdGYoxONVa.7Zdk8sb4eGJuLca', '7203691334', 'Yes', 0, 1, NULL, 'No'),
-(63, 'Boo-theGhost', 'Aubrey', 'MacDougall', 'auma7178@colorado.edu', '$2y$10$1TBYoKMzFfT8ZSxr3se.xOvByjl8W1sZRMdbMi7A.vS.eGdoJs6dm', '3034751685', 'Yes', 0, 1, NULL, 'No'),
+(63, 'Boo-theGhost', 'Aubrey', 'MacDougall', 'auma7178@colorado.edu', '$2y$10$1TBYoKMzFfT8ZSxr3se.xOvByjl8W1sZRMdbMi7A.vS.eGdoJs6dm', '3034751685', 'Yes', 1, 1, NULL, 'No'),
 (64, 'Drnotdoctor', 'Sam', 'Raizman', 'sara9982@colorado.edu', '$2y$10$5nuAVyFJKW43xxs0vd2AyOpIaNokIhcAm9z5HE6IF1I8QA.HsZLuy', '7208918416', 'Yes', 0, 1, NULL, 'No'),
 (65, 'thayer', 'Thayer', 'Cornell', 'thco9672@colorado.edu', '$2y$10$oWZbeky20vFzsJRwxaGoG.dDelC0IONifeXYjSwcxax2zH5YsU456', '6179470666', 'Yes', 0, 1, NULL, 'No'),
 (66, 'Lawllipop', 'Ben', 'Hesser', 'behe0929@colorado.edu', '$2y$10$es/G2lSILx2/Imy36pIdDeuCRwP5TLPCAMLaVCTYrpZ1bHprkj34.', '3039063720', 'Yes', 0, 1, NULL, 'No'),
@@ -86,13 +103,13 @@ INSERT INTO `users` (`id`, `username`, `first_name`, `last_name`, `email`, `pass
 (80, 'aliden', 'Amy', 'Liden', 'lidenamy@gmail.com', '$2y$10$mEj84B6PNWlU0N/nnjNJZOYVoc6L5fwmcsN40Lr/cior0N4MJzUCa', '9702611332', 'Yes', 0, 1, NULL, 'No'),
 (81, 'char7887', 'Fern', 'Aroonnithi', 'char7887@colorado.edu', '$2y$10$6XVxmWOpqUdVGNfj8G5Gf./uBnjv1tfhWfFd8MUD7wUbK0CdXnILK', '7209195268', 'Yes', 0, 1, NULL, 'No'),
 (82, 'rebeccaopiela', 'Rebecca', 'Opiela', 'reop0775@colorado.edu', '$2y$10$GkTeQD9ZjwO0vaOeoC5iGuf/APV9Rs.4DBF5jbWCbZgnIH5IO8GeC', '2817701965', 'Yes', 0, 1, NULL, 'No'),
-(83, 'janderson', 'Jennifer', 'Anderson', 'jenniferhorses@gmail.com', '$2y$10$5WJ8Hde62PA7KUZ7aBwhfeRNPitChWiuCWRvdya8fvbGJzmjaO2pq', '7209383122', 'Yes', 0, 1, NULL, 'No'),
+(83, 'janderson', 'Jennifer', 'Anderson', 'jenniferhorses@gmail.com', '$2y$10$5WJ8Hde62PA7KUZ7aBwhfeRNPitChWiuCWRvdya8fvbGJzmjaO2pq', '7209383122', 'Yes', 1, 1, NULL, 'No'),
 (85, 'kriss', 'kristin', 'bogar', 'kebuniv@gmail.com', '$2y$10$llxxni85DIQZp.dGhAsOru2WLyKcGor7YJZB9A8WqGMsEDw0ybQ4.', '3036566892', 'Yes', 0, 1, NULL, 'No'),
 (86, 'JoshThewild', 'Josh', 'Wild', 'jowi6757@colorado.edu', '$2y$10$5eb/tqclLbkvAJhTZGo/U.UrKfqZzsdRdthX7vTOq0Et82J1cYG5K', '4108687526', 'Yes', 0, 1, NULL, 'No'),
 (87, 'Tlex', 'Lexie', 'Birren', 'abirren96@gmail.com', '$2y$10$4eyWqfoBH.etuBuIqfwRnOPsJy3BN4CqPfXMhGK8sL67MdMqrsxz6', '3037463995', 'Yes', 0, 1, NULL, 'No'),
 (88, 'Luci', 'Luci', 'Sherriff', 'sherriffla@yahoo.com', '$2y$10$3taXIGCEv3MxhGD0wMJBG.rWTqemAKw0QFEDiJAZkg8rYZNYoy8.a', '9703661979', 'Yes', 0, 1, NULL, 'No'),
 (89, 'ocollette', 'Olivia', 'Cornejo', 'olco0540@colorado.edu', '$2y$10$.NWRiL4Gy4taClCHqJnD4.ifKltcvRXam/JKCCawdYhpjeA0ReBNG', '3037048785', 'Yes', 0, 1, NULL, 'No'),
-(90, 'GrayGhost666', 'Angel', 'Florencio', 'angelflorencio13@gmail.com', '$2y$10$0zelkdonJw.SzoF573NC4.nAqLksarEHBiYGdhdO3WhpD96HyQ0zq', '3038597434', 'Yes', 0, 1, NULL, 'No'),
+(90, 'GrayGhost666', 'Angel', 'Florencio', 'angelflorencio13@gmail.com', '$2y$10$0zelkdonJw.SzoF573NC4.nAqLksarEHBiYGdhdO3WhpD96HyQ0zq', '3038597434', 'Yes', 1, 1, NULL, 'No'),
 (91, 'Liponiks', 'Nick', 'Lopinski', 'nilo1307@colorado.edu', '$2y$10$NjlGrrc4zYxd6odPksFU7uzievQUXAWRPGDGBJacSzs2P3H8R3mpa', '8479091345', 'Yes', 0, 1, NULL, 'No'),
 (92, 'BattleCoder', 'Tristan', 'Palmero', 'trpa7630@colorado.edu', '$2y$10$V0JNrsY/Os3tzU7foqlGLOEwvWsYSMHPKeDYlAp8eHDVufApKePxG', '7148737626', 'Yes', 0, 1, NULL, 'No'),
 (93, 'Pikesterz', 'Andrew', 'Pike', 'anpi4252@colorado.edu', '$2y$10$kQMNfojHGb6PAlMIw1fFPeOu4OSMZNrtNOs5qwmWnPldt3UbBec4O', '5105070945', 'Yes', 0, 1, NULL, 'No'),
@@ -135,7 +152,7 @@ INSERT INTO `users` (`id`, `username`, `first_name`, `last_name`, `email`, `pass
 (130, 'Emely17', 'Emely', 'Dominguez', 'emdo3345@colorado.edu', '$2y$10$dH/unD8X.jzvBGB5dNyKWeP4OBNJSuFEzEFVgFv/fXW6bx7rWCaFu', '9126959671', 'Yes', 0, 1, NULL, 'No'),
 (131, 'Yara', 'Odbayar', 'Bumaa', 'Odbu8119@colorado.edu', '$2y$10$0iRU5iOgdRrdXeHYZV8/suOZIjCvaRhvFqjFsNX081XpklcKk33Ma', '3039087572', 'Yes', 0, 1, NULL, 'No'),
 (132, 'MainSequenceStar', 'Caelan', 'Burke-Kaiser', 'cabu5273@colorado.edu', '$2y$10$y3p1tIGC7XZCUHZKxz3cR.6LlgZSBv1phcata3u9hfOiPoypZ2U.6', '4147199224', 'Yes', 0, 1, NULL, 'No'),
-(133, 'Amandaaeag', 'Amanda', 'Gerritsen', 'amandaaeag@gmail.com', '$2y$10$mBDgFIly3FvHKEv24GafnuvG3Tj928DImmGEMamiVvGPu03SCzaXW', '8473475787', 'Yes', 0, 1, NULL, 'No'),
+(133, 'Amandaaeag', 'Amanda', 'Gerritsen', 'amandaaeag@gmail.com', '$2y$10$mBDgFIly3FvHKEv24GafnuvG3Tj928DImmGEMamiVvGPu03SCzaXW', '8473475787', 'Yes', 1, 1, NULL, 'No'),
 (134, 'Kirstenk', 'Kirsten ', 'Kollar', 'kollarkirsten@gmail.com', '$2y$10$Fp/kRMhl7il5Gfk5U/zgtu92Nqe5uG.YuKu0eTdf5UM1jv0vXsTyi', '9704566628', 'Yes', 0, 1, NULL, 'No'),
 (135, 'Bellaallen1015', 'Bella', 'Allen', 'isal9976@colorado.edu', '$2y$10$YhUgZTAIBz.2JR1OGGJoTezIGFb3aIVAvcVGKNpfo2RN4leKRBM2S', '7202292949', 'Yes', 0, 1, NULL, 'No'),
 (136, 'lial3088', 'Lily', 'Allen', 'lial3088@colorado.edu', '$2y$10$ByhPA6PxjD40zBZXzZqOgO9Poa01Miih30.lKOsYDvnDh8YR64Xcu', '7202294539', 'Yes', 0, 1, NULL, 'No'),
@@ -176,7 +193,7 @@ INSERT INTO `users` (`id`, `username`, `first_name`, `last_name`, `email`, `pass
 (171, 'MrGinger', 'Isaac', 'Dickerson', 'isdi9319@colorado.edu', '$2y$10$rM3kl1kyB2JihUZ.VifmGeUEAWBgacoxGXAKSQ9lOeKxB7V.CIA.u', '3037755134', 'Yes', 0, 1, NULL, 'No'),
 (172, 'Swagatron', 'Seani', 'Anderson', 'seanianderson03@gmail.com', '$2y$10$FCJDv3fTqBgDkuE6hvJqG.Gb4lJjBPLt9fPymkDPsXImqvdG6OXnW', '7203913487', 'Yes', 0, 1, NULL, 'No'),
 (173, 'Zikra', 'Zikra', 'Hashmi', 'ziha1747@colorado.edu', '$2y$10$vk3qbBlkDyYKTUkgXxYtg.kjT6H0Yh5QLI7jHOO8MgC4ILfA00Fbu', '7209398116', 'Yes', 0, 1, NULL, 'No'),
-(174, 'Jeregami', 'Jeremy', 'Brown', 'Jebr7127@colorado.edu', '$2y$10$rDJKiqSqfPqTI9u2s8IvnOB9QbLRdghOvQ80aksHizDqcpFtA1I52', '7205524358', 'Yes', 0, 1, NULL, 'No'),
+(174, 'Jeregami', 'Jeremy', 'Brown', 'Jebr7127@colorado.edu', '$2y$10$rDJKiqSqfPqTI9u2s8IvnOB9QbLRdghOvQ80aksHizDqcpFtA1I52', '7205524358', 'Yes', 1, 1, NULL, 'No'),
 (175, 'cocomcalpine', 'Coco', 'McAlpine', 'comc2569@colorado.edu', '$2y$10$upaIdxii1ErNRsLly3NYFOyLf.kPHen3EoainSj3HJQXJlPI9fTyi', '4159394695', 'Yes', 0, 1, NULL, 'No'),
 (176, 'Bellelavery', 'Belle', 'Lavery', 'isla3747@colorado.com', '$2y$10$zpV05ngHiQBuxqGOlli1Hu1hh1LESuk9fSY5rziVNzzEuRW2ItTYq', '6507409244', 'Yes', 0, 1, NULL, 'No'),
 (177, 'Tez', 'Elise', 'Bloom', 'elisedancingqueen@yahoo.com', '$2y$10$iTisucpJjYi6SxtO8N3JZ./0qp/LiN90jyaawB1gSDvZsKHkr5sTi', NULL, 'Yes', 0, 1, NULL, 'No'),
@@ -269,8 +286,34 @@ INSERT INTO `users` (`id`, `username`, `first_name`, `last_name`, `email`, `pass
 (264, 'nohe', 'nohe', 'revelo', 'nohegeno@hotmail.com', '$2y$10$bR.XZLuunwK7revJ12NofOZu9tFOrw7/5WJB7HU85Us2iEiKNQMeu', '6124443252', '9476026f9a0cf63106a8acc7814c2170', 0, 1, NULL, 'No'),
 (265, 'pjwarrior12', 'Ryan', 'Taylor', 'ryta4737@colorado.edu', '$2y$10$EN7pUvkLH/3oBzmrNlpvzuGwTeYL2GK4zIXOszb/xF.X8ALAL8tR.', '5624772165', 'Yes', 0, 1, NULL, 'No'),
 (266, 'Clairewilcox', 'Claire', 'Wilcox', 'clairefwilcox@gmail.com', '$2y$10$XS.MzWrJIrEkhdrbvwnmt.IgC4zqgCVKgawKAJgmFBNDOMQi/hKzG', '6184209737', '82fc12ee6c56c038f32c531a65c6a884', 0, 1, NULL, 'No'),
-(269, 'Tester', 'Test', 'User', 'josh.brown.3255@gmail.com', '$2y$10$ZOS372jb2TIAldvJo/JRZunYuiRrSI17FoLQtCOJBEuKlCrJUO90q', NULL, '72195b20868a796a66df194156cb315a', 0, 1, NULL, 'No');
+(269, 'Tester', 'Test', 'User', 'josh.brown.3255@gmail.com', '$2y$10$ZOS372jb2TIAldvJo/JRZunYuiRrSI17FoLQtCOJBEuKlCrJUO90q', NULL, '72195b20868a796a66df194156cb315a', 0, 1, NULL, 'No'),
+(270, 'Gary', 'Gary', 'Baines', 'champ.baines@gmail.com', '$2y$10$RXVfpoetlxDe2Fa7Y8sA/us3mpiPuUQFIpJ9YprN/z8.Qp8PqSDZa', '9014284074', '1302f607b6fd8cccb08ed70c43b9a072', 0, 1, NULL, 'No'),
+(271, 'xXNerfan11Xx', 'Trent', 'Richardson', 'tmr710@gmail.com', '$2y$10$5tOn7kZWr1H0eNMvcyZFyOzvevWqcDfbo2gasF1wJOvahRmQIgdbC', '7195517040', 'Yes', 0, 1, NULL, 'No'),
+(273, 'TestGuy', 'Test', 'Guy', 'golfinjosh@yahoo.com', '$2y$10$u10byIUGj0Yv/yUm0bNv0ebGkagni6EER04iamEd2nNUm/3xHcCDq', NULL, 'Yes', 0, 1, NULL, 'No');
 
--- ALTER TABLE users DROP COLUMN activated;
--- ALTER TABLE users DROP COLUMN resetToken;
--- ALTER TABLE users DROP COLUMN resetComplete;
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `id` (`id`),
+  ADD UNIQUE KEY `email` (`email`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=274;
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
