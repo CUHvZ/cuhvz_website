@@ -1,6 +1,6 @@
 <?php
 $date = "";
-$activeLevel = $weeklong->active_event();
+$activeLevel = Weeklong::active_event();
 $stateDisplay = "";
 if($activeLevel == 1){
 	$activeLevel = "level 1";

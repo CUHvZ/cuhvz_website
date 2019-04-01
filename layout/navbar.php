@@ -86,7 +86,7 @@ $(document).ready(function(){
       <?php
       if($user->is_logged_in()){
 
-        if($weeklong->active_event()){
+        if(Weeklong::active_event()){
           $kys_button_display = "none";
           $logkill_button_display = "none";
           if($user->is_in_event($_SESSION["weeklong"])){

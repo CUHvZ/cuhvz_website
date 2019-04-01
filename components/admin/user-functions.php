@@ -3,6 +3,7 @@
 <style>
 .id {
   width: 40px;
+  text-align: center;
 }
 .username {
   width: 220px;

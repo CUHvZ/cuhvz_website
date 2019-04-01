@@ -37,6 +37,9 @@ if(!$user->is_admin()){ header('Location: login.php'); }
 
 $database = new Database();
 $onLoad = "Users";
+if(Weeklong::active_event()){
+	$onLoad = "ActiveGame";
+}
 if(isset($_POST['submit'])){
 	// sets the tab to the correct page after submission
 	if(isset($_POST['tab'])){
@@ -67,13 +70,21 @@ ___________________________________________-->
 
 	 <div class="content lightslide-list" style="overflow: auto;">
 		 <div style="margin: auto; text-align: center;">
+			 <span class="tab">
+				 <?php
+		 			 if(Weeklong::active_event()){
+						 $weeklongTitle = $_SESSION["title"];
+						 echo "<button class='tablink' id='ActiveGame-button' onclick=\"openTab(event, 'ActiveGame')\">$weeklongTitle</button>";
+					 }
+		 	 	 ?>
+			 </span>
 	 		<span class="tab">
 	 			<button class="tablink" id="Users-button" onclick="openTab(event, 'Users')">Users</button>
-	 			<button class="tablink" id="Database-button" onclick="openTab(event, 'Database')">Database</button>
+	 			<!-- <button class="tablink" id="Database-button" onclick="openTab(event, 'Database')">Database</button> -->
 	 		</span>
 	 		<span class="tab">
 			<button class="tablink" id="Weeklong-button" onclick="openTab(event, 'Weeklong')">Weeklong</button>
-	 			<button class="tablink" id="Scripts-button" onclick="openTab(event, 'Scripts')">Scripts</button>
+	 			<!-- <button class="tablink" id="Scripts-button" onclick="openTab(event, 'Scripts')">Scripts</button> -->
 	 		</span>
 	 	</div>
 
@@ -101,6 +112,13 @@ ___________________________________________-->
 	 		?>
 	 	</div>
 
+		<div id="ActiveGame" class="tabcontent">
+	 		<?php
+			if(Weeklong::active_event())
+	 			include $_SERVER['DOCUMENT_ROOT']."/components/admin/active-game-functions.php";
+	 		?>
+	 	</div>
+
  </div> <!-- end container -->
 
 </section>
@@ -119,11 +137,11 @@ ___________________________________________-->
 <?php
 // insert clock
 
-if($weeklong->active_event()){
-  if($user->is_in_event($_SESSION["weeklong"])){
-    require('weeklong/clock.php');
-  }
-}
+// if(Weeklong::active_event()){
+//   if($user->is_in_event($_SESSION["weeklong"])){
+//     require('weeklong/clock.php');
+//   }
+// }
 //include header template
 require('layout/footer.php');
 ?>
