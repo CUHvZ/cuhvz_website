@@ -16,8 +16,8 @@
               //echo "<h3 style='margin: 0;'>";
               if($user->is_logged_in()){
                     if($user->is_in_event($event["name"])){
-                          echo "Wanna leave this event?<h3 style='margin: 0;'>";
-                          echo "<a href='/profile.php?leave=".$event["title"]."&eventId=".$event["name"]."'' >Leave event</a>";
+                          // echo "Wanna leave this event?<h3 style='margin: 0;'>";
+                          // echo "<a href='/profile.php?leave=".$event["title"]."&eventId=".$event["name"]."'' >Leave event</a>";
                     }else{
                           echo "Wanna play in this event?<h3 style='margin: 0;'>";
                           echo "<a href='/profile.php?join=".$event["title"]."&eventId=".$event["name"]."'' >Join Now!</a>";
@@ -38,6 +38,12 @@
         echo "<a href='weeklong/info.php?name=".$event["name"]."' >mission details</a> | ";
         echo "<a href='weeklong/stats.php?name=".$event["name"]."' >stats</a></p>";
         echo "</div>";
+
+				if($stats["status"] == "human"){
+					echo "<div>";
+						echo "Getting bored of being a human? <a href='/kys.php' >Join the horde here.</a>";
+					echo "</div>";
+				}
 		?>
 		<tr>
 			<td class="subheader deeporange">User Code</td>

@@ -93,7 +93,8 @@ $(document).ready(function(){
             $status = $user->get_game_stats()["status"];
             if($status == "human"){
               $kys_button_display = "block";
-              echo "<li><a id='kys_button' href='/kys.php'>Join The Horde</a></li>";
+              // echo "<li><a id='kys_button' href='/kys.php'>Join The Horde</a></li>";
+              echo "<li><a id='code_button' href='/entercode.php'>Codes</a></li>";
             }else if($status == "zombie"){
               $logkill_button_display = "block";
               echo "<li><a id='logkill_button' href='/logkill.php'>Log Kill</a></li>";

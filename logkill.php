@@ -16,7 +16,7 @@ $title = 'CU HvZ | Log Kill';
 // if not logged in redirect to login page
 if(!$user->is_logged_in()){ header('Location: login.php'); }
 $status = $user->get_game_stats()["status"];
-if($status == "deceased"){ header('Location: login.php'); }
+if($status != "zombie"){ header('Location: login.php'); }
 ?>
 
 <?php
@@ -109,29 +109,6 @@ if (isset($_POST['hex'])){
 	if(isset($error)){
 		echo "<p class='bg-danger'>$error</p>";
 	}
-
-  // if(strcmp($victim, "none") == 0)
-  // {
-  //     echo "<p class='bg-danger'>Not a valid code.</p><br>";
-  // }
-  // else
-  // {
-  //     $killReg = $weeklong->regKill($victim, $hex);
-  //     if($killReg)
-  //     {
-  //       if($victim == "vaccine"){
-  //         $weeklong->cure_zombie($zombieFeeder);
-  //         header("Location: profile.php?success=2#profile");
-  //       }else{
-  //         $starveUpdate = $weeklong->updateStarve($victim, $zombieFeedto, $zombieFeeder);
-  //         if($starveUpdate)
-  //         {
-  //           //echo implode("','", array_map('trim', $zombieFeedto));
-  //             header("Location: profile.php?success=1#profile");
-  //         }
-  //       }
-  //     }
-  // }
 }
 ?>
 
