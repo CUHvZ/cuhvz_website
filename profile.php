@@ -133,7 +133,7 @@ if(isset($_GET['kys'])){
 
   </div> <!-- end row -->
   <?php
-  require('playerinfo.php');
+  require('components/profile/playerinfo.php');
   if(Weeklong::active_event()){
     if($user->is_in_event($_SESSION["weeklong"])){
       include "components/weeklong/player-stats.php";
