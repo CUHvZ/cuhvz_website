@@ -313,23 +313,24 @@ padding: 0 50px 0 50px;
 .feedzombiestable {
   border: 1px solid rgba(255, 255, 255, 0.5);
   padding-left: 10px;
+  width: 100%;
 }
 
 .feedzombiestable th, .feedzombiestable td {
     border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-    width: 20%;
+    /* width: 20%; */
     text-align: center;
   }
 
 #table1 td {
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-  width: 20%;
+  /* width: 20%; */
   text-align: center;
 }
 
-#table1 .select {
-  width: 10%;
-  padding-left: 15px;
+.select {
+  /* width: 10%;
+  padding-left: 15px; */
 }
 
 #table1 .starve {
@@ -365,7 +366,7 @@ padding: 0 50px 0 50px;
 }
 */
 
-/* Position the "next button" to the right 
+/* Position the "next button" to the right
 .next {
   right: 0;
   border-radius: 3px 0 0 3px;

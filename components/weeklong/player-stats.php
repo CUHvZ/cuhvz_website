@@ -69,18 +69,28 @@
 			";
 		}
 		?>
+		<div>
+			<?php
+			if($stats["status"] != "deceased"){
+				echo "<input class='button-primary' type='submit' name='submit' value='Enter Code' id='submit' onclick=\"window.location='/entercode.php';\">\n";
+			}
+			if($stats["status"] == "zombie"){
+				echo "<input class='button-primary' type='submit' name='submit' value='Log Kill' id='submit' onclick=\"window.location='/logkill.php';\">\n";
+			}
+			?>
+		</div>
 	</table>
 
 	<?php
 		/* Success message from logkill.php */
-		if ( isset($_GET['success']) && $_GET['success'] == 1 )
-		{
-		   echo "<div class='bg-success'>Your kill has been registered and starve date(s) have been updated.</div>";
-		}
-		if ( isset($_GET['success']) && $_GET['success'] == 2 )
-		{
-		   echo "<div class='bg-success'>You have been successfully vaccinated.</div>";
-		}
+		// if ( isset($_GET['success']) && $_GET['success'] == 1 )
+		// {
+		//    echo "<div class='bg-success'>Your kill has been registered and starve date(s) have been updated.</div>";
+		// }
+		// if ( isset($_GET['success']) && $_GET['success'] == 2 )
+		// {
+		//    echo "<div class='bg-success'>You have been successfully vaccinated.</div>";
+		// }
 
 	?>
 

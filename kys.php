@@ -6,54 +6,42 @@ $title = 'CU HvZ | KYS';
 ?>
 <head>
 	<?php require('layout/header.php'); ?>
+	<script>
+	function confirmKYS(e){
+	    if(!confirm('Are you sure you want give yourself up and join the horde?'))e.preventDefault();
+	}
+	</script>
 </head>
 <body>
-	<?php include 'layout/navbar.php'; ?>
 <?php
+include 'layout/navbar.php';
 
 // if not logged in redirect to login page
 if(!$user->is_logged_in()){
   header('Location: login.php');
 }
+// check if:
+// 1. weeklong is active
+// 2. user is in weeklong
+// 3. user is a human
 if(!$weeklong->active_event() || !$user->is_in_event($_SESSION["weeklong"]) || $user->get_game_stats()["status"] != "human"){
   header('Location: profile.php');
 }
-?>
-
-<!-- BEGIN DOCUMENT -->
-
-<!-- HVZ HEADLINE SECTION -->
-
-<!-- END HVZ HEADLINE SECTION -->
-
-<!-- START KILLHUMAN.PHP -->
-
-<?php
-
-// DATABASE CONNECTION INFORMATION
-// DATABASE CONNECTION INFORMATION
-/*
-$host = "server122.web-hosting.com";
-$user = "cuhvmiwg";
-$passwd = "Yummybrainz!2";
-$dbname = "cuhvmiwg_hvz";
-$cxn = mysqli_connect($host,$user,$passwd,$dbname) or die ("could not connect to server");
-*/
+// ---------------------------
+// if submitted then kill user
+// ---------------------------
 if(isset($_POST["submit"])){
-  $user_hex = $user->get_game_stats()["user_hex"];
-  if(strtoupper($user_hex) == strtoupper($_POST["hex"])){
-    header('Location: profile.php?kys='.$user_hex);
-  }else{
-    $error[] = "Input doesn't match your code. ".$user->get_game_stats()["user_hex"];
-  }
+	$database = new Database();
+	$query = "update ".$_SESSION["weeklong"]." set status='zombie', status_type='suicide' where user_id=".$_SESSION['id'];
+	$data = $database->executeQuery($query);
+	if(!isset($data["error"])){
+    echo "<p class='bg-success' style='margin: 0;'> &#10003; <strong>Congratulations, you killed yoself.</strong></p>";
+	}else{
+		echo "<p class='bg-danger'> Something went wrong tring to join the horde.</p>";
+	}
 }
 
 ?>
-
-<!-- END KILLHUMAN.PHP -->
-
-
-<!-- FEED ZOMBIE SELECTION TABLE -->
 
 <section class="darkslide" id="logkill">
   <div class="container">
@@ -61,20 +49,7 @@ if(isset($_POST["submit"])){
     <div class="twelve columns">
       <div class="subheadline orange">Are you sure you want give yourself up and join the horde?</div><br>
        <form action='' method='post' id='user_code'>
-          <?php
-          if(isset($error)){
-            foreach($error as $error){
-              echo '<p class="bg-danger">'.$error.'</p>';
-            }
-          }
-          ?>
-          <div class='subheader white'>
-            Input your code to confirm:
-          </div>
-          <div>
-            <input type='text' name='hex' required>
-          </div>
-        <input class="button-primary" type="submit" name="submit" value="KYS" id="submit">
+        <input class="button-primary" type="submit" name="submit" value="Join The Horde" id="submit" onclick="confirmKYS(event)">
       </form>
     </div>
   </div>
@@ -85,9 +60,7 @@ if(isset($_POST["submit"])){
 // insert clock
 
 if($weeklong->active_event()){
-  if($user->is_in_event($_SESSION["weeklong"])){
-    require('weeklong/clock.php');
-  }
+  require('weeklong/clock.php');
 }
 ?>
 
