@@ -414,7 +414,7 @@ class Weeklong{
 
 	public function reset_all_players(){
     $db = new Database();
-    $query = "UPDATE ".$_SESSION['weeklong']." SET status='human', status_type=NULL, starve_date=(NOW() + INTERVAL 1 DAY), kill_count=0;";
+    $query = "UPDATE ".$_SESSION['weeklong']." SET status='human', status_type=NULL, starve_date=(NOW() + INTERVAL 1 DAY), kill_count=0, points=0;";
     $db->executeQuery($query);
 	}
 

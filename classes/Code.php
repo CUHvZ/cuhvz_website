@@ -1,5 +1,10 @@
 <?php
 class Code{
+
+  public static $SUPPLY = 1;
+  public static $POINTS = 2;
+  public static $MISSION = 3;
+
   private $name, $locationID, $hex, $effect, $sideEffect, $singleUse, $numUsers, $expiration, $used, $userID, $codeID, $timeUsed;
 
   function __construct($name, $hex, $effect){
@@ -17,7 +22,7 @@ class Code{
   }
 
   public function getHex() {
-    return $this->locationID;
+    return $this->hex;
   }
 
   public function getEffect() {
