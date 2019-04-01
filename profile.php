@@ -82,22 +82,6 @@ if(isset($_GET['leave']) && isset($_GET['eventId'])){
     echo "<p class='bg-success' style='margin: 0;'> &#10003; <strong>Sorry to see you go!</strong></p>";
   }
 }
-
-
-if(isset($_GET['kys'])){
-  if($user->get_game_stats()["user_hex"] == $_GET['kys']){
-		$database = new Database();
-		$query = "update ".$_SESSION["weeklong"]." set status='zombie', status_type='suicide' where user_id=".$_SESSION['id'];
-		$data = $database->executeQuery($query);
-		if(!isset($data["error"])){
-	    echo "<p class='bg-success' style='margin: 0;'> &#10003; <strong>Congratulations, you killed yoself.</strong></p>";
-	    echo "\n<script>\n";
-	    echo "document.getElementById('logkill_button').parentNode.style.display = 'block';\n";
-	    echo "document.getElementById('kys_button').parentNode.style.display = 'none';\n";
-	    echo "</script>\n";
-		}
-  }
-}
 ?>
 <section class="lightslide contentwithnav">
 

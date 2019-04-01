@@ -1,11 +1,18 @@
 <?php
 class Code{
-  private $name, $locationID, $hex, $effect, $sideEffect, $singleUse, $numUsers, $expiration, $used, $userID, $codeID, $timeUsed;
 
-  function __construct($name, $hex, $effect){
+  public static $SUPPLY = 1;
+  public static $POINTS = 2;
+  public static $MISSION = 3;
+  public static $REVIVE = 4;
+
+  private $name, $locationID, $hex, $effect, $sideEffect, $singleUse, $numUses, $expiration, $used, $userID, $codeID, $timeUsed;
+
+  function __construct($name, $hex, $effect, $sideEffect=""){
     $this->name = $name;
     $this->hex = $hex;
     $this->effect = $effect;
+    $this->sideEffect = $sideEffect;
   }
 
   public function getName() {
@@ -17,7 +24,7 @@ class Code{
   }
 
   public function getHex() {
-    return $this->locationID;
+    return $this->hex;
   }
 
   public function getEffect() {
@@ -32,8 +39,8 @@ class Code{
     return $this->singleUse;
   }
 
-  public function getNumUsers() {
-    return $this->numUsers;
+  public function getNumUses() {
+    return $this->numUses;
   }
 
   public function getExpiration() {

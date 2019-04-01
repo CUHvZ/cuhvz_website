@@ -1,19 +1,11 @@
-
-.table {
-    display: table;
-    width: 100%;
-}
-.table-row {
-    text-align: center;
-    vertical-align: middle;
-}
-.cell{
-  display: inline-block;
-  text-align: left;
-}
 .cell-container {
-    display: inline-block;
-    padding: 5px;
+  padding: 5px 0;
+  text-align: left;
+  display: inline-block;
+}
+.cell {
+  display: inline-block;
+  margin: auto 0 auto 0;
 }
 
 .mod a {
@@ -331,23 +323,24 @@ padding: 0 50px 0 50px;
 .feedzombiestable {
   border: 1px solid rgba(255, 255, 255, 0.5);
   padding-left: 10px;
+  width: 100%;
 }
 
 .feedzombiestable th, .feedzombiestable td {
     border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-    width: 20%;
+    /* width: 20%; */
     text-align: center;
   }
 
 #table1 td {
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-  width: 20%;
+  /* width: 20%; */
   text-align: center;
 }
 
-#table1 .select {
-  width: 10%;
-  padding-left: 15px;
+.select {
+  /* width: 10%;
+  padding-left: 15px; */
 }
 
 #table1 .starve {

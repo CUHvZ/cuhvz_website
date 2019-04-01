@@ -112,67 +112,6 @@ if (isset($_POST['hex'])){
 }
 ?>
 
-<!-- BEGIN DOCUMENT -->
-
-<!-- HVZ HEADLINE SECTION -->
-
-<section class="lightslide contentwithnav">
-
- <div class="container">
-  <div class="row">
-
-    <!-- Start HVZ Headline Columns -->
-
-    <div class="two columns">
-      <img src="images/skull.png" class="u-max-full-width">
-    </div>
-
-    <div class="ten columns">
-
-      <p class="grey subheader">
-        University of Colorado <strong>Boulder</strong>
-      </p>
-
-      <h1 class="section-heading deepgrey">
-        Humans <span class="white">versus</span> Zombies
-      </h1>
-
-      <p class="grey subheader">
-      <!-- XXX decoration, temporary -->
-      <span class="deeporange">&#10006; &#10006; &#10006;</span>
-      <!-- Welcome user -->
-      Welcome, <?php echo $_SESSION['username']; ?>.
-      <!-- Logout Option -->
-      <a class="grey" href='logout.php'>(Logout)</a>
-      <!-- XXX decoration, temporary -->
-      <span class="deeporange">&#10006; &#10006; &#10006;</span>
-      </p>
-
-    </div>
-
-    <!-- End headline columns -->
-
-  </div> <!-- end row -->
-
-  </div> <!-- end container -->
-
-</section>
-
-<!-- END HVZ HEADLINE SECTION -->
-
-<!-- START KILLHUMAN.PHP -->
-
-<?php
-
-$zombieFeeder = $_SESSION['username'];
-
-?>
-
-<!-- END KILLHUMAN.PHP -->
-
-
-<!-- FEED ZOMBIE SELECTION TABLE -->
-
 <section class="darkslide" id="logkill">
 <div class="container">
 <div class="row">
@@ -187,7 +126,7 @@ $zombieFeeder = $_SESSION['username'];
 	<BR><BR>
 
 	<h2 class='subheader white'>Select up to two zombies to feed:</h2>
-	<p>Note: Maximum starve time is 48 hours</p>
+	<p>Note: Feeding a zombie gives them 12 more hours. Maximum starve time is 48 hours</p>
 
 	<div id='playerlist' class='playerlist' data-max-answers='2'>
 
@@ -195,8 +134,8 @@ $zombieFeeder = $_SESSION['username'];
 			<tr class='subheader orange'>
 				<th class='select'>Select</th>
 				<th>Username</th>
-				<th>Kill Count</th>
-				<th class='starve'>Time Remaining Unil Death</th>
+				<!-- <th>Kill Count</th> -->
+				<th class='starve'>Starves</th>
 			</tr>
 			<?php
 				$database = new Database();
@@ -208,7 +147,7 @@ $zombieFeeder = $_SESSION['username'];
 			      echo "<td class='select'>";
 			      echo "<input type='checkbox' name='check_list[]' value='$row[user_id]'>";
 			      echo "<td align='center'>".$row["username"]."</td>";
-			      echo "<td align='center'>".$row["kill_count"]."</td>";
+			      // echo "<td align='center'>".$row["kill_count"]."</td>";
 				    $current_time = new DateTime(date('Y-m-d H:i:s'));
 				    $starve_date = new DateTime(date($row["starve_date"]));
 				    $time_left = $current_time->diff($starve_date);
