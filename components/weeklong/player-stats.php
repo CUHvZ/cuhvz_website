@@ -70,10 +70,8 @@
 		}
 		?>
 		<div>
+			<input class='button-primary' type='submit' name='submit' value='Enter Code' id='submit' onclick="window.location='/entercode.php';">
 			<?php
-			if($stats["status"] != "deceased"){
-				echo "<input class='button-primary' type='submit' name='submit' value='Enter Code' id='submit' onclick=\"window.location='/entercode.php';\">\n";
-			}
 			if($stats["status"] == "zombie"){
 				echo "<input class='button-primary' type='submit' name='submit' value='Log Kill' id='submit' onclick=\"window.location='/logkill.php';\">\n";
 			}
