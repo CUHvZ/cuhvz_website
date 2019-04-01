@@ -148,7 +148,7 @@ $title = 'CU HvZ | ';
 <!--<script src="/js/sort.js"></script>-->
 <?php
 // insert clock
-if($weeklong->active_event()){
+if(Weeklong::active_event()){
   require('clock.php');
 }
 

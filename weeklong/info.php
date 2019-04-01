@@ -67,7 +67,7 @@ function setContent(dataSource, divID)
 }
 $(document).ready(function(){
 	var weeklong = getQueryVariable("name");
-	var active = 0<?php if($weeklong->active_event()){ echo "+1"; } ?>;
+	var active = 0<?php if(Weeklong::active_event()){ echo "+1"; } ?>;
   var page = "#events_button";
   //$(page).attr("class", "active");
 	if(!weeklong && active){

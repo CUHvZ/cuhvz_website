@@ -35,7 +35,7 @@ include($_SERVER['DOCUMENT_ROOT'].'/classes/Weeklong.php');
 include($_SERVER['DOCUMENT_ROOT'].'/classes/Token.php');
 $user = new User($db);
 $weeklong = new Weeklong($db);
-if($weeklong->active_event()){
+if(Weeklong::active_event()){
 	/*
 	if(!$weeklong->is_set()){
 		$weeklong->set_active_variables();

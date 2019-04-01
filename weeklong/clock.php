@@ -1,6 +1,6 @@
 <?php
 $date = "";
-$activeLevel = $weeklong->active_event();
+$activeLevel = Weeklong::active_event();
 $stateDisplay = "";
 if($weeklong->active_event()){
 	if(!$_SESSION["started"]){

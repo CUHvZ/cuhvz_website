@@ -78,7 +78,7 @@ function processData(allText) {
 
 <?php
 // insert clock
-if($weeklong->active_event()){
+if(Weeklong::active_event()){
 	require('weeklong/clock.php');
 }
 ?>

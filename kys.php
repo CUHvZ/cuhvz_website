@@ -15,7 +15,7 @@ $title = 'CU HvZ | KYS';
 if(!$user->is_logged_in()){
   header('Location: login.php');
 }
-if(!$weeklong->active_event() || !$user->is_in_event($_SESSION["weeklong"]) || $user->get_game_stats()["status"] != "human"){
+if(!Weeklong::active_event() || !$user->is_in_event($_SESSION["weeklong"]) || $user->get_game_stats()["status"] != "human"){
   header('Location: profile.php');
 }
 ?>
@@ -84,7 +84,7 @@ if(isset($_POST["submit"])){
 <?php
 // insert clock
 
-if($weeklong->active_event()){
+if(Weeklong::active_event()){
   if($user->is_in_event($_SESSION["weeklong"])){
     require('weeklong/clock.php');
   }

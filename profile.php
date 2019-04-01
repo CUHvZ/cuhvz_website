@@ -133,8 +133,8 @@ if(isset($_GET['kys'])){
 
   </div> <!-- end row -->
   <?php
-  require('components/profile/playerinfo.php');
-  if($weeklong->active_event()){
+  require('playerinfo.php');
+  if(Weeklong::active_event()){
     if($user->is_in_event($_SESSION["weeklong"])){
       include "components/weeklong/player-stats.php";
       echo "\n<script>\n";
@@ -168,7 +168,7 @@ ___________________________________________-->
 <?php
 // insert clock
 
-if($weeklong->active_event()){
+if(Weeklong::active_event()){
   if($user->is_in_event($_SESSION["weeklong"])){
     require('weeklong/clock.php');
   }

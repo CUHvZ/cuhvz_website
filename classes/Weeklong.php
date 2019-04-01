@@ -51,15 +51,13 @@ class Weeklong{
 
 	// This will return true if the there is an active game
 	public function active_event(){
-		try {
-			$stmt = $this->_db->prepare("SELECT active FROM weeklongs WHERE active>0 LIMIT 1;");
-			$stmt->execute(array());
-			$row = $stmt->fetch();
-			return $row["active"];
-
-		} catch(PDOException $e) {
-		    echo '<p class="bg-danger">'.$e->getMessage().'</p>';
-		}
+    $db = new Database();
+    $query = "SELECT active FROM weeklongs WHERE active=1 LIMIT 1;";
+    $data = $db->executeQueryFetch($query);
+    if(isset($data["active"])){
+      return true;
+    }
+    return false;
 	}
 
 	// returns ordered array of week long events
@@ -414,7 +412,7 @@ class Weeklong{
 
 	public function reset_all_players(){
     $db = new Database();
-    $query = "UPDATE ".$_SESSION['weeklong']." SET status='human', status_type=NULL, starve_date=(NOW() + INTERVAL 1 DAY), kill_count=0;";
+    $query = "UPDATE ".$_SESSION['weeklong']." SET status='human', status_type=NULL, starve_date=(NOW() + INTERVAL 1 DAY), kill_count=0, points=0;";
     $db->executeQuery($query);
 	}
 

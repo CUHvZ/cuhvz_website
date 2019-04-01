@@ -60,6 +60,7 @@ class Code{
   }
 
   public function getQuerry() {
+    
   }
 }
 ?>

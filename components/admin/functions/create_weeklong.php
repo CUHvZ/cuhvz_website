@@ -106,8 +106,8 @@ if(isset($_POST['submit'])){
 
 ?>
 
-<div>
-  <div>
+<div style="display: inline-block; padding: 20px;">
+  <div class="center">
     <form role="form" method="post">
       Create a new weeklong
       <br/>
