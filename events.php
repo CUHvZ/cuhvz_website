@@ -39,7 +39,6 @@ $lockin_events = array("fall18", "spring18");
                   foreach ($weeklongs as $event) {
                         echo "<div class='white'>";
                         echo "<h4 class='title-link' style='margin: 0;'><a href='weeklong/info.php?name=".$event["name"]."'>".$event["title"]."</a></h3>";
-												error_log("Event name: ".$event["name"], 0);
 												if($event["display"]){
 													if($weeklong->is_active($event["id"])){ // Displays if event options
 	                              //echo "<h3 style='margin: 0;'>";

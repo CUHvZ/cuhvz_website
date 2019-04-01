@@ -8,11 +8,131 @@ $title = 'CU HvZ | Log Kill';
 	<?php require('layout/header.php'); ?>
 </head>
 <body>
-	<?php include 'layout/navbar.php'; ?>
+	<?php
+		include 'layout/navbar.php';
+	?>
 
 <?php
 // if not logged in redirect to login page
 if(!$user->is_logged_in()){ header('Location: login.php'); }
+$status = $user->get_game_stats()["status"];
+if($status == "deceased"){ header('Location: login.php'); }
+?>
+
+<?php
+
+function convertVictim($db, $victimID){
+	$weeklongName = $_SESSION["weeklong"];
+	$query = "UPDATE $weeklongName SET status='zombie', status_type='normal' WHERE user_id=$victimID;";
+	$db->executeQuery($query);
+}
+
+function addKill($db, $killerID){
+	$weeklongName = $_SESSION["weeklong"];
+	$query = "select * from $weeklongName where user_id=$killerID";
+	$user = $db->executeQueryFetch($query);
+
+	$starveDate = new DateTime($user["starve_date"]);
+	$newStarveDate = date_add($starveDate, date_interval_create_from_date_string('24 hours'));
+
+	$currentTime = new DateTime(date('Y-m-d H:i:s'));
+	$maxStarveDate = date_add($currentTime, date_interval_create_from_date_string('48 hours'));
+	if($maxStarveDate < $newStarveDate){
+		$newStarveDate = $maxStarveDate;
+	}
+	$newStarveDate = $newStarveDate->format('Y-m-d H:i:s');
+
+	$query = "update $weeklongName set kill_count=kill_count+1, starve_date='$newStarveDate' where user_id=$killerID";
+	$error = $db->executeQuery($query);
+	if(isset($error["error"])){
+		error_log("Did not update zombie", 0);
+	}
+}
+
+function feedZombie($db, $zombieID){
+	$weeklongName = $_SESSION["weeklong"];
+	$query = "select * from $weeklongName where user_id=$zombieID";
+	$user = $db->executeQueryFetch($query);
+
+	$starveDate = new DateTime($user["starve_date"]);
+	$newStarveDate = date_add($starveDate, date_interval_create_from_date_string('12 hours'));
+	$currentTime = new DateTime(date('Y-m-d H:i:s'));
+	$maxStarveDate = date_add($currentTime, date_interval_create_from_date_string('48 hours'));
+	if($maxStarveDate < $newStarveDate){
+		$newStarveDate = $maxStarveDate;
+	}
+	$newStarveDate = $newStarveDate->format('Y-m-d H:i:s');
+	$query = "update $weeklongName set starve_date='$newStarveDate' where user_id=$zombieID";
+	$error = $db->executeQuery($query);
+	if(isset($error["error"])){
+		error_log("Did not update fed zombie timer", 0);
+	}
+}
+
+if (isset($_POST['hex'])){
+  $hex = strtolower($_POST['hex']);
+  $zombieFeedto = null;
+	if(isset($_POST['check_list']))
+		$zombieFeedto = $_POST['check_list'];
+
+	error_log("victim hex: $hex", 0);
+	error_log("feed to: ".implode("','", array_map('trim', $zombieFeedto)), 0);
+
+	$weeklongName = $_SESSION["weeklong"];
+
+	$database = new Database();
+	$query = "select * from $weeklongName where user_hex='$hex'";
+	$victim = $database->executeQueryFetch($query);
+	if(isset($victim["user_id"])){
+		$isZombie = $victim["status"] == "zombie";
+		$isSuicide = $victim["status_type"] == "suicide";
+		error_log("user status: $isZombie is suicide: $isSuicide", 0);
+		// make sure victim is valid kill to register
+		if(!$isZombie || ($isZombie && $isSuicide)){
+			convertVictim($database, $victim["user_id"]);
+			addKill($database, $_SESSION['id']);
+			foreach ($zombieFeedto as $zombieID) {
+				feedZombie($database, $zombieID);
+			}
+			header("Location: profile.php?success=1#profile");
+		}else{
+			error_log("User is already a zombie", 0);
+			$error = "User has already been zombified.";
+		}
+		$query = "UPDATE $weeklongName SET status=:status_change WHERE username=:victim;";
+	}else{
+		error_log("user does not exist", 0);
+		$error = "Not a valid code.";
+	}
+
+
+	if(isset($error)){
+		echo "<p class='bg-danger'>$error</p>";
+	}
+
+  // if(strcmp($victim, "none") == 0)
+  // {
+  //     echo "<p class='bg-danger'>Not a valid code.</p><br>";
+  // }
+  // else
+  // {
+  //     $killReg = $weeklong->regKill($victim, $hex);
+  //     if($killReg)
+  //     {
+  //       if($victim == "vaccine"){
+  //         $weeklong->cure_zombie($zombieFeeder);
+  //         header("Location: profile.php?success=2#profile");
+  //       }else{
+  //         $starveUpdate = $weeklong->updateStarve($victim, $zombieFeedto, $zombieFeeder);
+  //         if($starveUpdate)
+  //         {
+  //           //echo implode("','", array_map('trim', $zombieFeedto));
+  //             header("Location: profile.php?success=1#profile");
+  //         }
+  //       }
+  //     }
+  // }
+}
 ?>
 
 <!-- BEGIN DOCUMENT -->
@@ -83,96 +203,52 @@ $zombieFeeder = $_SESSION['username'];
 
 <div class="subheadline orange">So you killed a human? Bravo.</div><br>
 
- <?php
-  try {
-    $query = "SELECT username, kill_count, starve_date FROM ".$_SESSION['weeklong']." WHERE status='zombie' ORDER BY starve_date;";
 
-    print "
-      <form action='#' method='post' id='feedzombie'>
-      <div class='subheader white'>Input Victim User code:</div> <input type='text' name='hex' required>
+<form action='#' method='post' id='feedzombie'>
+	<div class='subheader white'>Input Victim User code:</div> <input type='text' name='hex' required>
 
-      <BR><BR>
+	<BR><BR>
 
-      <h2 class='subheader white'>Select zombies to feed:</h2>
-      <P>Choose up to three (3) zombies to feed. Click the table headers to sort.
-      <br>
+	<h2 class='subheader white'>Select up to two zombies to feed:</h2>
+	<p>Note: Maximum starve time is 48 hours</p>
 
-      <div id='playerlist' class='playerlist' data-max-answers='3'>
+	<div id='playerlist' class='playerlist' data-max-answers='2'>
 
-      <table id='table1' class='feedzombiestable'>
-      <tr class='subheader orange'>
-      <th class='select'>Select</th>
-      <th onclick='sortTable(1)'>Username</th>
-      <th onclick='sortTable(2)'>Kill Count</th>
-      <th onclick='sortTable(3)' class='starve'>Time Remaining Unil Death</th>
-      </tr>
+		<table id='table1' class='feedzombiestable'>
+			<tr class='subheader orange'>
+				<th class='select'>Select</th>
+				<th>Username</th>
+				<th>Kill Count</th>
+				<th class='starve'>Time Remaining Unil Death</th>
+			</tr>
+			<?php
+				$database = new Database();
+				$query = "SELECT user_id, username, kill_count, starve_date FROM ".$_SESSION['weeklong']."
+				WHERE status='zombie' AND user_id!=".$_SESSION['id']." ORDER BY starve_date;";
+				$data = $database->executeQueryFetchAll($query);
+				foreach($data as $row){
+		      echo "<tr class='subheader white'>";
+			      echo "<td class='select'>";
+			      echo "<input type='checkbox' name='check_list[]' value='$row[user_id]'>";
+			      echo "<td align='center'>".$row["username"]."</td>";
+			      echo "<td align='center'>".$row["kill_count"]."</td>";
+				    $current_time = new DateTime(date('Y-m-d H:i:s'));
+				    $starve_date = new DateTime(date($row["starve_date"]));
+				    $time_left = $current_time->diff($starve_date);
+				    $hours = $time_left->format('%H')+($time_left->format('%a')*24);
+				    echo " <td class='red' align='center'>".$hours.$time_left->format(':%I:%S')."</td>";
+			    echo " </tr>";
+				}
 
-    ";
-    $data=$weeklong->get_zombies();
-    //$data = $db->query($query);
-    //$data->setFetchMode(PDO::FETCH_ASSOC);
-    foreach($data as $row){
-      print "
-        <tr class='subheader white'>
-        <td class='select'>
-        <input type='checkbox' name='check_list[]' value='$row[username]'>";
-      echo "<td align='center'>".$row["username"]."</td>";
-      echo "<td align='center'>".$row["kill_count"]."</td>";
-    $current_time = new DateTime(date('Y-m-d H:i:s'));
-    $starve_date = new DateTime(date($row["starve_date"]));
-    $time_left = $current_time->diff($starve_date);
-    $hours = $time_left->format('%H')+($time_left->format('%a')*24);
-    print " <td class='red' align='center'>".$hours.$time_left->format(':%I:%S')."</td>";
-    print " </tr>";
-  } // end record loop
-  print "</table>";
-  } catch(PDOException $e) {
-    echo 'ERROR: ' . $e->getMessage();
-  } // end try
- ?>
- </div> <!-- end playerlist list -->
+			?>
+		</table>
+	</div>
+	<input class="button-primary" type="submit" name="submit" value="Register Kill and Feed" id="submit">
+</form>
 
 
 <BR><BR>
 
-
-
-<?php
-
-if (isset($_POST['hex'])){
-  $initHex = $_POST['hex'];
-  $hex = strtolower($initHex);
-  $victim = $weeklong->findVictim($hex);
-  $zombieFeedto = $_POST['check_list'];
-
-  if(strcmp($victim, "none") == 0)
-  {
-      echo "<p class='bg-danger'>Not a valid code.</p><br>";
-  }
-  else
-  {
-      $killReg = $weeklong->regKill($victim, $hex);
-      if($killReg)
-      {
-        if($victim == "vaccine"){
-          $weeklong->cure_zombie($zombieFeeder);
-          header("Location: profile.php?success=2#profile");
-        }else{
-          $starveUpdate = $weeklong->updateStarve($victim, $zombieFeedto, $zombieFeeder);
-          if($starveUpdate)
-          {
-            //echo implode("','", array_map('trim', $zombieFeedto));
-              header("Location: profile.php?success=1#profile");
-          }
-        }
-      }
-  }
-}
-?>
-
-
- <input class="button-primary" type="submit" name="submit" value="Register Kill and Feed" id="submit">
-</form>
 
 </div>
 </div>

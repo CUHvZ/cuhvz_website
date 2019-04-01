@@ -93,12 +93,14 @@ $(document).ready(function(){
             $status = $user->get_game_stats()["status"];
             if($status == "human"){
               $kys_button_display = "block";
-            }else if(strpos($status, 'zombie') == 0){
+              echo "<li><a id='kys_button' href='/kys.php'>Join The Horde</a></li>";
+            }else if($status == "zombie"){
               $logkill_button_display = "block";
+              echo "<li><a id='logkill_button' href='/logkill.php'>Log Kill</a></li>";
             }
           }
-          echo "<li style='display: ".$kys_button_display.";'><a id='kys_button' href='/kys.php'>Join The Horde</a></li>";
-          echo "<li style='display: ".$logkill_button_display.";'><a id='logkill_button' href='/logkill.php'>Log Kill</a></li>";
+          // echo "<li style='display: ".$kys_button_display.";'><a id='kys_button' href='/kys.php'>Join The Horde</a></li>";
+          // echo "<li style='display: ".$logkill_button_display.";'><a id='logkill_button' href='/logkill.php'>Log Kill</a></li>";
         }
         echo "<li><a style='float: right;' id='logout_button' href='/logout.php'>Logout</a></li>";
         echo "<li><a style='float: right;' id='profile_button' href='/profile.php'>Profile</a></li>";

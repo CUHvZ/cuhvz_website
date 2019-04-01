@@ -61,26 +61,18 @@ if(isset($_GET['join']) && isset($_GET['eventId'])){
   $eventName = $_GET['join'];
 
 	$user_hex = substr(md5(uniqid(rand(),'')),0,5);
-	// $query =
-	// try{
-	// 	$stmt = $this->_db->prepare('INSERT INTO '.$event.' (user_id,username, user_hex) VALUES (:user_id, :username, :user_hex)');
-	// 	$stmt->execute(array(
-	// 		':user_id' => $_SESSION['id'],
-	// 		':username' => $_SESSION['username'],
-	// 		':user_hex' => $user_hex ));
-	// 	return true;
-	// }catch(PDOException $e) {
-	// 	$errorMessage = $e->getMessage();
-	// 	if (!strpos($errorMessage, 'Duplicate entry')) { // this will throw out the duplicate error
-	// 			echo '<p class="bg-danger" style="margin: 0;">'.$errorMessage.'</p>';
-	// 			echo "<p class='bg-danger' style='margin: 0;'> &#10003; <strong>Something went wrong tring to sign up for $event!</strong> <br> Try logging out and logging back in. Contact the mod team if this problem continues.</p>";
-	// 	}
-	// 		return false;
-	// }
+	$weeklongName = $_GET['eventId'];
+	$username = $_SESSION['username'];
+	$userID = $_SESSION['id'];
 
-  // if($user->join_event($_GET['eventId'])){
-  //   echo "<p class='bg-success' style='margin: 0;'> &#10003; <strong>Thanks for signing up for $eventName!</strong> <br> We'll send you an updates, so makes sure to check your email!</p>";
-  // }
+	$database = new Database();
+	$query = "INSERT INTO $weeklongName (user_id,username, user_hex) VALUES ($userID, '$username', '$user_hex')";
+	$error = $database->executeQuery($query);
+	if(!isset($error["error"])){
+		echo "<p class='bg-success' style='margin: 0;'> &#10003; <strong>Thanks for signing up for $eventName!</strong> <br> We'll send you an updates, so makes sure to check your email!</p>";
+	}else{
+		echo "<p class='bg-danger' style='margin: 0;'> &#10003; <strong>Something went wrong tring to sign up for $event!</strong> <br> Try logging out and logging back in. Contact the mod team if this problem continues.</p>";
+	}
 }
 
 

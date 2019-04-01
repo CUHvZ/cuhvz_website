@@ -192,18 +192,6 @@ class Weeklong{
 	    return TRUE;
 	}
 
-	public function cure_zombie($zombie){
-		try{
-    		$stmt = $this->_db->prepare("UPDATE ".$_SESSION['weeklong']." SET status='human' WHERE username=:zombie;");
-    		$stmt->execute(array(
-    			':zombie' => $zombie));
-    		return true;
-    	}catch(PDOException $e){
-    		echo '<p class="bg-danger">'.$e->getMessage().'</p>';
-    		return false;
-    	}
-	}
-
 	// returns array of all players in the week long
 	public function get_players(){
 		try{
