@@ -1,6 +1,6 @@
 <?php
 include('password.php');
-include('Database.php');
+// include('Database.php');
 class User extends Password{
 
     private $_db;

@@ -14,7 +14,7 @@
       if($displayStats && $data != null){
         $data=$weeklong->get_zombies_from($name);
         foreach($data as $zombie){
-          $status = getZombieType($zombie["status"]);
+          $status = $zombie["status_type"];
           $starve_date = new DateTime(date($zombie["starve_date"]));
           $current_time = new DateTime(date('Y-m-d H:i:s'));
           $end_time = new DateTime(date($weeklong->get_weeklong($name)["end_date"]));
@@ -62,7 +62,7 @@
       if($displayStats && $data != null){
         $data=$weeklong->get_zombies_from($name);
         foreach($data as $zombie){
-          $status = getZombieType($zombie["status"]);
+          $status = $zombie["status_type"];
           $starve_date = new DateTime(date($zombie["starve_date"]));
           $current_time = new DateTime(date('Y-m-d H:i:s'));
           $end_time = new DateTime(date($weeklong->get_weeklong($name)["end_date"]));

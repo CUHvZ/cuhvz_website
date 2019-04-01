@@ -70,10 +70,19 @@ function createWeeklong($semester, $title, $displayDates, $startDate, $endDate){
     PRIMARY KEY ( id ) ,
     UNIQUE KEY id ( id ) );";
 
+    $createUsedCodesTable = "CREATE TABLE if not exists weeklong".$semester."_used_codes (
+    id int(11) NOT NULL AUTO_INCREMENT ,
+    user_id int(11) NOT NULL ,
+    code_id int(11) NOT NULL ,
+    time_used timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY ( id ) ,
+    UNIQUE KEY id ( id ) );";
+
     $db = new Database();
     $db->executeQuery($createWeeklongEntryQuery);
     $db->executeQuery($createWeeklongTableQuery);
     $db->executeQuery($createWeeklongCodesTableQuery);
+    $db->executeQuery($createUsedCodesTable);
 }
 
 if(isset($_POST['submit'])){

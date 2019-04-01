@@ -51,30 +51,59 @@ if(!$user->is_activated()){
     }
 }
 
+
 if(isset($_GET['action']) && $_GET['action']=="activated"){
 	echo "<p class='bg-success' style='margin: 0;'> &#10003; Your account has been activated.</p>";
 }
 
+
 if(isset($_GET['join']) && isset($_GET['eventId'])){
   $eventName = $_GET['join'];
-  if($user->join_event($_GET['eventId'])){
-    echo "<p class='bg-success' style='margin: 0;'> &#10003; <strong>Thanks for signing up for $eventName!</strong> <br> We'll send you an updates, so makes sure to check your email!</p>";
-  }
+
+	$user_hex = substr(md5(uniqid(rand(),'')),0,5);
+	// $query =
+	// try{
+	// 	$stmt = $this->_db->prepare('INSERT INTO '.$event.' (user_id,username, user_hex) VALUES (:user_id, :username, :user_hex)');
+	// 	$stmt->execute(array(
+	// 		':user_id' => $_SESSION['id'],
+	// 		':username' => $_SESSION['username'],
+	// 		':user_hex' => $user_hex ));
+	// 	return true;
+	// }catch(PDOException $e) {
+	// 	$errorMessage = $e->getMessage();
+	// 	if (!strpos($errorMessage, 'Duplicate entry')) { // this will throw out the duplicate error
+	// 			echo '<p class="bg-danger" style="margin: 0;">'.$errorMessage.'</p>';
+	// 			echo "<p class='bg-danger' style='margin: 0;'> &#10003; <strong>Something went wrong tring to sign up for $event!</strong> <br> Try logging out and logging back in. Contact the mod team if this problem continues.</p>";
+	// 	}
+	// 		return false;
+	// }
+
+  // if($user->join_event($_GET['eventId'])){
+  //   echo "<p class='bg-success' style='margin: 0;'> &#10003; <strong>Thanks for signing up for $eventName!</strong> <br> We'll send you an updates, so makes sure to check your email!</p>";
+  // }
 }
+
+
 if(isset($_GET['leave']) && isset($_GET['eventId'])){
   $eventName = $_GET['join'];
   if($user->leave_event($_GET['eventId'])){
     echo "<p class='bg-success' style='margin: 0;'> &#10003; <strong>Sorry to see you go!</strong></p>";
   }
 }
+
+
 if(isset($_GET['kys'])){
   if($user->get_game_stats()["user_hex"] == $_GET['kys']){
-    echo "<p class='bg-success' style='margin: 0;'> &#10003; <strong>Congratulations, you killed yoself.</strong></p>";
-    echo "\n<script>\n";
-    echo "document.getElementById('logkill_button').parentNode.style.display = 'block';\n";
-    echo "document.getElementById('kys_button').parentNode.style.display = 'none';\n";
-    echo "</script>\n";
-    $user->kys();
+		$database = new Database();
+		$query = "update ".$_SESSION["weeklong"]." set status='zombie', status_type='suicide' where user_id=".$_SESSION['id'];
+		$data = $database->executeQuery($query);
+		if(!isset($data["error"])){
+	    echo "<p class='bg-success' style='margin: 0;'> &#10003; <strong>Congratulations, you killed yoself.</strong></p>";
+	    echo "\n<script>\n";
+	    echo "document.getElementById('logkill_button').parentNode.style.display = 'block';\n";
+	    echo "document.getElementById('kys_button').parentNode.style.display = 'none';\n";
+	    echo "</script>\n";
+		}
   }
 }
 ?>
@@ -112,10 +141,10 @@ if(isset($_GET['kys'])){
 
   </div> <!-- end row -->
   <?php
-  require('playerinfo.php');
+  require('components/profile/playerinfo.php');
   if($weeklong->active_event()){
     if($user->is_in_event($_SESSION["weeklong"])){
-      include "weeklong/playerstats.php";
+      include "components/weeklong/player-stats.php";
       echo "\n<script>\n";
       if($user->get_game_stats()["status"] == "human"){
         echo "document.getElementById('kys_button').parentNode.style.display = 'block';\n";

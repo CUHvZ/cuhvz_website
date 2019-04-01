@@ -34,9 +34,9 @@
                     echo "Event isn't ready yet</td>"."\n";
               }
         }
-        echo "<p>".$event["display_dates"].", ".substr($event["start_date"],0,4)." | ";
+        echo "<p>".$event["display_dates"]." | ";
         echo "<a href='weeklong/info.php?name=".$event["name"]."' >mission details</a> | ";
-        echo "<a href='weeklong/stats.php?name=".$event["name"]."' >stats</a></p>"; 
+        echo "<a href='weeklong/stats.php?name=".$event["name"]."' >stats</a></p>";
         echo "</div>";
 		?>
 		<tr>
@@ -63,7 +63,7 @@
 			";
 		}
 		?>
-	</table> 
+	</table>
 
 	<?php
 		/* Success message from logkill.php */

@@ -96,7 +96,6 @@ $zombieFeeder = $_SESSION['username'];
       <h2 class='subheader white'>Select zombies to feed:</h2>
       <P>Choose up to three (3) zombies to feed. Click the table headers to sort.
       <br>
-      <strong>Remember to select yourself if you wanna eat!</strong></p>
 
       <div id='playerlist' class='playerlist' data-max-answers='3'>
 

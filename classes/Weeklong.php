@@ -20,7 +20,7 @@ class Weeklong{
 			$row = $stmt->fetch();
 			$_SESSION["weeklong"] = $row["name"];
 			$_SESSION["title"] = $row["title"];
-			//$_SESSION["active"] = $row["active"];
+			$_SESSION["started"] = $row["started"];
 			$_SESSION["weeklong_dates"] = $row["display_dates"];
 			$_SESSION["start_date"] = $row["start_date"];
 			$_SESSION["end_date"] = $row["end_date"];
@@ -401,48 +401,33 @@ class Weeklong{
 		$current_time = new DateTime(date('Y-m-d H:i:s'));
 		$start_date = new DateTime($_SESSION["start_date"]);
 		$end_date = new DateTime($_SESSION["end_date"]);
-		$event_status = $this->event_status();
-		if($event_status == 1){
-			if($start_date < $current_time){
-				// The event has started
-				$this->start_game();
-				try{
-		    		$stmt = $this->_db->prepare("UPDATE weeklongs SET active='2' WHERE name=:name;");
-		    		$stmt->execute(array(
-		    			':name' => $_SESSION["weeklong"]));
-		    		return true;
-		    	}catch(PDOException $e){
-		    		echo '<p class="bg-danger">'.$e->getMessage().'</p>';
-		    		return false;
-		    	}
-			}else{
-				// The event is being displayed but play has not yet started
-			}
-		}else if($event_status == 2){
-			if($end_date < $current_time){
-				// The event has ended so set active to 0
-				try{
-		    		$stmt = $this->_db->prepare("UPDATE weeklongs SET active='0' WHERE name=:name;");
-		    		$stmt->execute(array(
-		    			':name' => $_SESSION["weeklong"]));
-		    	}catch(PDOException $e){
-		    		echo '<p class="bg-danger">'.$e->getMessage().'</p>';
-		    		return false;
-		    	}
-			}else{
-				// The event is active and players can play
-			}
-		}
+    if($_SESSION["started"] == 0){
+      if($start_date < $current_time){
+        // The event has started
+        $this->start_game();
+      }else{
+        // The event is being displayed but play has not yet started
+      }
+    }else{
+      if($end_date < $current_time){
+        // The event has ended
+        error_log("ending weeklong.", 0);
+
+        // ALTER TABLE weeklongs ADD COLUMN started boolean DEFAULT false;
+
+        $db = new Database();
+        $weeklongName = $_SESSION["weeklong"];
+        $query = "UPDATE weeklongs SET active=0, started=0 where name='$weeklongName'";
+        $db->executeQuery($query);
+        $_SESSION["started"] = 0;
+      }
+    }
 	}
 
-	private function reset_all_players(){
-		try{
-    		$stmt = $this->_db->prepare("UPDATE ".$_SESSION['weeklong']." SET status='human', starve_date=NULL, kill_count=0;");
-    		$stmt->execute();
-    	}catch(PDOException $e){
-    		echo '<p class="bg-danger">'.$e->getMessage().'</p>';
-    		return false;
-    	}
+	public function reset_all_players(){
+    $db = new Database();
+    $query = "UPDATE ".$_SESSION['weeklong']." SET status='human', status_type=NULL, starve_date=(NOW() + INTERVAL 1 DAY), kill_count=0;";
+    $db->executeQuery($query);
 	}
 
 	private function set_OZ($user_id){
@@ -461,20 +446,33 @@ class Weeklong{
 	}
 
 	private function start_game(){
-		$this->reset_all_players();
-		$humans = $this->get_humans();
-		$num_players = sizeof($humans);
-    	$num_OZ = ceil($num_players*0.02);
-	    for($i=0; $i<$num_OZ; $i++){
-	        $OZ_index = random_int(0,$num_players-1);
-	        //echo $OZ_index."\n";
-	        //echo "OZ: ".$humans[$OZ_index]["user_id"]." username: ".$data[$OZ_index]["username"]."\n";
-	        $this->set_OZ($humans[$OZ_index]["user_id"]);
-	    }
+    error_log("Starting weeklong game.", 0);
+		self::reset_all_players();
+    $db = new Database();
+    $query = "select * from weeklongS19;";
+    $players = $db->executeQueryFetchAll($query);
+		$num_players = sizeof($players);
+  	$num_OZ = ceil($num_players*0.02);
+    $name = $_SESSION["weeklong"];
+    error_log("Number of players: $num_players, Num OZ: $num_OZ", 0);
+    for($i=0; $i<$num_OZ; $i++){
+        $OZ_index = random_int(0,$num_players-1);
+        $OZ_ID = $players[$OZ_index]["user_id"];
+        $query = "update $name set status='zombie', status_type='OZ' where user_id=$OZ_ID";
+        $error = $db->executeQuery($query);
+        if(isset($error["error"]))
+          error_log("could not make id $OZ_ID into an OZ");
+        else
+          error_log("id $OZ_ID is now an OZ");
+    }
+    $query = "update weeklongs set started=1 where name='$name'";
+    $db->executeQuery($query);
+    $_SESSION["started"] = 1;
 	}
 
 	// select count(*) from weeklongS18 where status='zombie(OZ)';
-
+  // update weeklongs set end_date="2019-04-19 17:00:00" where id=4;
+  // update weeklongs set start_date="2019-04-12 09:00:00" where id=4;
 }
 
 

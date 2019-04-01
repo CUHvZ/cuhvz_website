@@ -38,22 +38,6 @@ $title = 'CU HvZ | ';
 <body>
 	<?php include $_SERVER['DOCUMENT_ROOT'].'/layout/navbar.php'; ?>
 
-
-<?php
-
-function getZombieType($status){
-  if($status == "zombie"){
-    return "regular";
-  }else if($status == "zombie(suicide)"){
-    return "suicide";
-  }else if($status == "zombie(OZ)"){
-    return "OZ";
-  }
-}
-?>
-
-
-
 <div class="lightslide">
 
   <div class="player_container">
@@ -82,28 +66,28 @@ function getZombieType($status){
           </span>
           <span class="tab">
             <button class="tablink" onclick="openTab(event, 'Deceased')">Deceased</button>
-            <button class="tablink" onclick="openTab(event, 'Activity')">Activity</button>
+            <!-- <button class="tablink" onclick="openTab(event, 'Activity')">Activity</button> -->
           </span>
         </div>
 
         <div id="Humans" class="tabcontent" style="display: block;">
           <h3 class="row-header">Humans</h3>
             <?php
-              include $_SERVER['DOCUMENT_ROOT']."/components/human-table.php";
+              include $_SERVER['DOCUMENT_ROOT']."/components/weeklong/human-table.php";
             ?>
         </div>
 
         <div id="Zombies" class="tabcontent">
           <h3 class="row-header">Zombies</h3>
 					<?php
-						include $_SERVER['DOCUMENT_ROOT']."/components/zombie-table.php";
+						include $_SERVER['DOCUMENT_ROOT']."/components/weeklong/zombie-table.php";
 					?>
         </div>
 
         <div id="Deceased" class="tabcontent">
           <h3 class="row-header">Deceased</h3>
 					<?php
-						include $_SERVER['DOCUMENT_ROOT']."/components/deceased-table.php";
+						include $_SERVER['DOCUMENT_ROOT']."/components/weeklong/deceased-table.php";
 					?>
         </div>
 				<!--
