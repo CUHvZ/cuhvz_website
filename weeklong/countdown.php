@@ -38,19 +38,17 @@
   </div> <!-- end row -->
 
   <br><br>
-  <?php
-  $signupLink = "";
-  if($user->is_logged_in()){
-    $signupLink = "'/profile.php?join=".$_SESSION['title']."&eventId=".$_SESSION['weeklong']."'";
-  }else{
-    $signupLink = "'/login.php?join=".$_SESSION['title']."&eventId=".$_SESSION['weeklong']."'";
-  }
-  ?>
 
     <div class="row">
       <h2 class="subheadline"><span class="white" id="registered"><?php $countusers ?> Players Registered</span></h2>
       <?php
       if(!$_SESSION["started"]){
+        if($user->is_logged_in()){
+          $signupLink = "/profile.php?join=".$_SESSION['title']."&eventId=".$_SESSION['weeklong'];
+        }else{
+          $signupLink = "/login.php?join=".$_SESSION['title']."&eventId=".$_SESSION['weeklong'];
+        }
+        error_log($signupLink, 0);
         echo "<p><a href='$signupLink'>Wanna play? Be sure to register for the game.</a></p>";
       }
       ?>
