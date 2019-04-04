@@ -50,7 +50,6 @@ function createWeeklong($semester, $title, $displayDates, $startDate, $endDate){
     starve_date timestamp NULL DEFAULT NULL,
     time_joined timestamp DEFAULT CURRENT_TIMESTAMP,
     registered boolean DEFAULT false,
-    starve_timer int(20) DEFAULT NULL,
     waiver boolean DEFAULT false,
     bandanna boolean DEFAULT false,
     PRIMARY KEY (user_id),

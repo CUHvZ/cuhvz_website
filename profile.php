@@ -152,10 +152,8 @@ ___________________________________________-->
 <?php
 // insert clock
 
-if(Weeklong::active_event()){
-  if($user->is_in_event($_SESSION["weeklong"])){
-    require('weeklong/clock.php');
-  }
+if($weeklong->active_event()){
+  require('weeklong/clock.php');
 }
 ?>
 
