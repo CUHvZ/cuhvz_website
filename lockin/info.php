@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php
-require($_SERVER['DOCUMENT_ROOT'].'includes/config.php');
+require($_SERVER['DOCUMENT_ROOT'].'/includes/config.php');
 $title = 'CU HvZ | ';
 ?>
 <head>

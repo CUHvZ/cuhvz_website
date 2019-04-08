@@ -14,7 +14,7 @@ $title = 'CU HvZ | Events';
 <?php
 
 // TODO make this not hard coded
-$lockin_events = array("fall18", "spring18");
+$lockin_events = array("spring19", "fall18", "spring18");
 
 ?>
 

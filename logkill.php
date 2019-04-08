@@ -42,7 +42,7 @@ function addKill($db, $killerID){
 	}
 	$newStarveDate = $newStarveDate->format('Y-m-d H:i:s');
 
-	$query = "update $weeklongName set kill_count=kill_count+1, starve_date='$newStarveDate' where user_id=$killerID";
+	$query = "update $weeklongName set kill_count=kill_count+1, starve_date='$newStarveDate', points=points+10 where user_id=$killerID";
 	$error = $db->executeQuery($query);
 	if(isset($error["error"])){
 		error_log("Did not update zombie", 0);
