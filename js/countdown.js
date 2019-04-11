@@ -36,14 +36,14 @@ function initializeClock(id, endtime) {
     // minutesSpan.innerHTML = parseInt(t.minutes);
     // secondsSpan.innerHTML = parseInt(t.seconds);
 
-    daysSpan.html(t.days);
-    hoursSpan.html(t.hours);
-    minutesSpan.html(t.minutes);
-    secondsSpan.html(t.seconds);
+    $('#'+id).find('.days').html(t.days);
+    $('#'+id).find('.hours').html(t.hours);
+    $('#'+id).find('.minutes').html(t.minutes);
+    $('#'+id).find('.seconds').html(t.seconds);
 
-    clock.hide();
-    clock.get(0).offsetHeight;
-    clock.show();
+    $('#'+id).hide();
+    $('#'+id).get(0).offsetHeight;
+    $('#'+id).show();
 
     if (t.total <= 0) {
       clearInterval(timeinterval);
