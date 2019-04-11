@@ -39,7 +39,7 @@ $title = 'CU Boulder HvZ';
 <br><br>
 
 </div>
-<script>
+<!-- <script>
 
 $(document).ready(function() {
   openFile("file.csv");
@@ -73,7 +73,7 @@ function processData(allText) {
 
   console.log(lines);
 }
-</script>
+</script> -->
 <!--<script src="js/slider.js"></script>-->
 
 <?php

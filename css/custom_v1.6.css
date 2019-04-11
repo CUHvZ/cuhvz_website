@@ -8,6 +8,23 @@
   margin: auto 0 auto 0;
 }
 
+.table {
+    display: table;
+    width: 100%;
+}
+.table-row {
+    text-align: center;
+    vertical-align: middle;
+}
+.cell{
+  display: inline-block;
+  text-align: left;
+}
+.cell-container {
+    display: inline-block;
+    padding: 5px;
+}
+
 .mod a {
   color: #fff;
   display: inline-block;
