@@ -21,7 +21,6 @@ function initializeClock(id, endtime) {
   // var secondsSpan = clock.querySelector('.seconds');
 
   var clock = $('#'+id);
-  console.log(clock);
   var daysSpan = clock.find('.days');
   var hoursSpan = clock.find('.hours');
   var minutesSpan = clock.find('.minutes');
@@ -41,6 +40,10 @@ function initializeClock(id, endtime) {
     hoursSpan.html(t.hours);
     minutesSpan.html(t.minutes);
     secondsSpan.html(t.seconds);
+
+    clock.hide();
+    clock.get(0).offsetHeight;
+    clock.show();
 
     if (t.total <= 0) {
       clearInterval(timeinterval);
