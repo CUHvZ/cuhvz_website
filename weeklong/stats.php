@@ -61,16 +61,24 @@ $title = 'CU HvZ | ';
         ?>
         <div style="margin: auto; text-align: center;">
           <span class="tab">
-            <button class="tablink active" onclick="openTab(event, 'Humans')">Humans</button>
-            <button class="tablink" onclick="openTab(event, 'Zombies')">Zombies</button>
+            <button class="tablink active" onclick="openTab(event, 'All')">All</button>
+            <button class="tablink" onclick="openTab(event, 'Humans')">Humans</button>
           </span>
           <span class="tab">
+						<button class="tablink" onclick="openTab(event, 'Zombies')">Zombies</button>
             <button class="tablink" onclick="openTab(event, 'Deceased')">Deceased</button>
             <!-- <button class="tablink" onclick="openTab(event, 'Activity')">Activity</button> -->
           </span>
         </div>
 
-        <div id="Humans" class="tabcontent" style="display: block;">
+				<div id="All" class="tabcontent" style="display: block;">
+          <h3 class="row-header">All</h3>
+            <?php
+              include $_SERVER['DOCUMENT_ROOT']."/components/weeklong/all-players-table.php";
+            ?>
+        </div>
+
+        <div id="Humans" class="tabcontent">
           <h3 class="row-header">Humans</h3>
             <?php
               include $_SERVER['DOCUMENT_ROOT']."/components/weeklong/human-table.php";

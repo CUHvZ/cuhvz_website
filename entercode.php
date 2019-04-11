@@ -36,6 +36,7 @@ if (isset($_POST['hex'])){
 				}
 			}
 			// continue if no errors
+			
 		}else{
 			$error = "Code has no more uses left.";
 		}
