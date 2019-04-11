@@ -17,7 +17,7 @@ if(!$user->is_admin()){ header('Location: login.php'); }
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js"></script>
-	<script src="/js/tabs.js"></script>
+	<script src="/js/tabs_1.0.js"></script>
 
   <script>
     $(function () {
