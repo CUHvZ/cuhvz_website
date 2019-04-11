@@ -1,6 +1,8 @@
-function openTab(evt, tabName) {
+function openTab(evt, tabName, tabContainer="tab-container") {
   var i, tabcontent, tablinks;
-  tabcontent = document.getElementsByClassName("tabcontent");
+  console.log(tabcontent = $("#"+tabContainer));
+  tabcontent = $("#"+tabContainer).find(".tabcontent");
+  console.log(tabcontent);
   for (i = 0; i < tabcontent.length; i++) {
     tabcontent[i].style.display = "none";
   }

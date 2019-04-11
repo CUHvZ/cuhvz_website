@@ -28,15 +28,9 @@ if (isset($_POST['hex'])){
 	if(isset($code["id"])){
 		if($code["num_uses"] + 0 > 0){
 			// check the expiration is not null
-			if($code["expiration"]){
-				$expiration = new DateTime($code["expiration"]);
-				$currentTime = new DateTime(date('Y-m-d H:i:s'));
-				if($currentTime > $expiration){
-					$error = "Code has expired.";
-				}
-			}
+			$error = checkExpiration($code);
 			// continue if no errors
-			
+
 		}else{
 			$error = "Code has no more uses left.";
 		}
@@ -44,6 +38,17 @@ if (isset($_POST['hex'])){
 	if(isset($error)){
 		echo "<p class='bg-danger'>$error</p>";
 	}
+}
+
+function checkExpiration($code){
+	if($code["expiration"]){
+		$expiration = new DateTime($code["expiration"]);
+		$currentTime = new DateTime(date('Y-m-d H:i:s'));
+		if($currentTime > $expiration){
+			return "Code has expired.";
+		}
+	}
+	return null;
 }
 ?>
 

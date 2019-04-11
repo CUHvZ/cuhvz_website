@@ -77,34 +77,35 @@ $title = 'CU HvZ | ';
             <!-- <button class="tablink" onclick="openTab(event, 'Activity')">Activity</button> -->
           </span>
         </div>
+				<div id="tab-container">
+					<div id="All" class="tabcontent" style="display: block;">
+	          <h3 class="row-header">All</h3>
+	            <?php
+	              include $_SERVER['DOCUMENT_ROOT']."/components/weeklong/all-players-table.php";
+	            ?>
+	        </div>
 
-				<div id="All" class="tabcontent" style="display: block;">
-          <h3 class="row-header">All</h3>
-            <?php
-              include $_SERVER['DOCUMENT_ROOT']."/components/weeklong/all-players-table.php";
-            ?>
-        </div>
+	        <div id="Humans" class="tabcontent">
+	          <h3 class="row-header">Humans</h3>
+	            <?php
+	              include $_SERVER['DOCUMENT_ROOT']."/components/weeklong/human-table.php";
+	            ?>
+	        </div>
 
-        <div id="Humans" class="tabcontent">
-          <h3 class="row-header">Humans</h3>
-            <?php
-              include $_SERVER['DOCUMENT_ROOT']."/components/weeklong/human-table.php";
-            ?>
-        </div>
+	        <div id="Zombies" class="tabcontent">
+	          <h3 class="row-header">Zombies</h3>
+						<?php
+							include $_SERVER['DOCUMENT_ROOT']."/components/weeklong/zombie-table.php";
+						?>
+	        </div>
 
-        <div id="Zombies" class="tabcontent">
-          <h3 class="row-header">Zombies</h3>
-					<?php
-						include $_SERVER['DOCUMENT_ROOT']."/components/weeklong/zombie-table.php";
-					?>
-        </div>
-
-        <div id="Deceased" class="tabcontent">
-          <h3 class="row-header">Deceased</h3>
-					<?php
-						include $_SERVER['DOCUMENT_ROOT']."/components/weeklong/deceased-table.php";
-					?>
-        </div>
+	        <div id="Deceased" class="tabcontent">
+	          <h3 class="row-header">Deceased</h3>
+						<?php
+							include $_SERVER['DOCUMENT_ROOT']."/components/weeklong/deceased-table.php";
+						?>
+	        </div>
+				</div>
 				<!--
         <div id="Activity" class="tabcontent">
           <h3 class="row-header">Activity</h3>

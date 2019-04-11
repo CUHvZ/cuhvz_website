@@ -1,5 +1,3 @@
-<h3 class="row-header">Users</h3>
-
 <style>
 .status{
   width: 70px;
@@ -10,6 +8,10 @@
 }
 option {
   color: black;
+}
+.function-input{
+  background-color: transparent;
+  border: 1px solid #D1D1D1;
 }
 </style>
 
@@ -39,11 +41,23 @@ function buildPlayerrRow($player){
 }
 
 
-include $_SERVER["DOCUMENT_ROOT"]."/components/admin/functions/create_code.php";
+// include $_SERVER["DOCUMENT_ROOT"]."/components/admin/functions/create_code.php";
 
 ?>
 
-<div class="table">
+<div class="content" style="overflow: auto;">
+  <div style="margin: auto; text-align: center;">
+   <span class="tab">
+     <button class="tablink" id="CreateCode-button" onclick="openTab(event, 'CreateCode', 'active-game-tabs')">CreateCode</button>
+   </span>
+ </div>
+ <div id="active-game-tabs">
+   <div id="CreateCode" class="tabcontent">
+     <?php include $_SERVER['DOCUMENT_ROOT']."/components/admin/functions/create_code.php"; ?>
+   </div>
+  </div>
+</div>
+<!-- <div class="table">
     <div class="table-row">
       <div class="cell-container add-line">
         <div class="id cell">id</div>
@@ -56,12 +70,12 @@ include $_SERVER["DOCUMENT_ROOT"]."/components/admin/functions/create_code.php";
       </div>
     </div>
     <?php
-      $weeklongName = $_SESSION["weeklong"];
-      $query = "SELECT * FROM  $weeklongName";
-      $playerData = $database->executeQueryFetchAll($query);
-      foreach ($playerData as $player) {
-        buildPlayerrRow($player);
-      }
+      // $weeklongName = $_SESSION["weeklong"];
+      // $query = "SELECT * FROM  $weeklongName";
+      // $playerData = $database->executeQueryFetchAll($query);
+      // foreach ($playerData as $player) {
+      //   buildPlayerrRow($player);
+      // }
 
     ?>
-</div>
+</div> -->

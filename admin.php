@@ -21,12 +21,18 @@ if(!$user->is_admin()){ header('Location: login.php'); }
 
   <script>
     $(function () {
-      $('.date').datepicker({
-        format: 'mm/dd/yyyy',
+      $('.weeklong-date').datepicker({
+        format: 'yyyy-mm-dd',
         startDate: "today",
         orientation: "bottom left",
         autoclose: true,
 				daysOfWeekDisabled: "0,2,3,4,5,6"
+      });
+			$('.date').datepicker({
+        format: 'yyyy-mm-dd',
+        startDate: "today",
+        orientation: "bottom left",
+        autoclose: true
       });
     });
   </script>
@@ -55,10 +61,12 @@ if(isset($_POST['submit'])){
 	}
 }
 ?>
+<!-- onload="openTab(event, '<?php echo $onLoad; ?>')" -->
+<body>
 
-<body onload="openTab(event, '<?php echo $onLoad; ?>')">
-
-	<?php include 'layout/navbar.php'; ?>
+	<?php
+	include 'layout/navbar.php';
+	?>
 
 <!-- BEGIN DOCUMENT -->
 
@@ -87,37 +95,38 @@ ___________________________________________-->
 	 			<!-- <button class="tablink" id="Scripts-button" onclick="openTab(event, 'Scripts')">Scripts</button> -->
 	 		</span>
 	 	</div>
+		<div id="tab-container">
+		 	<div id="Users" class="tabcontent">
+		 			<?php
+		 				include $_SERVER['DOCUMENT_ROOT']."/components/admin/user-functions.php";
+		 			?>
+		 	</div>
 
-	 	<div id="Users" class="tabcontent" style="display: block;">
-	 			<?php
-	 				include $_SERVER['DOCUMENT_ROOT']."/components/admin/user-functions.php";
-	 			?>
-	 	</div>
+			<div id="Database" class="tabcontent">
+		 			<?php
+		 				include $_SERVER['DOCUMENT_ROOT']."/components/admin/database-functions.php";
+		 			?>
+		 	</div>
 
-		<div id="Database" class="tabcontent">
-	 			<?php
-	 				include $_SERVER['DOCUMENT_ROOT']."/components/admin/database-functions.php";
-	 			?>
-	 	</div>
+		 	<div id="Weeklong" class="tabcontent">
+		 		<?php
+		 			include $_SERVER['DOCUMENT_ROOT']."/components/admin/weeklong-functions.php";
+		 		?>
+		 	</div>
 
-	 	<div id="Weeklong" class="tabcontent">
-	 		<?php
-	 			include $_SERVER['DOCUMENT_ROOT']."/components/admin/weeklong-functions.php";
-	 		?>
-	 	</div>
+		 	<div id="Scripts" class="tabcontent">
+		 		<?php
+		 			include $_SERVER['DOCUMENT_ROOT']."/components/admin/script-functions.php";
+		 		?>
+		 	</div>
 
-	 	<div id="Scripts" class="tabcontent">
-	 		<?php
-	 			include $_SERVER['DOCUMENT_ROOT']."/components/admin/script-functions.php";
-	 		?>
-	 	</div>
-
-		<div id="ActiveGame" class="tabcontent">
-	 		<?php
-			if(Weeklong::active_event())
-	 			include $_SERVER['DOCUMENT_ROOT']."/components/admin/active-game-functions.php";
-	 		?>
-	 	</div>
+			<div id="ActiveGame" class="tabcontent">
+		 		<?php
+				if(Weeklong::active_event())
+		 			include $_SERVER['DOCUMENT_ROOT']."/components/admin/active-game-functions.php";
+		 		?>
+		 	</div>
+		</div>
 
  </div> <!-- end container -->
 
