@@ -23,10 +23,12 @@ function initializeClock(id, endtime) {
   function updateClock() {
     var t = getTimeRemaining(endtime);
 
-    daysSpan.innerHTML = t.days;
-    hoursSpan.innerHTML = ('0' + t.hours).slice(-2);
-    minutesSpan.innerHTML = ('0' + t.minutes).slice(-2);
-    secondsSpan.innerHTML = ('0' + t.seconds).slice(-2);
+    // console.log(t);
+
+    daysSpan.innerHTML = parseInt(t.days);
+    hoursSpan.innerHTML = parseInt(t.hours);
+    minutesSpan.innerHTML = parseInt(t.minutes);
+    secondsSpan.innerHTML = parseInt(t.seconds);
 
     if (t.total <= 0) {
       clearInterval(timeinterval);
