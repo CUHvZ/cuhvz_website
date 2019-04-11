@@ -59,6 +59,13 @@ $title = 'CU HvZ | ';
             }
           }
         ?>
+				<div id="Top" style="display: block;">
+          <h3 class="row-header">Top players</h3>
+            <?php
+						// make so angel never shows up
+              include $_SERVER['DOCUMENT_ROOT']."/components/weeklong/top-players-table.php";
+            ?>
+        </div>
         <div style="margin: auto; text-align: center;">
           <span class="tab">
             <button class="tablink active" onclick="openTab(event, 'All')">All</button>
