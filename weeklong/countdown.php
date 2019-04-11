@@ -75,7 +75,7 @@
 <?php
   $end_date = $_SESSION["start_date"];
 ?>
-<script src="/js/countdown.js"></script>
+<script src="/js/countdown_1.0.js"></script>
 <script>
 /*
 var end = <?= "\"".$end_date."\"" ?>;
