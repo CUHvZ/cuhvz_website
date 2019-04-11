@@ -14,21 +14,33 @@ function getTimeRemaining(endtime) {
 }
 
 function initializeClock(id, endtime) {
-  var clock = document.getElementById(id);
-  var daysSpan = clock.querySelector('.days');
-  var hoursSpan = clock.querySelector('.hours');
-  var minutesSpan = clock.querySelector('.minutes');
-  var secondsSpan = clock.querySelector('.seconds');
+  // var clock = document.getElementById(id);
+  // var daysSpan = clock.querySelector('.days');
+  // var hoursSpan = clock.querySelector('.hours');
+  // var minutesSpan = clock.querySelector('.minutes');
+  // var secondsSpan = clock.querySelector('.seconds');
+
+  var clock = $('#'+id);
+  console.log(clock);
+  var daysSpan = clock.find('.days');
+  var hoursSpan = clock.find('.hours');
+  var minutesSpan = clock.find('.minutes');
+  var secondsSpan = clock.find('.seconds');
 
   function updateClock() {
     var t = getTimeRemaining(endtime);
 
     // console.log(t);
 
-    daysSpan.innerHTML = parseInt(t.days);
-    hoursSpan.innerHTML = parseInt(t.hours);
-    minutesSpan.innerHTML = parseInt(t.minutes);
-    secondsSpan.innerHTML = parseInt(t.seconds);
+    // daysSpan.innerHTML = parseInt(t.days);
+    // hoursSpan.innerHTML = parseInt(t.hours);
+    // minutesSpan.innerHTML = parseInt(t.minutes);
+    // secondsSpan.innerHTML = parseInt(t.seconds);
+
+    daysSpan.html(t.days);
+    hoursSpan.html(t.hours);
+    minutesSpan.html(t.minutes);
+    secondsSpan.html(t.seconds);
 
     if (t.total <= 0) {
       clearInterval(timeinterval);
