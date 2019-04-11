@@ -4,7 +4,7 @@
   <div class="container center">
 
     <div class="row">
-      <img src="images/grave.png" class="u-max-full-width">
+      <img src="/images/grave.png" class="u-max-full-width">
       <h2 class="section-heading orange">
         <?php
           if(isset($_SESSION["title"])){
