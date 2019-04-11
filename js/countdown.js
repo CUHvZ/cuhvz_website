@@ -1,5 +1,7 @@
 function getTimeRemaining(endtime) {
-  var t = Date.parse(endtime) - Date.parse(new Date());
+  var arr = endtime.split(/[- :]/);
+  date = new Date(arr[0], arr[1]-1, arr[2], arr[3], arr[4], arr[5]);
+  var t = date - Date.parse(new Date());
   var seconds = Math.floor((t / 1000) % 60);
   var minutes = Math.floor((t / 1000 / 60) % 60);
   var hours = Math.floor((t / (1000 * 60 * 60)) % 24);
@@ -14,12 +16,7 @@ function getTimeRemaining(endtime) {
 }
 
 function initializeClock(id, endtime) {
-  // var clock = document.getElementById(id);
-  // var daysSpan = clock.querySelector('.days');
-  // var hoursSpan = clock.querySelector('.hours');
-  // var minutesSpan = clock.querySelector('.minutes');
-  // var secondsSpan = clock.querySelector('.seconds');
-
+  
   var clock = $('#'+id);
   var daysSpan = clock.find('.days');
   var hoursSpan = clock.find('.hours');
@@ -29,21 +26,10 @@ function initializeClock(id, endtime) {
   function updateClock() {
     var t = getTimeRemaining(endtime);
 
-    // console.log(t);
-
-    // daysSpan.innerHTML = parseInt(t.days);
-    // hoursSpan.innerHTML = parseInt(t.hours);
-    // minutesSpan.innerHTML = parseInt(t.minutes);
-    // secondsSpan.innerHTML = parseInt(t.seconds);
-
-    $('#'+id).find('.days').html(t.days);
-    $('#'+id).find('.hours').html(t.hours);
-    $('#'+id).find('.minutes').html(t.minutes);
-    $('#'+id).find('.seconds').html(t.seconds);
-
-    $('#'+id).hide();
-    $('#'+id).get(0).offsetHeight;
-    $('#'+id).show();
+    daysSpan.html(t.days);
+    hoursSpan.html(t.hours);
+    minutesSpan.html(t.minutes);
+    secondsSpan.html(t.seconds);
 
     if (t.total <= 0) {
       clearInterval(timeinterval);

@@ -29,19 +29,19 @@
       <!-- Countdown Clock -->
       <div id="clockdiv">
         <div class="offset-by-two two columns">
-          <span class="clocknumber subheader days"></span><br>
+          <span class="clocknumber subheader days">0</span><br>
           <span class="clocklabel">Days</span>
         </div>
         <div class="two columns">
-          <span class="clocknumber subheader hours"></span><br>
+          <span class="clocknumber subheader hours">0</span><br>
           <span class="clocklabel">Hrs</span>
         </div>
         <div class="two columns">
-          <span class="clocknumber subheader minutes"></span><br>
+          <span class="clocknumber subheader minutes">0</span><br>
           <span class="clocklabel">Min</span>
         </div>
         <div class="two columns">
-          <span class="clocknumber subheader seconds"></span><br>
+          <span class="clocknumber subheader seconds">0</span><br>
           <span class="clocklabel">Sec</span>
         </div>
       </div>

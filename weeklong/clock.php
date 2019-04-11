@@ -33,19 +33,4 @@ if($weeklong->active_event()){
 		$('#registered').html(count + "  Players Registered");
   } );
 
-// var stateDisplay = document.getElementById("game_state");
-// stateDisplay.innerHTML = <?= "\"".$stateDisplay."\"" ?>;
-// var date = <?= "\"".$date."\"" ?>;
-// initializeClock('clockdiv', date);
-//
-//
-// var playersRegistered = document.getElementById("registered");
-// <?php
-// $weeklong_name = $_SESSION['weeklong'];
-// $countusers = $db->query("SELECT count(*) FROM $weeklong_name")->fetchColumn();
-// ?>
-// var count = <?= "\"".$countusers."\"" ?>;
-// console.log(count + " registered");
-// playersRegistered.innerHTML = count + "  Players Registered";
-
 </script>
