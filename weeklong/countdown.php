@@ -5,7 +5,18 @@
 
     <div class="row">
       <img src="images/grave.png" class="u-max-full-width">
-      <h2 class="section-heading orange">Weeklong Game</h2>
+      <h2 class="section-heading orange">
+        <?php
+          if(isset($_SESSION["title"])){
+            $weeklong = $_SESSION["weeklong"];
+            $title = $_SESSION["title"];
+            echo "<a href='/weeklong/info.php?name=$weeklong'>$title</a>";
+          }
+          else
+            echo "Weeklong Game";
+
+        ?>
+      </h2>
       <h5 class="deeporange">
       <?php
       if(isset($_SESSION["weeklong_dates"]))
@@ -48,7 +59,6 @@
         }else{
           $signupLink = "/login.php?join=".$_SESSION['title']."&eventId=".$_SESSION['weeklong'];
         }
-        error_log($signupLink, 0);
         echo "<p><a href='$signupLink'>Wanna play? Be sure to register for the game.</a></p>";
       }
       ?>
