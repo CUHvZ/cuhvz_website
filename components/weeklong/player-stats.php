@@ -10,7 +10,7 @@
 		<?php
 		$id = $_SESSION['id'];
 		// user stats query
-		$query = "select * from "
+		// $query = "select * from "
 		$stats = $user->get_game_stats();
 		$event = $weeklong->get_weeklong($_SESSION["weeklong"]);
 		echo "<div class='black'>";

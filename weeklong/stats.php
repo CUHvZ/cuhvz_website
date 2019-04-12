@@ -31,6 +31,10 @@ $title = 'CU HvZ | ';
 		settings["pagerSelector"] = '#deceased-table-mobile-pager';
   	$('#deceased-table-mobile').pageMe(settings);
 
+		settings["pagerSelector"] = '#all-players-table-pager';
+  	$('#all-players-table').pageMe(settings);
+		settings["pagerSelector"] = '#all-players-table-mobile-pager';
+  	$('#all-players-table-mobile').pageMe(settings);
   });
   </script>
 
