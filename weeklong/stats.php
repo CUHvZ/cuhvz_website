@@ -51,11 +51,26 @@ $title = 'CU HvZ | ';
             $name = $_GET["name"];
             if($weeklong->get_weeklong($name)){
               $displayStats = true;
-              echo "<p class='status-header'>";
-              echo "Humans: ".sizeof($weeklong->get_humans_from($name));
-              echo " &emsp; Zombies: ".sizeof($weeklong->get_zombies_from($name));
-              echo " &emsp; Deceased: ".sizeof($weeklong->get_deceased_from($name));
-              echo "</p>";
+							$query = "select count(*) as num_players, count(CASE WHEN status='human' THEN status END) as num_humans, count(CASE WHEN status='zombie' THEN status END) as num_zombies, count(CASE WHEN status='deceased' THEN status END) as num_dead from weeklongS19;";
+							$database = new Database();
+							$data = $database->executeQueryFetch($query);
+							$numPlayers = $data["num_players"];
+							$numHumans = $data["num_humans"];
+							$numZombies = $data["num_zombies"];
+							$numDead = $data["num_dead"];
+							if($numPlayers == 0)
+								$numPlayers = "0";
+							if($numHumans == 0)
+								$numHumans = "0";
+							if($numZombies == 0)
+								$numZombies = "0";
+							if($numDead == 0)
+								$numDead = "0";
+              // echo "<p class='status-header'>";
+              // echo "Humans: ".sizeof($weeklong->get_humans_from($name));
+              // echo " &emsp; Zombies: ".sizeof($weeklong->get_zombies_from($name));
+              // echo " &emsp; Deceased: ".sizeof($weeklong->get_deceased_from($name));
+              // echo "</p>";
             }
           }
         ?>
@@ -68,12 +83,12 @@ $title = 'CU HvZ | ';
         </div>
         <div style="margin: auto; text-align: center;">
           <span class="tab">
-            <button class="tablink active" onclick="openTab(event, 'All')">All</button>
-            <button class="tablink" onclick="openTab(event, 'Humans')">Humans</button>
+            <button class="tablink active" onclick="openTab(event, 'All')">All: <?php echo $numPlayers; ?></button>
+            <button class="tablink" onclick="openTab(event, 'Humans')">Humans: <?php echo $numHumans; ?></button>
           </span>
           <span class="tab">
-						<button class="tablink" onclick="openTab(event, 'Zombies')">Zombies</button>
-            <button class="tablink" onclick="openTab(event, 'Deceased')">Deceased</button>
+						<button class="tablink" onclick="openTab(event, 'Zombies')">Zombies: <?php echo $numZombies; ?></button>
+            <button class="tablink" onclick="openTab(event, 'Deceased')">Deceased: <?php echo $numDead; ?></button>
             <!-- <button class="tablink" onclick="openTab(event, 'Activity')">Activity</button> -->
           </span>
         </div>
