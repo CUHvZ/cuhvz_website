@@ -49,6 +49,12 @@
 						echo "Getting bored of being a human? <a href='/kys.php' >Join the horde here.</a>";
 					echo "</div>";
 				}
+				if(!$_SESSION["started"] && $stats["status"] != "zombie"){
+					echo "<br/><div>";
+						echo "Want to start out a zombie? You get 50 bonus starting points if you do.";
+						echo "<input class='button-primary' type='submit' name='oz' value='Become an Original Zombie' id='submit' onclick=\"window.location='/oz.php';\">\n";
+					echo "</div>";
+				}
 		?>
 		<tr>
 			<td class="subheader deeporange">User Code</td>
@@ -56,7 +62,13 @@
 		</tr>
 		<tr>
 			<td class="subheader deeporange">Status</td>
-			<td class="subheadline"><?php echo $stats["status"]; ?></td>
+			<td class="subheadline">
+				<?php
+					echo $stats["status"];
+					if($stats["status"] == "zombie")
+						echo " (".$stats["status_type"].")";
+				?>
+			</td>
 		</tr>
 		<?php
 		$starve_date = new DateTime(date($stats["starve_date"]));
