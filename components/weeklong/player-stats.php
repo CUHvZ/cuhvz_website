@@ -8,6 +8,9 @@
 
 	<table class="userstats">
 		<?php
+		$id = $_SESSION['id'];
+		// user stats query
+		$query = "select * from "
 		$stats = $user->get_game_stats();
 		$event = $weeklong->get_weeklong($_SESSION["weeklong"]);
 		echo "<div class='black'>";
@@ -54,9 +57,14 @@
 			<td class="subheadline"><?php echo $stats["status"]; ?></td>
 		</tr>
 		<?php
+		$starve_date = $stats["starve_date"];
+		$starve_date = $stats["points"];
+		echo "<tr>
+						<td class='subheader deeporange'>Starve Date</td>
+						<td class='subheader'>$starve_date</td>
+					</tr>";
 		if($stats["status"] != "human"){
 			$kill_count = $stats["kill_count"];
-			$starve_date = $stats["starve_date"];
 			echo "
 			<tr>
 				<td class='subheader deeporange'>Kill Count</td>
