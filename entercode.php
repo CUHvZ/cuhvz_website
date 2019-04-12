@@ -30,7 +30,7 @@ if (isset($_POST['hex'])){
 			// check the expiration is not null
 			$error = checkExpiration($code);
 			// continue if no errors
-
+			
 		}else{
 			$error = "Code has no more uses left.";
 		}

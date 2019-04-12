@@ -10,14 +10,10 @@
   <tbody id="top-players-table" class="hide-mobile">
     <?php
     if($displayStats){
-      $query = "SELECT $name.*, users.username FROM $name INNER JOIN users ON $name.user_id=users.id order by points DESC limit 4";
+      $query = "SELECT $name.*, users.username FROM $name INNER JOIN users ON $name.user_id=users.id where users.username!='GrayGhost666' order by points DESC limit 3";
       $database = new Database();
       $data = $database->executeQueryFetchAll($query);
-      for($i = 0; $i < 4; $i++){
-        $player = $data[$i];
-        if($player["username"] == "GrayGhost666" || $i > 3){
-          continue;
-        }
+      foreach($data as $player){
         $starve_date = new DateTime(date($player["starve_date"]));
         $current_time = new DateTime(date('Y-m-d H:i:s'));
         $end_time = new DateTime(date($weeklong->get_weeklong($name)["end_date"]));
