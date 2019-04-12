@@ -33,7 +33,7 @@ class Weeklong{
 	// This will return true if the event with id=$id is active
 	public function is_active($id){
 		try {
-			$stmt = $this->_db->prepare("SELECT active FROM weeklongs WHERE id=:id;");
+			$stmt = $this->_db->prepare("SELECT active FROM weeklongs WHERE id=:id; OR name=:id");
 			$stmt->execute(array('id' => $id));
 			$row = $stmt->fetch();
 			return $row["active"];
