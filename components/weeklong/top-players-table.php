@@ -10,7 +10,7 @@
   <tbody id="top-players-table" class="hide-mobile">
     <?php
     if($displayStats){
-      $query = "SELECT $name.*, users.username FROM $name INNER JOIN users ON $name.user_id=users.id where users.username!='GrayGhost666' order by points DESC limit 3";
+      $query = "SELECT $name.*, users.username FROM $name INNER JOIN users ON $name.user_id=users.id order by points DESC limit 3";
       $database = new Database();
       $data = $database->executeQueryFetchAll($query);
       foreach($data as $player){
