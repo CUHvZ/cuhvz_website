@@ -39,7 +39,7 @@ if(isset($_SESSION["started"])){
 // ---------------------------
 if(isset($_POST["submit"])){
 	$database = new Database();
-	$query = "update ".$_SESSION["weeklong"]." set status='zombie', status_type='OZ' where user_id=".$_SESSION['id'];
+	$query = "update ".$_SESSION["weeklong"]." set status='zombie', status_type='OZ', points=50 where user_id=".$_SESSION['id'];
 	$data = $database->executeQuery($query);
 	if(!isset($data["error"])){
     echo "<p class='bg-success' style='margin: 0;'> &#10003; <strong>You've become one of the first. Spread the disease.</strong></p>";
