@@ -412,7 +412,7 @@ class Weeklong{
 
 	public function reset_all_players(){
     $db = new Database();
-    $query = "UPDATE ".$_SESSION['weeklong']." SET status='human', status_type=NULL, starve_date=(NOW() + INTERVAL 1 DAY), kill_count=0, points=0;";
+    $query = "UPDATE ".$_SESSION['weeklong']." SET status='human', status_type=NULL, starve_date=(NOW() + INTERVAL 2 DAY), kill_count=0, points=0;";
     $db->executeQuery($query);
 	}
 
@@ -432,24 +432,39 @@ class Weeklong{
 	}
 
 	private function start_game(){
-    error_log("Starting weeklong game.", 0);
-		self::reset_all_players();
+    $name = $_SESSION["weeklong"];
+    error_log("Starting $name weeklong game.", 0);
+
     $db = new Database();
-    $query = "select * from weeklongS19;";
+    $query = "select * from $name where status='zombie' AND status_type='OZ';";
+    $OZs = $db->executeQueryFetchAll($query);
+
+		self::reset_all_players();
+    $query = "select * from $name;";
     $players = $db->executeQueryFetchAll($query);
 		$num_players = sizeof($players);
-  	$num_OZ = ceil($num_players*0.02);
-    $name = $_SESSION["weeklong"];
-    error_log("Number of players: $num_players, Num OZ: $num_OZ", 0);
-    for($i=0; $i<$num_OZ; $i++){
-        $OZ_index = random_int(0,$num_players-1);
-        $OZ_ID = $players[$OZ_index]["user_id"];
-        $query = "update $name set status='zombie', status_type='OZ' where user_id=$OZ_ID";
-        $error = $db->executeQuery($query);
-        if(isset($error["error"]))
-          error_log("could not make id $OZ_ID into an OZ");
-        else
-          error_log("id $OZ_ID is now an OZ");
+  	$num_OZ_needed = ceil($num_players*0.02);
+    $num_OZ = sizeof($OZs);
+    error_log("Number of players: $num_players, Num OZ needed $num_OZ_needed num OZ: $num_OZ", 0);
+    $num_OZ_needed = $num_OZ_needed - $num_OZ;
+    $zombieIDs = array();
+    foreach($OZs as $zombie){
+      array_push($zombieIDs, $zombie["user_id"]);
+    }
+    if($num_OZ_needed > 0){
+      for($i=0; $i<$num_OZ_needed; $i++){
+          $OZ_index = random_int(0,$num_players-1);
+          $OZ_ID = $players[$OZ_index]["user_id"];
+          array_push($zombieIDs, $OZ_ID);
+      }
+    }
+    foreach($zombieIDs as $zombie_id){
+      $query = "update $name set status='zombie', status_type='OZ', points=50 where user_id=$zombie_id";
+      $error = $db->executeQuery($query);
+      if(isset($error["error"]))
+        error_log("could not make id $zombie_id into an OZ");
+      else
+        error_log("id $zombie_id is now an OZ");
     }
     $query = "update weeklongs set started=1 where name='$name'";
     $db->executeQuery($query);
