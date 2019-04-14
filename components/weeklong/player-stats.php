@@ -71,19 +71,11 @@
 			</td>
 		</tr>
 		<?php
-		$starve_date = new DateTime(date($stats["starve_date"]));
-		$current_time = new DateTime(date('Y-m-d H:i:s'));
-		$end_time = new DateTime(date($_SESSION["end_date"]));
-		if($current_time > $end_time){
-			$current_time = $end_time;
-		}
-		$time_left = $current_time->diff($starve_date);
-		$hours = $time_left->format('%H')+($time_left->format('%a')*24);
-		$formatTime = $hours.$time_left->format(':%I:%S');
+		$starveTimer = (new StarveDate($stats["starve_date"]))->getStarveTimer();
 		$points = $stats["points"];
 		echo "<tr>
 						<td class='subheader deeporange'>Starve Timer</td>
-						<td class='subheadline'>$formatTime</td>
+						<td class='subheadline'>$starveDate</td>
 					</tr>";
 		echo "<tr>
 						<td class='subheader deeporange'>Points</td>

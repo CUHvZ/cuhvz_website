@@ -26,16 +26,8 @@ function buildPlayerrRow($player){
       echo "<div class='status cell'>".$player["status_type"]."</div>";
       echo "<div class='id cell'>".$player["kill_count"]."</div>";
       echo "<div class='id cell'>".$player["points"]."</div>";
-      $starve_date = new DateTime(date($player["starve_date"]));
-      $current_time = new DateTime(date('Y-m-d H:i:s'));
-      $end_time = new DateTime(date($_SESSION["end_date"]));
-      if($current_time > $end_time){
-        $current_time = $end_time;
-      }
-      $time_left = $current_time->diff($starve_date);
-      $hours = $time_left->format('%H')+($time_left->format('%a')*24);
-      $formatTime = $hours.$time_left->format(':%I');
-      echo "<div class='starve cell'>".$formatTime."</div>";
+      $starveDate = new StarveDate($player["starve_date"]);
+      echo "<div class='starve cell'>".$starveDate->getStarveTimer()."</div>";
     echo "</div>";
   echo "</div>";
 }

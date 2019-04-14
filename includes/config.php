@@ -33,6 +33,7 @@ include($_SERVER['DOCUMENT_ROOT'].'/classes/User.php');
 include($_SERVER['DOCUMENT_ROOT'].'/classes/phpmailer/Mail.php');
 include($_SERVER['DOCUMENT_ROOT'].'/classes/Weeklong.php');
 include($_SERVER['DOCUMENT_ROOT'].'/classes/Token.php');
+include($_SERVER['DOCUMENT_ROOT'].'/classes/StarveDate.php');
 $user = new User($db);
 $weeklong = new Weeklong($db);
 if(Weeklong::active_event()){

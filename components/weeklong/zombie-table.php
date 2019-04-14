@@ -15,15 +15,7 @@
         $data=$weeklong->get_zombies_from($name);
         foreach($data as $zombie){
           $status = $zombie["status_type"];
-          $starve_date = new DateTime(date($zombie["starve_date"]));
-          $current_time = new DateTime(date('Y-m-d H:i:s'));
-          $end_time = new DateTime(date($weeklong->get_weeklong($name)["end_date"]));
-          if($current_time > $end_time){
-            $current_time = $end_time;
-          }
-          $time_left = $current_time->diff($starve_date);
-          $hours = $time_left->format('%H')+($time_left->format('%a')*24);
-          $formatTime = $hours.$time_left->format(':%I');
+          $starveTimer = (new StarveDate($zombie["starve_date"]))->getStarveTimer();
           $points = $zombie["points"];
           if($points == null){
             $points = 0;
@@ -36,7 +28,7 @@
           echo "<td id='username'>".$zombie["username"]."</td>";
           echo "<td>".$status."</td>";
           echo "<td id='kills'>".$kills."</td>";
-          echo "<td class='red' id='starve'>".$formatTime."</td>";
+          echo "<td class='red' id='starve'>".$starveTimer."</td>";
           echo "<td id='points'>".$points."</td>";
           echo "</tr>";
         }
@@ -63,15 +55,7 @@
         $data=$weeklong->get_zombies_from($name);
         foreach($data as $zombie){
           $status = $zombie["status_type"];
-          $starve_date = new DateTime(date($zombie["starve_date"]));
-          $current_time = new DateTime(date('Y-m-d H:i:s'));
-          $end_time = new DateTime(date($weeklong->get_weeklong($name)["end_date"]));
-          if($current_time > $end_time){
-            $current_time = $end_time;
-          }
-          $time_left = $current_time->diff($starve_date);
-          $hours = $time_left->format('%H')+($time_left->format('%a')*24);
-          $formatTime = $hours.$time_left->format(':%I');
+          $starveTimer = (new StarveDate($zombie["starve_date"]))->getStarveTimer();
           $points = $zombie["points"];
           if($points == null){
             $points = 0;
@@ -86,7 +70,7 @@
               echo "<div>";
                 echo "<div class='mobile-table-line-2' id='kills'>".$kills."</div>";
                 echo "<div class='mobile-table-line-2' id='points'>".$points."</div>";
-                echo "<div class='mobile-table-line-2 red' id='starve'>".$formatTime."</div>";
+                echo "<div class='mobile-table-line-2 red' id='starve'>".$starveTimer."</div>";
               echo "</div>";
           echo "</td></tr>";
         }

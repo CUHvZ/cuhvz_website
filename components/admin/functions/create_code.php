@@ -4,11 +4,15 @@ if(isset($_POST['submit'])){
   if($_POST['submit'] == "CreateCode"){
       error_log("create code", 0);
       $type = $_POST["code_type"];
+      $sideEffect = $_POST["side_effect"];
       $name = $_POST["name"];
 
       $hex = $_POST["hex"];
       if(empty($hex))
         $hex = $hex = substr(md5(uniqid(rand(),'')),0,5);
+
+      if(empty($sideEffect))
+        $sideEffect = "NULL";
 
       $location = $_POST["location"];
       if(empty($location))
@@ -33,8 +37,8 @@ if(isset($_POST['submit'])){
         $expiration = "NULL";
 
       // error_log("type: $type, name: $name, uses: $numUses, single use: $singleUse, hex: $hex, location: $location, expiration: $expiration", 0);
-      $query = "INSERT INTO ".$_SESSION["weeklong"]."_codes (name, hex, effect, location_id, num_uses, single_use, expiration) VALUES
-        ('$name', '$hex', '$type', '$location', $numUses, $singleUse, '$expiration')";
+      $query = "INSERT INTO ".$_SESSION["weeklong"]."_codes (name, hex, effect, side_effect, location_id, num_uses, single_use, expiration) VALUES
+        ('$name', '$hex', '$type', '$sideEffect', '$location', $numUses, $singleUse, '$expiration')";
       $database->executeQuery($query);
   }
 }
@@ -57,11 +61,10 @@ if(isset($_POST['submit'])){
                     <option value="revive">revive</option>
                   </select>
                 </div>
-                <!-- <div class="two columns">
+                <div class="three columns">
                   <label>Side Effect</label><br/>
-                  <select name="code_type">
-                  </select>
-                </div> -->
+                  <input name="side_effect" class="function-input input-lg u-full-width" placeholder="Use for points">
+                </div>
             </div>
 
           <div class="row">

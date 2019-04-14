@@ -85,23 +85,23 @@ class Weeklong{
 	}
 
 	public function check_starve_dates(){
-		// Check for deceased zombies
-		$current_time = new DateTime(date('Y-m-d H:i:s'));
-		try {
-		    $stmt = $this->_db->prepare("UPDATE ".$_SESSION['weeklong']." SET status='deceased' WHERE starve_date <= :current_time");
-		    $stmt->execute(array(':current_time' => $current_time->format('Y-m-d H:i:s')));
-		} catch(PDOException $e) {
-		    echo '<p class="bg-danger">'.$e->getMessage().' check_starve_dates</p>';
-		}
+		// Only check if game has started
+    if(isset($_SESSION["started"]) && $_SESSION["started"]){
+      $weeklongName = $_SESSION['weeklong'];
+      $database = new Database();
 
-		// Check for zombies without starve dates
-		$starve_date = date_add($current_time, date_interval_create_from_date_string('2 days'));
-		try {
-		    $stmt = $this->_db->prepare("UPDATE ".$_SESSION['weeklong']." SET starve_date=:starve_date WHERE (status='zombie' AND starve_date IS NULL);");
-		    $stmt->execute(array(':starve_date' => $starve_date->format('Y-m-d H:i:s')));
-		} catch(PDOException $e) {
-		    echo '<p class="bg-danger" style="margin: 0;">'.$e->getMessage().'</p>';
-		}
+      // turn starved humans into zombies
+      $query = "UPDATE $weeklongName SET status='zombie', starve_date=(NOW() + INTERVAL 1 DAY), status_type='starved' WHERE starve_date < NOW() AND status='human'";
+      $database->executeQuery($query);
+
+      // kill starved zombies
+      $query = "UPDATE $weeklongName SET status='deceased' WHERE starve_date < NOW() AND status='zombie'";
+      $database->executeQuery($query);
+
+      // give any null starve timer a 24 timer
+      $query = "UPDATE $weeklongName SET starve_date=(NOW() + INTERVAL 1 DAY) WHERE starve_date IS NULL";
+      $database->executeQuery($query);
+    }
 	}
 
 	// returns the username of a user given their user hex

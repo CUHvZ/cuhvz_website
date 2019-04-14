@@ -48,15 +48,25 @@ $title = 'CU HvZ | ';
 
     <div class="content lightslide-list" style="overflow: auto;">
       <div class="stats-header orange">Player Statistics</div>
-      <div><!-- class="statistics"-->
-        <?php
+				<?php
           $displayStats = false;
-          if(isset($_GET["name"])){
-            $name = $_GET["name"];
+					if(isset($_GET["name"])){
+						$name = $_GET["name"];
+						echo "<div class='stats-header'>";
+						echo "Zombie Stun Timer: ";
+						$query = "select stun_timer from weeklongs where name='$name'";
+						$database = new Database();
+						$data = $database->executeQueryFetch($query);
+						if(!isset($data["error"])){
+							$date = new DateTime(date('H:i:s', strtotime($data["stun_timer"])));
+							echo $date->format('i\m s\s');
+						}
+
+						echo "</div>";
+						echo "<div>";
             if($weeklong->get_weeklong($name)){
               $displayStats = true;
-							$query = "select count(*) as num_players, count(CASE WHEN status='human' THEN status END) as num_humans, count(CASE WHEN status='zombie' THEN status END) as num_zombies, count(CASE WHEN status='deceased' THEN status END) as num_dead from weeklongS19;";
-							$database = new Database();
+							$query = "select count(*) as num_players, count(CASE WHEN status='human' THEN status END) as num_humans, count(CASE WHEN status='zombie' THEN status END) as num_zombies, count(CASE WHEN status='deceased' THEN status END) as num_dead from $name;";
 							$data = $database->executeQueryFetch($query);
 							$numPlayers = $data["num_players"];
 							$numHumans = $data["num_humans"];

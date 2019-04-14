@@ -14,15 +14,7 @@
       $database = new Database();
       $data = $database->executeQueryFetchAll($query);
       foreach($data as $player){
-        $starve_date = new DateTime(date($player["starve_date"]));
-        $current_time = new DateTime(date('Y-m-d H:i:s'));
-        $end_time = new DateTime(date($weeklong->get_weeklong($name)["end_date"]));
-        if($current_time > $end_time){
-          $current_time = $end_time;
-        }
-        $time_left = $current_time->diff($starve_date);
-        $hours = $time_left->format('%H')+($time_left->format('%a')*24);
-        $formatTime = $hours.$time_left->format(':%I');
+        $starveTimer = (new StarveDate($player["starve_date"]))->getStarveTimer();
         $points = $player["points"];
         if($points == null){
           $points = 0;
@@ -33,7 +25,7 @@
         echo "<td id='username'>".$player["username"]."</td>"."\n";
         echo "<td id='points'>".$points."</td>"."\n";
         echo "<td id='points'>".$player["status"]."</td>"."\n";
-        echo "<td class='red' id='starve'>".$formatTime."</td>"."\n";
+        echo "<td class='red' id='starve'>".$starveTimer."</td>"."\n";
         echo "</tr>"."\n";
       }
     }
@@ -62,29 +54,15 @@
   <tbody id="top-players-table-mobile" class="show-mobile">
   <?php
     if($displayStats){
-      $query = "SELECT $name.*, users.username FROM $name INNER JOIN users ON $name.user_id=users.id order by points DESC limit 4";
+      $query = "SELECT $name.*, users.username FROM $name INNER JOIN users ON $name.user_id=users.id order by points DESC limit 3";
       $database = new Database();
       $data = $database->executeQueryFetchAll($query);
-      for($i = 0; $i < 4; $i++){
-        $player = $data[$i];
-        if($player["username"] == "GrayGhost666" || $i > 3){
-          continue;
-        }
-        $starve_date = new DateTime(date($player["starve_date"]));
-        $current_time = new DateTime(date('Y-m-d H:i:s'));
-        $end_time = new DateTime(date($weeklong->get_weeklong($name)["end_date"]));
-        if($current_time > $end_time){
-          $current_time = $end_time;
-        }
-        $time_left = $current_time->diff($starve_date);
-        $hours = $time_left->format('%H')+($time_left->format('%a')*24);
-        $formatTime = $hours.$time_left->format(':%I:%S');
+      foreach($data as $player){
+        $starveTimer = (new StarveDate($player["starve_date"]))->getStarveTimer();
         $points = $player["points"];
         if($points == null){
           $points = 0;
         }
-        if($player["status"] == "deceased")
-          $formatTime = "0:0:0";
 
         echo "<tr class='add-line table-show-mobile'><td>";
             echo "<div>";
@@ -93,7 +71,7 @@
             echo "</div>";
             echo "<div>";
               echo "<div class='mobile-table-line-2' id='points'>".$points."</div>";
-              echo "<div class='mobile-table-line-2 red' id='starve'>".$formatTime."</div>";
+              echo "<div class='mobile-table-line-2 red' id='starve'>".$starveTimer."</div>";
             echo "</div>";
         echo "</td></tr>";
       }
