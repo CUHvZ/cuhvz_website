@@ -101,6 +101,10 @@ class Weeklong{
       // give any null starve timer a 24 timer
       $query = "UPDATE $weeklongName SET starve_date=(NOW() + INTERVAL 1 DAY) WHERE starve_date IS NULL";
       $database->executeQuery($query);
+
+      // make sure all starve timers are no more than 48 hours
+      $query = "UPDATE $weeklongName SET starve_date=(NOW() + INTERVAL 2 DAY) WHERE starve_date>(NOW() + INTERVAL 2 DAY)";
+      $database->executeQuery($query);
     }
 	}
 
@@ -413,6 +417,9 @@ class Weeklong{
 	public function reset_all_players(){
     $db = new Database();
     $query = "UPDATE ".$_SESSION['weeklong']." SET status='human', status_type=NULL, starve_date=(NOW() + INTERVAL 2 DAY), kill_count=0, points=0;";
+    $db->executeQuery($query);
+    // delete any used codes
+    $query = "delete from ".$_SESSION['weeklong']."_used_codes;";
     $db->executeQuery($query);
 	}
 

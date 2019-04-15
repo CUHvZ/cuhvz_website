@@ -31,15 +31,23 @@ if(isset($_POST['submit'])){
         $singleUse = "false";
 
       $expiration = $_POST["expiration"];
-      if(!empty($expiration))
+      if(!empty($expiration)){
         $expiration = $expiration." 23:59:59";
-      else
-        $expiration = "NULL";
+        $query = "INSERT INTO ".$_SESSION["weeklong"]."_codes (name, hex, effect, side_effect, location_id, num_uses, single_use, expiration) VALUES
+          ('$name', '$hex', '$type', '$sideEffect', '$location', $numUses, $singleUse, '$expiration')";
+      }
+      else{
+        $query = "INSERT INTO ".$_SESSION["weeklong"]."_codes (name, hex, effect, side_effect, location_id, num_uses, single_use) VALUES
+          ('$name', '$hex', '$type', '$sideEffect', '$location', $numUses, $singleUse)";
+      }
 
       // error_log("type: $type, name: $name, uses: $numUses, single use: $singleUse, hex: $hex, location: $location, expiration: $expiration", 0);
-      $query = "INSERT INTO ".$_SESSION["weeklong"]."_codes (name, hex, effect, side_effect, location_id, num_uses, single_use, expiration) VALUES
-        ('$name', '$hex', '$type', '$sideEffect', '$location', $numUses, $singleUse, '$expiration')";
-      $database->executeQuery($query);
+      $data = $database->executeQuery($query);
+      if(isset($data["error"])){
+        echo "<script>alert('Error occured')</script>";
+      }else{
+        echo "<script>alert('Created code')</script>";
+      }
   }
 }
 

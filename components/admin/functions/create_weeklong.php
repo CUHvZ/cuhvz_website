@@ -65,7 +65,7 @@ function createWeeklong($semester, $title, $displayDates, $startDate, $endDate){
     location_id varchar(255),
     single_use boolean DEFAULT True ,
     num_uses int(11) DEFAULT 1 ,
-    expiration varchar(255),
+    expiration timestamp NULL DEFAULT NULL,
     PRIMARY KEY ( id ) ,
     UNIQUE KEY id ( id ) );";
 

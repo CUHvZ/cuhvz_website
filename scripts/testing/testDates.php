@@ -13,8 +13,22 @@ if($starve_date < $current_time){
   $hours = $time_left->format('%H')+($time_left->format('%a')*24);
   $formatTime = $hours.$time_left->format(':%I');
 }
-error_log($formatTime, 0);
+// error_log($formatTime, 0);
 
 
+$starveDate = new DateTime(date("2019-04-16 19:40:45"));
+$hours = 24;
+error_log($starveDate->format('Y-m-d H:i:s'), 0);
+$starveDate = date_add($starveDate, date_interval_create_from_date_string("$hours hours"));
+error_log($starveDate->format('Y-m-d H:i:s'), 0);
+
+public function addHours($hours){
+  $starveDate = new DateTime(date("2019-04-16 19:40:45"));
+  $maxStarveDate = date_add($starveDate, date_interval_create_from_date_string("48 hours"));
+  $starveDate = date_add($starveDate, date_interval_create_from_date_string("$hours hours"));
+  if($starveDate > $maxStarveDate)
+    $starveDate = $maxStarveDate;
+  return $starveDate->format('Y-m-d H:i:s');
+}
 
  ?>
