@@ -67,9 +67,9 @@ if(isset($_GET['join']) && isset($_GET['eventId'])){
 		$userID = $_SESSION['id'];
 
 		$database = new Database();
-		$query = "INSERT INTO $weeklongName (user_id,username, user_hex) VALUES ($userID, '$username', '$user_hex')";
+		$query = "INSERT INTO $weeklongName (user_id,username, user_hex, starve_date) VALUES ($userID, '$username', '$user_hex', (NOW() + INTERVAL 2 DAY))";
 		if(isset($_GET['late']) && $_GET['late']=="zombie"){
-			$query = "INSERT INTO $weeklongName (user_id,username, user_hex, status, status_type, starve_date) VALUES ($userID, '$username', '$user_hex', 'zombie', 'normal', NOW() + INTERVAL 2 DAY)";
+			$query = "INSERT INTO $weeklongName (user_id,username, user_hex, status, status_type, starve_date) VALUES ($userID, '$username', '$user_hex', 'zombie', 'normal', (NOW() + INTERVAL 2 DAY))";
 		}
 		$error = $database->executeQuery($query);
 		if(!isset($error["error"])){
