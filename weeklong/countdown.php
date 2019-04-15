@@ -78,8 +78,8 @@
           $signupLink = $signupLink."&late=human";
           echo "<p><a href='$signupLink'>Late to the game? Hurry up and join now!</a></p>";
         }else{
-          $signupLink = $signupLink."&late=zombie";
-          echo "<p><a href='$signupLink'>Late to the game? Join now and start as a zombie</a></p>";
+          // $signupLink = $signupLink."&late=zombie";
+          // echo "<p><a href='$signupLink'>Late to the game? Join now and start as a zombie</a></p>";
         }
       }
 

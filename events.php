@@ -75,8 +75,8 @@ $lockin_events = array("spring19", "fall18", "spring18");
 													          $signupLink = $signupLink."&late=human";
 													          echo "<h5 style='margin: 0;'><a href='$signupLink'>Late to the game? Hurry up and join now!</a></h5>";
 													        }else{
-													          $signupLink = $signupLink."&late=zombie";
-													          echo "<h5 style='margin: 0;'><a href='$signupLink'>Late to the game? Join now and start as a zombie</a></h5>";
+													          // $signupLink = $signupLink."&late=zombie";
+													          // echo "<h5 style='margin: 0;'><a href='$signupLink'>Late to the game? Join now and start as a zombie</a></h5>";
 													        }
 													      }
 	                                    // echo "</h3>";

@@ -111,18 +111,20 @@ $(document).ready(function(){
             echo "<a href='/weeklong/stats.php?name=".$event["name"]."' >stats</a></p>";
           }
           if($weeklong->is_active($event["id"])){ // Displays if event options
-            echo "Wanna play in this event?";
-            echo "<h3 style='margin: 0;'>";
-            if($user->is_logged_in()){
-                  if($user->is_in_event($event["name"])){
-                        echo "<a href='/profile.php?leave=".$event["title"]."&eventId=".$event["name"]."'' >Leave event</a>";
-                  }else{
-                        echo "<a href='/profile.php?join=".$event["title"]."&eventId=".$event["name"]."'' >Join Now!</a>";
-                  }
-            }else{
-                  echo "<a href='/login.php?join=".$event["title"]."&eventId=".$event["name"]."' >Join Now!</a></td>";
-            }
-            echo "</h3>";
+						if(isset($_SESSION["started"]) && !$_SESSION["started"]){
+	            echo "Wanna play in this event?";
+	            echo "<h3 style='margin: 0;'>";
+	            if($user->is_logged_in()){
+	                  if($user->is_in_event($event["name"])){
+	                        // echo "<a href='/profile.php?leave=".$event["title"]."&eventId=".$event["name"]."'' >Leave event</a>";
+	                  }else{
+	                        echo "<a href='/profile.php?join=".$event["title"]."&eventId=".$event["name"]."'' >Join Now!</a>";
+	                  }
+	            }else{
+	                  echo "<a href='/login.php?join=".$event["title"]."&eventId=".$event["name"]."' >Join Now!</a></td>";
+	            }
+	            echo "</h3>";
+						}
 
           }else{
             if($event["active"] == 0){
