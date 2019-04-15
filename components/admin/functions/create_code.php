@@ -106,7 +106,7 @@ if(isset($_POST['submit'])){
 
             <div class="three columns">
               <label>Expiration</label><br/>
-              <input class="date" name="expiration" placeholder="Default midnight" type="text"/>
+              <input class="date" name="expiration" placeholder="Default midnight" type="text"/><br/>
               <input type='checkbox' name='expire_at_5'>Check for 5pm</input>
             </div>
           </div>
