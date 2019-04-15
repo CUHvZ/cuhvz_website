@@ -1,4 +1,4 @@
 Location: Wolf Law soccer fields
 Time: 1:30pm
-Mission: Defense
+Mission: Supply drops / Defense
 Hold sectors and fend off attackers until time runs out.
