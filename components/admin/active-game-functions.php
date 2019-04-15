@@ -39,14 +39,26 @@ function buildPlayerrRow($player){
 
 <div class="content" style="overflow: auto;">
   <div style="margin: auto; text-align: center;">
-   <span class="tab">
-     <button class="tablink" id="CreateCode-button" onclick="openTab(event, 'CreateCode', 'active-game-tabs')">CreateCode</button>
-   </span>
- </div>
- <div id="active-game-tabs">
-   <div id="CreateCode" class="tabcontent">
-     <?php include $_SERVER['DOCUMENT_ROOT']."/components/admin/functions/create_code.php"; ?>
-   </div>
+    <span class="tab">
+      <button class="tablink" id="CreateCode-button" onclick="openTab(event, 'CreateCode', 'active-game-tabs')">Create Code</button>
+    </span>
+    <span class="tab">
+      <button class="tablink" id="CreateCode-button" onclick="openTab(event, 'StunTimer', 'active-game-tabs')">Stun Timer</button>
+    </span>
+  </div>
+  <div>
+    <div id="CreateCode" class="active-game-tabs tabcontent">
+      <?php include $_SERVER['DOCUMENT_ROOT']."/components/admin/functions/create_code.php"; ?>
+    </div>
+      <div id="CreateCode" class="active-game-tabs tabcontent">
+        <?php include $_SERVER['DOCUMENT_ROOT']."/components/admin/functions/create_code.php"; ?>
+      </div>
+        <div id="CreateCode" class="active-game-tabs tabcontent">
+          <?php include $_SERVER['DOCUMENT_ROOT']."/components/admin/functions/create_code.php"; ?>
+        </div>
+    <div id="StunTimer" class="active-game-tabs tabcontent">
+      <?php include $_SERVER['DOCUMENT_ROOT']."/components/admin/functions/set_stun_timer.php"; ?>
+    </div>
   </div>
 </div>
 <!-- <div class="table">

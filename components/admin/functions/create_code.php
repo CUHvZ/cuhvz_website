@@ -1,7 +1,9 @@
 <?php
 
 if(isset($_POST['submit'])){
-  if($_POST['submit'] == "CreateCode"){
+  if($_POST['submit'] == "Create Code" && !isset($processing)){
+      // prevent multiple requests going through at once
+      $processing = true;
       error_log("create code", 0);
       $type = $_POST["code_type"];
       $sideEffect = $_POST["side_effect"];
@@ -30,27 +32,28 @@ if(isset($_POST['submit'])){
       else
         $singleUse = "false";
 
-      $expiration = $_POST["expiration"];
-      if(!empty($expiration)){
-        $expiration = $expiration." 23:59:59";
-        $query = "INSERT INTO ".$_SESSION["weeklong"]."_codes (name, hex, effect, side_effect, location_id, num_uses, single_use, expiration) VALUES
-          ('$name', '$hex', '$type', '$sideEffect', '$location', $numUses, $singleUse, '$expiration')";
-      }elseif($type == "supply"){
-        $expiration = $expiration." 17:00:00";
-        $query = "INSERT INTO ".$_SESSION["weeklong"]."_codes (name, hex, effect, side_effect, location_id, num_uses, single_use, expiration) VALUES
-          ('$name', '$hex', '$type', '$sideEffect', '$location', $numUses, $singleUse, '$expiration')";
-      }
-      else{
-        $query = "INSERT INTO ".$_SESSION["weeklong"]."_codes (name, hex, effect, side_effect, location_id, num_uses, single_use) VALUES
-          ('$name', '$hex', '$type', '$sideEffect', '$location', $numUses, $singleUse)";
-      }
 
-      // error_log("type: $type, name: $name, uses: $numUses, single use: $singleUse, hex: $hex, location: $location, expiration: $expiration", 0);
+      $expiration = $_POST["expiration"];
+      $expireAt5 = false;
+      if(isset($_POST["expire_at_5"]))
+        $expireAt5 = true;
+      if(!empty($expiration)){
+        if($expireAt5){
+          $expiration = "'$expiration 17:00:00'";
+        }else{
+          $expiration = "'$expiration 23:59:59'";
+        }
+      }else{
+        $expiration = "NULL";
+      }
+      error_log("type: $type, name: $name, uses: $numUses, single use: $singleUse, hex: $hex, location: $location, expiration: $expiration", 0);
+      $query = "INSERT INTO ".$_SESSION["weeklong"]."_codes (name, hex, effect, side_effect, location_id, num_uses, single_use, expiration) VALUES
+        ('$name', '$hex', '$type', '$sideEffect', '$location', $numUses, $singleUse, $expiration)";
       $data = $database->executeQuery($query);
       if(isset($data["error"])){
-        echo "<script>alert('Error occured')</script>";
+        $message = array("error" => "error creating code");
       }else{
-        echo "<script>alert('Created code')</script>";
+        $message = array("success" => "Code created!");
       }
   }
 }
@@ -103,13 +106,14 @@ if(isset($_POST['submit'])){
 
             <div class="three columns">
               <label>Expiration</label><br/>
-              <input class="date" name="expiration" placeholder="MM/DD/YYYY" type="text"/>
+              <input class="date" name="expiration" placeholder="Default midnight" type="text"/>
+              <input type='checkbox' name='expire_at_5'>Check for 5pm</input>
             </div>
           </div>
 
           <div class="row">
             <div class="three columns">
-                <input type="submit" name="submit" value="CreateCode" class="btn btn-primary btn-block btn-lg button-primary">
+                <input type="submit" name="submit" value="Create Code" class="btn btn-primary btn-block btn-lg button-primary">
             </div>
           </div>
         </form>

@@ -178,7 +178,7 @@ $title = 'CU HvZ | ';
         </div>
 			-->
 
-        <script src="/js/tabs_1.0.js"></script>
+        <script src="/js/tabs_2.0.js"></script>
 
       </div>
     </div>

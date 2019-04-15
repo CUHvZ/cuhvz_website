@@ -17,7 +17,7 @@ if(!$user->is_admin()){ header('Location: login.php'); }
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js"></script>
-	<script src="/js/tabs_1.0.js"></script>
+	<script src="/js/tabs_2.0.js"></script>
 
   <script>
     $(function () {
@@ -126,6 +126,19 @@ ___________________________________________-->
 		 			include $_SERVER['DOCUMENT_ROOT']."/components/admin/active-game-functions.php";
 		 		?>
 		 	</div>
+		</div>
+		<div>
+			<?php
+
+				if(isset($message)){
+					if(isset($message["error"])){
+						echo "<p class='bg-danger' style='margin: 0;'>".$message["error"]."</p>";
+					}elseif(isset($message["success"])){
+						echo "<p class='bg-success' style='margin: 0;'>".$message["success"]."</p>";
+					}
+				}
+
+			?>
 		</div>
 
  </div> <!-- end container -->
