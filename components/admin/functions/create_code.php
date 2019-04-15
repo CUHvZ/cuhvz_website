@@ -35,6 +35,10 @@ if(isset($_POST['submit'])){
         $expiration = $expiration." 23:59:59";
         $query = "INSERT INTO ".$_SESSION["weeklong"]."_codes (name, hex, effect, side_effect, location_id, num_uses, single_use, expiration) VALUES
           ('$name', '$hex', '$type', '$sideEffect', '$location', $numUses, $singleUse, '$expiration')";
+      }elseif($type == "supply"){
+        $expiration = $expiration." 17:00:00";
+        $query = "INSERT INTO ".$_SESSION["weeklong"]."_codes (name, hex, effect, side_effect, location_id, num_uses, single_use, expiration) VALUES
+          ('$name', '$hex', '$type', '$sideEffect', '$location', $numUses, $singleUse, '$expiration')";
       }
       else{
         $query = "INSERT INTO ".$_SESSION["weeklong"]."_codes (name, hex, effect, side_effect, location_id, num_uses, single_use) VALUES
