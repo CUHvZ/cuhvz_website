@@ -112,7 +112,8 @@ function populateUserStatsTable($db){
 function addToken($db, $user){
   $userID = $user["id"];
   $activatedToken = $user["activated"];
-  $insertTokenQuery = "INSERT INTO tokens (user_id, token, token_type, expiration) VALUES ($userID, '$activatedToken', 'ACTIVATION', NOW() + INTERVAL 1 DAY);";
+  $now = (new DateTime(date('Y-m-d H:i:s')))->format('Y-m-d H:i:s');
+  $insertTokenQuery = "INSERT INTO tokens (user_id, token, token_type, expiration) VALUES ($userID, '$activatedToken', 'ACTIVATION', '$now' + INTERVAL 1 DAY);";
   $result = $db->executeQuery($insertTokenQuery);
   if(isset($resultTokensQuery["error"])){
     error_log("FAILED: addToken with user id: $userID", 0);

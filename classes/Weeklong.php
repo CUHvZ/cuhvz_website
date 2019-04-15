@@ -368,21 +368,22 @@ class Weeklong{
     if(isset($_SESSION["started"]) && $_SESSION["started"]){
       $weeklongName = $_SESSION['weeklong'];
       $database = new Database();
+      $now = (new DateTime(date('Y-m-d H:i:s')))->format('Y-m-d H:i:s');
 
       // turn starved humans into zombies
-      $query = "UPDATE $weeklongName SET status='zombie', starve_date=(NOW() + INTERVAL 1 DAY), status_type='starved' WHERE starve_date < NOW() AND status='human'";
+      $query = "UPDATE $weeklongName SET status='zombie', starve_date=('$now' + INTERVAL 1 DAY), status_type='starved' WHERE starve_date < '$now' AND status='human'";
       $database->executeQuery($query);
 
       // kill starved zombies
-      $query = "UPDATE $weeklongName SET status='deceased' WHERE starve_date < NOW() AND status='zombie'";
+      $query = "UPDATE $weeklongName SET status='deceased' WHERE starve_date < '$now' AND status='zombie'";
       $database->executeQuery($query);
 
       // give any null starve timer a 24 timer
-      $query = "UPDATE $weeklongName SET starve_date=(NOW() + INTERVAL 1 DAY) WHERE starve_date IS NULL";
+      $query = "UPDATE $weeklongName SET starve_date=('$now' + INTERVAL 1 DAY) WHERE starve_date IS NULL";
       $database->executeQuery($query);
 
       // make sure all starve timers are no more than 48 hours
-      $query = "UPDATE $weeklongName SET starve_date=(NOW() + INTERVAL 2 DAY) WHERE starve_date>(NOW() + INTERVAL 2 DAY)";
+      $query = "UPDATE $weeklongName SET starve_date=('$now' + INTERVAL 2 DAY) WHERE starve_date>('$now' + INTERVAL 2 DAY)";
       $database->executeQuery($query);
     }
 	}
@@ -416,7 +417,8 @@ class Weeklong{
 
 	public function reset_all_players(){
     $db = new Database();
-    $query = "UPDATE ".$_SESSION['weeklong']." SET status='human', status_type=NULL, starve_date=(NOW() + INTERVAL 2 DAY), kill_count=0, points=0;";
+    $now = (new DateTime(date('Y-m-d H:i:s')))->format('Y-m-d H:i:s');
+    $query = "UPDATE ".$_SESSION['weeklong']." SET status='human', status_type=NULL, starve_date=('$now' + INTERVAL 2 DAY), kill_count=0, points=0;";
     $db->executeQuery($query);
     // delete any used codes
     $query = "delete from ".$_SESSION['weeklong']."_used_codes;";
@@ -465,8 +467,9 @@ class Weeklong{
           array_push($zombieIDs, $OZ_ID);
       }
     }
+    $now = (new DateTime(date('Y-m-d H:i:s')))->format('Y-m-d H:i:s');
     foreach($zombieIDs as $zombie_id){
-      $query = "update $name set status='zombie', status_type='OZ', points=50, starve_date=(NOW() + INTERVAL 2 DAY) where user_id=$zombie_id";
+      $query = "update $name set status='zombie', status_type='OZ', points=50, starve_date=($now + INTERVAL 2 DAY) where user_id=$zombie_id";
       $error = $db->executeQuery($query);
       if(isset($error["error"]))
         error_log("could not make id $zombie_id into an OZ");

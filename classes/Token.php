@@ -32,7 +32,8 @@ class Token {
     $userID = $this->userID;
     $value = $this->value;
     $type = $this->type;
-    return "INSERT INTO tokens (user_id, token, token_type, expiration) VALUES ($userID, '$value', '$type', NOW() + INTERVAL 1 DAY);";
+    $now = (new DateTime(date('Y-m-d H:i:s')))->format('Y-m-d H:i:s');
+    return "INSERT INTO tokens (user_id, token, token_type, expiration) VALUES ($userID, '$value', '$type', '$now' + INTERVAL 1 DAY);";
   }
 
   public function toString(){

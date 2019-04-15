@@ -116,7 +116,8 @@ if(isset($_POST['submit'])){
       $database->insert("user_stats", "id", $id);
 
       $fields = "user_id, token, token_type, expiration";
-      $values = "$id, '$activasion', 'ACTIVATION', NOW() + INTERVAL 1 DAY";
+      $now = (new DateTime(date('Y-m-d H:i:s')))->format('Y-m-d H:i:s');
+      $values = "$id, '$activasion', 'ACTIVATION', '$now' + INTERVAL 1 DAY";
       $database->insert("tokens", $fields, $values);
 
 			// send email

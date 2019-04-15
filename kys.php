@@ -32,7 +32,8 @@ if(!$weeklong->active_event() || !$user->is_in_event($_SESSION["weeklong"]) || $
 // ---------------------------
 if(isset($_POST["submit"])){
 	$database = new Database();
-	$query = "update ".$_SESSION["weeklong"]." set status='zombie', status_type='suicide', starve_date=(NOW() + INTERVAL 2 DAY) where user_id=".$_SESSION['id'];
+	$now = (new DateTime(date('Y-m-d H:i:s')))->format('Y-m-d H:i:s');
+	$query = "update ".$_SESSION["weeklong"]." set status='zombie', status_type='suicide', starve_date=('$now' + INTERVAL 2 DAY) where user_id=".$_SESSION['id'];
 	$data = $database->executeQuery($query);
 	if(!isset($data["error"])){
     echo "<p class='bg-success' style='margin: 0;'> &#10003; <strong>Congratulations, you killed yoself.</strong></p>";
