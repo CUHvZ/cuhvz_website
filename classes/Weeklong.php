@@ -15,19 +15,19 @@ class Weeklong{
     // this will set the $_SESSION variables for the active ecent
     public function set_active_variables(){
     	try {
-			$stmt = $this->_db->prepare('SELECT * FROM weeklongs WHERE active>0 LIMIT 1');
-			$stmt->execute(array());
-			$row = $stmt->fetch();
-			$_SESSION["weeklong"] = $row["name"];
-			$_SESSION["title"] = $row["title"];
-			$_SESSION["started"] = $row["started"];
-			$_SESSION["weeklong_dates"] = $row["display_dates"];
-			$_SESSION["start_date"] = $row["start_date"];
-			$_SESSION["end_date"] = $row["end_date"];
+  			$stmt = $this->_db->prepare('SELECT * FROM weeklongs WHERE active>0 LIMIT 1');
+  			$stmt->execute(array());
+  			$row = $stmt->fetch();
+  			$_SESSION["weeklong"] = $row["name"];
+  			$_SESSION["title"] = $row["title"];
+  			$_SESSION["started"] = $row["started"];
+  			$_SESSION["weeklong_dates"] = $row["display_dates"];
+  			$_SESSION["start_date"] = $row["start_date"];
+  			$_SESSION["end_date"] = $row["end_date"];
 
-		} catch(PDOException $e) {
-		    echo '<p class="bg-danger">'.$e->getMessage().'</p>';
-		}
+  		} catch(PDOException $e) {
+  		    echo '<p class="bg-danger">'.$e->getMessage().'</p>';
+  		}
     }
 
 	// This will return true if the event with id=$id is active

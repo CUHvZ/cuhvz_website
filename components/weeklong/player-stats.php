@@ -75,7 +75,7 @@
 		$points = $stats["points"];
 		echo "<tr>
 						<td class='subheader deeporange'>Starve Timer</td>
-						<td class='subheadline'>$starveDate</td>
+						<td class='subheadline'>$starveTimer</td>
 					</tr>";
 		echo "<tr>
 						<td class='subheader deeporange'>Points</td>

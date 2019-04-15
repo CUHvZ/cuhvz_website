@@ -53,14 +53,36 @@
     <div class="row">
       <h2 class="subheadline"><span class="white" id="registered"><?php $countusers ?> Players Registered</span></h2>
       <?php
-      if(!$_SESSION["started"]){
-        if($user->is_logged_in()){
-          $signupLink = "/profile.php?join=".$_SESSION['title']."&eventId=".$_SESSION['weeklong'];
-        }else{
-          $signupLink = "/login.php?join=".$_SESSION['title']."&eventId=".$_SESSION['weeklong'];
-        }
-        echo "<p><a href='$signupLink'>Wanna play? Be sure to register for the game.</a></p>";
+      // if(!$_SESSION["started"]){
+      //   if($user->is_logged_in()){
+      //     $signupLink = "/profile.php?join=".$_SESSION['title']."&eventId=".$_SESSION['weeklong'];
+      //   }else{
+      //     $signupLink = "/login.php?join=".$_SESSION['title']."&eventId=".$_SESSION['weeklong'];
+      //   }
+      //   echo "<p><a href='$signupLink'>Wanna play? Be sure to register for the game.</a></p>";
+      // }
+      if($user->is_logged_in()){
+        $signupLink = "/profile.php?join=".$_SESSION['title']."&eventId=".$_SESSION['weeklong'];
+      }else{
+        $signupLink = "/login.php?join=".$_SESSION['title']."&eventId=".$_SESSION['weeklong'];
       }
+      if(!$_SESSION["started"]){
+        echo "<p><a href='$signupLink'>Wanna play? Be sure to register for the game.</a></p>";
+      }else{
+        $startDate = new DateTime(date($_SESSION["start_date"]));
+        $lateStartDate = $startDate->format('Y-m-d')." 17:00:00";
+        $currentTime = new DateTime(date('Y-m-d H:i:s'));
+        $lateStartDate = new DateTime(date($lateStartDate));
+        error_log($lateStartDate->format('Y-m-d H:i:s'), 0);
+        if($currentTime < $lateStartDate){
+          $signupLink = $signupLink."&late=human";
+          echo "<p><a href='$signupLink'>Late to the game? Hurry up and join now!</a></p>";
+        }else{
+          $signupLink = $signupLink."&late=zombie";
+          echo "<p><a href='$signupLink'>Late to the game? Join now and start as a zombie</a></p>";
+        }
+      }
+
       ?>
       <img src="/images/zombie.png" class="u-max-full-width">
     </div>
