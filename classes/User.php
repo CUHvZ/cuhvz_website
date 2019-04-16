@@ -83,6 +83,11 @@ class User extends Password{
     if(!$userID)
       $userID = $this->id;
     //$data = $database->executeQueryFetchAll("select activated from users where id=".$_SESSION['id']);
+    if(empty($userID)){
+      error_log("is_activated did not find userID", 0);
+      return false;
+    }
+
     $data = $database->getUserData($userID);
     //error_log( print_r($data, TRUE) );
     return $data["activated"];

@@ -25,7 +25,8 @@ if (isset($_POST['hex'])){
 	$database = new Database();
 	$query = "select * from ".$weeklongName."_codes where hex='$codeHex'";
 	$code = $database->executeQueryFetch($query);
-	error_log("user is attempting toenter code", 0);
+	error_log("user is attempting to enter code", 0);
+	error_log("code: ".implode(" ", $code), 0);
 	if(isset($code["id"])){
 		if($code["num_uses"] + 0 > 0){
 			// check the expiration is not null
@@ -48,13 +49,18 @@ if (isset($_POST['hex'])){
 							$error = updateQuantities($code, $database);
 						}
 					}
+				}else{
+					error_log("error getting user details from $weeklongName in code entry", 0);
 				}
 			}
 		}else{
 			$error = "Code has no more uses left.";
 		}
+	}else{
+		error_log("code[id] is not set!", 0);
 	}
 	if(isset($error)){
+		error_log("error entering code. $error", 0);
 		echo "<p class='bg-danger'>$error</p>";
 	}
 }
@@ -65,10 +71,12 @@ function applyEffect($code, $user, $database){
 	$userID = $user['user_id'];
 	$codeID = $code["id"];
 	error_log("user: $userID, effect: $effect, code ID: $codeID", 0);
+	if(empty($userID))
+		return "user id is null";
 	if($effect == "supply"){
 		if($user["status"] == "human"){
 			// add 24 hours to human starve timer
-			error_log("apply supply drop to user $userID", 0);
+			error_log("applying supply drop to user $userID", 0);
 			$starveDate = (new StarveDate($user["starve_date"]))->addHours(24);
 			$query = "update $weeklongName set starve_date='$starveDate',points=points+10 where user_id=$userID";
 			$data = $database->executeQuery($query);
@@ -80,8 +88,8 @@ function applyEffect($code, $user, $database){
 			return "You must be human to collect a supply drop";
 		}
 	}elseif($effect == "points"){
-		error_log("apply points to user $userID", 0);
 		$points = intval($code["side_effect"]);
+		error_log("applying $points to user $userID", 0);
 		$query = "update $weeklongName set points=points+$points where user_id=$userID";
 		$data = $database->executeQuery($query);
 		if(isset($data["error"]))
@@ -109,6 +117,7 @@ function checkExpiration($code){
 		$expiration = new DateTime(date($code["expiration"]));
 		$currentTime = new DateTime(date('Y-m-d H:i:s'));
 		if($currentTime > $expiration){
+			error_log("code has expired", 0);
 			return "Code has expired.";
 		}
 	}
