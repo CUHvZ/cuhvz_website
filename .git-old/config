@@ -1,0 +1,16 @@
+[core]
+	repositoryformatversion = 0
+	filemode = true
+	bare = false
+	logallrefupdates = true
+[remote "origin"]
+	url = git@github.com:jobr3255/cuhvz_website.git
+	fetch = +refs/heads/*:refs/remotes/origin/*
+[branch "master"]
+	remote = origin
+	merge = refs/heads/master
+[atomGithub]
+	historySha = f13fb67c235224ae17d1f9b5180463fab62a44ea
+[remote "www"]
+	url = ssh://cuhvmiwg@server122.web-hosting.com:21098/home/cuhvmiwg/www.git/
+	fetch = +refs/heads/*:refs/remotes/www/*

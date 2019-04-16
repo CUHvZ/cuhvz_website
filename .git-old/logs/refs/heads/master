@@ -1,0 +1,80 @@
+0000000000000000000000000000000000000000 cd0724284c9465c513fde371874eb3fa03c29bf7 Josh <jobr3255@colorado.edu> 1535432538 -0600	clone: from git@github.com:jobr3255/cuhvz_website.git
+cd0724284c9465c513fde371874eb3fa03c29bf7 37df5c48e2dbad30a952beef4a5cbef71045a808 Josh <jobr3255@colorado.edu> 1537736664 -0600	commit: Updated for fall 2018 weeklong
+37df5c48e2dbad30a952beef4a5cbef71045a808 09fcef5ee578a5fe165749b5c9f83a0815b2a6d4 Josh <jobr3255@colorado.edu> 1537807518 -0600	commit: Updated clock configuration
+09fcef5ee578a5fe165749b5c9f83a0815b2a6d4 37df5c48e2dbad30a952beef4a5cbef71045a808 Josh <jobr3255@colorado.edu> 1537807727 -0600	reset: moving to HEAD~
+37df5c48e2dbad30a952beef4a5cbef71045a808 f8a4f1a0a7d3db0bb305b6bb35e7b324706ac825 Josh <jobr3255@colorado.edu> 1537807789 -0600	commit: Updated clock configuration
+f8a4f1a0a7d3db0bb305b6bb35e7b324706ac825 37df5c48e2dbad30a952beef4a5cbef71045a808 Josh <jobr3255@colorado.edu> 1537809848 -0600	reset: moving to HEAD~
+37df5c48e2dbad30a952beef4a5cbef71045a808 372af2a6c4106e4a8c2fd41db8f92650571fc3eb Josh <jobr3255@colorado.edu> 1537810868 -0600	commit: Updated clock configuration
+372af2a6c4106e4a8c2fd41db8f92650571fc3eb cfde8332946d214eecc9fc1ec7f578e77cf97bae Josh <jobr3255@colorado.edu> 1537822147 -0600	commit: Additional clock updates
+cfde8332946d214eecc9fc1ec7f578e77cf97bae 2fe7c0a36670aeaa33bf650f26623ec3937f523d Josh <jobr3255@colorado.edu> 1538258916 -0600	commit: Updates for weeklongF18
+2fe7c0a36670aeaa33bf650f26623ec3937f523d 3140b5fd1d16bddc21a1a826169a83eb649a0c71 Josh <jobr3255@colorado.edu> 1540071598 -0600	commit: Updated lockin events page
+3140b5fd1d16bddc21a1a826169a83eb649a0c71 5a15c1cacddaed42679ba4c65afcfbdfee96c02b Josh <jobr3255@colorado.edu> 1541439315 -0700	commit: Updated Entombed event
+5a15c1cacddaed42679ba4c65afcfbdfee96c02b 4681b1730af90d057ee65e5ca3a960fe62aec28b Josh <jobr3255@colorado.edu> 1543524065 -0700	commit: After lock-in change
+4681b1730af90d057ee65e5ca3a960fe62aec28b 86af7a7af77576f46ed3316593d2bcd3be9ec0e4 Josh <jobr3255@colorado.edu> 1543527949 -0700	commit: Updated footer
+86af7a7af77576f46ed3316593d2bcd3be9ec0e4 0d6f5d2bc7a61dddbdfb28e92c1f067b58d92eb2 Josh <jobr3255@colorado.edu> 1543960995 -0700	commit: Aloowed users to sign in even if they have not yet activated their account
+0d6f5d2bc7a61dddbdfb28e92c1f067b58d92eb2 73cb9c4a0234c8a996f1485215b5e81a97211f20 Josh <jobr3255@colorado.edu> 1544565042 -0700	commit: Fixed activate link
+73cb9c4a0234c8a996f1485215b5e81a97211f20 10679cb97dd7dd10dc17583d5802cbb0fe3a70d0 Josh <jobr3255@colorado.edu> 1544639973 -0700	commit: addded discord link
+10679cb97dd7dd10dc17583d5802cbb0fe3a70d0 068c5c5cfeea4d59d6aa08f644528e768d3e8948 Josh <jobr3255@colorado.edu> 1544640414 -0700	commit: force refresh cache trick
+068c5c5cfeea4d59d6aa08f644528e768d3e8948 55e89a9cea9d9d5548b7e5f46515e89b04a98ed9 Josh <jobr3255@colorado.edu> 1544738247 -0700	commit: trying to fix resend email
+55e89a9cea9d9d5548b7e5f46515e89b04a98ed9 e9ac178ea50e2c7dcbb6166216cf5228c581f884 Josh <jobr3255@colorado.edu> 1544738422 -0700	commit: try fix 2
+e9ac178ea50e2c7dcbb6166216cf5228c581f884 163dd59fe540b0b8c68ac178847a6233e83315f4 Josh <jobr3255@colorado.edu> 1544738949 -0700	commit: try fix 3
+163dd59fe540b0b8c68ac178847a6233e83315f4 97d59c7f7172929ea448d17135b4b991278cfa3f Josh <jobr3255@colorado.edu> 1544739119 -0700	commit: for testing
+97d59c7f7172929ea448d17135b4b991278cfa3f 27d64580668bea16ee0112883a8177c985d64c7f Josh <jobr3255@colorado.edu> 1544739486 -0700	commit: fix reset email
+27d64580668bea16ee0112883a8177c985d64c7f efc9838ec33b0c8ad32ab4e7a0c0069a9cfabaa8 Josh <jobr3255@colorado.edu> 1548056399 -0700	pull: Fast-forward
+efc9838ec33b0c8ad32ab4e7a0c0069a9cfabaa8 95742a2967dd518021a7685f4d89daffa76439fc Josh <jobr3255@colorado.edu> 1553996729 -0600	merge database: Fast-forward
+95742a2967dd518021a7685f4d89daffa76439fc bc2504aa2cb3af75d9880e3249d9c88b60173699 Josh <jobr3255@colorado.edu> 1554128653 -0600	merge weeklong: Fast-forward
+bc2504aa2cb3af75d9880e3249d9c88b60173699 597cde156b520cb5310c6658c251470736d80ed4 Josh <jobr3255@colorado.edu> 1554160035 -0600	commit (merge): fixed merge conflicts
+597cde156b520cb5310c6658c251470736d80ed4 b3385dd47fa5c6e82361766ac9b7e2d101d16059 Josh <jobr3255@colorado.edu> 1554160302 -0600	commit: quick fix to profile page
+b3385dd47fa5c6e82361766ac9b7e2d101d16059 82a88a2c5b1b039fa8348809b7595ef84dacfbf5 Josh <jobr3255@colorado.edu> 1554162267 -0600	commit (merge): merging
+82a88a2c5b1b039fa8348809b7595ef84dacfbf5 dbaed6b15c1275e454dcf348bf845112da1905d8 Josh <jobr3255@colorado.edu> 1554241629 -0600	commit: fixed countdown join link
+dbaed6b15c1275e454dcf348bf845112da1905d8 420aeef55637154420588eaf12564f580759ca7e Josh <jobr3255@colorado.edu> 1554401726 -0600	commit: Added weeklong countdown toprofile
+420aeef55637154420588eaf12564f580759ca7e 4764cc227e0361913517d2afa7fabe7f71f1bf22 Josh <jobr3255@colorado.edu> 1554500661 -0600	commit: kills add points
+4764cc227e0361913517d2afa7fabe7f71f1bf22 420aeef55637154420588eaf12564f580759ca7e Josh <jobr3255@colorado.edu> 1554509092 -0600	reset: moving to HEAD~
+420aeef55637154420588eaf12564f580759ca7e 90b646cf39601f83ea27c36bc33719f9df4695d8 Josh <jobr3255@colorado.edu> 1554733936 -0600	commit: added weeklong details
+90b646cf39601f83ea27c36bc33719f9df4695d8 5f6bef269c01bdcc5f7f8f7a499f44ea7e180bd7 Josh <jobr3255@colorado.edu> 1554734237 -0600	commit: updated discord link
+5f6bef269c01bdcc5f7f8f7a499f44ea7e180bd7 787cfe3d108c6da039fe57dad3bf236184704f0c Josh <jobr3255@colorado.edu> 1554994328 -0600	commit: updated weeklong info
+787cfe3d108c6da039fe57dad3bf236184704f0c df58fb08b9d5c45b5ac0a293dcecd574d4adad0d Josh <jobr3255@colorado.edu> 1554994339 -0600	commit: update weeklong details
+df58fb08b9d5c45b5ac0a293dcecd574d4adad0d 39a338629e7e43593752583de21d85e365ed9c00 Josh <jobr3255@colorado.edu> 1554994351 -0600	commit: attempted iphone countdown fix
+39a338629e7e43593752583de21d85e365ed9c00 26824ec2aad6ef578486b3a06facfeb77bcce48f Josh <jobr3255@colorado.edu> 1554994864 -0600	commit: attempt to fix iphone countdown
+26824ec2aad6ef578486b3a06facfeb77bcce48f ab2aa8661ca5d7e7298604cd4c6528146056375f Josh <jobr3255@colorado.edu> 1554995864 -0600	commit: attempt 2 fix iphone countdown
+ab2aa8661ca5d7e7298604cd4c6528146056375f 2028f7466fd0ee4a0ad2bc048275a0709b114647 Josh <jobr3255@colorado.edu> 1554996447 -0600	commit: attempt 4
+2028f7466fd0ee4a0ad2bc048275a0709b114647 07bd67c3487ae0110307af7d19a2e869831f367b Josh <jobr3255@colorado.edu> 1554996547 -0600	commit: attempt 5
+07bd67c3487ae0110307af7d19a2e869831f367b e57607c1bf9f9d84fdb44396898b2081eb604282 Josh <jobr3255@colorado.edu> 1554999177 -0600	commit: attempt 6 to fix iphone countdown
+e57607c1bf9f9d84fdb44396898b2081eb604282 07bd67c3487ae0110307af7d19a2e869831f367b Josh <jobr3255@colorado.edu> 1554999286 -0600	reset: moving to HEAD~
+07bd67c3487ae0110307af7d19a2e869831f367b 7f196a5370b8734830e42baf9b397367c87725c4 Josh <jobr3255@colorado.edu> 1554999321 -0600	commit: attempt 6 to fix iphone countdown
+7f196a5370b8734830e42baf9b397367c87725c4 82c095c44637cd1f7b1097c09299d0b90f4a6892 Josh <jobr3255@colorado.edu> 1554999679 -0600	commit: test fix
+82c095c44637cd1f7b1097c09299d0b90f4a6892 13ead2161d71e7a1abfbd1648dfdcf9749ebb8aa Josh <jobr3255@colorado.edu> 1555000644 -0600	commit: added all players tab
+13ead2161d71e7a1abfbd1648dfdcf9749ebb8aa c5ce1fe7372a6f983c3ce2dbcf7485b24d5a3355 Josh <jobr3255@colorado.edu> 1555000786 -0600	commit: fixed grave image
+c5ce1fe7372a6f983c3ce2dbcf7485b24d5a3355 8a1c47f6119c61390462fa9d91afdd1335d0af8b Josh <jobr3255@colorado.edu> 1555003155 -0600	commit: added top players table
+8a1c47f6119c61390462fa9d91afdd1335d0af8b b5e42cd6025d23ef0a644fcc174502343331c8bb Josh <jobr3255@colorado.edu> 1555009686 -0600	commit: added code creation
+b5e42cd6025d23ef0a644fcc174502343331c8bb 6448910e57c138105c30ef9fec9814a2ddb7ea38 Josh <jobr3255@colorado.edu> 1555010388 -0600	commit: fixed tabs.js
+6448910e57c138105c30ef9fec9814a2ddb7ea38 76632d920722478365c74ff81d051a1f00133c8e Josh <jobr3255@colorado.edu> 1555079346 -0600	commit: Fixed top players table
+76632d920722478365c74ff81d051a1f00133c8e 33b3ad2f28e682183c0ed0739975046f9099b56d Josh <jobr3255@colorado.edu> 1555080909 -0600	commit: changed numbers of different status types display
+33b3ad2f28e682183c0ed0739975046f9099b56d f543780ca07e8c310e303b12eb710723bd796a21 Josh <jobr3255@colorado.edu> 1555083799 -0600	commit: added ragnarok lockin eventbrite
+f543780ca07e8c310e303b12eb710723bd796a21 de7b2b23b51929996f0664f63248119ac073ef57 Josh <jobr3255@colorado.edu> 1555096755 -0600	commit: Added prize blasters and sign locations display
+de7b2b23b51929996f0664f63248119ac073ef57 a05ff3009de7a81ce62cc2819c68acb0f11a9d68 Josh <jobr3255@colorado.edu> 1555097667 -0600	commit: paginate all players
+a05ff3009de7a81ce62cc2819c68acb0f11a9d68 f76ee72c815f6361114db90e9b7ed45e4ea785eb Josh <jobr3255@colorado.edu> 1555098957 -0600	commit: added more details to profile
+f76ee72c815f6361114db90e9b7ed45e4ea785eb e47b2f9855cc361ef2d3850d6de851891432d0b7 Josh <jobr3255@colorado.edu> 1555111248 -0600	commit: added oz volenteer option
+e47b2f9855cc361ef2d3850d6de851891432d0b7 f054abf3b9b93862d20c07c8bafd93f2da409ad7 Josh <jobr3255@colorado.edu> 1555111445 -0600	commit: OZs get 50 starting points
+f054abf3b9b93862d20c07c8bafd93f2da409ad7 90d13af4e76f0a782319ac1eb42067ae65f2d2d9 Josh <jobr3255@colorado.edu> 1555113039 -0600	commit: OZs now start correctly
+90d13af4e76f0a782319ac1eb42067ae65f2d2d9 60c7baf2474f4c7bb4f35777307657e145bfcb96 Josh <jobr3255@colorado.edu> 1555113466 -0600	commit: undid fucking with Angel
+60c7baf2474f4c7bb4f35777307657e145bfcb96 9b2155cfd3120f6b107a7e63b99cc111ba3b17b8 Josh <jobr3255@colorado.edu> 1555286170 -0600	commit: added StarveTimer class and changed how starve timers are updated
+9b2155cfd3120f6b107a7e63b99cc111ba3b17b8 6eeffc560a8ae3663fbf8a894da9023ce91f53e3 Josh <jobr3255@colorado.edu> 1555293794 -0600	commit: finished code entry
+6eeffc560a8ae3663fbf8a894da9023ce91f53e3 304603e966a66b228630ff6affe553e21828d001 Josh <jobr3255@colorado.edu> 1555296539 -0600	commit: players can now join if the game has started
+304603e966a66b228630ff6affe553e21828d001 829d3765d15b00a569a1cace82c806e9de220b61 Josh <jobr3255@colorado.edu> 1555339666 -0600	commit: updated weeklong info
+829d3765d15b00a569a1cace82c806e9de220b61 898db21979ad679a456d78f9d3da8dc2d447a72d Josh <jobr3255@colorado.edu> 1555339952 -0600	commit: fixed oz starting starve dates
+898db21979ad679a456d78f9d3da8dc2d447a72d ed9cc204b1defde2813398914c41100f981e76b5 Josh <jobr3255@colorado.edu> 1555355074 -0600	commit: fixed starve_date when joining
+ed9cc204b1defde2813398914c41100f981e76b5 c8f47194ea6100937edc623068681f920d7060e8 Josh <jobr3255@colorado.edu> 1555355656 -0600	commit: supply drops default to expiring at 5pm
+c8f47194ea6100937edc623068681f920d7060e8 15defea7740d8db2d5eee75b8bfe880078f5ba7d Josh <jobr3255@colorado.edu> 1555356305 -0600	commit: fixed mysql timezone problem
+15defea7740d8db2d5eee75b8bfe880078f5ba7d c8f47194ea6100937edc623068681f920d7060e8 Josh <jobr3255@colorado.edu> 1555356372 -0600	reset: moving to HEAD~
+c8f47194ea6100937edc623068681f920d7060e8 527ae3d2a6b5e1c4a83c5ea6349927611096f993 Josh <jobr3255@colorado.edu> 1555356588 -0600	commit: fixed mysql timezone problem
+527ae3d2a6b5e1c4a83c5ea6349927611096f993 a1884774fa872260ca35d266c02ad143ded7b2b3 Josh <jobr3255@colorado.edu> 1555362208 -0600	commit: added admin function to change stun timer
+a1884774fa872260ca35d266c02ad143ded7b2b3 919656ac107327ea6e6b2597c4c6f4d956ce7fe5 Josh <jobr3255@colorado.edu> 1555363691 -0600	commit: update wednesday info
+919656ac107327ea6e6b2597c4c6f4d956ce7fe5 5b5b0060a136b27e0e1351c37ee22052febaedb0 Josh <jobr3255@colorado.edu> 1555363890 -0600	commit: formatted chackbox
+5b5b0060a136b27e0e1351c37ee22052febaedb0 bba2b75217f5f7433ad59a5bea549a88de00a2ee Josh <jobr3255@colorado.edu> 1555377452 -0600	commit: supply drops add 10 points
+bba2b75217f5f7433ad59a5bea549a88de00a2ee 5b5b0060a136b27e0e1351c37ee22052febaedb0 Josh <jobr3255@colorado.edu> 1555377564 -0600	reset: moving to HEAD~
+5b5b0060a136b27e0e1351c37ee22052febaedb0 f8125dfcf92da9ca35faceb496e355404c289a37 Josh <jobr3255@colorado.edu> 1555377567 -0600	commit: supply drops add 10 points
+f8125dfcf92da9ca35faceb496e355404c289a37 055326dac501d985593f0a02021ccb90fa7028ca Josh <jobr3255@colorado.edu> 1555378417 -0600	commit: made active_event static
+055326dac501d985593f0a02021ccb90fa7028ca c67bcc34c0896ed25cc9d26fa8424cec61fa7514 Josh <jobr3255@colorado.edu> 1555427917 -0600	commit: Updated for tuesday
+c67bcc34c0896ed25cc9d26fa8424cec61fa7514 2b3070f8e948ed6bf28363c94831fd8e46e01b5a Josh <jobr3255@colorado.edu> 1555428170 -0600	commit: force update cached tuesday file
+2b3070f8e948ed6bf28363c94831fd8e46e01b5a 79ceb69a459d7a50ffceeb2eee30ffd8e2c96127 Josh <jobr3255@colorado.edu> 1555429105 -0600	commit: supply drop update
