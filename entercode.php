@@ -148,7 +148,7 @@ function updateQuantities($code, $database){
 		<div class="row">
 			<div class="twelve columns">
 				Players can input codes here that they have found. Codes can give you points or feed your starve timer.
-				<form action='#' method='post' id='feedzombie'>
+				<form action='#' method='post' autocomplete="off">
 					<div class='subheader white'>Input code:</div>
 					<input type='text' name='hex' required>
 					<input class="button-primary" type="submit" name="submit" value="Submit" id="submit">

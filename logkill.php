@@ -94,12 +94,11 @@ if (isset($_POST['hex'])){
 			foreach ($zombieFeedto as $zombieID) {
 				feedZombie($database, $zombieID);
 			}
-			header("Location: profile.php?success=1#profile");
+			header("Location: profile.php?kill=success");
 		}else{
 			error_log("User is already a zombie", 0);
 			$error = "User has already been zombified.";
 		}
-		$query = "UPDATE $weeklongName SET status=:status_change WHERE username=:victim;";
 	}else{
 		error_log("user does not exist", 0);
 		$error = "Not a valid code.";
@@ -120,7 +119,7 @@ if (isset($_POST['hex'])){
 <div class="subheadline orange">So you killed a human? Bravo.</div><br>
 
 
-<form action='#' method='post' id='feedzombie'>
+<form action='#' method='post' id='feedzombie' autocomplete="off">
 	<div class='subheader white'>Input Victim User code:</div> <input type='text' name='hex' required>
 
 	<BR><BR>
@@ -128,14 +127,14 @@ if (isset($_POST['hex'])){
 	<h2 class='subheader white'>Select up to two zombies to feed:</h2>
 	<p>Note: Feeding a zombie gives them 12 more hours. Maximum starve time is 48 hours</p>
 
-	<div id='playerlist' class='playerlist' data-max-answers='2'>
+	<div id='playerlist' class='playerlist' data-max-answers='2' style="overflow: visible;">
 
-		<table id='table1' class='feedzombiestable'>
-			<tr class='subheader orange'>
-				<th class='select'>Select</th>
-				<th>Username</th>
+		<table>
+			<tr class='subheader orange add-line'>
+				<!-- <th class='select'>Select</th> -->
+				<th style="text-align: left;">Username<br/>Starves</th>
 				<!-- <th>Kill Count</th> -->
-				<th class='starve'>Starves</th>
+				<!-- <th class='starve'>Starves</th> -->
 			</tr>
 			<?php
 				$database = new Database();
@@ -143,16 +142,19 @@ if (isset($_POST['hex'])){
 				WHERE status='zombie' AND user_id!=".$_SESSION['id']." ORDER BY starve_date;";
 				$data = $database->executeQueryFetchAll($query);
 				foreach($data as $row){
-		      echo "<tr class='subheader white'>";
-			      echo "<td class='select'>";
-			      echo "<input type='checkbox' name='check_list[]' value='$row[user_id]'>";
-			      echo "<td align='center'>".$row["username"]."</td>";
+					$starveTimer = (new StarveDate($row["starve_date"]))->getStarveTimer();
+		      echo "<tr class='subheader white add-line'>";
+			      echo "<td style='text-align: left;'>";
+			      echo "<input type='checkbox' name='check_list[]' value='$row[user_id]' style='margin: 0; width=100%;'/> ";
+						echo $row["username"];
+						echo "<br/><span class='red'>$starveTimer</span>";
+						echo "</td>";
 			      // echo "<td align='center'>".$row["kill_count"]."</td>";
-				    $current_time = new DateTime(date('Y-m-d H:i:s'));
-				    $starve_date = new DateTime(date($row["starve_date"]));
-				    $time_left = $current_time->diff($starve_date);
-				    $hours = $time_left->format('%H')+($time_left->format('%a')*24);
-				    echo " <td class='red' align='center'>".$hours.$time_left->format(':%I:%S')."</td>";
+				    // $current_time = new DateTime(date('Y-m-d H:i:s'));
+				    // $starve_date = new DateTime(date($row["starve_date"]));
+				    // $time_left = $current_time->diff($starve_date);
+				    // $hours = $time_left->format('%H')+($time_left->format('%a')*24);
+				    // echo " <td class='red' align='center'>".$hours.$time_left->format(':%I:%S')."</td>";
 			    echo " </tr>";
 				}
 
