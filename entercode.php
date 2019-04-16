@@ -61,10 +61,11 @@ if (isset($_POST['hex'])){
 function applyEffect($code, $user, $database){
 	$weeklongName = $_SESSION["weeklong"];
 	$effect = $code["effect"];
-	$userID = $_SESSION['id'];
+	$userID = $user['user_id'];
+	$codeID = $code["id"];
+	error_log("user: $userID, effect: $effect, code ID: $codeID");
 	if($effect == "supply"){
 		if($user["status"] == "human"){
-			$codeID = $code["id"];
 			// add 24 hours to human starve timer
 			error_log("apply supply drop to user $userID", 0);
 			$starveDate = (new StarveDate($user["starve_date"]))->addHours(24);
