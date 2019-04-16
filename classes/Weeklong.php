@@ -50,7 +50,7 @@ class Weeklong{
 	}
 
 	// This will return true if the there is an active game
-	public function active_event(){
+	public static function active_event(){
     $db = new Database();
     $query = "SELECT active FROM weeklongs WHERE active=1 LIMIT 1;";
     $data = $db->executeQueryFetch($query);

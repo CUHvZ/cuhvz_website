@@ -107,7 +107,7 @@ $lockin_events = array("spring19", "fall18", "spring18");
 <!-- End Document
 –––––––––––––––––––––––––––––––––––––––––––––––––– -->
 <?php
-if($weeklong->active_event()){
+if(Weeklong::active_event()){
   require('weeklong/clock.php');
 }
 // include footer template

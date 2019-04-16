@@ -2,7 +2,7 @@
 $date = "";
 $activeLevel = Weeklong::active_event();
 $stateDisplay = "";
-if($weeklong->active_event()){
+if(Weeklong::active_event()){
 	if(!$_SESSION["started"]){
 		$stateDisplay = "Game Begins In...";
 		$date = $_SESSION["start_date"];
