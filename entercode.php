@@ -68,7 +68,7 @@ function applyEffect($code, $user, $database){
 			// add 24 hours to human starve timer
 			error_log("apply supply drop to user $userID", 0);
 			$starveDate = (new StarveDate($user["starve_date"]))->addHours(24);
-			$query = "update $weeklongName set starve_date='$starveDate' where user_id=$userID";
+			$query = "update $weeklongName set starve_date='$starveDate',points=points+10 where user_id=$userID";
 			$data = $database->executeQuery($query);
 			if(isset($data["error"]))
 				return $data["error"];

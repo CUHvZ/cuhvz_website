@@ -53,7 +53,7 @@ if(isset($_POST['submit'])){
       if(isset($data["error"])){
         $message = array("error" => "error creating code");
       }else{
-        $message = array("success" => "Code created!");
+        $message = array("success" => "Code created with hex: $hex");
       }
   }
 }
