@@ -25,8 +25,8 @@ if (isset($_POST['hex'])){
 	$database = new Database();
 	$query = "select * from ".$weeklongName."_codes where hex='$codeHex'";
 	$code = $database->executeQueryFetch($query);
-	error_log("user is attempting to enter code", 0);
-	error_log("code: ".implode(" ", $code), 0);
+	// error_log("user is attempting to enter code", 0);
+	error_log("Attempting to enter code. codeID: ".$code["id"].", name: ".$code["name"].", hex: ".$code["hex"].", effect: ".$code["effect"].", side effect: ".$code["side_effect"], 0);
 	if(isset($code["id"])){
 		if($code["num_uses"] + 0 > 0){
 			// check the expiration is not null
