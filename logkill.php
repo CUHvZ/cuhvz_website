@@ -160,8 +160,8 @@ if (isset($_POST['hex'])){
 
 			?>
 		</table>
+		<input class="button-primary" type="submit" name="submit" value="Register Kill and Feed" id="submit" style='float: left;'>
 	</div>
-	<input class="button-primary" type="submit" name="submit" value="Register Kill and Feed" id="submit">
 </form>
 
 
