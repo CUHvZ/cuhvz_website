@@ -87,7 +87,7 @@ $(document).ready(function(){
 		setContent(weeklong+"/off_campus_4.txt","off_campus_4");
 		setContent(weeklong+"/off_campus_5.txt","off_campus_5");
 		setContent(weeklong+"/monday.txt","monday");
-		setContent(weeklong+"/tuesday.txt","tuesday");
+		setContent(weeklong+"/tuesday_2.txt","tuesday");
 		setContent(weeklong+"/wednesday.txt","wednesday");
 		setContent(weeklong+"/thursday.txt","thursday");
 		setContent(weeklong+"/friday.txt","friday");
