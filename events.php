@@ -70,7 +70,7 @@ $lockin_events = array("spring19", "fall18", "spring18");
 													        $lateStartDate = $startDate->format('Y-m-d')." 17:00:00";
 													        $currentTime = new DateTime(date('Y-m-d H:i:s'));
 													        $lateStartDate = new DateTime(date($lateStartDate));
-													        error_log($lateStartDate->format('Y-m-d H:i:s'), 0);
+													        // error_log($lateStartDate->format('Y-m-d H:i:s'), 0);
 													        if($currentTime < $lateStartDate){
 													          $signupLink = $signupLink."&late=human";
 													          echo "<h5 style='margin: 0;'><a href='$signupLink'>Late to the game? Hurry up and join now!</a></h5>";

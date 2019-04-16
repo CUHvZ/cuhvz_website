@@ -1,9 +1,17 @@
 <?php
 
-define('DBHOST','localhost');
-define('DBUSER','cuhvmiwg');
-define('DBPASS','Yummybrainz!2');
-define('DBNAME','cuhvmiwg_hvz');
+if (!defined('DBHOST')) {
+	define('DBHOST','localhost');
+}
+if (!defined('DBUSER')) {
+	define('DBUSER','cuhvmiwg');
+}
+if (!defined('DBPASS')) {
+	define('DBPASS','Yummybrainz!2');
+}
+if (!defined('DBNAME')) {
+	define('DBNAME','cuhvmiwg_hvz');
+}
 
 class Database {
 
