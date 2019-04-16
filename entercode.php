@@ -25,6 +25,7 @@ if (isset($_POST['hex'])){
 	$database = new Database();
 	$query = "select * from ".$weeklongName."_codes where hex='$codeHex'";
 	$code = $database->executeQueryFetch($query);
+	error_log("user is attempting toenter code", 0);
 	if(isset($code["id"])){
 		if($code["num_uses"] + 0 > 0){
 			// check the expiration is not null
@@ -63,7 +64,7 @@ function applyEffect($code, $user, $database){
 	$effect = $code["effect"];
 	$userID = $user['user_id'];
 	$codeID = $code["id"];
-	error_log("user: $userID, effect: $effect, code ID: $codeID");
+	error_log("user: $userID, effect: $effect, code ID: $codeID", 0);
 	if($effect == "supply"){
 		if($user["status"] == "human"){
 			// add 24 hours to human starve timer
