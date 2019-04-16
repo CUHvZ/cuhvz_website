@@ -12,3 +12,6 @@ $ php -f <file.php>
 
 Connect to cPanel terminal
 $ ssh cuhvmiwg@server122.web-hosting.com -p21098
+
+sql query to get weeklong emails
+select users.email from users inner join weeklongXXX on weeklongXXX.user_id=users.id
