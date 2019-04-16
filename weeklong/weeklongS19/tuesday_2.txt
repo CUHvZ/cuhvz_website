@@ -16,6 +16,7 @@ Sign #6: 25 supplies
 Sign #11: 25 supplies
 Sign #18: 25 supplies
 By aware the humans may only take one supply drop from any given location but they are allowed to collect from as many locations as they wish. Supply drops will increase the human stun timer by 24 hours with a cap for 48 hours. Collecting a supply drop also rewards that player with 10 points. Zombies cannot collect supply drops but are allowed to stalk those locations.
+These supply drops will expire at 5pm today and new ones will be deployed tomorrow.
 <a href="/images/sign_locations_map.png" target="_blank" >Here's a link for the sign locations</a>
 
 Discord picture submission instructions:
