@@ -22,11 +22,11 @@ if(!$user->is_logged_in()){ header('Location: login.php'); }
 if (isset($_POST['hex'])){
 	$codeHex = $_POST['hex'];
 	$weeklongName = $_SESSION["weeklong"];
+	// error_log("Attempting to enter code with input hex $codeHex and weeklong $weeklongName", 0);
 	$database = new Database();
 	$query = "select * from ".$weeklongName."_codes where hex='$codeHex'";
 	$code = $database->executeQueryFetch($query);
-	// error_log("user is attempting to enter code", 0);
-	error_log("Attempting to enter code. codeID: ".$code["id"].", name: ".$code["name"].", hex: ".$code["hex"].", effect: ".$code["effect"].", side effect: ".$code["side_effect"], 0);
+	// error_log("codeID: ".$code["id"].", name: ".$code["name"].", hex: ".$code["hex"].", effect: ".$code["effect"].", side effect: ".$code["side_effect"], 0);
 	if(isset($code["id"])){
 		if($code["num_uses"] + 0 > 0){
 			// check the expiration is not null
@@ -57,10 +57,11 @@ if (isset($_POST['hex'])){
 			$error = "Code has no more uses left.";
 		}
 	}else{
-		error_log("code[id] is not set!", 0);
+		error_log("code does not exist!", 0);
+		$error = "'$codeHex' code does not exist!";
 	}
 	if(isset($error)){
-		error_log("error entering code. $error", 0);
+		error_log("error entering code. $error. hex: $codeHex", 0);
 		echo "<p class='bg-danger'>$error</p>";
 	}
 }
