@@ -36,14 +36,14 @@
     <tr class='table-show-mobile add-line'>
       <th>
         <div>
-          <div class="mobile-table-line-1" onclick="sortTable('top-players-table-mobile', 'username', 15)">Username</div>
+          <div class="mobile-table-line-1">Username</div>
           <div class="mobile-table-line-1">Status</div>
         </div>
         <div>
-          <div class="mobile-table-line-2" onclick="sortTable('top-players-table-mobile', 'points', 15)">
+          <div class="mobile-table-line-2">
             Points
           </div>
-          <div class="mobile-table-line-2" onclick="sortTable('top-players-table-mobile', 'starve', 15)">
+          <div class="mobile-table-line-2">
             Starve Timer
           </div>
         </div>

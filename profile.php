@@ -81,13 +81,19 @@ if(isset($_GET['join']) && isset($_GET['eventId'])){
 	}
 }
 
-
-if(isset($_GET['leave']) && isset($_GET['eventId'])){
-  $eventName = $_GET['join'];
-  if($user->leave_event($_GET['eventId'])){
-    echo "<p class='bg-success' style='margin: 0;'> &#10003; <strong>Sorry to see you go!</strong></p>";
+if(isset($_GET['kill'])){
+  if($_GET['kill'] == "success"){
+    echo "<p class='bg-success' style='margin: 0;'>Nice kill</p>";
   }
 }
+
+
+// if(isset($_GET['leave']) && isset($_GET['eventId'])){
+//   $eventName = $_GET['join'];
+//   if($user->leave_event($_GET['eventId'])){
+//     echo "<p class='bg-success' style='margin: 0;'> &#10003; <strong>Sorry to see you go!</strong></p>";
+//   }
+// }
 ?>
 <section class="lightslide contentwithnav">
 
