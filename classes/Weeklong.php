@@ -371,7 +371,7 @@ class Weeklong{
       $now = (new DateTime(date('Y-m-d H:i:s')))->format('Y-m-d H:i:s');
 
       // kill starved humans that have no points
-      $query = "UPDATE $weeklongName SET status='deceased' WHERE starve_date < '$now' AND points=0";
+      $query = "UPDATE $weeklongName SET status='deceased', status_type='inactive' WHERE starve_date < '$now' AND points=0";
       $database->executeQuery($query);
 
       // turn starved humans into zombies
