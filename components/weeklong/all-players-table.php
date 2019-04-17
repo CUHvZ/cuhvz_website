@@ -10,7 +10,7 @@
   <tbody id="all-players-table" class="hide-mobile">
     <?php
     if($displayStats){
-      $query = "SELECT $name.*, users.username FROM $name INNER JOIN users ON $name.user_id=users.id";
+      $query = "SELECT $name.*, users.username, users.admin FROM $name INNER JOIN users ON $name.user_id=users.id";
       $database = new Database();
       $data = $database->executeQueryFetchAll($query);
       foreach($data as $player){
@@ -19,8 +19,12 @@
         if($points == null){
           $points = 0;
         }
+        if($player["admin"] > 0)
+          $style = "style='color: #eb42f4;'";
+        else
+          $style = "";
         echo "<tr class='table-hide-mobile add-line'>"."\n";
-        echo "<td id='username'>".$player["username"]."</td>"."\n";
+        echo "<td id='username' $style>".$player["username"]."</td>"."\n";
         echo "<td id='points'>".$points."</td>"."\n";
         echo "<td id='points'>".$player["status"]."</td>"."\n";
         echo "<td class='red' id='starve'>".$starveDate->getStarveTimer()."</td>"."\n";
@@ -52,7 +56,7 @@
   <tbody id="all-players-table-mobile" class="show-mobile">
   <?php
     if($displayStats){
-      $query = "SELECT $name.*, users.username FROM $name INNER JOIN users ON $name.user_id=users.id";
+      $query = "SELECT $name.*, users.username, users.admin FROM $name INNER JOIN users ON $name.user_id=users.id";
       $database = new Database();
       $data = $database->executeQueryFetchAll($query);
       foreach($data as $player){
@@ -61,11 +65,14 @@
         if($points == null){
           $points = 0;
         }
-
+        if($player["admin"] > 0)
+          $style = "style='color: #eb42f4;'";
+        else
+          $style = "";
         echo "<tr class='add-line table-show-mobile'><td>";
             echo "<div>";
-              echo "<div class='mobile-table-line-1' id='username'>".$player["username"]."</div>";
-              echo "<div class='mobile-table-line-1' id='username'>".$player["status"]."</div>";
+              echo "<div class='mobile-table-line-1' id='username' $style>".$player["username"]."</div>";
+              echo "<div class='mobile-table-line-1'>".$player["status"]."</div>";
             echo "</div>";
             echo "<div>";
               echo "<div class='mobile-table-line-2' id='points'>".$points."</div>";

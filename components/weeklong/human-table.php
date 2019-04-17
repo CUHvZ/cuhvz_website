@@ -9,15 +9,21 @@
   <tbody id="human-table" class="hide-mobile">
     <?php
     if($displayStats){
-      $data=$weeklong->get_humans_from($name);
+      $query = "SELECT $name.*, users.username, users.admin FROM $name INNER JOIN users ON $name.user_id=users.id where status='human'";
+      $database = new Database();
+      $data = $database->executeQueryFetchAll($query);
       foreach($data as $human){
         $starveDate = new StarveDate($human["starve_date"]);
         $points = $human["points"];
         if($points == null){
           $points = 0;
         }
+        if($player["admin"] > 0)
+          $style = "style='color: #eb42f4;'";
+        else
+          $style = "";
         echo "<tr class='table-hide-mobile add-line'>"."\n";
-        echo "<td id='username'>".$human["username"]."</td>"."\n";
+        echo "<td id='username' $style>".$human["username"]."</td>"."\n";
         echo "<td id='points'>".$points."</td>"."\n";
         echo "<td class='red' id='starve'>".$starveDate->getStarveTimer()."</td>"."\n";
         echo "</tr>"."\n";
@@ -45,16 +51,21 @@
   <tbody id="human-table-mobile" class="show-mobile">
   <?php
     if($displayStats){
-      $data=$weeklong->get_humans_from($name);
+      $query = "SELECT $name.*, users.username, users.admin FROM $name INNER JOIN users ON $name.user_id=users.id where status='human'";
+      $database = new Database();
+      $data = $database->executeQueryFetchAll($query);
       foreach($data as $human){
         $starveDate = new StarveDate($human["starve_date"]);
         $points = $human["points"];
         if($points == null){
           $points = 0;
         }
-
+        if($player["admin"] > 0)
+          $style = "style='color: #eb42f4;'";
+        else
+          $style = "";
         echo "<tr class='add-line table-show-mobile'><td>";
-            echo "<div class='mobile-table-line-1' id='username'>".$human["username"]."</div>";
+            echo "<div class='mobile-table-line-1' id='username' $style>".$human["username"]."</div>";
             echo "<div>";
               echo "<div class='mobile-table-line-2' id='points'>".$points."</div>";
               echo "<div class='mobile-table-line-2 red' id='starve'>".$starveDate->getStarveTimer()."</div>";

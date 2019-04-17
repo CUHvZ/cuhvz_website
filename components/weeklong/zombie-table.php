@@ -10,7 +10,9 @@
   </thead>
   <tbody id="zombie-table" class="hide-mobile">
     <?php
-    $data=$weeklong->get_zombies_from($name);
+      $query = "SELECT $name.*, users.username, users.admin FROM $name INNER JOIN users ON $name.user_id=users.id where status='zombie'";
+      $database = new Database();
+      $data = $database->executeQueryFetchAll($query);
       if($displayStats && $data != null){
         $data=$weeklong->get_zombies_from($name);
         foreach($data as $zombie){
@@ -24,8 +26,12 @@
           if($kills == null){
             $kills = 0;
           }
+          if($player["admin"] > 0)
+            $style = "style='color: #eb42f4;'";
+          else
+            $style = "";
           echo "<tr class='table-hide-mobile add-line'>";
-          echo "<td id='username'>".$zombie["username"]."</td>";
+          echo "<td id='username' $style>".$zombie["username"]."</td>";
           echo "<td>".$status."</td>";
           echo "<td id='kills'>".$kills."</td>";
           echo "<td class='red' id='starve'>".$starveTimer."</td>";
@@ -50,7 +56,9 @@
   </thead>
   <tbody id="zombie-table-mobile" class="show-mobile">
     <?php
-    $data=$weeklong->get_zombies_from($name);
+      $query = "SELECT $name.*, users.username, users.admin FROM $name INNER JOIN users ON $name.user_id=users.id where status='zombie'";
+      $database = new Database();
+      $data = $database->executeQueryFetchAll($query);
       if($displayStats && $data != null){
         $data=$weeklong->get_zombies_from($name);
         foreach($data as $zombie){
@@ -64,8 +72,12 @@
           if($kills == null){
             $kills = 0;
           }
+          if($player["admin"] > 0)
+            $style = "style='color: #eb42f4;'";
+          else
+            $style = "";
           echo "<tr class='add-line table-show-mobile'><td>";
-              echo "<div class='mobile-table-line-1' id='username'>".$zombie["username"]."</div>";
+              echo "<div class='mobile-table-line-1' id='username' $style>".$zombie["username"]."</div>";
               echo "<div class='mobile-table-line-1 red' style='float: right;'>".$status."</div>";
               echo "<div>";
                 echo "<div class='mobile-table-line-2' id='kills'>".$kills."</div>";

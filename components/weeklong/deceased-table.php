@@ -9,7 +9,9 @@
   </thead>
   <tbody id="deceased-table" class="hide-mobile">
     <?php
-      $data=$weeklong->get_deceased_from($name);
+      $query = "SELECT $name.*, users.username, users.admin FROM $name INNER JOIN users ON $name.user_id=users.id where status='deceased'";
+      $database = new Database();
+      $data = $database->executeQueryFetchAll($query);
       if($displayStats && $data!=null){
         foreach($data as $dead){
             $starve_date = new DateTime(date($dead["starve_date"]));
@@ -22,8 +24,12 @@
             if($kills == null){
               $kills = 0;
             }
+            if($player["admin"] > 0)
+              $style = "style='color: #eb42f4;'";
+            else
+              $style = "";
             echo "<tr class='table-hide-mobile add-line'>";
-            echo "<td id='username'>".$dead["username"]."</td>";
+            echo "<td id='username' $style>".$dead["username"]."</td>";
             echo "<td class='red' id='starve'>".$formatTime."</td>";
             echo "<td id='kills'>".$kills."</td>";
             echo "<td id='points'>".$points."</td>";
@@ -46,7 +52,9 @@
   </thead>
   <tbody id="deceased-table-mobile" class="show-mobile">
     <?php
-      $data=$weeklong->get_deceased_from($name);
+      $query = "SELECT $name.*, users.username, users.admin FROM $name INNER JOIN users ON $name.user_id=users.id where status='deceased'";
+      $database = new Database();
+      $data = $database->executeQueryFetchAll($query);
       if($displayStats && $data!=null){
         foreach($data as $dead){
             $starve_date = new DateTime(date($dead["starve_date"]));
@@ -59,8 +67,12 @@
             if($kills == null){
               $kills = 0;
             }
+            if($player["admin"] > 0)
+              $style = "style='color: #eb42f4;'";
+            else
+              $style = "";
             echo "<tr class='add-line table-show-mobile'><td>";
-                echo "<div class='mobile-table-line-1' id='username'>".$dead["username"]."</div>";
+                echo "<div class='mobile-table-line-1' id='username' $style>".$dead["username"]."</div>";
                 echo "<div class='mobile-table-line-2' id='kills' style='float: right'>".$kills."</div>";
                 echo "<div>";
                   echo "<div class='mobile-table-line-1 red' id='starve'>".$formatTime."</div>";

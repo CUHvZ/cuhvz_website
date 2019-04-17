@@ -10,7 +10,7 @@
   <tbody id="top-players-table" class="hide-mobile">
     <?php
     if($displayStats){
-      $query = "SELECT $name.*, users.username FROM $name INNER JOIN users ON $name.user_id=users.id order by points DESC limit 3";
+      $query = "SELECT $name.*, users.username, users.admin FROM $name INNER JOIN users ON $name.user_id=users.id where users.admin=0 order by points DESC limit 3";
       $database = new Database();
       $data = $database->executeQueryFetchAll($query);
       foreach($data as $player){
@@ -54,7 +54,7 @@
   <tbody id="top-players-table-mobile" class="show-mobile">
   <?php
     if($displayStats){
-      $query = "SELECT $name.*, users.username FROM $name INNER JOIN users ON $name.user_id=users.id order by points DESC limit 3";
+      $query = "SELECT $name.*, users.username, users.admin FROM $name INNER JOIN users ON $name.user_id=users.id where users.admin=0 order by points DESC limit 3";
       $database = new Database();
       $data = $database->executeQueryFetchAll($query);
       foreach($data as $player){
