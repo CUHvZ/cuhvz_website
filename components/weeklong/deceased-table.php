@@ -24,7 +24,7 @@
             if($kills == null){
               $kills = 0;
             }
-            if($player["admin"] > 0)
+            if($dead["admin"] > 0)
               $style = "style='color: #eb42f4;'";
             else
               $style = "";
@@ -67,7 +67,7 @@
             if($kills == null){
               $kills = 0;
             }
-            if($player["admin"] > 0)
+            if($dead["admin"] > 0)
               $style = "style='color: #eb42f4;'";
             else
               $style = "";

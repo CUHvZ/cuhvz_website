@@ -14,7 +14,6 @@
       $database = new Database();
       $data = $database->executeQueryFetchAll($query);
       if($displayStats && $data != null){
-        $data=$weeklong->get_zombies_from($name);
         foreach($data as $zombie){
           $status = $zombie["status_type"];
           $starveTimer = (new StarveDate($zombie["starve_date"]))->getStarveTimer();
@@ -26,7 +25,7 @@
           if($kills == null){
             $kills = 0;
           }
-          if($player["admin"] > 0)
+          if($zombie["admin"] > 0)
             $style = "style='color: #eb42f4;'";
           else
             $style = "";
@@ -60,7 +59,6 @@
       $database = new Database();
       $data = $database->executeQueryFetchAll($query);
       if($displayStats && $data != null){
-        $data=$weeklong->get_zombies_from($name);
         foreach($data as $zombie){
           $status = $zombie["status_type"];
           $starveTimer = (new StarveDate($zombie["starve_date"]))->getStarveTimer();
@@ -72,7 +70,7 @@
           if($kills == null){
             $kills = 0;
           }
-          if($player["admin"] > 0)
+          if($zombie["admin"] > 0)
             $style = "style='color: #eb42f4;'";
           else
             $style = "";

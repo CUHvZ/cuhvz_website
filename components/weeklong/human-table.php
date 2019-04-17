@@ -18,7 +18,7 @@
         if($points == null){
           $points = 0;
         }
-        if($player["admin"] > 0)
+        if($human["admin"] > 0)
           $style = "style='color: #eb42f4;'";
         else
           $style = "";
@@ -60,7 +60,7 @@
         if($points == null){
           $points = 0;
         }
-        if($player["admin"] > 0)
+        if($human["admin"] > 0)
           $style = "style='color: #eb42f4;'";
         else
           $style = "";
