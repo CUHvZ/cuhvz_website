@@ -58,10 +58,11 @@ function createWeeklong($semester, $title, $displayDates, $startDate, $endDate){
 
   $createWeeklongCodesTableQuery = "CREATE TABLE if not exists weeklong".$semester."_codes (
     id int(11) NOT NULL AUTO_INCREMENT ,
-    name varchar(30) NOT NULL ,
+    name varchar(30) NULL DEFAULT NULL ,
     hex varchar(30) NOT NULL ,
     effect varchar(30) NOT NULL ,
     side_effect varchar(50),
+    value int(11) DEFAULT 0,
     location_id varchar(255),
     single_use boolean DEFAULT True ,
     num_uses int(11) DEFAULT 1 ,

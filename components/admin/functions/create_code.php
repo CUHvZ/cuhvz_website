@@ -8,6 +8,10 @@ if(isset($_POST['submit'])){
       $type = $_POST["code_type"];
       $sideEffect = $_POST["side_effect"];
       $name = $_POST["name"];
+      if(empty($name))
+        $name = "NULL";
+      else
+        $name = "'$name'";
 
       $hex = $_POST["hex"];
       if(empty($hex))
@@ -32,6 +36,16 @@ if(isset($_POST['submit'])){
       else
         $singleUse = "false";
 
+      $val = $_POST['val'];
+      if(empty($val)){
+        $val = 0;
+      }
+
+      $pointVal = $_POST['point_val'];
+      if(empty($pointVal)){
+        $pointVal = 0;
+      }
+
 
       $expiration = $_POST["expiration"];
       $expireAt5 = false;
@@ -46,9 +60,9 @@ if(isset($_POST['submit'])){
       }else{
         $expiration = "NULL";
       }
-      error_log("type: $type, name: $name, uses: $numUses, single use: $singleUse, hex: $hex, location: $location, expiration: $expiration", 0);
-      $query = "INSERT INTO ".$_SESSION["weeklong"]."_codes (name, hex, effect, side_effect, location_id, num_uses, single_use, expiration) VALUES
-        ('$name', '$hex', '$type', '$sideEffect', '$location', $numUses, $singleUse, $expiration)";
+      error_log("type: $type, val: $val, point val: $pointVal, name: $name, uses: $numUses, single use: $singleUse, hex: $hex, location: $location, expiration: $expiration", 0);
+      $query = "INSERT INTO ".$_SESSION["weeklong"]."_codes (name, hex, effect, side_effect, val, point_val, location_id, num_uses, single_use, expiration) VALUES
+        ($name, '$hex', '$type', '$sideEffect', $val, $pointVal, '$location', $numUses, $singleUse, $expiration)";
       $data = $database->executeQuery($query);
       if(isset($data["error"])){
         $message = array("error" => "error creating code");
@@ -72,20 +86,29 @@ if(isset($_POST['submit'])){
                   <select name="code_type">
                     <option value="supply">supply</option>
                     <option value="points">points</option>
-                    <option value="mission">mission</option>
-                    <option value="revive">revive</option>
+                    <option value="feed">feed</option>
+                    <!-- <option value="mission">mission</option> -->
+                    <!-- <option value="revive">revive</option> -->
                   </select>
                 </div>
-                <div class="three columns">
+                <!-- <div class="three columns">
                   <label>Side Effect</label><br/>
                   <input name="side_effect" class="function-input input-lg u-full-width" placeholder="Use for points">
+                </div> -->
+                <div class="two columns">
+                  <label>Value</label><br/>
+                  <input name="val" class="function-input input-lg u-full-width" type="number" min=0>
+                </div>
+                <div class="two columns">
+                  <label>Point Value</label><br/>
+                  <input name="point_val" class="function-input input-lg u-full-width" type="number" min=0>
                 </div>
             </div>
 
           <div class="row">
             <div class="three columns">
                 <label>Name</label>
-                <input name="name" class="function-input input-lg u-full-width" placeholder="Name" required>
+                <input name="name" class="function-input input-lg u-full-width" placeholder="Name">
             </div>
             <div class="three columns">
                 <label>Hex</label>
@@ -99,9 +122,9 @@ if(isset($_POST['submit'])){
           </div>
 
           <div class="row">
-            <div class="four columns">
+            <div class="three columns">
                 <label>Number of uses</label>
-                <input name="num_uses" class="function-input input-lg u-full-width" placeholder="Blank for single use">
+                <input name="num_uses" class="function-input input-lg u-full-width" placeholder="Blank for single use" type="number">
             </div>
 
             <div class="three columns">

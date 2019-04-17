@@ -76,26 +76,51 @@ function applyEffect($code, $user, $database){
 		return "user id is null";
 	if($effect == "supply"){
 		if($user["status"] == "human"){
-			// add 24 hours to human starve timer
-			error_log("applying supply drop to user $userID", 0);
-			$starveDate = (new StarveDate($user["starve_date"]))->addHours(24);
-			$query = "update $weeklongName set starve_date='$starveDate',points=points+10 where user_id=$userID";
-			$data = $database->executeQuery($query);
-			if(isset($data["error"]))
-				return $data["error"];
-			$starveTimer = (new StarveDate($starveDate))->getStarveTimer();
-			echo "<p class='bg-success' style='margin: 0;'> &#10003; You collected a supply drop! You're new starve time is $starveTimer</p>";
+			$hours = 24;
+			if($code["val"] != 0)
+				$hours = $code["val"];
+
+			$points = 10;
+			if($code["point_val"] != 0)
+				$points = $code["point_val"];
+
+		}elseif($user["status"] == "zombie"){
+			$hours = 6;
+			if($code["val"] != 0)
+				$hours = $code["val"];
+
+			$points = 5;
+			if($code["point_val"] != 0)
+				$points = $code["point_val"];
+
 		}else{
-			return "You must be human to collect a supply drop";
+			return "You must be alive to collect a supply drop";
 		}
+		// add hours to starve timer
+		$starveDate = (new StarveDate($user["starve_date"]))->addHours($hours);
+		$query = "update $weeklongName set starve_date='$starveDate',points=points+$points where user_id=$userID";
+		$data = $database->executeQuery($query);
+		if(isset($data["error"]))
+			return $data["error"];
+		$starveTimer = (new StarveDate($starveDate))->getStarveTimer();
+		echo "<p class='bg-success' style='margin: 0;'> &#10003; You collected a supply drop! Your earned $points points and added $hours hours to your starve timer.</p>";
 	}elseif($effect == "points"){
-		$points = intval($code["side_effect"]);
+		$points = $code["point_val"];
 		error_log("applying $points to user $userID", 0);
 		$query = "update $weeklongName set points=points+$points where user_id=$userID";
 		$data = $database->executeQuery($query);
 		if(isset($data["error"]))
 			return $data["error"];
 		echo "<p class='bg-success' style='margin: 0;'> &#10003; You received $points points!</p>";
+	}elseif($effect == "feed"){
+		$hours = $code["val"];
+		error_log("adding $hours to user $userID", 0);
+		$starveDate = (new StarveDate($user["starve_date"]))->addHours($hours);
+		$query = "update $weeklongName set starve_date='$starveDate' where user_id=$userID";
+		$data = $database->executeQuery($query);
+		if(isset($data["error"]))
+			return $data["error"];
+		echo "<p class='bg-success' style='margin: 0;'> &#10003; You've been fed!</p>";
 	}else{
 		return "effect '$effect' not recognised";
 	}
