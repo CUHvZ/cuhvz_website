@@ -76,7 +76,7 @@ if (isset($_POST['hex'])){
 		$zombieFeedto = $_POST['check_list'];
 
 	error_log("victim hex: $hex", 0);
-	error_log("feed to: ".implode("','", array_map('trim', $zombieFeedto)), 0);
+	// error_log("feed to: ".implode("','", array_map('trim', $zombieFeedto)), 0);
 
 	$weeklongName = $_SESSION["weeklong"];
 
@@ -91,8 +91,20 @@ if (isset($_POST['hex'])){
 		if(!$isZombie || ($isZombie && $isSuicide)){
 			convertVictim($database, $victim["user_id"]);
 			addKill($database, $_SESSION['id']);
-			foreach ($zombieFeedto as $zombieID) {
-				feedZombie($database, $zombieID);
+			if(empty($zombieFeedto)){
+				$query = "SELECT user_id, username, kill_count, starve_date FROM ".$_SESSION['weeklong']." WHERE status='zombie' AND user_id!=".$_SESSION['id']." ORDER BY starve_date limit 2;";
+				$data = $database->executeQueryFetchAll($query);
+
+				if(!isset($data["error"])){
+					$zombieFeedto = $data;
+				}
+				foreach ($zombieFeedto as $zombie) {
+					feedZombie($database, $zombie["user_id"]);
+				}
+			}else{
+				foreach ($zombieFeedto as $zombieID) {
+					feedZombie($database, $zombieID);
+				}
 			}
 			header("Location: profile.php?kill=success");
 		}else{
