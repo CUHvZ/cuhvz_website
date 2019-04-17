@@ -172,7 +172,7 @@ if (isset($_POST['hex'])){
 </div>
 </section>
 <!-- END TEST TABLE #2 -->
-  <script src="js/sort.js"></script>
+  <script src="js/sort_v2.js"></script>
 
 </body>
 

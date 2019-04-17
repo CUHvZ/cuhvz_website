@@ -8,7 +8,7 @@ $title = 'CU HvZ | ';
 	<?php require($_SERVER['DOCUMENT_ROOT'].'/layout/header.php'); ?>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="/js/paginate.js"></script>
-	<script src="/js/sort.js"></script>
+	<script src="/js/sort_v2.js"></script>
   <script>
 
   $(document).ready(function(){
@@ -190,7 +190,7 @@ $title = 'CU HvZ | ';
 <!-- End Document
 –––––––––––––––––––––––––––––––––––––––––––––––––– -->
 
-<!--<script src="/js/sort.js"></script>-->
+<!--<script src="/js/sort_v2.js"></script>-->
 <?php
 // insert clock
 if(Weeklong::active_event()){

@@ -166,6 +166,6 @@ Session 3 (2:40pm): <?php echo $Session3 ?><br>
  </div>
  </section>
 
-<script src="js/sort.js"></script>
+<script src="js/sort_v2.js"></script>
 </body>
 </html>
