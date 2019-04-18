@@ -102,7 +102,7 @@ $title = 'CU HvZ | ';
           </span>
           <span class="tab">
 						<button class="tablink" onclick="openTab(event, 'Zombies')">Zombies: <?php echo $numZombies; ?></button>
-            <button class="tablink" onclick="openTab(event, 'Deceased')">Deceased: <?php echo $numDead; ?></button>
+            <button class="tablink" onclick="openTab(event, 'Deceased')">Dead: <?php echo $numDead; ?></button>
             <!-- <button class="tablink" onclick="openTab(event, 'Activity')">Activity</button> -->
           </span>
         </div>
@@ -129,7 +129,7 @@ $title = 'CU HvZ | ';
 	        </div>
 
 	        <div id="Deceased" class="tabcontent">
-	          <h3 class="row-header">Deceased</h3>
+	          <h3 class="row-header">Dead</h3>
 						<?php
 							include $_SERVER['DOCUMENT_ROOT']."/components/weeklong/deceased-table.php";
 						?>
