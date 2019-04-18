@@ -89,7 +89,7 @@ $(document).ready(function(){
 		setContent(weeklong+"/monday.txt","monday");
 		setContent(weeklong+"/tuesday_2.txt","tuesday");
 		setContent(weeklong+"/wednesday_2.txt","wednesday");
-		setContent(weeklong+"/thursday.txt","thursday");
+		setContent(weeklong+"/thursday_2.txt","thursday");
 		setContent(weeklong+"/friday.txt","friday");
 	}
 });
