@@ -22,13 +22,13 @@ function formatWeeklongDates($startDate){
   $startDate = new DateTime($startDate);
   $firstDay = $startDate->format('d');
   $firstDay = addOrdinal($firstDay);
-  $firstMonth = $monthNames[intval($startDate->format('m'))];
+  $firstMonth = $monthNames[intval($startDate->format('m'))-1];
   $year = $startDate->format('Y');
 
   $endDate = date_add($startDate, date_interval_create_from_date_string('4 days'));
   $endDay = $endDate->format('d');
   $endDay = addOrdinal($endDay);
-  $endMonth = $monthNames[intval($endDate->format('m'))];
+  $endMonth = $monthNames[intval($endDate->format('m'))-1];
   if($firstMonth == $endMonth)
     return "$firstMonth $firstDay - $endDay, $year";
   else
@@ -87,8 +87,8 @@ function createWeeklong($semester, $title, $displayDates, $startDate, $endDate){
 
 if(isset($_POST['submit'])){
   if(isset($_POST['create_weeklong'])){
-    $semester = $_POST["weeklong_name"];
-    $title = $_POST["weeklong_title"];
+    $semester = addslashes($_POST["weeklong_name"]);
+    $title = addslashes($_POST["weeklong_title"]);
     //error_log($_POST["date"], 0);
     $date = new DateTime($_POST["date"]);
     $start_date = $date->format('Y-m-d')." 09:00:00";

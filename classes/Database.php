@@ -68,13 +68,14 @@ class Database {
 	public function insert($table, $fields, $values){
 		//$fields = implode(", ",$fieldsArray);
 		//$values = implode(", ",$valuesArray);
-    $query = "INSERT INTO $table ($fields) VALUES ($values)";
-		//error_log($query, 0);
+    $query = "INSERT INTO $table ($fields) VALUES ($values);";
+		// error_log($query, 0);
 		return self::executeQuery($query);
   }
 
   public function update($table, $set, $condition){
-    $query = "UPDATE $table SET $set WHERE $condition";
+    $query = "UPDATE $table SET $set WHERE $condition;";
+		// error_log($query, 0);
 		return self::executeQuery($query);
   }
 

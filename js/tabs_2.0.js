@@ -10,7 +10,7 @@ function openTab(evt, tabToOpen, tabClass="tabcontent") {
   }
   document.getElementById(tabToOpen).style.display = "block";
   var button = document.getElementById(tabToOpen+"-button");
-  console.log(button);
+  // console.log(button);
   if(button == null)
     evt.currentTarget.className += " active";
   else
