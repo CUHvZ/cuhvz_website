@@ -133,7 +133,11 @@
 }
 
 .tablink {
-  width: 150px;
+  max-width: 150px;
+}
+
+.small-tab {
+  padding: 0 10px 0 10px;
 }
 
 /* Style the tab content */

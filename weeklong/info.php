@@ -6,6 +6,7 @@ $title = 'CU HvZ | ';
 ?>
 <head>
 	<?php require($_SERVER['DOCUMENT_ROOT'].'/layout/header.php'); ?>
+	<script src="/js/tabs_2.0.js"></script>
 </head>
 <body>
 	<?php include $_SERVER['DOCUMENT_ROOT'].'/layout/navbar.php'; ?>
@@ -92,6 +93,7 @@ $(document).ready(function(){
 		setContent(weeklong+"/thursday_2.txt","thursday");
 		setContent(weeklong+"/friday_2.txt","friday");
 	}
+	openTab(event, 'Details');
 });
 </script>
 
@@ -135,41 +137,64 @@ $(document).ready(function(){
           }
 ?>
       	<div class="white">
-          <h3>Details</h3>
+        </div>
+			<div style="margin: auto; text-align: center;">
+	 	 		<span class="tab">
+	 	 			<button class="tablink small-tab" id="Details-button" onclick="openTab(event, 'Details')">Details</button>
+	 	 		</span>
+	 	 		<span class="tab">
+	 	 			<button class="tablink small-tab" id="Monday-button" onclick="openTab(event, 'Monday')">Monday</button>
+	 	 		</span>
+	 	 		<span class="tab">
+	 			<button class="tablink small-tab" id="Tuesday-button" onclick="openTab(event, 'Tuesday')">Tuesday</button>
+	 	 		</span>
+	 	 		<span class="tab">
+	 			<button class="tablink small-tab" id="Wednesday-button" onclick="openTab(event, 'Wednesday')">Wednesday</button>
+	 	 		</span>
+	 	 		<span class="tab">
+	 			<button class="tablink small-tab" id="Thursday-button" onclick="openTab(event, 'Thursday')">Thursday</button>
+	 	 		</span>
+	 	 		<span class="tab">
+	 			<button class="tablink small-tab" id="Friday-button" onclick="openTab(event, 'Friday')">Friday</button>
+	 	 		</span>
+	 	 	</div>
+	 		<div id="tab-container">
+	 		 	<div id="Details" class="tabcontent">
         	<p id="details">
         		There is currently no active game. <a href="/events.php">Click here</a> to go back to the events page.
         	</p>
-        </div>
-        <div class="white">
-          <h3><strong>Monday</strong></h3>
+	 		 	</div>
+
+	 		 	<div id="Monday" class="tabcontent">
           <p id="monday"></p>
           <h5>On Campus</h5><p id="on_campus_1"></p>
           <h5>Off Campus</h5><p id="off_campus_1"></p>
-        </div>
-        <div class="white">
-          <h3><strong>Tuesday</strong></h3>
-          <p id="tuesday"></p>
-          <h5>On Campus</h5><p id="on_campus_2"></p>
-          <h5>Off Campus</h5><p id="off_campus_2"></p>
-        </div>
-        <div class="white">
-          <h3><strong>Wednesday</strong></h3>
-          <p id="wednesday"></p>
-          <h5>On Campus</h5><p id="on_campus_3"></p>
-          <h5>Off Campus</h5><p id="off_campus_3"></p>
-        </div>
-        <div class="white">
-          <h3><strong>Thursday</strong></h3>
-          <p id="thursday"></p>
-          <h5>On Campus</h5><p id="on_campus_4"></p>
-          <h5>Off Campus</h5><p id="off_campus_4"></p>
-        </div>
-        <div class="white">
-          <h3><strong>Friday</strong></h3>
-          <p id="friday"></p>
-          <h5>On Campus</h5><p id="on_campus_5"></p>
-          <h5>Off Campus</h5><p id="off_campus_5"></p>
-        </div>
+	 		 	</div>
+
+	 			<div id="Tuesday" class="tabcontent">
+					<p id="tuesday"></p>
+					<h5>On Campus</h5><p id="on_campus_2"></p>
+					<h5>Off Campus</h5><p id="off_campus_2"></p>
+	 		 	</div>
+
+	 		 	<div id="Wednesday" class="tabcontent">
+					<p id="wednesday"></p>
+					<h5>On Campus</h5><p id="on_campus_3"></p>
+					<h5>Off Campus</h5><p id="off_campus_3"></p>
+	 		 	</div>
+
+	 		 	<div id="Thursday" class="tabcontent">
+					<p id="thursday"></p>
+					<h5>On Campus</h5><p id="on_campus_4"></p>
+					<h5>Off Campus</h5><p id="off_campus_4"></p>
+	 		 	</div>
+
+	 			<div id="Friday" class="tabcontent">
+					<p id="friday"></p>
+					<h5>On Campus</h5><p id="on_campus_5"></p>
+					<h5>Off Campus</h5><p id="off_campus_5"></p>
+	 		 	</div>
+	 		</div>
   </div> <!-- end row -->
 
  </div> <!-- end container -->
