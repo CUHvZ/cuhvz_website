@@ -271,7 +271,27 @@ Chaos is here, friends, as it has been foretold. The army of the dead have risen
 Will you answer the call?
 ',
 -- Monday
-'[ON_CAMPUS]
+'Greetings Warriors,
+
+The first signs of Ragnarok are shown, the seer V\ölva has warned me of treachery on the part of my adoptive son Loki and my grandson. On this first day we require more strength to repel the forces of chaos, should they be upon us. On campus today will be late registration and bandanna pick up at the UMC.
+
+Off campus at Scott Carpenter Park is where we will be hunting down my grandson in hopes of halting his plans. The mission will be capture the flag and will start 6 PM when the sun is low.
+
+Farewell my children,
+The All Father
+
+
+Off-campus Rewards:
+All players that participate in the off-campus mission will earn 15 points
+
+Mission Success:
+Humans present earn 10 points
+
+Mission Failure:
+Zombie stun timer reduced by 1 minute for all zombies
+
+
+[ON_CAMPUS]
 Location: UMC indoors
 Time: 9am - 5pm
 Mission: Late sign up, check in, bandanna retrieval
@@ -282,7 +302,52 @@ Time: 6pm - 7pm
 Mission: Capture the flag
 ',
 -- Tuesday
-'[ON_CAMPUS]
+'Greetings Warriors,
+
+Yesterday\'s mission at Scott Carpenter park proved to be a failure, resulting in the zombie stun timer to be reduced to 4 minutes.
+
+My son Loki is hiding himself in the form a fish. We must obtain pieces of a net that have been scattered throughout campus. To obtain these pieces you must locate these statues and take "selfies" and submit them on discord using the instructions provided below. These "selfies" will capture the pieces of the net in the picture. All four locations must be captured for the piece of the net to be obtained. Warriors must work together to collect a total of 10 pieces in order to build the net.
+
+Please locate these statues and take a "selfie":
+IMAGE[/images/selfie_locations_S19.png]
+
+Once the net pieces have been collected we can construct the net at Central Park and capture Loki at 6 PM. We must hold the area until the net can be constructed and then we may catch my son.
+
+My children, I understand that you are needing sustenance to continue forth, I have sent you food for you and your families. The supplies have been sent to the following locations with the given amount of supplies at each location:
+
+Sign #2: 25 supplies
+Sign #6: 25 supplies
+Sign #11: 25 supplies
+Sign #18: 25 supplies
+By aware the humans may only take one supply drop from any given location but they are allowed to collect from as many locations as they wish. Supply drops will increase the human stun timer by 24 hours with a cap for 48 hours. Collecting a supply drop also rewards that player with 10 points. Zombies cannot collect supply drops but are allowed to stalk those locations.
+These supply drops will expire at 5pm today and new ones will be deployed tomorrow.
+LINK_NEW_TAB[Here\'s a link for the sign locations][/images/sign_locations_map.png]
+
+Discord picture submission instructions:
+Today there will be a chat on our discord players tab called "Tuesday-photo-submissions". Use this chat to submit your photos by 5pm today. The earlier the better. Your messages and photos will not be seen by others and after submitting your photos will disappear from your view, but don\'t worry, they have been submitted. Please submit all photos at the same time as well as your username and/or player code. Have fun. And be creative.
+
+Farewell my children,
+
+The All Father
+
+On-campus Rewards:
+Humans earn 5 points per correct selfie submitted
+Humans earn bonus 10 points for all correct selfie locations
+
+Mission Failure:
+Zombie stun timer reduced by 1 minute for all zombies
+
+Off-campus Rewards:
+All players that participate in the off-campus mission will earn 15 points
+
+Mission Success:
+Humans that survive receive a supply drop
+Humans that win receive 10 bonus points
+
+Mission Failure:
+Zombie stun timer reduced by 1 minute for all zombies
+
+[ON_CAMPUS]
 Mission: Supply drops / Selfie scavenger hunt
 
 [OFF_CAMPUS]
@@ -291,7 +356,43 @@ Time: 6pm - 7pm
 Mission: Scavenger hunt and king of the hill
 ',
 -- Wednesday
-'[ON_CAMPUS]
+'Greetings Warriors,
+
+Tuesday missions report
+The on-campus mission resulted in the humans being successful! With a total of 11 full sets of "selfies" submitted we were able to retrieve pieces of the net. Unfortunately the off-campus mission proved to be a failure, the humans could not put together the in time and hence forth the zombie stun timer has been reduced to 3 minutes.
+
+On this day I fear the prophesied winters are come, Today we are called to defend the remnants of civilization. There remains two mid-guardian cities who have not fallen to the forces of chaos, and on this day, brave warriors, we are called to defend. On campus at Wolf Law Soccer Field will be soccer defense at 1:30 PM. As well, warriors, today more sustenance will be delivered, humans must gather supplies while they can to avoid starvation.
+
+My children, survival is necessary, we are the last pillars of the realms. We must gather and prepare our forces for the days ahead, at Beach Park at 6 PM. There will be much needed supplies and we must race to retrieve them before the forces of death.
+
+I have sent out more supplies to those in need. Unfortunately these supply drops are not protected by magic and now the zombies can steal the supplies. Luckily these supplies are not made from human flesh and are less effective in feeding the zombies. I also seem to have misplaced one of the supply drops, all I can remember is that it was at an odd sign location. Further rewards will be given to those who find it, please find it before the dead do.
+Sign #4: 25 supplies, worth 10 points
+Sign #10: 25 supplies, worth 10 points
+Sign #16: 25 supplies, worth 10 points
+Missing supply drop: 10 supplies, worth 40 points
+
+Farewell my children,
+The All Father
+
+
+On-campus Rewards:
+All players that participate in the on-campus mission will earn 15 points
+
+Mission Failure:
+Zombie stun timer reduced by 45 seconds for all zombies
+
+
+Off-campus Rewards:
+All players that participate in off-campus mission will earn 15 points
+
+Mission Success:
+Surviving humans earn 20 points + 1 supply drop
+
+Mission Failure:
+Zombie stun timer reduced by 45 seconds for all zombies
+
+
+[ON_CAMPUS]
 Location: Wolf Law soccer fields
 Time: 1:30pm
 Mission: Supply drops / Defense
@@ -303,7 +404,42 @@ Time: 6pm - 7pm
 Mission: 3 legged humans survival
 ',
 -- Thursday
-'[ON_CAMPUS]
+'Greetings Warriors,
+
+Yesterday proved to be disastrous as humans lost both the on and off campus missions resulting in the zombie stun timer being 1 minute and 30 seconds.
+
+Loki has broken free from his chains and the Earth has started to rumble. Buildings are crumbling and are being overrun by Hel\'s undead army. You must hold your outposts or there will be dire consequences.On campus is tower defense, poles with bandannas tied to them are defenses, humans must hold the towers by putting the bandanna above the line. Zombies must hold the tower by putting the bandanna below the line. Points will be recorded every half hour and posted on Discord. Refer to this map for locations of the control towers.
+IMAGE[/images/control_tower_map.png]
+
+The last of the supplies have been sent out but Loki has taken it upon himself to hide one of the supply drops and all I can see is that it\'s located somewhere within the marked area. Here are the supply drops to collect.
+Sign #12: 10 uses, +24 hours, +20 points
+Sign #3: 10 uses, +24 hours, +20 points
+Stolen supply drop: 10 uses, +24 hours, + 40 points
+IMAGE[/images/stolen_supply_drop.png]
+
+Tonight we must preserve what we can and protect our ancient bloodlines. Warriors must rendezvous at Martin Park to help escort friends and families to safety. The undead will be upon us so come prepared. Off-campus is escort at Martin Park at 6 PM.
+
+The day is growing dark my children.
+Farewell,
+The All Father
+
+On-campus Rewards:
+Mission Failure:
+Zombie stun timer reduced by 15 seconds for all zombies
+
+
+Off-campus Rewards:
+All players that participate in off-campus mission will earn 15 points
+
+Mission Success:
+Surviving humans receive a supply drop
+
+Mission Failure:
+Zombie stun timer reduced by 15 seconds for all zombie
+Zombies are fed +12 hours
+
+
+[ON_CAMPUS]
 Location(s): LINK_NEW_TAB[Station locations][/images/control_tower_map.png]
 Time: 9am - 5pm
 Mission: Supply drop / Tower Control
@@ -314,7 +450,24 @@ Time: 6pm - 7pm
 Mission: Eggscort / Checkpoint
 ',
 -- Friday
-'[ON_CAMPUS]
+'Greetings Warriors,
+
+Yesterday humans took heavy losses and were unable to hold their stations and failed at saving their family members. The zombie stun timer has reached its lowest at 1 minute. I wish you good luck to those who are left standing, you are our last hope.
+
+Today my message to you is one of grief. Ragnarok is upon us. The giants are overtaking the realms and now the gods must step in to protect the last survivors. Today my children, you must write your name on a scroll to ensure the protection of the gods. We will preserve you, warriors, to ensure the greatest success in the battle for peace but you must still be human at the end of the day to receive that protection. On campus mission is to write your name an a book in the area with the LINK_NEW_TAB[Rock with a square cut out of it.][https://www.google.com/maps/@40.0079274,-105.2711151,3a,75y,35.01h,74.28t/data=!3m6!1e1!3m4!1sf2hKqkG6UyTgThoKv6XnOQ!2e0!7i13312!8i6656]
+
+Come now brave warriors, the time for battle is near. The Lock-in is Tonight, doors open at 9pm and close at 10pm.
+LINK_NEW_TAB[Reserve your spot and accepting this invitation.][https://www.eventbrite.com/e/cu-hvz-ragnarok-tickets-60309888500]
+LINK_NEW_TAB[If you require weaponry we have some that you may rent, free of course.][https://www.eventbrite.com/e/cu-hvz-ragnarok-blaster-rental-tickets-60286249796]
+
+Farewell my children,
+The All Father
+
+On-campus Rewards:
+Humans earn 50 points if their USERNAME is written in the notebook and they are still human at 5pm today.
+
+
+[ON_CAMPUS]
 Location: LINK[Rock with square hole][https://www.google.com/maps/@40.0079274,-105.2711151,3a,75y,35.01h,74.28t/data=!3m6!1e1!3m4!1sf2hKqkG6UyTgThoKv6XnOQ!2e0!7i13312!8i6656] South of Norlin library
 Time: 9am - 5pm
 Mission: Data entry

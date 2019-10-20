@@ -14,6 +14,9 @@ $title = 'CU HvZ | ';
 <script>
 
 function formatData(data){
+	if(data.indexOf("ö") > 0){
+		console.log("found ö");
+	}
   // adds <br> tags where there are line breaks
   var formated = "";
   var eachLine = data.split('\n');
@@ -74,7 +77,6 @@ function formatData(data){
 	formated = formated.replace("[OFF_CAMPUS]", "<h5>Off Campus</h5>");
 
 	formated += "</div>";
-	console.log(formated);
   return formated;
 }
 
@@ -107,6 +109,10 @@ $(document).ready(function(){
       <div class="content lightslide-box">
         <?php
 				$db = new Database();
+				// These 2 queries allow php to recieve special characters from mysql
+				$db->executeQuery('SET NAMES UTF8;');
+				$db->executeQuery('SET COLLATION_CONNECTION=utf8_general_ci;');
+				
 				$weeklongID = null;
 				$weeklongDetails = null;
           if(isset($_GET["id"])){
@@ -182,6 +188,7 @@ $(document).ready(function(){
 					<?php
 						if($weeklongDetails != null){
 							echo $weeklongDetails["monday"];
+							error_log($weeklongDetails["monday"],0);
 						}
 					?>
 	 		 	</div>
