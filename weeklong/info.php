@@ -14,9 +14,6 @@ $title = 'CU HvZ | ';
 <script>
 
 function formatData(data){
-	if(data.indexOf("ö") > 0){
-		console.log("found ö");
-	}
   // adds <br> tags where there are line breaks
   var formated = "";
   var eachLine = data.split('\n');
@@ -112,7 +109,7 @@ $(document).ready(function(){
 				// These 2 queries allow php to recieve special characters from mysql
 				$db->executeQuery('SET NAMES UTF8;');
 				$db->executeQuery('SET COLLATION_CONNECTION=utf8_general_ci;');
-				
+
 				$weeklongID = null;
 				$weeklongDetails = null;
           if(isset($_GET["id"])){

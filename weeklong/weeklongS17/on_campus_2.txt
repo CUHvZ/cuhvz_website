@@ -1,9 +1,0 @@
-For day two, humans must escort an NPC around campus, taking photos at major locations to demonstrate that there’s no real zombie threat. The NPC will spawn in front of the C4C, and humans must take a photo of him at each of the three locations:
--Standing in the fountain of the UMC
--With the buffalo statue of the stadium in the background
--In front of Old Main
-
-The photos must contain at least three posed human players and NO ZOMBIES. Any photo with a zombie in it will be invalidated. Meanwhile, the zombies are trying to zombify the NPC. To zombify the NPC, at least one zombie must touch and maintain touch with the NPC for an out-loud count of five-mississippi. (the NPC, when initially touched, will freeze in horror.)
-
-If the humans win – they will receive a clue to the day’s code, OR, the zombie stun timer will be increased by one minute for the next day.
-If the zombies win -  they will receive a clue for the day’s code, OR, the zombie stun timer will be decreased by one minute.
