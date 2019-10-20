@@ -38,7 +38,7 @@ $lockin_events = array("spring19", "fall18", "spring18");
 						$weeklongs = $database->executeQueryFetchAll("SELECT * FROM weeklongs WHERE display=1 ORDER BY start_date DESC");
                   foreach ($weeklongs as $event) {
                         echo "<div class='white'>";
-                        echo "<h4 class='title-link' style='margin: 0;'><a href='weeklong/info.php?name=".$event["name"]."'>".$event["title"]."</a></h4>";
+                        echo "<h4 class='title-link' style='margin: 0;'><a href='weeklong/info.php?id=".$event["id"]."'>".$event["title"]."</a></h4>";
 												if($event["display"]){
 													if($weeklong->is_active($event["id"])){ // Displays if event options
 	                              //echo "<h3 style='margin: 0;'>";
@@ -82,8 +82,8 @@ $lockin_events = array("spring19", "fall18", "spring18");
 	                                    // echo "</h3>";
 	                        }
 	                        echo "<p>".$event["display_dates"]." | ";
-	                        echo "<a href='weeklong/info.php?name=".$event["name"]."' >mission details</a> | ";
-	                        echo "<a href='weeklong/stats.php?name=".$event["name"]."' >stats</a></p>";
+	                        echo "<a href='weeklong/info.php?id=".$event["id"]."' >mission details</a> | ";
+	                        echo "<a href='weeklong/stats.php?id=".$event["id"]."' >stats</a></p>";
 	                        echo "</div>";
 												}
 											}

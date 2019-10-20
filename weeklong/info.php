@@ -12,17 +12,26 @@ $title = 'CU HvZ | ';
 	<?php include $_SERVER['DOCUMENT_ROOT'].'/layout/navbar.php'; ?>
 
 <script>
-function getQueryVariable(variable)
-{
-  var weeklongName = <?php echo "'".$_GET["name"]."'"?>;
-  return(weeklongName);
-}
+
 function formatData(data){
   // adds <br> tags where there are line breaks
   var formated = "";
   var eachLine = data.split('\n');
+	var leadingWhitespace = true;
   for(var i = 0, l = eachLine.length; i < l; i++) {
-      formated += eachLine[i]+"<br>";
+			if(eachLine[i].length > 0 && leadingWhitespace){
+				leadingWhitespace = false;
+				formated = '<div style="white-space: pre-line">';
+			}
+			if(!leadingWhitespace){
+				if(eachLine[i].indexOf("[ON_CAMPUS]") >= 0){
+					formated += "<h5>On Campus</h5>";
+				}else if(eachLine[i].indexOf("[OFF_CAMPUS]") >= 0){
+					formated += "<h5>Off Campus</h5>";
+				}else{
+					formated += eachLine[i] + "\n";
+				}
+			}
   }
 
   // formats LINK[name][link] into an html link
@@ -37,64 +46,55 @@ function formatData(data){
     var to_replace = "LINK[" + link_name + "][" + link + "]";
     formated = formated.replace(to_replace, "<a href='"+link+"'>"+link_name+"</a>");
   }
+
+	// formats LINK_NEW_TAB[name][link] into an html link
+  while(formated.indexOf("LINK_NEW_TAB[")!=-1){
+    var start = formated.indexOf("LINK_NEW_TAB[")
+    var link = formated.substring(start,formated.length);
+    var link_name = link.substring(13,link.indexOf("]"));
+    var temp = "LINK_NEW_TAB["+link_name+"][";
+    start = formated.indexOf(temp)+temp.length;
+    link = formated.substring(start,formated.length);
+    link = link.substring(0,link.indexOf("]"));
+    var to_replace = "LINK_NEW_TAB[" + link_name + "][" + link + "]";
+    formated = formated.replace(to_replace, "<a href='"+link+"' target='_blank' >"+link_name+"</a>");
+  }
+
+	// formats IMAGE[alt text][link] into an image
+  while(formated.indexOf("IMAGE[")!=-1){
+    var start = formated.indexOf("IMAGE[")
+    var temp = formated.substring(start,formated.length);
+    var imageLink = temp.substring(6,temp.indexOf("]"));
+    var to_replace = "IMAGE[" + imageLink + "]";
+    formated = formated.replace(to_replace, "<img src='" + imageLink + "' style='width: 100%;'>");
+  }
+
+	// Formats [ON_CAMPUS] and [OFF_CAMPUS] tags into headers
+	formated = formated.replace("[ON_CAMPUS]", "<h5>On Campus</h5>");
+	formated = formated.replace("[OFF_CAMPUS]", "<h5>Off Campus</h5>");
+
+	formated += "</div>";
+	console.log(formated);
   return formated;
 }
 
-function setContent(dataSource, divID)
+function formatTabContent(divID)
 {
-  var XMLHttpRequestObject = false;
-
-  if (window.XMLHttpRequest) {
-    XMLHttpRequestObject = new XMLHttpRequest();
-  } else if (window.ActiveXObject) {
-    XMLHttpRequestObject = new ActiveXObject("Microsoft.XMLHTTP");
-  }
-
-  if(XMLHttpRequestObject) {
-    var obj = document.getElementById(divID);
-    XMLHttpRequestObject.open("GET", dataSource);
-
-    XMLHttpRequestObject.onreadystatechange = function()
-    {
-      if (XMLHttpRequestObject.readyState == 4 && XMLHttpRequestObject.status == 200) {
-        var data = XMLHttpRequestObject.responseText;
-        obj.innerHTML = formatData(data);
-
-      }
-    }
-
-    XMLHttpRequestObject.send(null);
-  }
+	var element = document.getElementById(divID);
+	element.innerHTML = formatData(element.innerHTML);
 }
 $(document).ready(function(){
-	var weeklong = getQueryVariable("name");
-	var active = 0<?php if(Weeklong::active_event()){ echo "+1"; } ?>;
-  var page = "#events_button";
-  //$(page).attr("class", "active");
-	if(!weeklong && active){
-		weeklong = <?php echo '"'.$_SESSION["weeklong"].'"';?>;
-    console.log(weeklong);
-	}
-	if(weeklong.length>1){
-		setContent(weeklong+"/details.txt","details");
-		setContent(weeklong+"/on_campus_1.txt","on_campus_1");
-		setContent(weeklong+"/on_campus_2.txt","on_campus_2");
-		setContent(weeklong+"/on_campus_3.txt","on_campus_3");
-		setContent(weeklong+"/on_campus_4.txt","on_campus_4");
-		setContent(weeklong+"/on_campus_5.txt","on_campus_5");
-		setContent(weeklong+"/off_campus_1.txt","off_campus_1");
-		setContent(weeklong+"/off_campus_2.txt","off_campus_2");
-		setContent(weeklong+"/off_campus_3.txt","off_campus_3");
-		setContent(weeklong+"/off_campus_4.txt","off_campus_4");
-		setContent(weeklong+"/off_campus_5.txt","off_campus_5");
-		setContent(weeklong+"/monday.txt","monday");
-		setContent(weeklong+"/tuesday_2.txt","tuesday");
-		setContent(weeklong+"/wednesday_2.txt","wednesday");
-		setContent(weeklong+"/thursday_2.txt","thursday");
-		setContent(weeklong+"/friday_2.txt","friday");
-	}
+	// Open Details tab by default
 	openTab(event, 'Details');
+	// Format the tabs html
+	formatTabContent('Details');
+	formatTabContent('Monday');
+	formatTabContent('Tuesday');
+	formatTabContent('Wednesday');
+	formatTabContent('Thursday');
+	formatTabContent('Friday');
 });
+
 </script>
 
 <div id="signup" class="lightslide">
@@ -106,11 +106,21 @@ $(document).ready(function(){
 	<!-- SIGNUP BOX -->
       <div class="content lightslide-box">
         <?php
-          if(isset($_GET["name"])){
-            $event = $weeklong->get_weeklong($_GET["name"]);
+				$db = new Database();
+				$weeklongID = null;
+				$weeklongDetails = null;
+          if(isset($_GET["id"])){
+						$weeklongID = $_GET["id"];
+
+						$query = "select * from weeklong_details where weeklong_id=$weeklongID;";
+						$weeklongDetails = $db->executeQueryFetch($query);
+
+						$event = $db->executeQueryFetch("SELECT * FROM weeklongs where id=$weeklongID;");
             echo "<h3 class='title-link' style='margin: 0;'><a href='/weeklong/info.php?name=".$event["name"]."'>".$event["title"]."</a></h3>";
             echo "<p>".$event["display_dates"].", ".substr($event["start_date"],0,4)." | ";
-            echo "<a href='/weeklong/stats.php?name=".$event["name"]."' >stats</a></p>";
+            	echo "<a href='/weeklong/stats.php?name=".$event["name"]."' >stats</a> | ";
+            	echo "<a href='".$weeklongDetails["waiver_link_path"]."' target='_blank'>waiver</a>";
+						echo "</p>";
           }
           if($weeklong->is_active($event["id"])){ // Displays if event options
 						if(isset($_SESSION["started"]) && !$_SESSION["started"]){
@@ -141,7 +151,7 @@ $(document).ready(function(){
 			<div style="margin: auto; text-align: center;">
 	 	 		<span class="tab">
 	 	 			<button class="tablink small-tab" id="Details-button" onclick="openTab(event, 'Details')">Details</button>
-	 	 		</span>
+				</span>
 	 	 		<span class="tab">
 	 	 			<button class="tablink small-tab" id="Monday-button" onclick="openTab(event, 'Monday')">Monday</button>
 	 	 		</span>
@@ -158,41 +168,54 @@ $(document).ready(function(){
 	 			<button class="tablink small-tab" id="Friday-button" onclick="openTab(event, 'Friday')">Friday</button>
 	 	 		</span>
 	 	 	</div>
+
 	 		<div id="tab-container">
 	 		 	<div id="Details" class="tabcontent">
-        	<p id="details">
-        		There is currently no active game. <a href="/events.php">Click here</a> to go back to the events page.
-        	</p>
+					<?php
+						if($weeklongDetails != null){
+							echo $weeklongDetails["details"];
+						}
+					?>
 	 		 	</div>
 
 	 		 	<div id="Monday" class="tabcontent">
-          <p id="monday"></p>
-          <h5>On Campus</h5><p id="on_campus_1"></p>
-          <h5>Off Campus</h5><p id="off_campus_1"></p>
+					<?php
+						if($weeklongDetails != null){
+							echo $weeklongDetails["monday"];
+						}
+					?>
 	 		 	</div>
 
 	 			<div id="Tuesday" class="tabcontent">
-					<p id="tuesday"></p>
-					<h5>On Campus</h5><p id="on_campus_2"></p>
-					<h5>Off Campus</h5><p id="off_campus_2"></p>
+					<?php
+						if($weeklongDetails != null){
+							echo $weeklongDetails["tuesday"];
+						}
+					?>
 	 		 	</div>
 
 	 		 	<div id="Wednesday" class="tabcontent">
-					<p id="wednesday"></p>
-					<h5>On Campus</h5><p id="on_campus_3"></p>
-					<h5>Off Campus</h5><p id="off_campus_3"></p>
+					<?php
+						if($weeklongDetails != null){
+							echo $weeklongDetails["wednesday"];
+						}
+					?>
 	 		 	</div>
 
 	 		 	<div id="Thursday" class="tabcontent">
-					<p id="thursday"></p>
-					<h5>On Campus</h5><p id="on_campus_4"></p>
-					<h5>Off Campus</h5><p id="off_campus_4"></p>
+					<?php
+						if($weeklongDetails != null){
+							echo $weeklongDetails["thursday"];
+						}
+					?>
 	 		 	</div>
 
 	 			<div id="Friday" class="tabcontent">
-					<p id="friday"></p>
-					<h5>On Campus</h5><p id="on_campus_5"></p>
-					<h5>Off Campus</h5><p id="off_campus_5"></p>
+					<?php
+						if($weeklongDetails != null){
+							echo $weeklongDetails["friday"];
+						}
+					?>
 	 		 	</div>
 	 		</div>
   </div> <!-- end row -->
