@@ -13,8 +13,33 @@ $title = 'CU HvZ | Events';
 
 <?php
 
-// TODO make this not hard coded
-$lockin_events = array("spring19", "fall18", "spring18");
+function addOrdinal($num){
+  $lastNum = substr($num, strlen($num)-1, strlen($num));
+  $lastNum = intval($lastNum);
+  if($lastNum == 1)
+    return intval($num)."st";
+  else if($lastNum == 2)
+    return intval($num)."nd";
+  else if($lastNum == 3)
+    return intval($num)."rd";
+  else
+    return intval($num)."th";
+}
+
+function formatLockinDates($startDate){
+  $monthNames = array(
+    "January", "February", "March",
+    "April", "May", "June", "July",
+    "August", "September", "October",
+    "November", "December"
+  );
+  $startDate = new DateTime($startDate);
+  $day = $startDate->format('d');
+  $day = addOrdinal($day);
+  $month = $monthNames[intval($startDate->format('m'))-1];
+  $year = $startDate->format('Y');
+  return "$month $day $year, 9pm - 3am";
+}
 
 ?>
 
@@ -91,11 +116,16 @@ $lockin_events = array("spring19", "fall18", "spring18");
             <!-- Lockins -->
             <h1 class='white' ><strong>Lock-Ins</strong></h1>
             <?php
-                  foreach ($lockin_events as $eventName) {
-                        echo "<div class='white'>";
-                        include $_SERVER['DOCUMENT_ROOT'].'/lockin/details/'.$eventName.'/title.php';
-                        echo "</div>";
-                  }
+							$lockins = $database->executeQueryFetchAll("SELECT * FROM lockins WHERE display=1 ORDER BY event_date DESC");
+              foreach ($lockins as $event) {
+								$lockinID = $event["id"];
+								$lockinTitle = $event["title"];
+								$lockinDate = formatLockinDates($event["event_date"]);
+                echo "<div class='white'>";
+								echo "<h4 class='title-link' style='margin: 0;'><a href='/lockin/info.php?id=$lockinID'>$lockinTitle</a></h3>";
+								echo "<p>$lockinDate</p>";
+                echo "</div>";
+              }
             ?>
       </div>
   </div> <!-- end row -->

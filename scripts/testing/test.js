@@ -1,36 +1,28 @@
-/*
-$(document).ready(function() {
-    $.ajax({
-        type: "GET",
-        url: "data.txt",
-        dataType: "text",
-        success: function(data) {processData(data);}
-     });
-});
-*/
+const fs = require('fs')
 
-var allText = 'heading1,heading2,heading3,heading4,heading5' + '\n' +
-					 'value1_1,value2_1,value3_1,value4_1,value5_1' + '\n' +
-					 'value1_2,value2_2,value3_2,value4_2,value5_2';
+var text = "";
+fs.readFile('test.txt', (err, data) => {
+    if (err) throw err;
 
-var allTextLines = allText.split(/\r\n|\n/);
-var headers = allTextLines[0].split(',');
-var lines = [];
+    // console.log(data.toString());
+		text = data.toString();
+		console.log(text);
+		console.log("----------------------------");
+		// text = text.replace(/[\r\n]*(\[LINE\])[\r\n]*$/, 'HERE');
+		var i = text.indexOf("[LINE]");
+		var first = (text.substring(0, i)).trim();
+		var second = (text.substring(i+6, text.length)).trim();
+		second = text.substring(text.indexOf(second), text.length)
+		var formatted = first+"<hr>"+second;
+		console.log(formatted);
+})
 
-var allTextLines = allText.split(/\r\n|\n/);
-var headers = allTextLines[0].split(',');
-var lines = [];
 
-for (var i=1; i<allTextLines.length; i++) {
-		var data = allTextLines[i].split(',');
-		if (data.length == headers.length) {
 
-				var tarr = [];
-				for (var j=0; j<headers.length; j++) {
-						tarr[headers[j]] = data[j];
-				}
-				lines.push(tarr);
-		}
-}
+// while(text.indexOf("[LINE]")!=-1){
+// 	// text = text.replace(.*(/^\s+|\s+$/g)+"[LINE]"+.*, '');
+// 	text = text.replace(/\n$/, '');
+// 	// text = text.replace("[LINE]", "<hr>");
+// }
 
-console.log(lines);
+// console.log(text);

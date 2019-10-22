@@ -9,5 +9,5 @@ CREATE TABLE IF NOT EXISTS weeklong_details (
   thursday TEXT,
   friday TEXT,
   PRIMARY KEY (weeklong_id),
-  UNIQUE KEY user_id ( weeklong_id )
+  UNIQUE KEY weeklong_id ( weeklong_id )
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 ;

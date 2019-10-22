@@ -26,8 +26,10 @@ if(isset($_POST['submit'])){
 	// very basic validation
 	if(empty(isValid($_POST['username']))){
 		$error[] = 'Username contains invalid character';
-	}else if(strlen($_POST['username']) < 3){
+	} else if(strlen($_POST['username']) < 3){
 		$error[] = 'Username is too short.';
+	}  else if(strlen($_POST['username']) > 30){
+		$error[] = 'Username is too long.';
 	} else {
     $username = $_POST['username'];
 		$row = $database->executeQueryFetch("SELECT username FROM users WHERE username = '$username'");
@@ -40,7 +42,7 @@ if(isset($_POST['submit'])){
 	// password validation
 	if(strlen(str_replace(' ', '', $_POST['password'])) == 0){
 		$error[] = 'Enter a password';
-	}else if(strlen($_POST['password']) < 3){
+	}else if(strlen($_POST['password']) < 8){
 		$error[] = 'Password is too short';
 	}else if(strlen($_POST['passwordConfirm']) == 0){
 		$error[] = 'You must confirm your password';
@@ -205,9 +207,10 @@ $title = 'CU HvZ | ';
 
           <div class="row">
             <div class="twelve columns">
-            <input type="text" name="username" id="username" class="form-control input-lg u-full-width" placeholder="User Name" value="<?php if(isset($error)){ echo $_POST['username']; } ?>" tabindex="1">
-            <input type="text" name="phone" id="phone" class="form-control input-lg u-full-width" placeholder="Phone Number" value="<?php if(isset($error)){ echo $_POST['phone']; } ?>" tabindex="2">
-            <input type="email" name="email" id="email" class="form-control input-lg u-full-width" placeholder="Email Address" value="<?php if(isset($error)){ echo $_POST['email']; } ?>" tabindex="3">
+              <label style="margin: 0;font-size: 12px;">3-20 characters</label>
+              <input type="text" name="username" id="username" class="form-control input-lg u-full-width" placeholder="User Name" value="<?php if(isset($error)){ echo $_POST['username']; } ?>" tabindex="1">
+              <input type="text" name="phone" id="phone" class="form-control input-lg u-full-width" placeholder="Phone Number" value="<?php if(isset($error)){ echo $_POST['phone']; } ?>" tabindex="2">
+              <input type="email" name="email" id="email" class="form-control input-lg u-full-width" placeholder="Email Address" value="<?php if(isset($error)){ echo $_POST['email']; } ?>" tabindex="3">
             </div>
           </div>
 
@@ -220,12 +223,13 @@ $title = 'CU HvZ | ';
             </div>
           </div>
 
+          <label style="margin: 0;font-size: 12px;">Min 8 characters</label>
           <div class="row">
             <div class="six columns">
                 <input type="password" name="password" id="password" class="form-control input-lg u-full-width" placeholder="Password" tabindex="6">
             </div>
             <div class="six columns">
-                <input type="password" name="passwordConfirm" id="passwordConfirm" class="u-full-width form-control input-lg" placeholder="Confirm Password" tabindex="7">
+                <input type="password" name="passwordConfirm" id="passwordConfirm" class="u-full-width form-control input-lg" placeholder="Confirm" tabindex="7">
             </div>
           </div>
 

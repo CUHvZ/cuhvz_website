@@ -10,73 +10,8 @@ $title = 'CU HvZ | ';
 </head>
 <body>
 	<?php include $_SERVER['DOCUMENT_ROOT'].'/layout/navbar.php'; ?>
-
+<script src="/js/dataFormatter.js"></script>
 <script>
-
-function formatData(data){
-  // adds <br> tags where there are line breaks
-  var formated = "";
-  var eachLine = data.split('\n');
-	var leadingWhitespace = true;
-  for(var i = 0, l = eachLine.length; i < l; i++) {
-			if(eachLine[i].length > 0 && leadingWhitespace){
-				leadingWhitespace = false;
-				formated = '<div style="white-space: pre-line">';
-			}
-			if(!leadingWhitespace){
-				if(eachLine[i].indexOf("[ON_CAMPUS]") >= 0){
-					formated += "<h5>On Campus</h5>";
-				}else if(eachLine[i].indexOf("[OFF_CAMPUS]") >= 0){
-					formated += "<h5>Off Campus</h5>";
-				}else{
-					formated += eachLine[i] + "\n";
-				}
-			}
-  }
-
-  // formats LINK[name][link] into an html link
-  while(formated.indexOf("LINK[")!=-1){
-    var start = formated.indexOf("LINK[")
-    var link = formated.substring(start,formated.length);
-    var link_name = link.substring(5,link.indexOf("]"));
-    var temp = "LINK["+link_name+"][";
-    start = formated.indexOf(temp)+temp.length;
-    link = formated.substring(start,formated.length);
-    link = link.substring(0,link.indexOf("]"));
-    var to_replace = "LINK[" + link_name + "][" + link + "]";
-    formated = formated.replace(to_replace, "<a href='"+link+"'>"+link_name+"</a>");
-  }
-
-	// formats LINK_NEW_TAB[name][link] into an html link
-  while(formated.indexOf("LINK_NEW_TAB[")!=-1){
-    var start = formated.indexOf("LINK_NEW_TAB[")
-    var link = formated.substring(start,formated.length);
-    var link_name = link.substring(13,link.indexOf("]"));
-    var temp = "LINK_NEW_TAB["+link_name+"][";
-    start = formated.indexOf(temp)+temp.length;
-    link = formated.substring(start,formated.length);
-    link = link.substring(0,link.indexOf("]"));
-    var to_replace = "LINK_NEW_TAB[" + link_name + "][" + link + "]";
-    formated = formated.replace(to_replace, "<a href='"+link+"' target='_blank' >"+link_name+"</a>");
-  }
-
-	// formats IMAGE[alt text][link] into an image
-  while(formated.indexOf("IMAGE[")!=-1){
-    var start = formated.indexOf("IMAGE[")
-    var temp = formated.substring(start,formated.length);
-    var imageLink = temp.substring(6,temp.indexOf("]"));
-    var to_replace = "IMAGE[" + imageLink + "]";
-    formated = formated.replace(to_replace, "<img src='" + imageLink + "' style='width: 100%;'>");
-  }
-
-	// Formats [ON_CAMPUS] and [OFF_CAMPUS] tags into headers
-	formated = formated.replace("[ON_CAMPUS]", "<h5>On Campus</h5>");
-	formated = formated.replace("[OFF_CAMPUS]", "<h5>Off Campus</h5>");
-
-	formated += "</div>";
-  return formated;
-}
-
 function formatTabContent(divID)
 {
 	var element = document.getElementById(divID);
