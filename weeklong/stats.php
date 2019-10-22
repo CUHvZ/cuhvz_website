@@ -49,43 +49,49 @@ $title = 'CU HvZ | ';
     <div class="content lightslide-list" style="overflow: auto;">
       <div class="stats-header orange">Player Statistics</div>
 				<?php
-          $displayStats = false;
-					if(isset($_GET["name"])){
-						$name = $_GET["name"];
-						echo "<div class='stats-header'>";
-						echo "Zombie Stun Timer: ";
-						$query = "select stun_timer from weeklongs where name='$name'";
-						$database = new Database();
-						$data = $database->executeQueryFetch($query);
+					$database = new Database();
+					$displayStats = false;
+					$numPlayers = 0;
+					$numHumans = 0;
+					$numZombies = 0;
+					$numDead = 0;
+					$weeklongName = "";
+					$weeklongID = 0;
+					if(isset($_GET["id"])){
+						$weeklongID = $_GET["id"];
+						$data = $database->executeQueryFetch("select name from weeklongs where id='$weeklongID'");
 						if(!isset($data["error"])){
-							$date = new DateTime(date('H:i:s', strtotime($data["stun_timer"])));
-							echo $date->format('i\m s\s');
-						}
-
-						echo "</div>";
-						echo "<div>";
-            if($weeklong->get_weeklong($name)){
-              $displayStats = true;
-							$query = "select count(*) as num_players, count(CASE WHEN status='human' THEN status END) as num_humans, count(CASE WHEN status='zombie' THEN status END) as num_zombies, count(CASE WHEN status='deceased' THEN status END) as num_dead from $name;";
+							$displayStats = true;
+							$weeklongName = $data["name"];
+							echo "<div class='stats-header'>";
+							echo "Zombie Stun Timer: ";
+							$query = "select stun_timer from weeklongs where name='$weeklongName'";
 							$data = $database->executeQueryFetch($query);
-							$numPlayers = $data["num_players"];
-							$numHumans = $data["num_humans"];
-							$numZombies = $data["num_zombies"];
-							$numDead = $data["num_dead"];
-							if($numPlayers == 0)
-								$numPlayers = "0";
-							if($numHumans == 0)
-								$numHumans = "0";
-							if($numZombies == 0)
-								$numZombies = "0";
-							if($numDead == 0)
-								$numDead = "0";
-              // echo "<p class='status-header'>";
-              // echo "Humans: ".sizeof($weeklong->get_humans_from($name));
-              // echo " &emsp; Zombies: ".sizeof($weeklong->get_zombies_from($name));
-              // echo " &emsp; Deceased: ".sizeof($weeklong->get_deceased_from($name));
-              // echo "</p>";
-            }
+							if(!isset($data["error"])){
+								$date = new DateTime(date('H:i:s', strtotime($data["stun_timer"])));
+								echo $date->format('i\m s\s');
+							}
+
+							echo "</div>";
+							echo "<div>";
+
+							$query = "select count(*) as num_players, count(CASE WHEN status='human' THEN status END) as num_humans, count(CASE WHEN status='zombie' THEN status END) as num_zombies, count(CASE WHEN status='deceased' THEN status END) as num_dead from $weeklongName;";
+							$data = $database->executeQueryFetch($query);
+							if(!isset($data["error"])){
+								$numPlayers = $data["num_players"];
+								$numHumans = $data["num_humans"];
+								$numZombies = $data["num_zombies"];
+								$numDead = $data["num_dead"];
+								if($numPlayers == 0)
+									$numPlayers = "0";
+								if($numHumans == 0)
+									$numHumans = "0";
+								if($numZombies == 0)
+									$numZombies = "0";
+								if($numDead == 0)
+									$numDead = "0";
+							}
+						}
           }
         ?>
 				<div id="Top" style="display: block;">
@@ -135,48 +141,6 @@ $title = 'CU HvZ | ';
 						?>
 	        </div>
 				</div>
-				<!--
-        <div id="Activity" class="tabcontent">
-          <h3 class="row-header">Activity</h3>
-          <table class="stats-row stats-table">
-            <tr class='table-hide-mobile add-line'>
-              <th></th>
-              <th>Activity</th>
-              <th></th>
-              <th>Time</th>
-            </tr>
-            <tr class='table-show-mobile'>
-              <th>Activity</th>
-            </tr>
-            <tr class='table-show-mobile add-line'>
-              <th>Time</th>
-            </tr>
-            <?php
-						/*
-              $data=$weeklong->get_activity($name);
-              foreach($data as $activity){
-                $user_1 = $user->get_user_username($activity["user_1"]);
-                $action = $activity["action"];
-                $user_2 = $user->get_user_username($activity["user_2"]);
-                $time = $activity["time"];
-                echo "<tr class='table-hide-mobile add-line'>";
-	                echo "<td>".$user_1."</td>";
-	                echo "<td>".$action."</td>";
-	                echo "<td>".$user_2."</td>";
-	                echo "<td>".$time."</td>";
-                echo "</tr>";
-
-                echo "<tr class='table-show-mobile'><td>".$user_1."</td></tr>";
-                echo "<tr class='table-show-mobile'><td>".$action."</td></tr>";
-                if($user_2 != null)
-                  echo "<tr class='table-show-mobile'><td>".$user_2."</td></tr>";
-                echo "<tr class='table-show-mobile add-line'><td>".$time."</td></tr>";
-              }
-							*/
-            ?>
-          </table>
-        </div>
-			-->
 
         <script src="/js/tabs_2.0.js"></script>
 

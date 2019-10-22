@@ -1,19 +1,61 @@
-
+.cell-container {
+  padding: 5px 0;
+  text-align: left;
+  display: inline-block;
+}
+.cell {
+  display: inline-block;
+  margin: auto 0 auto 0;
+  text-align: left;
+  background-color: transparent;
+}
+.save-button {
+  padding: 0 5px !important;
+}
 .table {
     display: table;
     width: 100%;
 }
 .table-row {
-    text-align: center;
-    vertical-align: middle;
-}
-.cell{
   display: inline-block;
+  width: 100%;
   text-align: left;
 }
-.cell-container {
+.table-cell {
+  display: inline-block;
+  float: left;
+}
+.table-cell-username {
+  min-width: 40%;
+  display: inline-block;
+  margin: 5px 2% 5px 2%;
+}
+.table-cell-number {
+  min-width: 12%;
+  display: inline-block;
+  margin: 5px 2% 5px 2%;
+}
+.table-cell-status {
+  min-width: 20%;
+  display: inline-block;
+  margin: 5px 2% 5px 2%;
+}
+@media (max-width: 600px){
+  .table-cell-username {
+    width: 96%;
     display: inline-block;
-    padding: 5px;
+    margin: 5px 2% 5px 2%;
+  }
+  .table-cell-number {
+    min-width: 58px;
+    display: inline-block;
+    margin: 5px 2% 5px 2%;
+  }
+  .table-cell-status {
+    min-width: 70px;
+    display: inline-block;
+    margin: 5px 2% 5px 2%;
+  }
 }
 
 .mod a {
@@ -70,6 +112,8 @@
   color: #D1D1D1;
   font-weight: 400;
   font-size: 20px;
+  display: inline-block;
+  width: 100%;
 }
 
 .stats-row th, td {
@@ -120,7 +164,11 @@
 }
 
 .tablink {
-  width: 150px;
+  max-width: 150px;
+}
+
+.small-tab {
+  padding: 0 10px 0 10px;
 }
 
 /* Style the tab content */
@@ -331,23 +379,24 @@ padding: 0 50px 0 50px;
 .feedzombiestable {
   border: 1px solid rgba(255, 255, 255, 0.5);
   padding-left: 10px;
+  width: 100%;
 }
 
 .feedzombiestable th, .feedzombiestable td {
     border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-    width: 20%;
+    /* width: 20%; */
     text-align: center;
   }
 
 #table1 td {
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-  width: 20%;
+  /* width: 20%; */
   text-align: center;
 }
 
-#table1 .select {
-  width: 10%;
-  padding-left: 15px;
+.select {
+  /* width: 10%;
+  padding-left: 15px; */
 }
 
 #table1 .starve {
