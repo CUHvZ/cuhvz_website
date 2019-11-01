@@ -18,6 +18,7 @@ class Weeklong{
   			$stmt = $this->_db->prepare('SELECT * FROM weeklongs WHERE active>0 LIMIT 1');
   			$stmt->execute(array());
   			$row = $stmt->fetch();
+  			$_SESSION["weeklong_id"] = $row["id"];
   			$_SESSION["weeklong"] = $row["name"];
   			$_SESSION["title"] = $row["title"];
   			$_SESSION["started"] = $row["started"];

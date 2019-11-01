@@ -20,10 +20,12 @@ if(isset($_POST['submit'])){
 
 	$username = $_POST['username'];
 	$password = $_POST['password'];
+	// error_log($username, 0);
 
 	if($user->login($username,$password)){
-		if(isset($_GET['join']) && isset($_GET['eventId'])){
-			header('Location: profile.php?join='.$_GET['join']."&eventId=".$_GET['eventId']);
+		if(isset($_GET['joinEvent'])){
+			$weeklongID = $_GET["joinEvent"];
+			header('Location: profile.php?joinEvent='.$weeklongID);
 		}
 		else{
 			header('Location: profile.php');

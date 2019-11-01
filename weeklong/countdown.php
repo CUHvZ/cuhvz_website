@@ -8,9 +8,9 @@
       <h2 class="section-heading orange">
         <?php
           if(isset($_SESSION["title"])){
-            $weeklong = $_SESSION["weeklong"];
+            $weeklongID = $_SESSION["weeklong_id"];
             $title = $_SESSION["title"];
-            echo "<a href='/weeklong/info.php?name=$weeklong'>$title</a>";
+            echo "<a href='/weeklong/info.php?id=$weeklongID'>$title</a>";
           }
           else
             echo "Weeklong Game";
@@ -55,16 +55,17 @@
       <?php
       // if(!$_SESSION["started"]){
       //   if($user->is_logged_in()){
-      //     $signupLink = "/profile.php?join=".$_SESSION['title']."&eventId=".$_SESSION['weeklong'];
+      //     $signupLink = "/profile.php?joinEvent=$weeklongID";
       //   }else{
-      //     $signupLink = "/login.php?join=".$_SESSION['title']."&eventId=".$_SESSION['weeklong'];
+      //     $signupLink = "/login.php?joinEvent=$weeklongID";
       //   }
       //   echo "<p><a href='$signupLink'>Wanna play? Be sure to register for the game.</a></p>";
       // }
+      $weeklongID = $_SESSION["weeklong_id"];
       if($user->is_logged_in()){
-        $signupLink = "/profile.php?join=".$_SESSION['title']."&eventId=".$_SESSION['weeklong'];
+        $signupLink = "/profile.php?joinEvent=$weeklongID";
       }else{
-        $signupLink = "/login.php?join=".$_SESSION['title']."&eventId=".$_SESSION['weeklong'];
+        $signupLink = "/login.php?joinEvent=$weeklongID";
       }
       if(!$_SESSION["started"]){
         echo "<p><a href='$signupLink'>Wanna play? Be sure to register for the game.</a></p>";

@@ -54,7 +54,7 @@ $(document).ready(function(){
 						$weeklongDetails = $db->executeQueryFetch($query);
 
 						$event = $db->executeQueryFetch("SELECT * FROM weeklongs where id=$weeklongID;");
-            echo "<h3 class='title-link' style='margin: 0;'><a href='/weeklong/info.php?name=".$event["name"]."'>".$event["title"]."</a></h3>";
+            echo "<h3 class='title-link' style='margin: 0;'><a href='/weeklong/info.php?id=$weeklongID'>".$event["title"]."</a></h3>";
             echo "<p>".$event["display_dates"].", ".substr($event["start_date"],0,4)." | ";
             	echo "<a href='/weeklong/stats.php?name=".$event["name"]."' >stats</a> | ";
             	echo "<a href='".$weeklongDetails["waiver_link_path"]."' target='_blank'>waiver</a>";
@@ -64,14 +64,15 @@ $(document).ready(function(){
 						if(isset($_SESSION["started"]) && !$_SESSION["started"]){
 	            echo "Wanna play in this event?";
 	            echo "<h3 style='margin: 0;'>";
+							$weeklongID = $_SESSION["weeklong_id"];
 	            if($user->is_logged_in()){
 	                  if($user->is_in_event($event["name"])){
 	                        // echo "<a href='/profile.php?leave=".$event["title"]."&eventId=".$event["name"]."'' >Leave event</a>";
 	                  }else{
-	                        echo "<a href='/profile.php?join=".$event["title"]."&eventId=".$event["name"]."'' >Join Now!</a>";
+	                        echo "<a href='/profile.php?joinEvent=$weeklongID'' >Join Now!</a>";
 	                  }
 	            }else{
-	                  echo "<a href='/login.php?join=".$event["title"]."&eventId=".$event["name"]."' >Join Now!</a></td>";
+	                  echo "<a href='/login.php?joinEvent=$weeklongID' >Join Now!</a></td>";
 	            }
 	            echo "</h3>";
 						}

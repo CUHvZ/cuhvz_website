@@ -19,17 +19,18 @@
         echo "<h3 class='title-link-black' style='margin: 0;'><a href='weeklong/info.php?name=$weeklongName'>$weeklongTitle</a></h3>";
         if($weeklong->is_active($weeklongName)){ // Displays if event options
               //echo "<h3 style='margin: 0;'>";
+							$weeklongID = $_SESSION["weeklong_id"];
               if($user->is_logged_in()){
                     if($user->is_in_event($weeklong)){
                           // echo "Wanna leave this event?<h3 style='margin: 0;'>";
                           // echo "<a href='/profile.php?leave=".$event["title"]."&eventId=".$event["name"]."'' >Leave event</a>";
                     }else{
                           echo "Wanna play in this event?<h3 style='margin: 0;'>";
-                          echo "<a href='/profile.php?join=$weeklongTitle&eventId=$weeklongName'' >Join Now!</a>";
+                          echo "<a href='/profile.php?joinEvent=$weeklongID' >Join Now!</a>";
                     }
               }else{
                     echo "Wanna play in this event?<h3 style='margin: 0;'>";
-                    echo "<a href='/login.php?join=$weeklongTitle&eventId=$weeklongName' >Join Now!</a></td>";
+                    echo "<a href='/login.php?joinEvent=$weeklongID' >Join Now!</a></td>";
               }
                     echo "</h3>";
         }else{
