@@ -11,15 +11,15 @@
 		$id = $_SESSION['id'];
 		$weeklongName = $_SESSION["weeklong"];
 		$weeklongTitle = $_SESSION["title"];
+		$weeklongID = $_SESSION["weeklong_id"];
 		$query = "SELECT $weeklongName.*, users.id FROM $weeklongName INNER JOIN users ON $weeklongName.user_id=users.id where users.id=$id";
 		$database = new Database();
 		$stats = $database->executeQueryFetch($query);
 		// $event = $weeklong->get_weeklong($_SESSION["weeklong"]);
 		echo "<div class='black'>";
-        echo "<h3 class='title-link-black' style='margin: 0;'><a href='weeklong/info.php?name=$weeklongName'>$weeklongTitle</a></h3>";
+        echo "<h3 class='title-link-black' style='margin: 0;'><a href='weeklong/info.php?id=$weeklongID'>$weeklongTitle</a></h3>";
         if($weeklong->is_active($weeklongName)){ // Displays if event options
               //echo "<h3 style='margin: 0;'>";
-							$weeklongID = $_SESSION["weeklong_id"];
               if($user->is_logged_in()){
                     if($user->is_in_event($weeklong)){
                           // echo "Wanna leave this event?<h3 style='margin: 0;'>";
@@ -41,17 +41,17 @@
               // }
         }
         echo "<p>".$_SESSION["weeklong_dates"]." | ";
-        echo "<a href='weeklong/info.php?name=$weeklongName' >mission details</a> | ";
-        echo "<a href='weeklong/stats.php?name=$weeklongName' >stats</a></p>";
+        echo "<a href='weeklong/info.php?id=$weeklongID' >mission details</a> | ";
+        echo "<a href='weeklong/stats.php?id=$weeklongID' >stats</a></p>";
         echo "</div>";
 
-				if($stats["status"] == "human"){
+				if($stats["status"] == "human" && $_SESSION["started"]){
 					echo "<div>";
 						echo "Getting bored of being a human? <a href='/kys.php' >Join the horde here.</a>";
 					echo "</div>";
 				}
 				if(!$_SESSION["started"] && $stats["status"] != "zombie"){
-					echo "<br/><div>";
+					echo "<div>";
 						echo "Want to start out a zombie? You get 50 bonus starting points if you do.";
 						echo "<input class='button-primary' type='submit' name='oz' value='Become an Original Zombie' id='submit' onclick=\"window.location='/oz.php';\">\n";
 					echo "</div>";
@@ -72,7 +72,8 @@
 			</td>
 		</tr>
 		<?php
-		$starveTimer = (new StarveDate($stats["starve_date"]))->getStarveTimer();
+		$eventStartDateString = $database->executeQueryFetch("select start_date from weeklongs where name='$weeklongName'")["start_date"];
+		$starveTimer = (new StarveDate($stats["starve_date"]))->getStarveTimer($eventStartDateString);
 		$points = $stats["points"];
 		echo "<tr>
 						<td class='subheader deeporange'>Starve Timer</td>

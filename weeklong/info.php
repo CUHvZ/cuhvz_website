@@ -56,7 +56,7 @@ $(document).ready(function(){
 						$event = $db->executeQueryFetch("SELECT * FROM weeklongs where id=$weeklongID;");
             echo "<h3 class='title-link' style='margin: 0;'><a href='/weeklong/info.php?id=$weeklongID'>".$event["title"]."</a></h3>";
             echo "<p>".$event["display_dates"].", ".substr($event["start_date"],0,4)." | ";
-            	echo "<a href='/weeklong/stats.php?name=".$event["name"]."' >stats</a> | ";
+            	echo "<a href='/weeklong/stats.php?id=$weeklongID' >stats</a> | ";
             	echo "<a href='".$weeklongDetails["waiver_link_path"]."' target='_blank'>waiver</a>";
 						echo "</p>";
           }

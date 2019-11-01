@@ -62,17 +62,17 @@
       //   echo "<p><a href='$signupLink'>Wanna play? Be sure to register for the game.</a></p>";
       // }
       $weeklongID = $_SESSION["weeklong_id"];
+      $startDate = new DateTime(date($_SESSION["start_date"]));
+      $currentTime = new DateTime(date('Y-m-d H:i:s'));
       if($user->is_logged_in()){
         $signupLink = "/profile.php?joinEvent=$weeklongID";
       }else{
         $signupLink = "/login.php?joinEvent=$weeklongID";
       }
-      if(!$_SESSION["started"]){
+      if($currentTime < $startDate){
         echo "<p><a href='$signupLink'>Wanna play? Be sure to register for the game.</a></p>";
       }else{
-        $startDate = new DateTime(date($_SESSION["start_date"]));
         $lateStartDate = $startDate->format('Y-m-d')." 17:00:00";
-        $currentTime = new DateTime(date('Y-m-d H:i:s'));
         $lateStartDate = new DateTime(date($lateStartDate));
         // error_log($lateStartDate->format('Y-m-d H:i:s'), 0);
         if($currentTime < $lateStartDate){
