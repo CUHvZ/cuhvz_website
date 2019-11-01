@@ -16,8 +16,9 @@
       $query = "SELECT $weeklongName.*, users.username, users.admin FROM $weeklongName INNER JOIN users ON $weeklongName.user_id=users.id where users.admin=0 order by points DESC limit 3";
       $database = new Database();
       $data = $database->executeQueryFetchAll($query);
+      $eventStartDateString = $database->executeQueryFetch("select start_date from weeklongs where name='$weeklongName'")["start_date"];
       foreach($data as $player){
-        $starveTimer = (new StarveDate($player["starve_date"]))->getStarveTimer();
+        $starveTimer = (new StarveDate($player["starve_date"]))->getStarveTimer($eventStartDateString);
         $points = $player["points"];
         if($points == null){
           $points = 0;

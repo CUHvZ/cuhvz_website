@@ -8,11 +8,17 @@ class StarveDate{
   	$this->dateString = $dateString;
   }
 
-  public function getStarveTimer(){
+  public function getStarveTimer($eventStartDateString = null){
     $starveDate = new DateTime(date($this->dateString));
     $currentTime = new DateTime(date('Y-m-d H:i:s'));
+      if($eventStartDateString != null){
+    $eventStartDate = new DateTime(date($eventStartDateString));
+      if($eventStartDate > $currentTime){
+        return "--:--";
+      }
+    }
     if($starveDate < $currentTime){
-      return "0:0";
+      return "--:--";
     }else{
       $timeLeft = $currentTime->diff($starveDate);
       $hours = $timeLeft->format('%H')+($timeLeft->format('%a')*24);

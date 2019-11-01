@@ -17,10 +17,11 @@
       $query = "SELECT $weeklongName.*, users.username, users.admin FROM $weeklongName INNER JOIN users ON $weeklongName.user_id=users.id where status='zombie'";
       $database = new Database();
       $data = $database->executeQueryFetchAll($query);
+      $eventStartDateString = $database->executeQueryFetch("select start_date from weeklongs where name='$weeklongName'")["start_date"];
       if($displayStats && $data != null){
         foreach($data as $zombie){
           $status = $zombie["status_type"];
-          $starveTimer = (new StarveDate($zombie["starve_date"]))->getStarveTimer();
+          $starveTimer = (new StarveDate($zombie["starve_date"]))->getStarveTimer($eventStartDateString);
           $points = $zombie["points"];
           if($points == null){
             $points = 0;
@@ -39,7 +40,7 @@
                 echo "<span class='table-cell-status'>".$status."</span>"."\n";
                 echo "<span id='kills' class='table-cell-number'>".$kills."</span>"."\n";
                 echo "<span id='points' class='table-cell-number'>".$points."</span>"."\n";
-                echo "<span class='red table-cell-number' id='starve'>".$starveDate->getStarveTimer()."</span>"."\n";
+                echo "<span class='red table-cell-number' id='starve'>".$starveTimer."</span>"."\n";
               echo "</div>";
             echo "</td>";
           echo "</tr>"."\n";
