@@ -472,9 +472,13 @@ class Weeklong{
           array_push($zombieIDs, $OZ_ID);
       }
     }
-    $now = (new DateTime(date('Y-m-d H:i:s')))->format('Y-m-d H:i:s');
+    $now = new DateTime(date('Y-m-d H:i:s'));
+    $starveDate = date_add($now, date_interval_create_from_date_string("48 hours"));
+    $starveDate = $starveDate->format('Y-m-d H:i:s');
     foreach($zombieIDs as $zombie_id){
-      $query = "update $name set status='zombie', status_type='OZ', points=50, starve_date=($now + INTERVAL 2 DAY) where user_id=$zombie_id";
+
+      // update weeklongF19 set status='zombie', status_type='OZ', points=50, starve_date=(2019-11-01 13:31:52 + INTERVAL 2 DAY) where user_id=1001
+      $query = "update $name set status='zombie', status_type='OZ', points=50, starve_date='$starveDate' where user_id=$zombie_id";
       $error = $db->executeQuery($query);
       if(isset($error["error"]))
         error_log("could not make id $zombie_id into an OZ");
