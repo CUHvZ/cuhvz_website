@@ -48,7 +48,7 @@ function buildPlayerrRow($player){
   </div>
   <div>
     <div id="CreateCode" class="active-game-tabs tabcontent">
-      <?php include $_SERVER['DOCUMENT_ROOT']."/components/admin/functions/create_code.php"; ?>
+      <?php include $_SERVER['DOCUMENT_ROOT']."/components/admin/create-code-table.php"; ?>
     </div>
     <!-- <div id="CreateCode" class="active-game-tabs tabcontent">
       <?php // include $_SERVER['DOCUMENT_ROOT']."/components/admin/functions/create_code.php"; ?>

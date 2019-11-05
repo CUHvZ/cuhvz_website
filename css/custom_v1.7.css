@@ -967,6 +967,12 @@ a:hover {
   color: #000000;
 }
 
+.bg-warning {
+  padding: 10px;
+  background-color: #ccc14b;
+  color: #000000;
+}
+
 
 /* MEDIA QUERY
 –––––––––––––––––––––––––––––––––––––––––––––––––– */

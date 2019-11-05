@@ -66,7 +66,7 @@
 			<td class="subheadline">
 				<?php
 					echo $stats["status"];
-					if($stats["status"] == "zombie")
+					if($stats["status_type"] != "normal")
 						echo " (".$stats["status_type"].")";
 				?>
 			</td>

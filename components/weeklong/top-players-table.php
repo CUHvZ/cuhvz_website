@@ -23,6 +23,11 @@
         if($points == null){
           $points = 0;
         }
+        $username = $player["username"];
+        $status = "";
+        if($player["status_type"] != "normal"){
+          $status = "(".$player["status_type"].")";
+        }
         $style = "";
         if($player["status"] == "human")
             $style = "style='color: #34abeb;'";
@@ -33,7 +38,7 @@
         echo "<tr class='add-line'>"."\n";
           echo "<td class='table-row'";
             echo "<div class='table-row'>";
-              echo "<span class='table-cell-username' $style>".$player["username"]."</span>"."\n";
+              echo "<span class='table-cell-username' $style>$username $status</span>"."\n";
               echo "<span class='table-cell-number'>".$points."</span>"."\n";
               echo "<span class='red table-cell-number'>".$starveTimer."</span>"."\n";
             echo "</div>";

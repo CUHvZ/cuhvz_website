@@ -26,6 +26,10 @@
           $points = 0;
         }
         $username = $player["username"];
+        $status = "";
+        if($player["status_type"] != "normal"){
+          $status = "(".$player["status_type"].")";
+        }
         if($player["admin"] > 0)
           $username = $username."<sub style='color: #eb42f4;'>M</sub>";
         $style = "";
@@ -38,7 +42,7 @@
         echo "<tr class='add-line'>"."\n";
           echo "<td class='table-row'";
             echo "<div class='table-row'>";
-              echo "<span id='username' class='table-cell-username' $style>".$username."</span>"."\n";
+              echo "<span id='username' class='table-cell-username' $style>$username $status</span>"."\n";
               echo "<span id='points' class='table-cell-number'>".$points."</span>"."\n";
               echo "<span class='red table-cell-number' id='starve'>".$starveDate->getStarveTimer($eventStartDateString)."</span>"."\n";
             echo "</div>";
