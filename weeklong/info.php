@@ -47,44 +47,57 @@ $(document).ready(function(){
 
 				$weeklongID = null;
 				$weeklongDetails = null;
-          if(isset($_GET["id"])){
-						$weeklongID = $_GET["id"];
+				$weeklongStarted = false;
+				if(isset($_SESSION["started"])){
+					$weeklongStarted = $_SESSION["started"];
+				}
+        if(isset($_GET["id"])){
+					$weeklongID = $_GET["id"];
 
-						$query = "select * from weeklong_details where weeklong_id=$weeklongID;";
-						$weeklongDetails = $db->executeQueryFetch($query);
+					$query = "select * from weeklong_details where weeklong_id=$weeklongID;";
+					$weeklongDetails = $db->executeQueryFetch($query);
 
-						$event = $db->executeQueryFetch("SELECT * FROM weeklongs where id=$weeklongID;");
-            echo "<h3 class='title-link' style='margin: 0;'><a href='/weeklong/info.php?id=$weeklongID'>".$event["title"]."</a></h3>";
-            echo "<p>".$event["display_dates"].", ".substr($event["start_date"],0,4)." | ";
-            	echo "<a href='/weeklong/stats.php?id=$weeklongID' >stats</a> | ";
-            	echo "<a href='".$weeklongDetails["waiver_link_path"]."' target='_blank'>waiver</a>";
-						echo "</p>";
-          }
-          if($weeklong->is_active($event["id"])){ // Displays if event options
-						if(isset($_SESSION["started"]) && !$_SESSION["started"]){
-	            echo "Wanna play in this event?";
-	            echo "<h3 style='margin: 0;'>";
-							$weeklongID = $_SESSION["weeklong_id"];
-	            if($user->is_logged_in()){
-	                  if($user->is_in_event($event["name"])){
-	                        // echo "<a href='/profile.php?leave=".$event["title"]."&eventId=".$event["name"]."'' >Leave event</a>";
-	                  }else{
-	                        echo "<a href='/profile.php?joinEvent=$weeklongID'' >Join Now!</a>";
-	                  }
-	            }else{
-	                  echo "<a href='/login.php?joinEvent=$weeklongID' >Join Now!</a></td>";
-	            }
-	            echo "</h3>";
+					$event = $db->executeQueryFetch("SELECT * FROM weeklongs where id=$weeklongID;");
+          echo "<h3 class='title-link' style='margin: 0;'><a href='/weeklong/info.php?id=$weeklongID'>".$event["title"]."</a></h3>";
+          echo "<p>".$event["display_dates"].", ".substr($event["start_date"],0,4)." | ";
+          	echo "<a href='/weeklong/stats.php?id=$weeklongID' >Stats</a> | ";
+          	echo "<a href='".$weeklongDetails["waiver_link_path"]."' target='_blank'>Waiver</a>";
+						if($weeklongStarted && $user->is_logged_in() && $user->is_in_event($event["name"])){
+							echo " | <a href='/entercode.php' >Enter Code</a>";
+							$weeklongName = $event["name"];
+							$userID = $_SESSION['id'];
+							$data = $db->executeQueryFetch("select status from $weeklongName where user_id=$userID");
+							if($data["status"] == "zombie"){
+								echo " | <a href='/logkill.php' >Log Kill</a>";
+							}
 						}
-
-          }else{
-            if($event["active"] == 0){
-                //echo "Event has ended</td>"."\n";
+					echo "</p>";
+        }
+        if($weeklong->is_active($event["id"])){ // Displays if event options
+					if($weeklongStarted){
+						$weeklongID = $_SESSION["weeklong_id"];
+            if($user->is_logged_in()){
+                  if($user->is_in_event($event["name"])){
+                        // echo "<a href='/profile.php?leave=".$event["title"]."&eventId=".$event["name"]."'' >Leave event</a>";
+                  }else{
+				            echo "Wanna play in this event?";
+				            echo "<h3 style='margin: 0;'>";
+                    echo "<a href='/profile.php?joinEvent=$weeklongID'' >Join Now!</a>";
+                  }
             }else{
-                echo "Event isn't ready yet</td>"."\n";
+                  echo "<a href='/login.php?joinEvent=$weeklongID' >Join Now!</a></td>";
             }
+            echo "</h3>";
+					}
+
+        }else{
+          if($event["active"] == 0){
+              //echo "Event has ended</td>"."\n";
+          }else{
+              echo "Event isn't ready yet</td>"."\n";
           }
-?>
+        }
+				?>
       	<div class="white">
         </div>
 			<div style="margin: auto; text-align: center;">

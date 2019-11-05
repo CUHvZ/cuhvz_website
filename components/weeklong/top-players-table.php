@@ -46,15 +46,3 @@
 
 
 </table>
-
-
-<div class="outer-div">
-  <div class="inner-div">
-    <ul class="pagination pagination-lg pager hide-mobile" id="top-players-table-pager"></ul>
-  </div>
-</div>
-<div class="outer-div">
-  <div class="inner-div">
-    <ul class="pagination pagination-lg pager show-mobile" id="top-players-table-mobile-pager"></ul>
-  </div>
-</div>

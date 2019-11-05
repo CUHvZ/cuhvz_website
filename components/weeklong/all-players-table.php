@@ -31,10 +31,10 @@
         $style = "";
         if($player["status"] == "human")
             $style = "style='color: #34abeb;'";
-        else if(strrpos($player["status"], "zombie") >= 0)
+        else if($player["status"] == "zombie")
             $style = "style='color: #40eb34;'";
-        else if(strrpos($player["status"], "dead") >= 0)
-            $style = "style='color: #ff0000;'";
+        else if($player["status"] == "deceased")
+            $style = "style='color: #ffffff; text-decoration: line-through;'";
         echo "<tr class='add-line'>"."\n";
           echo "<td class='table-row'";
             echo "<div class='table-row'>";

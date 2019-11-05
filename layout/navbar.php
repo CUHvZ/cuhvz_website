@@ -94,10 +94,10 @@ $(document).ready(function(){
             if($status == "human"){
               $kys_button_display = "block";
               // echo "<li><a id='kys_button' href='/kys.php'>Join The Horde</a></li>";
-              echo "<li><a id='code_button' href='/entercode.php'>Codes</a></li>";
+              // echo "<li><a id='code_button' href='/entercode.php'>Code</a></li>";
             }else if($status == "zombie"){
               $logkill_button_display = "block";
-              echo "<li><a id='logkill_button' href='/logkill.php'>Log Kill</a></li>";
+              // echo "<li><a id='logkill_button' href='/logkill.php'>Log Kill</a></li>";
             }
           }
           // echo "<li style='display: ".$kys_button_display.";'><a id='kys_button' href='/kys.php'>Join The Horde</a></li>";
