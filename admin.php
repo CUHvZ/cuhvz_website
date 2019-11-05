@@ -61,7 +61,7 @@ if(isset($_POST['submit'])){
 	}
 }
 ?>
-<!-- onload="openTab(event, '<?php echo $onLoad; ?>')" -->
+<!-- onload="openTab('<?php echo $onLoad; ?>')" -->
 <body>
 
 	<?php
@@ -82,17 +82,17 @@ ___________________________________________-->
 				 <?php
 		 			 if(Weeklong::active_event()){
 						 $weeklongTitle = $_SESSION["title"];
-						 echo "<button class='tablink' id='ActiveGame-button' onclick=\"openTab(event, 'ActiveGame')\">$weeklongTitle</button>";
+						 echo "<button class='tablink-full tablink' id='ActiveGame-tab-button' onclick=\"openTab('ActiveGame')\">$weeklongTitle</button>";
 					 }
 		 	 	 ?>
 			 </span>
 	 		<span class="tab">
-	 			<button class="tablink" id="Users-button" onclick="openTab(event, 'Users')">Users</button>
-	 			<!-- <button class="tablink" id="Database-button" onclick="openTab(event, 'Database')">Database</button> -->
+	 			<button class="tablink" id='Users-tab-button' id="Users-button" onclick="openTab('Users')">Users</button>
+	 			<!-- <button class="tablink" id="Database-button" onclick="openTab('Database')">Database</button> -->
 	 		</span>
 	 		<span class="tab">
-			<button class="tablink" id="Weeklong-button" onclick="openTab(event, 'Weeklong')">Weeklong</button>
-	 			<!-- <button class="tablink" id="Scripts-button" onclick="openTab(event, 'Scripts')">Scripts</button> -->
+			<button class="tablink" id='Weeklong-tab-button' id="Weeklong-button" onclick="openTab('Weeklong')">Weeklong</button>
+	 			<!-- <button class="tablink" id="Scripts-button" onclick="openTab('Scripts')">Scripts</button> -->
 	 		</span>
 	 	</div>
 		<div id="tab-container">

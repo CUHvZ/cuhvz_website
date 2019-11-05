@@ -103,13 +103,13 @@ $title = 'CU HvZ | ';
         </div>
         <div style="margin: auto; text-align: center;">
           <span class="tab">
-            <button class="tablink active" onclick="openTab(event, 'All')">All: <?php echo $numPlayers; ?></button>
-            <button class="tablink" onclick="openTab(event, 'Humans')">Humans: <?php echo $numHumans; ?></button>
+            <button class="tablink active" id='All-tab-button' onclick="openTab('All')">All: <?php echo $numPlayers; ?></button>
+            <button class="tablink" id='Humans-tab-button' onclick="openTab('Humans')">Humans: <?php echo $numHumans; ?></button>
           </span>
           <span class="tab">
-						<button class="tablink" onclick="openTab(event, 'Zombies')">Zombies: <?php echo $numZombies; ?></button>
-            <button class="tablink" onclick="openTab(event, 'Deceased')">Dead: <?php echo $numDead; ?></button>
-            <!-- <button class="tablink" onclick="openTab(event, 'Activity')">Activity</button> -->
+						<button class="tablink" id='Zombies-tab-button' onclick="openTab('Zombies')">Zombies: <?php echo $numZombies; ?></button>
+            <button class="tablink" id='Dead-tab-button' onclick="openTab('Deceased')">Dead: <?php echo $numDead; ?></button>
+            <!-- <button class="tablink" onclick="openTab('Activity')">Activity</button> -->
           </span>
         </div>
 				<div id="tab-container">

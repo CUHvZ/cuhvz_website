@@ -167,6 +167,10 @@
   max-width: 150px;
 }
 
+.tablink-full {
+  max-width: 100%;
+}
+
 .small-tab {
   padding: 0 10px 0 10px;
 }

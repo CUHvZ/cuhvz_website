@@ -19,7 +19,7 @@ function formatTabContent(divID)
 }
 $(document).ready(function(){
 	// Open Details tab by default
-	openTab(event, 'Details');
+	openTab('Details');
 	// Format the tabs html
 	formatTabContent('Details');
 	formatTabContent('Monday');
@@ -102,22 +102,22 @@ $(document).ready(function(){
         </div>
 			<div style="margin: auto; text-align: center;">
 	 	 		<span class="tab">
-	 	 			<button class="tablink small-tab" id="Details-button" onclick="openTab(event, 'Details')">Details</button>
+	 	 			<button class="tablink small-tab" id="Details-tab-button" onclick="openTab('Details')">Details</button>
 				</span>
 	 	 		<span class="tab">
-	 	 			<button class="tablink small-tab" id="Monday-button" onclick="openTab(event, 'Monday')">Monday</button>
+	 	 			<button class="tablink small-tab" id="Monday-tab-button" onclick="openTab('Monday')">Monday</button>
 	 	 		</span>
 	 	 		<span class="tab">
-	 			<button class="tablink small-tab" id="Tuesday-button" onclick="openTab(event, 'Tuesday')">Tuesday</button>
+	 			<button class="tablink small-tab" id="Tuesday-tab-button" onclick="openTab('Tuesday')">Tuesday</button>
 	 	 		</span>
 	 	 		<span class="tab">
-	 			<button class="tablink small-tab" id="Wednesday-button" onclick="openTab(event, 'Wednesday')">Wednesday</button>
+	 			<button class="tablink small-tab" id="Wednesday-tab-button" onclick="openTab('Wednesday')">Wednesday</button>
 	 	 		</span>
 	 	 		<span class="tab">
-	 			<button class="tablink small-tab" id="Thursday-button" onclick="openTab(event, 'Thursday')">Thursday</button>
+	 			<button class="tablink small-tab" id="Thursday-tab-button" onclick="openTab('Thursday')">Thursday</button>
 	 	 		</span>
 	 	 		<span class="tab">
-	 			<button class="tablink small-tab" id="Friday-button" onclick="openTab(event, 'Friday')">Friday</button>
+	 			<button class="tablink small-tab" id="Friday-tab-button" onclick="openTab('Friday')">Friday</button>
 	 	 		</span>
 	 	 	</div>
 

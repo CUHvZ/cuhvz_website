@@ -1,14 +1,17 @@
 <?php
 class Code{
 
+  // Effecs
   public static $SUPPLY = 1;
   public static $POINTS = 2;
   public static $MISSION = 3;
   public static $REVIVE = 4;
+  // Side effects
+  public static $POISONED = 1;
 
   private $name, $locationID, $hex, $effect, $sideEffect, $singleUse, $numUses, $expiration, $used, $userID, $codeID, $timeUsed;
 
-  function __construct($name, $hex, $effect, $sideEffect=""){
+  function __construct($name, $hex, $effect, $sideEffect=null){
     $this->name = $name;
     $this->hex = $hex;
     $this->effect = $effect;
@@ -67,7 +70,7 @@ class Code{
   }
 
   public function getQuerry() {
-    
+
   }
 }
 ?>
