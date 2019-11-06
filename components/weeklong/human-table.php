@@ -25,8 +25,8 @@
         }
         $username = $human["username"];
         $status = "";
-        if($human["status_type"] != "normal"){
-          $status = "(".$human["status_type"].")";
+        if($human["status_type"] == "poisoned"){
+          $status = "<span style='color: #40eb34;'>(Poisoned)</span>";
         }
         if($human["admin"] > 0)
           $username = $username."<sub style='color: #eb42f4;'>M</sub>";

@@ -25,8 +25,8 @@
         }
         $username = $player["username"];
         $status = "";
-        if($player["status_type"] != "normal"){
-          $status = "(".$player["status_type"].")";
+        if($player["status_type"] == "poisoned"){
+          $status = "<span style='color: #40eb34;'>(Poisoned)</span>";
         }
         $style = "";
         if($player["status"] == "human")

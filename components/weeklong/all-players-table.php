@@ -27,8 +27,8 @@
         }
         $username = $player["username"];
         $status = "";
-        if($player["status_type"] != "normal"){
-          $status = "(".$player["status_type"].")";
+        if($player["status_type"] == "poisoned"){
+          $status = "<span class='tooltip' style='color: #40eb34;'>(Poisoned)</span>";
         }
         if($player["admin"] > 0)
           $username = $username."<sub style='color: #eb42f4;'>M</sub>";
