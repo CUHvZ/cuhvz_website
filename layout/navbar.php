@@ -109,8 +109,13 @@ $(document).ready(function(){
           echo "<li><a style='float: right;' id='admin_button' href='/admin.php'>Admin</a></li>";
         }
       }else{
-      	echo "<li><a style='float: right;' id='login_button' href='/login.php'>Login</a></li>";
-      	echo "<li><a style='float: right;' id='signup_button' href='/signup.php'>Sign Up</a></li>";
+        $joinEvent = "";
+        if(isset($_GET['joinEvent'])){
+          $weeklongID = $_GET["joinEvent"];
+          $joinEvent = "?joinEvent=$weeklongID";
+        }
+      	echo "<li><a style='float: right;' id='login_button' href='/login.php$joinEvent'>Login</a></li>";
+      	echo "<li><a style='float: right;' id='signup_button' href='/signup.php$joinEvent'>Sign Up</a></li>";
       }
 
 

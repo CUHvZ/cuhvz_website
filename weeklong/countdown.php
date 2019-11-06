@@ -67,10 +67,10 @@
       if($user->is_logged_in()){
         $signupLink = "/profile.php?joinEvent=$weeklongID";
       }else{
-        $signupLink = "/login.php?joinEvent=$weeklongID";
+        $signupLink = "/signup.php?joinEvent=$weeklongID";
       }
       if($currentTime < $startDate){
-        echo "<p><a href='$signupLink'>Wanna play? Be sure to register for the game.</a></p>";
+        echo "<p><h5><a href='$signupLink'>Wanna play? Join now!</a></h5></p>";
       }else{
         $lateStartDate = $startDate->format('Y-m-d')." 17:00:00";
         $lateStartDate = new DateTime(date($lateStartDate));

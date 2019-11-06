@@ -87,7 +87,7 @@ function formatLockinDates($startDate){
 														if($user->is_logged_in()){
 											        $signupLink = "/profile.php?joinEvent=$weeklongID";
 											      }else{
-											        $signupLink = "/login.php?joinEvent=$weeklongID";
+											        $signupLink = "/signup.php?joinEvent=$weeklongID";
 											      }
 											      if(!$_SESSION["started"]){
 											        echo "<h4 style='margin: 0;'><a href='$signupLink'>Join Now!</a></h4>";
