@@ -6,7 +6,7 @@ $title = 'CU HvZ | ';
 ?>
 <head>
 	<?php require($_SERVER['DOCUMENT_ROOT'].'/layout/header.php'); ?>
-	<script src="/js/tabs_2.0.js"></script>
+	<script src="/js/tabs-3.0.js"></script>
 </head>
 <body>
 	<?php include $_SERVER['DOCUMENT_ROOT'].'/layout/navbar.php'; ?>
