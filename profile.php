@@ -71,6 +71,17 @@ if(isset($_GET['joinEvent'])){
 		}
 		if($weeklongName != null){
 			$user_hex = substr(md5(uniqid(rand(),'')),0,5);
+
+			$query = "select user_hex from $weeklongName";
+			$data = $database->executeQueryFetchAll($query);
+			$takenHexes = [];
+			foreach($data as $row){
+				array_push($takenHexes, $row[0]);
+			}
+			while(in_array($user_hex, $takenHexes)){
+				$user_hex = substr(md5(uniqid(rand(),'')),0,5);
+			}
+
 			$username = $_SESSION['username'];
 			$userID = $_SESSION['id'];
 

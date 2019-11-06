@@ -43,7 +43,7 @@ function createWeeklong($semester, $title, $displayDates, $startDate, $endDate){
     user_id int(11) NOT NULL,
     status varchar(255) NOT NULL DEFAULT 'human',
     username varchar(255) NOT NULL,
-    status_type varchar(255),
+    status_type varchar(255) NOT NULL DEFAULT 'normal',
     status_data varchar(1000),
     user_hex varchar(5) NOT NULL,
     points int(5) DEFAULT '0',
@@ -54,7 +54,8 @@ function createWeeklong($semester, $title, $displayDates, $startDate, $endDate){
     waiver boolean DEFAULT false,
     bandanna boolean DEFAULT false,
     PRIMARY KEY (user_id),
-    UNIQUE KEY user_id ( user_id )
+    UNIQUE KEY user_id ( user_id ),
+    UNIQUE KEY user_hex ( user_hex )
   ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 ;";
 
   $createWeeklongCodesTableQuery = "CREATE TABLE if not exists weeklong".$semester."_codes (
