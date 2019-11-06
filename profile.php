@@ -76,10 +76,12 @@ if(isset($_GET['joinEvent'])){
 
 
 			$now = (new DateTime(date('Y-m-d H:i:s')))->format('Y-m-d H:i:s');
-			$query = "INSERT INTO $weeklongName (user_id,username, user_hex, starve_date) VALUES ($userID, '$username', '$user_hex', ('$now' + INTERVAL 2 DAY))";
+			$status = "human";
 			if(isset($_GET['late']) && $_GET['late']=="zombie"){
-				$query = "INSERT INTO $weeklongName (user_id,username, user_hex, status, status_type, starve_date) VALUES ($userID, '$username', '$user_hex', 'zombie', 'normal', ('$now' + INTERVAL 2 DAY))";
+				$status = "zombie";
 			}
+			$query = "INSERT INTO $weeklongName (user_id,username, user_hex, status, status_type, starve_date) VALUES ($userID, '$username', '$user_hex', '$status', 'normal', ('$now' + INTERVAL 2 DAY))";
+
 			$error = $database->executeQuery($query);
 			if(!isset($error["error"])){
 				echo "<p class='bg-success' style='margin: 0;'> &#10003; <strong>Thanks for signing up for $weeklongTitle!</strong> <br> We'll send you daily updates, so makes sure to check your email and checkout the website!</p>";
