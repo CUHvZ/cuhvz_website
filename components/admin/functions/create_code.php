@@ -1,6 +1,4 @@
 <?php
-if(!$user->is_logged_in()){ header('Location: login.php'); }
-if(!$user->is_admin()){ header('Location: login.php'); }
 if(isset($_POST['submit'])){
   if($_POST['submit'] == "Create Code" && !isset($processing)){
       // prevent multiple requests going through at once

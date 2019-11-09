@@ -3,6 +3,15 @@ label.small{
   font-size: 12px;
 }
 
+ul.plain{
+  list-style-type: disc;
+  background-color: inherit;
+}
+
+li.plain{
+  margin: 0;
+}
+
 .tooltip {
   position: relative;
   display: inline-block;
@@ -517,6 +526,13 @@ padding: 0 50px 0 50px;
 /* NAVBAR
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 
+.nav-container {
+  margin: 0;
+  padding: 0;
+  background-color: #222;
+  overflow: hidden;
+}
+
 ul {
   list-style-type: none;
   margin: 0;
@@ -563,7 +579,7 @@ nav a {
 }
 
 
-li a{
+nav a{
   float: left;
 }
 
@@ -594,15 +610,9 @@ nav a:visited, nav a:link{
 
 /* DROPDOWN MENU */
 
-.navbar{
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  background-color: #222;
-  overflow: hidden;
-}
 
-.dropdown {
+
+.dropdown-navbar {
   float: left;
   overflow: hidden;
   display: block;
@@ -612,13 +622,13 @@ nav a:visited, nav a:link{
   padding: 0.5% 1% 0.5% 1%;
 }
 
-.dropdown .dropbtn:hover {
+.dropdown-navbar .dropbtn:hover {
   background-color: #EA7B00;
   text-decoration: none;
   color: #FFF;
 }
 
-.dropdown .dropbtn {
+.dropdown-navbar .dropbtn {
   color: rgba(255,255,255,.5);
   font-size: 130%;
   font-weight: 700;
@@ -685,6 +695,48 @@ nav a:visited, nav a:link{
 .change .bar3 {
   -webkit-transform: translate(0px, -10px) rotate(45deg);
   transform: translate(0px, -10px) rotate(45deg);
+}
+
+@mixin border($b) {
+  border-radius: 100%;
+  -webkit-border-radius: 100%;
+  -moz-border-radius: 100%;
+}
+
+.profile {
+  position: relative;
+  width: 36px;
+  height: 36px;
+  border-radius: 100%;
+  -webkit-border-radius: 100%;
+  -moz-border-radius: 100%;
+  border: 2px solid rgba(255,255,255,.5);
+  overflow: hidden;
+  background: rgba(255,255,255,.5);
+}
+
+.profile-head {
+  border-radius: 100%;
+  -webkit-border-radius: 100%;
+  -moz-border-radius: 100%;
+  top: 3px;
+  left: 9px;
+  width: 14px;
+  height: 14px;
+  background: #000000;
+  position: absolute;
+}
+
+.profile-body {
+  top: 20px;
+  left: 3px;
+  width: 26px;
+  height: 30px;
+  background: #000000;
+  @border-radius: 100%;
+  -webkit-border-radius: 100%;
+  -moz-border-radius: 100%;
+  position: absolute;
 }
 /*
 nav .rightborder {  border-right: 1px solid rgba(255, 255, 255, 0.2); float: left;}

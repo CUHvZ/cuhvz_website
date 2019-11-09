@@ -124,7 +124,7 @@ if(isset($_POST['submit'])){
       </span>
       <span style="float: left;">
         <label>Date</label><br/>
-        <input class="date" name="date" placeholder="MM/DD/YYYY" type="text"/>
+        <input class="date" name="date" placeholder="MM/DD/YYYY" type="text" autocomplete="off"/>
       </span>
       <input type="hidden" name="tab" value="Weeklong">
       <input type="hidden" name="create_weeklong">

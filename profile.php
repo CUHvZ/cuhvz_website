@@ -157,11 +157,11 @@ if(isset($_GET['kill'])){
       include "components/weeklong/player-stats.php";
       echo "\n<script>\n";
       if($user->get_game_stats()["status"] == "human"){
-        echo "document.getElementById('kys_button').parentNode.style.display = 'block';\n";
-        echo "document.getElementById('logkill_button').parentNode.style.display = 'none';\n";
+        // echo "document.getElementById('kys_button').parentNode.style.display = 'block';\n";
+        // echo "document.getElementById('logkill_button').parentNode.style.display = 'none';\n";
       }else{
-        echo "document.getElementById('logkill_button').parentNode.style.display = 'block';\n";
-        echo "document.getElementById('kys_button').parentNode.style.display = 'none';\n";
+        // echo "document.getElementById('logkill_button').parentNode.style.display = 'block';\n";
+        // echo "document.getElementById('kys_button').parentNode.style.display = 'none';\n";
       }
       echo "</script>\n";
 

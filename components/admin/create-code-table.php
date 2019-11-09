@@ -42,7 +42,7 @@
 				</div>
 
 				<div class="three columns">
-					<label>Location (For supply drops)</label>
+					<label>Location</label>
 					<input name="location" class="function-input u-full-width input-lg" autocomplete="off">
 				</div>
 			</div>
@@ -55,7 +55,7 @@
 
 				<div class="three columns">
 					<label>Expiration</label><br />
-					<input class="date" name="expiration" placeholder="Default midnight" type="text" /><br />
+					<input class="date" name="expiration" placeholder="Default midnight" type="text" autocomplete="off"/><br />
 					<input type='checkbox' name='expire_at_5'>Check for 5pm</input>
 				</div>
 			</div>

@@ -57,7 +57,15 @@ function formatLockinDates($startDate){
             <div class='white'>
             </div> -->
             <!-- Weeklongs -->
-            <h1 class='white' ><strong>Week Longs</strong></h1>
+            <h1 class='white' ><strong>Weeklongs</strong></h1>
+						<div>
+							An HvZ weeklong is a whole-campus game of zombie tag. During a single week, players play the game alongside attending classes and carrying out their lives. But the game is only played outside 8:00-5:00. Starting as a human player, you will do your best to avoid being tagged by zombie players while also completing mission objectives. In short: you will try to survive the week.
+							<br/><br/>
+							Players are marked by a bandana, provided by us. Human players wear their bandana on their arm. Zombie players wear their bandana on their forehead. Game moderators will be marked by two bandanas. When you are zombified, you move your bandana from your arm to your head. You are now a zombie.
+							<br/><br/>
+							For a list of the complete rules visit the <a href="/rules.php">rules page</a>
+						</div>
+						<hr/>
             <?php
 						$database = new Database();
 						$weeklongs = $database->executeQueryFetchAll("SELECT * FROM weeklongs WHERE display=1 ORDER BY start_date DESC");
@@ -67,23 +75,6 @@ function formatLockinDates($startDate){
 												if($event["display"]){
 													if($weeklong->is_active($event["id"])){ // Displays if event options
 														$weeklongID = $_SESSION["weeklong_id"];
-                            //echo "<h3 style='margin: 0;'>";
-                            // if($user->is_logged_in()){
-                            //       if($user->is_in_event($event["name"])){
-                            //             // echo "Wanna leave this event?<h3 style='margin: 0;'>";
-                            //             // echo "<a href='/profile.php?leave=".$event["title"]."&eventId=".$event["name"]."' >Leave event</a>";
-                            //       }else{
-														// 					if(!$_SESSION["started"]){
-                            //             echo "Wanna play in this event?<h3 style='margin: 0;'>";
-                            //             echo "<a href='/profile.php?joinEvent=$weeklongID' >Join Now!</a>";
-														// 					}else{
-														// 						// Late to the game? Join now and become a zombie
-														// 					}
-                            //       }
-                            // }else{
-                            //       echo "Wanna play in this event?<h3 style='margin: 0;'>";
-                            //       echo "<a href='/login.php?joinEvent=$weeklongID' >Join Now!</a></td>";
-                            // }
 														if($user->is_logged_in()){
 											        $signupLink = "/profile.php?joinEvent=$weeklongID";
 											      }else{
@@ -116,6 +107,10 @@ function formatLockinDates($startDate){
             ?>
             <!-- Lockins -->
             <h1 class='white' ><strong>Lock-Ins</strong></h1>
+						<div>
+							An HvZ lock-in is a huge game of zombie tag that occurs in the Engineering center about once a semester, usually the friday before spring or fall break. The night usually consists of 2 rounds. In these rounds there will be a couple of people that start off as zombies that are trying to turn all of the humans into zombies. The humans meanwhile are attempting to complete a mission before they are all zombified. If the humans complete this mission they win. If all of the humans are zombified before they can complete their mission the zombies win. Zombies can turn humans by tagging them, humans can defend themselves with nerf blaster or sock bombs.
+						</div>
+						<hr/>
             <?php
 							$lockins = $database->executeQueryFetchAll("SELECT * FROM lockins WHERE display=1 ORDER BY event_date DESC");
               foreach ($lockins as $event) {
