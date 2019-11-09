@@ -47,7 +47,6 @@ $title = 'CU HvZ | ';
   <div class="player_container">
 
     <div class="content lightslide-list" style="overflow: auto;">
-      <div class="stats-header orange">Player Statistics</div>
 				<?php
 					$database = new Database();
 					$displayStats = false;
@@ -56,24 +55,22 @@ $title = 'CU HvZ | ';
 					$numZombies = 0;
 					$numDead = 0;
 					$weeklongName = "";
+					$weeklongTitle = "";
 					$weeklongID = 0;
+					$zombieTimer = "";
 					if(isset($_GET["id"])){
 						$weeklongID = $_GET["id"];
-						$data = $database->executeQueryFetch("select name from weeklongs where id='$weeklongID'");
+						$data = $database->executeQueryFetch("select * from weeklongs where id='$weeklongID'");
 						if(!isset($data["error"])){
 							$displayStats = true;
 							$weeklongName = $data["name"];
-							echo "<div class='stats-header'>";
-							echo "Zombie Stun Timer: ";
+							$weeklongTitle = $data["title"];
 							$query = "select stun_timer from weeklongs where name='$weeklongName'";
 							$data = $database->executeQueryFetch($query);
 							if(!isset($data["error"])){
 								$date = new DateTime(date('H:i:s', strtotime($data["stun_timer"])));
-								echo $date->format('i\m s\s');
+								$zombieTimer = $date->format('i\m s\s');
 							}
-
-							echo "</div>";
-							echo "<div>";
 
 							$query = "select count(*) as num_players, count(CASE WHEN status='human' THEN status END) as num_humans, count(CASE WHEN status='zombie' THEN status END) as num_zombies, count(CASE WHEN status='deceased' THEN status END) as num_dead from $weeklongName;";
 							$data = $database->executeQueryFetch($query);
@@ -94,6 +91,11 @@ $title = 'CU HvZ | ';
 						}
           }
         ?>
+	      <h1 class='stats-header'><?php echo "<a class='white' href='/weeklong/info.php?id=$weeklongID'>$weeklongTitle</a>"; ?></h1>
+	      <div class="stats-header orange">Player Statistics</div>
+				<div class='stats-header'>
+					Zombie Stun Timer: <?php echo $zombieTimer; ?>
+				</div>
 				<div id="Top" style="display: block;">
           <h3 class="row-header">Top players</h3>
             <?php

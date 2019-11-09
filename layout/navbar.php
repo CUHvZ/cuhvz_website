@@ -55,19 +55,27 @@ $adminButton = "";
 $activeEventButton = "";
 $showProfileMenu = "display: none;";
 
+$weeklongButton = "";
+$statsButton = "";
+$codeButton = "";
+$killButton = "";
+
 if($user->is_logged_in()){
   $showProfileMenu = "";
   if(Weeklong::active_event()){
     $kys_button_display = "none";
     $logkill_button_display = "none";
     if($user->is_in_event($_SESSION["weeklong"])){
+      $weeklongID = $_SESSION["weeklong_id"];
+      $weeklongButton = "<a class='menu-item' id='weeklong_button_dropdown' href='/weeklong/info.php?id=$weeklongID'>Weeklong</a>";
+      $statsButton = "<a class='menu-item' id='stats_button_dropdown' href='/weeklong/stats.php?id=$weeklongID'>Stats</a>";
+      $codeButton = "<a class='menu-item' id='code_button_dropdown' href='/entercode.php'>Enter Code</a>";
       $status = $user->get_game_stats()["status"];
       if($status == "human"){
-        $kys_button_display = "block";
         // echo "<li><a id='kys_button' href='/kys.php'>Join The Horde</a></li>";
         // echo "<li><a id='code_button' href='/entercode.php'>Code</a></li>";
       }else if($status == "zombie"){
-        $logkill_button_display = "block";
+        $killButton = "<a class='menu-item' id='log_kill_button_dropdown' href='/logkill.php'>Log Kill</a>";
         // echo "<li><a id='logkill_button' href='/logkill.php'>Log Kill</a></li>";
       }
     }
@@ -123,6 +131,11 @@ if($user->is_logged_in()){
         <?php
           if($user->is_logged_in()){
             echo "<a class='menu-item' id='profile_button_dropdown' href='/profile.php'>Profile</a>";
+            echo $weeklongButton;
+            echo $statsButton;
+            echo $codeButton;
+            echo $killButton;
+
             if($user->is_admin()){
               echo  "<a class='menu-item' id='admin_button_dropdown' href='/admin.php'>Admin</a>";
             }
