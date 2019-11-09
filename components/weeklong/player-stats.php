@@ -52,7 +52,7 @@
 				}
 				if(!$_SESSION["started"] && $stats["status"] != "zombie"){
 					echo "<div>";
-						echo "Want to start out a zombie? You get 50 bonus starting points if you do.";
+						echo "Want to start out as an original zombie?";
 						echo "<input class='button-primary' type='submit' name='oz' value='Become an Original Zombie' id='submit' onclick=\"window.location='/oz.php';\">\n";
 					echo "</div>";
 				}

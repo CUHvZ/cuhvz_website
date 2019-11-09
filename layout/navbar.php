@@ -74,7 +74,7 @@ if($user->is_logged_in()){
       if($status == "human"){
         // echo "<li><a id='kys_button' href='/kys.php'>Join The Horde</a></li>";
         // echo "<li><a id='code_button' href='/entercode.php'>Code</a></li>";
-      }else if($status == "zombie"){
+      }else if($status == "zombie" && $_SESSION["started"]){
         $killButton = "<a class='menu-item' id='log_kill_button_dropdown' href='/logkill.php'>Log Kill</a>";
         // echo "<li><a id='logkill_button' href='/logkill.php'>Log Kill</a></li>";
       }
