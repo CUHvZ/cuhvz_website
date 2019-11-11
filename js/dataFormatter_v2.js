@@ -77,8 +77,10 @@ function formatData(data){
     var start = formatted.indexOf("IMAGE_SIZE[");
     var temp = formatted.substring(start,formatted.length);
     var imageLink = temp.substring(11, temp.indexOf("]"));
-    var size = temp.substring(11 + imageLink.length + 2, temp.indexOf("]"));
-    var to_replace = "IMAGE_SIZE[" + imageLink + "]";
+    temp = temp.substring(11 + imageLink.length + 2, 11 + imageLink.length + 10);
+    // console.log(temp);
+    var size = temp.substring(0, temp.indexOf("]"));
+    var to_replace = "IMAGE_SIZE[" + imageLink + "]["+size+"]";
     formatted = formatted.replace(to_replace, "<img src='" + imageLink + "' style='width: " + size + "%;'>");
   }
 
