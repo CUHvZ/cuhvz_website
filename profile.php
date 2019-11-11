@@ -58,6 +58,7 @@ if(isset($_GET['action']) && $_GET['action']=="activated"){
 
 
 if(isset($_GET['joinEvent'])){
+	error_log("join event", 0);
 	if(!$user->is_in_event($_SESSION["weeklong"])){
 		$database = new Database();
 	  $weeklongID = $_GET['joinEvent'];

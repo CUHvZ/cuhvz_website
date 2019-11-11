@@ -43,10 +43,11 @@ Sign #X: 25 supplies
 Sign #X: 25 supplies
 
 [ON_CAMPUS]
-Mission: Late sign up
+Time: 9am - 5pm
+Mission: Supply Drops
 
 [OFF_CAMPUS]
-Location: LINK_NEW_TAB[Central park][https://www.google.com/maps/place/Central+Park/@40.0149835,-105.2780824,18z/data=!4m8!1m2!2m1!1scentral+park!3m4!1s0x0:0xfbc3400e4a4953f6!8m2!3d40.0155847!4d-105.2785274]
+Location: LINK_NEW_TAB[Central Park][https://www.google.com/maps/place/Central+Park/@40.0149835,-105.2780824,18z/data=!4m8!1m2!2m1!1scentral+park!3m4!1s0x0:0xfbc3400e4a4953f6!8m2!3d40.0155847!4d-105.2785274]
 Start Time: 5pm
 Mission: Scavenger Hunt
 '

@@ -9,6 +9,7 @@ Valid tags
 LINK[]
 LINK_NEW_TAB[]
 IMAGE[]
+IMAGE_SIZE[][]
 BOLD[]
 INCLUDE[] handled on backend
 */
@@ -69,6 +70,16 @@ function formatData(data){
     var imageLink = temp.substring(6,temp.indexOf("]"));
     var to_replace = "IMAGE[" + imageLink + "]";
     formatted = formatted.replace(to_replace, "<img src='" + imageLink + "' style='width: 100%;'>");
+  }
+
+  // formats IMAGE[link][size %] into an image
+  while(formatted.indexOf("IMAGE_SIZE[")!=-1){
+    var start = formatted.indexOf("IMAGE_SIZE[");
+    var temp = formatted.substring(start,formatted.length);
+    var imageLink = temp.substring(11, temp.indexOf("]"));
+    var size = temp.substring(11 + imageLink.length + 2, temp.indexOf("]"));
+    var to_replace = "IMAGE_SIZE[" + imageLink + "]";
+    formatted = formatted.replace(to_replace, "<img src='" + imageLink + "' style='width: " + size + "%;'>");
   }
 
   // formats BOLD[content] into an strong tag

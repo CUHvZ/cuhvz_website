@@ -35,7 +35,7 @@ $(document).ready(function(){
 <?php
 	function formatInclude($text){
 		$start = strpos($text, "INCLUDE[");
-		if($start == null || $start == undefined){
+		if($start == null || $start == ""){
 			return $text;
 		}
 		$temp = substr($text, $start);
@@ -74,7 +74,7 @@ $(document).ready(function(){
 
 					$event = $db->executeQueryFetch("SELECT * FROM weeklongs where id=$weeklongID;");
           echo "<h3 class='title-link' style='margin: 0;'><a href='/weeklong/info.php?id=$weeklongID'>".$event["title"]."</a></h3>";
-          echo "<p>".$event["display_dates"].", ".substr($event["start_date"],0,4)." | ";
+          echo "<span>".$event["display_dates"].", ".substr($event["start_date"],0,4)." | ";
           	echo "<a href='/weeklong/stats.php?id=$weeklongID' >Stats</a> | ";
           	echo "<a href='".$weeklongDetails["waiver_link_path"]."' target='_blank'>Waiver</a>";
 						if($weeklongStarted && $user->is_logged_in() && $user->is_in_event($event["name"])){
@@ -86,31 +86,35 @@ $(document).ready(function(){
 								echo " | <a href='/logkill.php' >Log Kill</a>";
 							}
 						}
-					echo "</p>";
+					echo "</span>";
         }
         if($weeklong->is_active($event["id"])){ // Displays if event options
 					if($weeklongStarted){
 						$weeklongID = $_SESSION["weeklong_id"];
-            if($user->is_logged_in()){
-                  if($user->is_in_event($event["name"])){
-                        // echo "<a href='/profile.php?leave=".$event["title"]."&eventId=".$event["name"]."'' >Leave event</a>";
-                  }else{
-				            echo "Wanna play in this event?";
-				            echo "<h3 style='margin: 0;'>";
-                    echo "<a href='/profile.php?joinEvent=$weeklongID'' >Join Now!</a>";
+            if(!$user->is_logged_in()){
+                  if(!$user->is_in_event($event["name"])){
+										echo "<br/>";
+										echo "<span>";
+												echo "Late to the game? <a href='/login.php?joinEvent=$weeklongID'' >Join Now!</a>";
+										echo "</span>";
                   }
             }else{
-                  echo "<a href='/login.php?joinEvent=$weeklongID' >Join Now!</a></td>";
+							echo "<br/>";
+							echo "<span>";
+									echo "Late to the game? <a href='/profile.php?joinEvent=$weeklongID'' >Join Now!</a>";
+							echo "</span>";
             }
-            echo "</h3>";
-					}
-
-        }else{
-          if($event["active"] == 0){
-              //echo "Event has ended</td>"."\n";
-          }else{
-              echo "Event isn't ready yet</td>"."\n";
-          }
+					}else{
+						if(!$user->is_in_event($event["name"])){
+							echo "<br/>";
+							echo "<span>";
+								echo "Wanna play in this event?";
+								echo "<h3 style='margin: 0;'>";
+									echo "<a href='/profile.php?joinEvent=$weeklongID'' >Join Now!</a>";
+								echo "</h3>";
+							echo "</span>";
+						}
+	        }
         }
 				?>
       	<div class="white">

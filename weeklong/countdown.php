@@ -85,7 +85,7 @@
       }
 
       ?>
-      <img src="/images/zombie.png" class="u-max-full-width">
+      <img src="/images/zombie-head.png" class="u-max-full-width">
     </div>
 
    </div> <!-- end container -->
