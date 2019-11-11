@@ -10,7 +10,7 @@ $title = 'CU HvZ | ';
 </head>
 <body>
 	<?php include $_SERVER['DOCUMENT_ROOT'].'/layout/navbar.php'; ?>
-<script src="/js/dataFormatter.js"></script>
+<script src="/js/dataFormatter_v2.js"></script>
 <script>
 function formatTabContent(divID)
 {
@@ -19,7 +19,7 @@ function formatTabContent(divID)
 }
 $(document).ready(function(){
 	// Open Details tab by default
-	openTab('Details');
+	// openTab('Details');
 	// Format the tabs html
 	formatTabContent('Details');
 	formatTabContent('Monday');
@@ -31,6 +31,21 @@ $(document).ready(function(){
 
 </script>
 
+
+<?php
+	function formatInclude($text){
+		$start = strpos($text, "INCLUDE[");
+		if($start == null || $start == undefined){
+			return $text;
+		}
+		$temp = substr($text, $start);
+		$end = strpos($temp, "]");
+		$include = substr($temp, 0, $end);
+		$include = str_replace("INCLUDE[", "", $include);
+		$includeFile = file_get_contents($_SERVER['DOCUMENT_ROOT']."/weeklong/include/".$include);
+		return str_replace("INCLUDE[$include]", $includeFile, $text);
+	}
+?>
 <div id="signup" class="lightslide">
 
  <div class="container">
@@ -102,7 +117,7 @@ $(document).ready(function(){
         </div>
 			<div style="margin: auto; text-align: center;">
 	 	 		<span class="tab">
-	 	 			<button class="tablink small-tab" id="Details-tab-button" onclick="openTab('Details')">Details</button>
+	 	 			<button class="tablink small-tab active" id="Details-tab-button" onclick="openTab('Details')">Details</button>
 				</span>
 	 	 		<span class="tab">
 	 	 			<button class="tablink small-tab" id="Monday-tab-button" onclick="openTab('Monday')">Monday</button>
@@ -122,7 +137,7 @@ $(document).ready(function(){
 	 	 	</div>
 
 	 		<div id="tab-container">
-	 		 	<div id="Details" class="tabcontent">
+	 		 	<div id="Details" class="tabcontent" style="display: block">
 					<?php
 						if($weeklongDetails != null){
 							echo $weeklongDetails["details"];
@@ -133,24 +148,21 @@ $(document).ready(function(){
 	 		 	<div id="Monday" class="tabcontent">
 					<?php
 						if($weeklongDetails != null){
-							echo $weeklongDetails["monday"];
-							error_log($weeklongDetails["monday"],0);
+							echo formatInclude($weeklongDetails["monday"]);
 						}
 					?>
 	 		 	</div>
 
 	 			<div id="Tuesday" class="tabcontent">
 					<?php
-						if($weeklongDetails != null){
-							echo $weeklongDetails["tuesday"];
-						}
+						echo formatInclude($weeklongDetails["tuesday"]);
 					?>
 	 		 	</div>
 
 	 		 	<div id="Wednesday" class="tabcontent">
 					<?php
 						if($weeklongDetails != null){
-							echo $weeklongDetails["wednesday"];
+							echo formatInclude($weeklongDetails["wednesday"]);
 						}
 					?>
 	 		 	</div>
@@ -158,7 +170,7 @@ $(document).ready(function(){
 	 		 	<div id="Thursday" class="tabcontent">
 					<?php
 						if($weeklongDetails != null){
-							echo $weeklongDetails["thursday"];
+							echo formatInclude($weeklongDetails["thursday"]);
 						}
 					?>
 	 		 	</div>
@@ -166,7 +178,7 @@ $(document).ready(function(){
 	 			<div id="Friday" class="tabcontent">
 					<?php
 						if($weeklongDetails != null){
-							echo $weeklongDetails["friday"];
+							echo formatInclude($weeklongDetails["friday"]);
 						}
 					?>
 	 		 	</div>

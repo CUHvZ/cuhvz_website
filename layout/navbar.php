@@ -88,6 +88,10 @@ if($user->is_logged_in()){
     $adminButton = "<a class='hideable' style='float: right;' id='admin_button' href='/admin.php'>Admin</a>";
   }
 }else{
+  if(Weeklong::active_event()){
+    $weeklongID = $_SESSION["weeklong_id"];
+    $weeklongButton = "<a id='weeklong_button' href='/weeklong/info.php?id=$weeklongID'>Weeklong</a>";
+  }
   $joinEvent = "";
   if(isset($_GET['joinEvent'])){
     $weeklongID = $_GET["joinEvent"];
@@ -106,6 +110,7 @@ if($user->is_logged_in()){
     <?php
       echo $signUpButton;
       echo $loginButton;
+      echo $weeklongButton;
 
       echo $logoutButton;
       echo $profileButton;
@@ -120,6 +125,12 @@ if($user->is_logged_in()){
         <a class="menu-item" id="index_button_dropdown" href="/index.php">Home</a>
         <a class="menu-item" id="rules_button_dropdown" href="/rules.php">Rules</a>
         <a class="menu-item" id="events_button_dropdown" href="/events.php">Events</a>
+        <?php
+          if(Weeklong::active_event()){
+            $weeklongID = $_SESSION["weeklong_id"];
+            echo "<a class='menu-item' id='weeklong_button_dropdown' href='/weeklong/info.php?id=$weeklongID'>Weeklong</a>";
+          }
+        ?>
       </div>
     </div>
     <div id="profile_menu_button" class="menu_button menu-container dropdown-navbar" onclick="toggleProfileMenu()" style="float: right; <?php echo $showProfileMenu ?>">

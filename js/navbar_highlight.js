@@ -15,8 +15,14 @@ function highlight(){
 		}
 		var event_subpages = ["weeklong/info","weeklong/stats"];
 		if(event_subpages.indexOf(page) != -1){
-			$("#events_button").attr("style", "background-color: #EA7B00; color: #FFF;");
-			$("#events_button_dropdown").attr("style", "background-color: #EA7B00; color: #FFF;");
+			var weeklongButton = $("#weeklong_button");
+			if(weeklongButton != null){
+				$("#weeklong_button").attr("style", "background-color: #EA7B00; color: #FFF;");
+				$("#weeklong_button_dropdown").attr("style", "background-color: #EA7B00; color: #FFF;");
+			}else{
+				$("#events_button").attr("style", "background-color: #EA7B00; color: #FFF;");
+				$("#events_button_dropdown").attr("style", "background-color: #EA7B00; color: #FFF;");
+			}
 		}
 	}
 	catch(err) {
