@@ -41,6 +41,7 @@ Sign #10: 25 supplies
 Sign #12: 25 supplies
 Sign #15: 25 supplies
 Sign #23: 25 supplies
+Poisoned supply drops will reduce effectiveness of the next 3 supply drops used. After 3 unpoisoned supply drops have been collected the poison is cured.
 LINK_NEW_TAB[Sign Location Map][/images/signs-fall19.png]
 
 [ON_CAMPUS]

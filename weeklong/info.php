@@ -99,10 +99,10 @@ $(document).ready(function(){
 										// echo "</span>";
                   }
             }else{
-							echo "<br/>";
-							echo "<span>";
-									echo "Late to the game? <a href='/profile.php?joinEvent=$weeklongID'' >Join Now!</a>";
-							echo "</span>";
+							// echo "<br/>";
+							// echo "<span>";
+							// 		echo "Late to the game? <a href='/profile.php?joinEvent=$weeklongID'' >Join Now!</a>";
+							// echo "</span>";
             }
 					}else{
 						if(!$user->is_in_event($event["name"])){
