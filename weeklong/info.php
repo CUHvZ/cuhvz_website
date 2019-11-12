@@ -93,10 +93,10 @@ $(document).ready(function(){
 						$weeklongID = $_SESSION["weeklong_id"];
             if(!$user->is_logged_in()){
                   if(!$user->is_in_event($event["name"])){
-										echo "<br/>";
-										echo "<span>";
-												echo "Late to the game? <a href='/login.php?joinEvent=$weeklongID'' >Join Now!</a>";
-										echo "</span>";
+										// echo "<br/>";
+										// echo "<span>";
+										// 		echo "Late to the game? <a href='/login.php?joinEvent=$weeklongID'' >Join Now!</a>";
+										// echo "</span>";
                   }
             }else{
 							echo "<br/>";
