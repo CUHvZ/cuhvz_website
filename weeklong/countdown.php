@@ -14,7 +14,6 @@
           }
           else
             echo "Weeklong Game";
-
         ?>
       </h2>
       <h5 class="deeporange">
@@ -64,23 +63,25 @@
       $weeklongID = $_SESSION["weeklong_id"];
       $startDate = new DateTime(date($_SESSION["start_date"]));
       $currentTime = new DateTime(date('Y-m-d H:i:s'));
-      if($user->is_logged_in()){
+      $userLoggedIn = $user->is_logged_in();
+      $userInEvent = false;
+      if($userLoggedIn)
+        $userInEvent = $user->is_in_event($_SESSION["weeklong"]);
+      if($userLoggedIn){
         $signupLink = "/profile.php?joinEvent=$weeklongID";
       }else{
         $signupLink = "/signup.php?joinEvent=$weeklongID";
       }
       if($currentTime < $startDate){
-        echo "<p><h5><a href='$signupLink'>Wanna play? Join now!</a></h5></p>";
+        if(!$userInEvent)
+          echo "<p><h5><a href='$signupLink'>Wanna play? Join now!</a></h5></p>";
       }else{
         $lateStartDate = $startDate->format('Y-m-d')." 17:00:00";
         $lateStartDate = new DateTime(date($lateStartDate));
         // error_log($lateStartDate->format('Y-m-d H:i:s'), 0);
-        if($currentTime < $lateStartDate){
+        if($currentTime < $lateStartDate && !$userInEvent){
           $signupLink = $signupLink."&late=human";
           echo "<p><a href='$signupLink'>Late to the game? Hurry up and join now!</a></p>";
-        }else{
-          // $signupLink = $signupLink."&late=zombie";
-          // echo "<p><a href='$signupLink'>Late to the game? Join now and start as a zombie</a></p>";
         }
       }
 

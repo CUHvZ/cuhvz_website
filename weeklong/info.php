@@ -91,19 +91,26 @@ $(document).ready(function(){
         if($weeklong->is_active($event["id"])){ // Displays if event options
 					if($weeklongStarted){
 						$weeklongID = $_SESSION["weeklong_id"];
-            if(!$user->is_logged_in()){
-                  if(!$user->is_in_event($event["name"])){
-										// echo "<br/>";
-										// echo "<span>";
-										// 		echo "Late to the game? <a href='/login.php?joinEvent=$weeklongID'' >Join Now!</a>";
-										// echo "</span>";
-                  }
-            }else{
-							// echo "<br/>";
-							// echo "<span>";
-							// 		echo "Late to the game? <a href='/profile.php?joinEvent=$weeklongID'' >Join Now!</a>";
-							// echo "</span>";
-            }
+						$startDate = $_SESSION["start_date"];
+						$currentTime = new DateTime(date('Y-m-d H:i:s'));
+						// Set deadlne to 9am + 8 hours = 5pm
+						$lateSignupDeadline = date_add($startDate, date_interval_create_from_date_string("8 hours"));
+						if($currentTime < $lateSignupDeadline){
+							// Not passed 5pm yet
+	            if(!$user->is_logged_in()){
+	                  if(!$user->is_in_event($event["name"])){
+											echo "<br/>";
+											echo "<span>";
+													echo "Late to the game? <a href='/login.php?joinEvent=$weeklongID'' >Join Now!</a>";
+											echo "</span>";
+	                  }
+	            }else{
+								echo "<br/>";
+								echo "<span>";
+										echo "Late to the game? <a href='/profile.php?joinEvent=$weeklongID'' >Join Now!</a>";
+								echo "</span>";
+	            }
+						}
 					}else{
 						if(!$user->is_in_event($event["name"])){
 							echo "<br/>";
@@ -198,6 +205,9 @@ $(document).ready(function(){
 <br><br>
 
 <?php
+if(Weeklong::active_event()){
+  include($_SERVER['DOCUMENT_ROOT'].'/weeklong/clock.php');
+}
 // include footer template
 require($_SERVER['DOCUMENT_ROOT'].'/layout/footer.php');
 ?>
