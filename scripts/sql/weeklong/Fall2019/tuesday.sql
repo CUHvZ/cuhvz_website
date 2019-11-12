@@ -28,7 +28,7 @@ Poison can be deadly.
 
 ——————————————CONNECTION REESTABLISHED————————————--
 
-Heroes, this is commissioner Gordon. I do not know what the Riddler is planning but we know he will be active at Central park at 5pm. Please aid me in capturing him and foiling his plans.
+Heroes, this is commissioner Gordon. I do not know what the Riddler is planning but we know he will be active at Central park at 5pm. Please aid me in capturing him and foiling his plans. Careful when collecting these supply drops as it seems The Riddler may have poisoned one of them.
 
 Stay Vigilant,
 Commissioner Gordon
@@ -37,10 +37,11 @@ Commissioner Gordon
 
 [SUPPLY_DROPS]
 One of these has been poisoned
-Sign #X: 25 supplies
-Sign #X: 25 supplies
-Sign #X: 25 supplies
-Sign #X: 25 supplies
+Sign #10: 25 supplies
+Sign #12: 25 supplies
+Sign #15: 25 supplies
+Sign #23: 25 supplies
+LINK_NEW_TAB[Sign Location Map][/images/signs-fall19.png]
 
 [ON_CAMPUS]
 Time: 9am - 5pm
@@ -50,5 +51,6 @@ Mission: Supply Drops
 Location: LINK_NEW_TAB[Central Park][https://www.google.com/maps/place/Central+Park/@40.0149835,-105.2780824,18z/data=!4m8!1m2!2m1!1scentral+park!3m4!1s0x0:0xfbc3400e4a4953f6!8m2!3d40.0155847!4d-105.2785274]
 Start Time: 5pm
 Mission: Scavenger Hunt
+Success: All humans alive at the end of the mission receive extra pointsFail: Zombie stun timer reduced by 1 minute 
 '
 where weeklong_id=5;

@@ -22,6 +22,7 @@ function applyEffect($code, $user, $database){
 				$points = $code["point_val"];
 
 		}elseif($userStatus == "zombie"){
+			return "Error: You're a zombie, you can't collect supply drops.";
       // Default supply hours
 			$hours = 6;
 			if($code["val"] != 0)
@@ -46,10 +47,10 @@ function applyEffect($code, $user, $database){
 			return $data["error"];
 		$starveTimer = (new StarveDate($starveDate))->getStarveTimer();
 
-    // Default poison counter
-    $poisonCounter = 3;
-		// Update poison counter
-    if(($userStatusType == "poisoned" && $userStatus == "human") || $sideEffect == "poisoned"){
+		if($userStatusType == "poisoned" || $sideEffect == "poisoned"){
+			// Default poison counter
+	    $poisonCounter = 3;
+			// Update poison counter
       $statusData = json_decode($user['status_data'], true);
       // Default number of supply drop until cure
       if(isset($statusData["poisonCounter"]))
@@ -63,9 +64,9 @@ function applyEffect($code, $user, $database){
       $statusData = json_encode($statusData);
       $query = "update $weeklongName set status_type='$newStatusType',status_data='$statusData' where user_id=$userID";
       $database->executeQuery($query);
-    }
+		}
 
-    if($sideEffect != "poisoned" && $userStatus == "human"){
+    if($sideEffect != "poisoned"){
       echo "<p class='bg-success' style='margin: 0;'> &#10003; You collected a supply drop! You've earned $points points and added $hours hours to your starve timer. Your new starve timer is $starveTimer</p>";
       if($userStatusType == "poisoned"){
         if($poisonCounter <= 0){
