@@ -48,19 +48,20 @@ if(isset($_POST['submit'])){
       $expireAt5 = false;
       if(isset($_POST["expire_at_5"]))
         $expireAt5 = true;
-      if(!empty($expiration)){
-        if($expireAt5){
-          $expiration = "'$expiration 17:00:00'";
-        }else{
-          $expiration = "'$expiration 23:59:59'";
-        }
+      if(empty($expiration)){
+        $currentTime = new DateTime(date('Y-m-d H:i:s'));
+        $expiration = $currentTime->format('Y-m-d');
+        // $expiration = "NULL";
+      }
+      if($expireAt5){
+        $expiration = "$expiration 17:00:00";
       }else{
-        $expiration = "NULL";
+        $expiration = "$expiration 23:59:59";
       }
 
       error_log("type: $type, val: $val, point val: $pointVal, name: $name, uses: $numUses, single use: $singleUse, hex: $hex, location: $location, expiration: $expiration", 0);
       $query = "INSERT INTO ".$_SESSION["weeklong"]."_codes (name, hex, effect, side_effect, val, point_val, location_id, num_uses, single_use, expiration) VALUES
-        ('$name', '$hex', '$type', '$sideEffect', '$val', '$pointVal', '$location', '$numUses', $singleUse, $expiration)";
+        ('$name', '$hex', '$type', '$sideEffect', '$val', '$pointVal', '$location', '$numUses', $singleUse, '$expiration')";
       $data = $database->executeQuery($query);
       if(isset($data["error"])){
         $codeMessage = array("error" => "error creating code");
