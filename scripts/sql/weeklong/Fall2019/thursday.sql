@@ -1,5 +1,9 @@
 update weeklong_details set thursday=
 '
+[SUBJECT] Infectious Laughter
+Attention Heroes,
+
+
 [ON_CAMPUS]
 Time: 9am - 5pm
 Mission: Tower control & Supply drops
