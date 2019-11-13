@@ -10,7 +10,7 @@ if(isset($_POST['submit'])){
       if(empty($name))
         $name = "NULL";
       else
-        $name = "'$name'";
+        $name = "$name";
 
       $hex = $_POST["hex"];
       if(empty($hex))
@@ -37,14 +37,13 @@ if(isset($_POST['submit'])){
 
       $val = $_POST['val'];
       if(empty($val)){
-        $val = 0;
+        $val = '0';
       }
 
       $pointVal = $_POST['point_val'];
-      if(empty($val)){
-        $pointVal = 0;
+      if(empty($pointVal) || $pointVal == 0){
+        $pointVal = '0';
       }
-
       $expiration = $_POST["expiration"];
       $expireAt5 = false;
       if(isset($_POST["expire_at_5"]))
@@ -58,9 +57,10 @@ if(isset($_POST['submit'])){
       }else{
         $expiration = "NULL";
       }
+
       error_log("type: $type, val: $val, point val: $pointVal, name: $name, uses: $numUses, single use: $singleUse, hex: $hex, location: $location, expiration: $expiration", 0);
       $query = "INSERT INTO ".$_SESSION["weeklong"]."_codes (name, hex, effect, side_effect, val, point_val, location_id, num_uses, single_use, expiration) VALUES
-        ($name, '$hex', '$type', '$sideEffect', $val, $pointVal, '$location', $numUses, $singleUse, $expiration)";
+        ('$name', '$hex', '$type', '$sideEffect', '$val', '$pointVal', '$location', '$numUses', $singleUse, $expiration)";
       $data = $database->executeQuery($query);
       if(isset($data["error"])){
         $codeMessage = array("error" => "error creating code");

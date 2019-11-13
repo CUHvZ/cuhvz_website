@@ -93,9 +93,10 @@ function applyEffect($code, $user, $database){
 		$starveDate = (new StarveDate($user["starve_date"]))->addHours($hours);
 		$query = "update $weeklongName set starve_date='$starveDate' where user_id=$userID";
 		$data = $database->executeQuery($query);
+		$starveTimer = (new StarveDate($starveDate))->getStarveTimer();
 		if(isset($data["error"]))
 			return $data["error"];
-		echo "<p class='bg-success' style='margin: 0;'> &#10003; You've been fed!</p>";
+		echo "<p class='bg-success' style='margin: 0;'> &#10003; You've been fed $hours hours. Your new starve timer is $starveTimer!</p>";
 	}else{
 		return "effect '$effect' not recognised";
 	}
