@@ -4,7 +4,10 @@ update weeklong_details set thursday=
 
 Attention Heroes,
 
-This isINCLUDE[joker.txt]
+Yesterday was a dark day. Both missions failed and as a result the zombies have grown more powerful.
+****** Zombie stun timer reduced to 2 minutes ******
+
+INCLUDE[joker.txt]
 
 HAHAHAHAHHAHAHAHAHAHAHAHHA
 <div class='center'>
