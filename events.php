@@ -117,9 +117,18 @@ function formatLockinDates($startDate){
 								$lockinID = $event["id"];
 								$lockinTitle = $event["title"];
 								$lockinDate = formatLockinDates($event["event_date"]);
+								$waiverLink = $event["waiver_link_path"];
+								$active = $event["active"];
                 echo "<div class='white'>";
 								echo "<h4 class='title-link' style='margin: 0;'><a href='/lockin/info.php?id=$lockinID'>$lockinTitle</a></h3>";
-								echo "<p>$lockinDate</p>";
+								echo "<p>$lockinDate | <a href='$waiverLink' target='_blank'>Waiver</a>";
+								if($active){
+									$eventbriteLink = $event["eventbrite"];
+									$blasterLink = $event["blaster_eventbrite"];
+									echo " | <a href='$eventbriteLink' target='_blank'>Tickets</a>";
+									echo " | <a href='$blasterLink' target='_blank'>Blaster Rental</a>";
+								}
+								echo "</p>";
                 echo "</div>";
               }
             ?>
