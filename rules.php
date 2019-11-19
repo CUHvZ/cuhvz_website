@@ -81,7 +81,93 @@ $title = 'CU HvZ | Rules';
 					<li class="plain">All players must sign up on the website and fill out a safety waiver before playing</li>
 				</ul>
 			</div>
+
+			<hr/>
+
+			<h2><strong>Lock-in</strong></h2>
+			<div>
+				<iframe src="https://onedrive.live.com/embed?cid=22F6EE2CC3A51664&amp;resid=22f6ee2cc3a51664%212687&amp;authkey=ABuXzNzoCWPOKNQ&amp;em=2&amp;wdAr=1.7777777777777777" width="610px" height="367px" frameborder="0">This is an embedded <a target="_blank" href="https://office.com">Microsoft Office</a> presentation, powered by <a target="_blank" href="https://office.com/webapps">Office</a>.</iframe>
+			</div>
+
+			<div>
+				<h5>Rule #1. Don't be a douchebag</h5>
+				What this means:
+				<ul class="plain">
+					<li class="plain">We want this game to be fun for everyone, so keep other players in mind.</li>
+					<li class="plain">Examples of being a douchebag include:</li>
+					<ul class="plain">
+						<li class="plain">Blasting your fellow players in the face</li>
+						<li class="plain">Getting mad or yelling at players for tagging you</li>
+						<li class="plain">Lying about whether you’re human or zombie, stunned or spawned</li>
+						<li class="plain">Blasting people who are not in *the game*, or blasting players while you are not in
+						*the game*</li>
+						<li class="plain">Treating a player as though they are in *the game* while they are not involved either
+						due to discussion with a moderator or because they have an emergency</li>
+						<li class="plain">Treating a player as though they are in *the game* while they are not involved either
+						due to discussion with a moderator or because they have an emergency</li>
+					</ul>
+				</ul>
+			</div>
+
+			<div>
+				<h5>All Players</h5>
+				<ul class="plain">
+					<li class="plain">If not sure who got tagged/stunned first, players must solve the dispute with Rock-Paper-
+					Scissors</li>
+					<li class="plain">No shields unless specifically provided</li>
+					<li class="plain">Shoes are mandatory</li>
+				</ul>
+			</div>
+
+			<div>
+				<h5>Humans</h5>
+				<ul class="plain">
+					<li class="plain">Have bandana on arm</li>
+					<li class="plain">Use nerf or socks to defend themselves</li>
+					<li class="plain">Become zombies when tagged by a zombie</li>
+					<li class="plain">Goal: complete missions and stay alive</li>
+				</ul>
+			</div>
+
+			<div>
+				<h5>Zombies</h5>
+				<ul class="plain">
+					<li class="plain">Have bandana on head</li>
+					<li class="plain">Tag humans to turn them into zombies</li>
+					<li class="plain">Stunned when hit by projectile from humans</li>
+					<li class="plain">Clearly show they are out of the game when stunned</li>
+					<li class="plain">Must audibly count down from 10 for the last 10 seconds before they respawn</li>
+					<li class="plain">Stun timer is 60 seconds unless otherwise stated</li>
+					<li class="plain">Blaster tags don’t count</li>
+					<li class="plain">Goal: tag all humans</li>
+				</ul>
+			</div>
+
+			<div>
+				<h5>Playing Area</h5>
+				<ul class="plain">
+					<li class="plain">Engineering Center 1st, 2nd, 1st basement</li>
+					<li class="plain">DLC 1st, 2nd, 1st basement</li>
+					<li class="plain">No play in elevators</li>
+					<li class="plain">No kicking open doors</li>
+					<li class="plain">Be careful of stairs, don't run and don't jump</li>
+					<li class="plain">Bathrooms are safe zones</li>
+					<li class="plain">Respect the space</li>
+				</ul>
+			</div>
+
+			<div>
+				<h5>Blaster Restrictions</h5>
+				<ul class="plain">
+					<li class="plain">No hard tipped darts (FVJ) or modified darts. Stefans are fine</li>
+					<li class="plain">No blow guns on any kind</li>
+					<li class="plain">130 FPS cap</li>
+					<li class="plain">No realistic paint jobs unless clearly marked with brightly colored ribbon or tape</li>
+				</ul>
+			</div>
 		</div>
+
+
 	</div>
 </div>
 
