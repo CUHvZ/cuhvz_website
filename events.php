@@ -110,6 +110,10 @@ function formatLockinDates($startDate){
 						<div>
 							An HvZ lock-in is a huge game of zombie tag that occurs in the Engineering center about once a semester, usually the friday before spring or fall break. The night usually consists of 2 rounds. In these rounds there will be a couple of people that start off as zombies that are trying to turn all of the humans into zombies. The humans meanwhile are attempting to complete a mission before they are all zombified. If the humans complete this mission they win. If all of the humans are zombified before they can complete their mission the zombies win. Zombies can turn humans by tagging them, humans can defend themselves with nerf blaster or sock bombs.
 						</div>
+						<br/>
+						<div>
+							Check-in begins at 9 pm and doors close at 10 pm. Make sure to arrive to the event before doors closing, we are not allowed to let anyone in after that. There is parking available in the engineering parking structure and the C4C parking lot. <a href='/images/where-to-park.png' target='_blank'>Where to park.</a>
+						</div>
 						<hr/>
             <?php
 							$lockins = $database->executeQueryFetchAll("SELECT * FROM lockins WHERE display=1 ORDER BY event_date DESC");
