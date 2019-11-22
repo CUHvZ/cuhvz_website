@@ -114,6 +114,16 @@ function formatLockinDates($startDate){
 						<div>
 							Check-in begins at 9 pm and doors close at 10 pm. Make sure to arrive to the event before doors closing, we are not allowed to let anyone in after that. There is parking available in the engineering parking structure and the C4C parking lot. <a href='/images/where-to-park.png' target='_blank'>Where to park.</a>
 						</div>
+						<br/>
+						<div>
+							Need a map of the engineering center?
+							<br/>
+							<a href='/images/ec-maps/basement.png' target='_blank'>Basement</a> |
+							<a href='/images/ec-maps/first-floor.png' target='_blank'>1st floor</a> |
+							<a href='/images/ec-maps/second-floor.png' target='_blank'>2nd floor</a> |
+							<a href='/images/ec-maps/printable.pdf' target='_blank'>Full map</a> |
+							<a href='/images/ec-maps/printable-single-sheet.pdf' target='_blank'>Full map (single page)</a>
+						</div>
 						<hr/>
             <?php
 							$lockins = $database->executeQueryFetchAll("SELECT * FROM lockins WHERE display=1 ORDER BY event_date DESC");
