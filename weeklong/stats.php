@@ -47,47 +47,55 @@ $title = 'CU HvZ | ';
   <div class="player_container">
 
     <div class="content lightslide-list" style="overflow: auto;">
-      <div class="stats-header orange">Player Statistics</div>
 				<?php
-          $displayStats = false;
-					if(isset($_GET["name"])){
-						$name = $_GET["name"];
-						echo "<div class='stats-header'>";
-						echo "Zombie Stun Timer: ";
-						$query = "select stun_timer from weeklongs where name='$name'";
-						$database = new Database();
-						$data = $database->executeQueryFetch($query);
+					$database = new Database();
+					$displayStats = false;
+					$numPlayers = 0;
+					$numHumans = 0;
+					$numZombies = 0;
+					$numDead = 0;
+					$weeklongName = "";
+					$weeklongTitle = "";
+					$weeklongID = 0;
+					$zombieTimer = "";
+					if(isset($_GET["id"])){
+						$weeklongID = $_GET["id"];
+						$data = $database->executeQueryFetch("select * from weeklongs where id='$weeklongID'");
 						if(!isset($data["error"])){
-							$date = new DateTime(date('H:i:s', strtotime($data["stun_timer"])));
-							echo $date->format('i\m s\s');
-						}
-
-						echo "</div>";
-						echo "<div>";
-            if($weeklong->get_weeklong($name)){
-              $displayStats = true;
-							$query = "select count(*) as num_players, count(CASE WHEN status='human' THEN status END) as num_humans, count(CASE WHEN status='zombie' THEN status END) as num_zombies, count(CASE WHEN status='deceased' THEN status END) as num_dead from $name;";
+							$displayStats = true;
+							$weeklongName = $data["name"];
+							$weeklongTitle = $data["title"];
+							$query = "select stun_timer from weeklongs where name='$weeklongName'";
 							$data = $database->executeQueryFetch($query);
-							$numPlayers = $data["num_players"];
-							$numHumans = $data["num_humans"];
-							$numZombies = $data["num_zombies"];
-							$numDead = $data["num_dead"];
-							if($numPlayers == 0)
-								$numPlayers = "0";
-							if($numHumans == 0)
-								$numHumans = "0";
-							if($numZombies == 0)
-								$numZombies = "0";
-							if($numDead == 0)
-								$numDead = "0";
-              // echo "<p class='status-header'>";
-              // echo "Humans: ".sizeof($weeklong->get_humans_from($name));
-              // echo " &emsp; Zombies: ".sizeof($weeklong->get_zombies_from($name));
-              // echo " &emsp; Deceased: ".sizeof($weeklong->get_deceased_from($name));
-              // echo "</p>";
-            }
+							if(!isset($data["error"])){
+								$date = new DateTime(date('H:i:s', strtotime($data["stun_timer"])));
+								$zombieTimer = $date->format('i\m s\s');
+							}
+
+							$query = "select count(*) as num_players, count(CASE WHEN status='human' THEN status END) as num_humans, count(CASE WHEN status='zombie' THEN status END) as num_zombies, count(CASE WHEN status='deceased' THEN status END) as num_dead from $weeklongName;";
+							$data = $database->executeQueryFetch($query);
+							if(!isset($data["error"])){
+								$numPlayers = $data["num_players"];
+								$numHumans = $data["num_humans"];
+								$numZombies = $data["num_zombies"];
+								$numDead = $data["num_dead"];
+								if($numPlayers == 0)
+									$numPlayers = "0";
+								if($numHumans == 0)
+									$numHumans = "0";
+								if($numZombies == 0)
+									$numZombies = "0";
+								if($numDead == 0)
+									$numDead = "0";
+							}
+						}
           }
         ?>
+	      <h1 class='stats-header'><?php echo "<a class='white' href='/weeklong/info.php?id=$weeklongID'>$weeklongTitle</a>"; ?></h1>
+	      <div class="stats-header orange">Player Statistics</div>
+				<div class='stats-header'>
+					Zombie Stun Timer: <?php echo $zombieTimer; ?>
+				</div>
 				<div id="Top" style="display: block;">
           <h3 class="row-header">Top players</h3>
             <?php
@@ -97,13 +105,13 @@ $title = 'CU HvZ | ';
         </div>
         <div style="margin: auto; text-align: center;">
           <span class="tab">
-            <button class="tablink active" onclick="openTab(event, 'All')">All: <?php echo $numPlayers; ?></button>
-            <button class="tablink" onclick="openTab(event, 'Humans')">Humans: <?php echo $numHumans; ?></button>
+            <button class="tablink active" id='All-tab-button' onclick="openTab('All')">All: <?php echo $numPlayers; ?></button>
+            <button class="tablink" id='Humans-tab-button' onclick="openTab('Humans')">Humans: <?php echo $numHumans; ?></button>
           </span>
           <span class="tab">
-						<button class="tablink" onclick="openTab(event, 'Zombies')">Zombies: <?php echo $numZombies; ?></button>
-            <button class="tablink" onclick="openTab(event, 'Deceased')">Dead: <?php echo $numDead; ?></button>
-            <!-- <button class="tablink" onclick="openTab(event, 'Activity')">Activity</button> -->
+						<button class="tablink" id='Zombies-tab-button' onclick="openTab('Zombies')">Zombies: <?php echo $numZombies; ?></button>
+            <button class="tablink" id='Dead-tab-button' onclick="openTab('Deceased')">Dead: <?php echo $numDead; ?></button>
+            <!-- <button class="tablink" onclick="openTab('Activity')">Activity</button> -->
           </span>
         </div>
 				<div id="tab-container">
@@ -135,54 +143,8 @@ $title = 'CU HvZ | ';
 						?>
 	        </div>
 				</div>
-				<!--
-        <div id="Activity" class="tabcontent">
-          <h3 class="row-header">Activity</h3>
-          <table class="stats-row stats-table">
-            <tr class='table-hide-mobile add-line'>
-              <th></th>
-              <th>Activity</th>
-              <th></th>
-              <th>Time</th>
-            </tr>
-            <tr class='table-show-mobile'>
-              <th>Activity</th>
-            </tr>
-            <tr class='table-show-mobile add-line'>
-              <th>Time</th>
-            </tr>
-            <?php
-						/*
-              $data=$weeklong->get_activity($name);
-              foreach($data as $activity){
-                $user_1 = $user->get_user_username($activity["user_1"]);
-                $action = $activity["action"];
-                $user_2 = $user->get_user_username($activity["user_2"]);
-                $time = $activity["time"];
-                echo "<tr class='table-hide-mobile add-line'>";
-	                echo "<td>".$user_1."</td>";
-	                echo "<td>".$action."</td>";
-	                echo "<td>".$user_2."</td>";
-	                echo "<td>".$time."</td>";
-                echo "</tr>";
 
-                echo "<tr class='table-show-mobile'><td>".$user_1."</td></tr>";
-                echo "<tr class='table-show-mobile'><td>".$action."</td></tr>";
-                if($user_2 != null)
-                  echo "<tr class='table-show-mobile'><td>".$user_2."</td></tr>";
-                echo "<tr class='table-show-mobile add-line'><td>".$time."</td></tr>";
-              }
-							*/
-            ?>
-          </table>
-        </div>
-			-->
-
-        <script src="/js/tabs_2.0.js"></script>
-
-        <script src="/js/tabs.js"></script>
-
-        <script src="/js/tabs.js"></script>
+        <script src="/js/tabs-3.0.js"></script>
 
       </div>
     </div>

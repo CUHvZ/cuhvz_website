@@ -1,15 +1,31 @@
 <?php
 
 function addOrdinal($num){
-  $num = intval($num);
-  if($num == 1)
-    return $num."st";
-  else if($num == 2)
-    return $num."nd";
-  else if($num == 3)
-    return $num."rd";
+  $lastNum = substr($num, strlen($num)-1, strlen($num));
+  $lastNum = intval($lastNum);
+  if($lastNum == 1)
+    return intval($num)."st";
+  else if($lastNum == 2)
+    return intval($num)."nd";
+  else if($lastNum == 3)
+    return intval($num)."rd";
   else
-    return $num."th";
+    return intval($num)."th";
+}
+
+function formatLockinDates($startDate){
+  $monthNames = array(
+    "January", "February", "March",
+    "April", "May", "June", "July",
+    "August", "September", "October",
+    "November", "December"
+  );
+  $startDate = new DateTime($startDate);
+  $day = $startDate->format('d');
+  $day = addOrdinal($day);
+  $month = $monthNames[intval($startDate->format('m'))-1];
+  $year = $startDate->format('Y');
+  return "$month $day $year, 9pm - 3am";
 }
 
 function formatWeeklongDates($startDate){
@@ -41,4 +57,8 @@ error_log($formattedDates, 0);
 $date = new DateTime("04/15/2019");
 $format = $date->format('Y-m-d')." 09:00:00";
 error_log($format, 0);
+
+error_log(formatLockinDates("2018-03-23"), 0);
+error_log(formatLockinDates("2018-11-16"), 0);
+error_log(formatLockinDates("2019-04-19"), 0);
 ?>

@@ -1,5 +1,0 @@
-The third off-campus mission will be at LINK[Scott Carpenter park][https://www.google.com/maps/place/Scott+Carpenter+Park/@40.0116189,-105.2552645,140m/data=!3m1!1e3!4m5!3m4!1s0x876bedcf78916ba5:0x1d4e20b0486c7c12!8m2!3d40.011729!4d-105.2549038]. There will be three stationary deely-boppers to defend, one at the top of the hill to the Northwest (near the playground) one at the top of the hill to the Southwest, and one at the bottom of the hill to the East.
-As before, humans will attempt to defend these three points until 5:45. Each time a deely-bopper is successfully taken by a zombie, that zombie’s stun timer decreases by 45 seconds.
-
-If the humans successfully defend all 3 deely boppers – the zombie stun timer is raised by one minute, and 10 vaccines are distributed among the surviving players (limit 1 each)
-For each deely-bopper the zombies steal, the zombie stun-timer is lowered by one minute for the following day.

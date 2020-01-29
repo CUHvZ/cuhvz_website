@@ -34,18 +34,25 @@ if(isset($_SESSION["started"])){
 		header('Location: profile.php');
 }
 
+$weeklongName = $_SESSION["weeklong"];
+$database = new Database();
+// $query = "select * from $weeklongName where status='OZ'";
+// $data = $db->executeQueryFetchAll($query);
+// $OZs = sizeof($data);
+// error_log($OZs, 0);
+
+
 // ---------------------------
 // if submitted then become oz
 // ---------------------------
 if(isset($_POST["submit"])){
-	$database = new Database();
 	$now = (new DateTime(date('Y-m-d H:i:s')))->format('Y-m-d H:i:s');
-	$query = "update ".$_SESSION["weeklong"]." set status='zombie', status_type='OZ', points=50, starve_date=('$now' + INTERVAL 2 DAY) where user_id=".$_SESSION['id'];
+	$query = "update $weeklongName set status='zombie', status_type='OZ', points=50, starve_date=('$now' + INTERVAL 2 DAY) where user_id=".$_SESSION['id'];
 	$data = $database->executeQuery($query);
 	if(!isset($data["error"])){
-    echo "<p class='bg-success' style='margin: 0;'> &#10003; <strong>You've become one of the first. Spread the disease.</strong></p>";
+    echo "<p class='bg-success' style='margin: 0;'> &#10003; <strong>You've become one of the first. Grow the horde.</strong></p>";
 	}else{
-		echo "<p class='bg-danger'> Something went wrong!</p>";
+		echo "<p class='bg-danger'>Something went wrong!</p>";
 	}
 }
 

@@ -31,8 +31,8 @@
   //<link rel='stylesheet' href='css/custom.css'>
   ?>
   <link rel='stylesheet' href='/css/normalize.css'>
-  <link rel='stylesheet' href='/css/skeleton.css'>
-  <link rel='stylesheet' href='/css/custom_v1.6.css'>
+  <link rel='stylesheet' href='/css/skeleton-v1.1.css'>
+  <link rel='stylesheet' href='/css/custom-v1.9.css'>
 
 
   <!-- Favicon

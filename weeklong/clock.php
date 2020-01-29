@@ -25,7 +25,9 @@ if(Weeklong::active_event()){
 
 		<?php
 		$weeklong_name = $_SESSION['weeklong'];
-		$countusers = $db->query("SELECT count(*) FROM $weeklong_name")->fetchColumn();
+		$database = new Database();
+		$countusers = $database->executeQueryCount("SELECT count(*) FROM $weeklong_name");
+		// $countusers = $db->query("SELECT count(*) FROM $weeklong_name")->fetchColumn();
 		?>
 		var count = <?= "\"".$countusers."\"" ?>;
 		// var playersRegistered = document.getElementById("registered");

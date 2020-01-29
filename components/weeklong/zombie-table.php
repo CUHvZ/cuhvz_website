@@ -1,67 +1,27 @@
 <table class="stats-row stats-table">
   <thead>
-  <tr class='add-line table-hide-mobile'>
-    <th onclick="sortTable('zombie-table', 'username', 15)">Username</th>
-    <th>Type</th>
-    <th onclick="sortTable('zombie-table', 'kills', 15)">Kills</th>
-    <th  onclick="sortTable('zombie-table', 'starve', 15)" style="line-height: 1.2em;">Starve Timer</th>
-    <th onclick="sortTable('zombie-table', 'points', 15)">Points</th>
-  </tr>
-  </thead>
-  <tbody id="zombie-table" class="hide-mobile">
-    <?php
-      $query = "SELECT $name.*, users.username, users.admin FROM $name INNER JOIN users ON $name.user_id=users.id where status='zombie'";
-      $database = new Database();
-      $data = $database->executeQueryFetchAll($query);
-      if($displayStats && $data != null){
-        foreach($data as $zombie){
-          $status = $zombie["status_type"];
-          $starveTimer = (new StarveDate($zombie["starve_date"]))->getStarveTimer();
-          $points = $zombie["points"];
-          if($points == null){
-            $points = 0;
-          }
-          $kills = $zombie["kill_count"];
-          if($kills == null){
-            $kills = 0;
-          }
-          if($zombie["admin"] > 0)
-            $style = "style='color: #eb42f4;'";
-          else
-            $style = "";
-          echo "<tr class='table-hide-mobile add-line'>";
-          echo "<td id='username' $style>".$zombie["username"]."</td>";
-          echo "<td>".$status."</td>";
-          echo "<td id='kills'>".$kills."</td>";
-          echo "<td class='red' id='starve'>".$starveTimer."</td>";
-          echo "<td id='points'>".$points."</td>";
-          echo "</tr>";
-        }
-      }
-    ?>
-  </tbody>
-  <thead>
-    <tr class='table-show-mobile add-line'>
-      <th>
-        <div class="mobile-table-line-1" onclick="sortTable('zombie-table-mobile', 'username', 15)">Username</div>
-        <div class="mobile-table-line-1" style='float: right;'>Type</div>
-        <div>
-          <div class="mobile-table-line-2" onclick="sortTable('zombie-table-mobile', 'kills', 15)">Kills</div>
-          <div class="mobile-table-line-2" onclick="sortTable('zombie-table-mobile', 'points', 15)">Points</div>
-          <div class="mobile-table-line-2" onclick="sortTable('zombie-table-mobile', 'starve', 15)">Starve Timer</div>
+    <tr class='add-line'>
+      <th class="table-row">
+        <div class="table-row">
+          <span class="table-cell-username" onclick="sortTable('zombie-table', 'username', 15)">Username</span><br>
+          <span class="table-cell-status">Type</span>
+          <span class="table-cell-number" onclick="sortTable('zombie-table', 'kills', 15)">Kills</span>
+          <span class="table-cell-number" onclick="sortTable('zombie-table', 'points', 15)">Points</span>
+          <span class="table-cell-number" onclick="sortTable('zombie-table', 'starve', 15)">Hunger</span>
         </div>
       </th>
-      </tr>
+    </tr>
   </thead>
-  <tbody id="zombie-table-mobile" class="show-mobile">
+  <tbody id="zombie-table">
     <?php
-      $query = "SELECT $name.*, users.username, users.admin FROM $name INNER JOIN users ON $name.user_id=users.id where status='zombie'";
+      $query = "SELECT $weeklongName.*, users.username, users.admin FROM $weeklongName INNER JOIN users ON $weeklongName.user_id=users.id where status='zombie'";
       $database = new Database();
       $data = $database->executeQueryFetchAll($query);
+      $eventStartDateString = $database->executeQueryFetch("select start_date from weeklongs where name='$weeklongName'")["start_date"];
       if($displayStats && $data != null){
         foreach($data as $zombie){
           $status = $zombie["status_type"];
-          $starveTimer = (new StarveDate($zombie["starve_date"]))->getStarveTimer();
+          $starveTimer = (new StarveDate($zombie["starve_date"]))->getStarveTimer($eventStartDateString);
           $points = $zombie["points"];
           if($points == null){
             $points = 0;
@@ -70,19 +30,20 @@
           if($kills == null){
             $kills = 0;
           }
+          $username = $zombie["username"];
           if($zombie["admin"] > 0)
-            $style = "style='color: #eb42f4;'";
-          else
-            $style = "";
-          echo "<tr class='add-line table-show-mobile'><td>";
-              echo "<div class='mobile-table-line-1' id='username' $style>".$zombie["username"]."</div>";
-              echo "<div class='mobile-table-line-1 red' style='float: right;'>".$status."</div>";
-              echo "<div>";
-                echo "<div class='mobile-table-line-2' id='kills'>".$kills."</div>";
-                echo "<div class='mobile-table-line-2' id='points'>".$points."</div>";
-                echo "<div class='mobile-table-line-2 red' id='starve'>".$starveTimer."</div>";
+            $username = $username."<sub style='color: #eb42f4;'>M</sub>";
+          echo "<tr class='add-line'>"."\n";
+            echo "<td class='table-row'";
+              echo "<div class='table-row'>";
+                echo "<span id='username' class='table-cell-username'>".$username."</span><br>"."\n";
+                echo "<span class='table-cell-status'>".$status."</span>"."\n";
+                echo "<span id='kills' class='table-cell-number'>".$kills."</span>"."\n";
+                echo "<span id='points' class='table-cell-number'>".$points."</span>"."\n";
+                echo "<span class='red table-cell-number' id='starve'>".$starveTimer."</span>"."\n";
               echo "</div>";
-          echo "</td></tr>";
+            echo "</td>";
+          echo "</tr>"."\n";
         }
       }
     ?>
@@ -90,11 +51,6 @@
 </table>
 <div class="outer-div">
   <div class="inner-div">
-    <ul class="pagination pagination-lg pager hide-mobile" id="zombie-table-pager"></ul>
-  </div>
-</div>
-<div class="outer-div">
-  <div class="inner-div">
-    <ul class="pagination pagination-lg pager show-mobile" id="zombie-table-mobile-pager"></ul>
+    <ul class="pagination pagination-lg pager" id="zombie-table-pager"></ul>
   </div>
 </div>

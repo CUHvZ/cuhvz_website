@@ -1,5 +1,4 @@
 <?php
-
 if(isset($_POST['submit'])){
   if($_POST['submit'] == "Create Code" && !isset($processing)){
       // prevent multiple requests going through at once
@@ -11,7 +10,7 @@ if(isset($_POST['submit'])){
       if(empty($name))
         $name = "NULL";
       else
-        $name = "'$name'";
+        $name = "$name";
 
       $hex = $_POST["hex"];
       if(empty($hex))
@@ -38,108 +37,52 @@ if(isset($_POST['submit'])){
 
       $val = $_POST['val'];
       if(empty($val)){
-        $val = 0;
+        $val = '0';
       }
 
       $pointVal = $_POST['point_val'];
-      if(empty($pointVal)){
-        $pointVal = 0;
+      if(empty($pointVal) || $pointVal == 0){
+        $pointVal = '0';
       }
-
-
       $expiration = $_POST["expiration"];
       $expireAt5 = false;
       if(isset($_POST["expire_at_5"]))
         $expireAt5 = true;
-      if(!empty($expiration)){
-        if($expireAt5){
-          $expiration = "'$expiration 17:00:00'";
-        }else{
-          $expiration = "'$expiration 23:59:59'";
-        }
-      }else{
-        $expiration = "NULL";
+      if(empty($expiration)){
+        $currentTime = new DateTime(date('Y-m-d H:i:s'));
+        $expiration = $currentTime->format('Y-m-d');
+        // $expiration = "NULL";
       }
+      if($expireAt5){
+        $expiration = "$expiration 17:00:00";
+      }else{
+        $expiration = "$expiration 23:59:59";
+      }
+
       error_log("type: $type, val: $val, point val: $pointVal, name: $name, uses: $numUses, single use: $singleUse, hex: $hex, location: $location, expiration: $expiration", 0);
       $query = "INSERT INTO ".$_SESSION["weeklong"]."_codes (name, hex, effect, side_effect, val, point_val, location_id, num_uses, single_use, expiration) VALUES
-        ($name, '$hex', '$type', '$sideEffect', $val, $pointVal, '$location', $numUses, $singleUse, $expiration)";
+        ('$name', '$hex', '$type', '$sideEffect', '$val', '$pointVal', '$location', '$numUses', $singleUse, '$expiration')";
       $data = $database->executeQuery($query);
       if(isset($data["error"])){
-        $message = array("error" => "error creating code");
+        $codeMessage = array("error" => "error creating code");
       }else{
-        $message = array("success" => "Code created with hex: $hex");
+        $codeMessage = array("success" => "Code created with hex: $hex");
       }
   }
 }
 
 ?>
-
-
- <div class="container">
-
-  <div class="row">
-
-        <form role="form" method="post" action="" autocomplete="off">
-		        <div class="row">
-              <div class="two columns">
-                  <label>Effect</label><br/>
-                  <select name="code_type">
-                    <option value="supply">supply</option>
-                    <option value="points">points</option>
-                    <option value="feed">feed</option>
-                    <!-- <option value="mission">mission</option> -->
-                    <!-- <option value="revive">revive</option> -->
-                  </select>
-                </div>
-                <!-- <div class="three columns">
-                  <label>Side Effect</label><br/>
-                  <input name="side_effect" class="function-input input-lg u-full-width" placeholder="Use for points">
-                </div> -->
-                <div class="two columns">
-                  <label>Value</label><br/>
-                  <input name="val" class="function-input input-lg u-full-width" type="number" min=0>
-                </div>
-                <div class="two columns">
-                  <label>Point Value</label><br/>
-                  <input name="point_val" class="function-input input-lg u-full-width" type="number" min=0>
-                </div>
-            </div>
-
-          <div class="row">
-            <div class="three columns">
-                <label>Name</label>
-                <input name="name" class="function-input input-lg u-full-width" placeholder="Name">
-            </div>
-            <div class="three columns">
-                <label>Hex</label>
-                <input name="hex" class="function-input u-full-width input-lg" placeholder="Blank for random">
-            </div>
-
-            <div class="three columns">
-                <label>Location</label>
-                <input name="location" class="function-input u-full-width input-lg" placeholder="For supply drops">
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="three columns">
-                <label>Number of uses</label>
-                <input name="num_uses" class="function-input input-lg u-full-width" placeholder="Blank for single use" type="number">
-            </div>
-
-            <div class="three columns">
-              <label>Expiration</label><br/>
-              <input class="date" name="expiration" placeholder="Default midnight" type="text"/><br/>
-              <input type='checkbox' name='expire_at_5'>Check for 5pm</input>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="three columns">
-                <input type="submit" name="submit" value="Create Code" class="btn btn-primary btn-block btn-lg button-primary">
-            </div>
-          </div>
-        </form>
-      </div>
-  </div>
- </div>
+<script>
+function closeMessage(event){
+  event.srcElement.parentNode.remove();
+}
+</script>
+<?php
+  if(isset($codeMessage)){
+    if(isset($codeMessage["error"])){
+      echo "<div class='bg-danger' style='margin: 0;'>".$codeMessage["error"]." <span onclick='closeMessage(event)'>&#x274C;</span></div>";
+    }elseif(isset($codeMessage["success"])){
+      echo "<div class='bg-success' style='margin: 0; display: inline-block;'>".$codeMessage["success"]." <span onclick='closeMessage(event)'>&#x274C;</span></div>";
+    }
+  }
+?>

@@ -22,12 +22,22 @@ $database = new Database();
 
 // if form has been submitted process it
 if(isset($_POST['submit'])){
-
+  if($user->is_logged_in()){
+    if(isset($_GET['joinEvent'])){
+      $weeklongID = $_GET["joinEvent"];
+      header('Location: profile.php?joinEvent='.$weeklongID);
+    }
+    else{
+      header('Location: profile.php');
+    }
+  }
 	// very basic validation
 	if(empty(isValid($_POST['username']))){
 		$error[] = 'Username contains invalid character';
-	}else if(strlen($_POST['username']) < 3){
+	} else if(strlen($_POST['username']) < 3){
 		$error[] = 'Username is too short.';
+	}  else if(strlen($_POST['username']) > 30){
+		$error[] = 'Username is too long.';
 	} else {
     $username = $_POST['username'];
 		$row = $database->executeQueryFetch("SELECT username FROM users WHERE username = '$username'");
@@ -40,7 +50,7 @@ if(isset($_POST['submit'])){
 	// password validation
 	if(strlen(str_replace(' ', '', $_POST['password'])) == 0){
 		$error[] = 'Enter a password';
-	}else if(strlen($_POST['password']) < 3){
+	}else if(strlen($_POST['password']) < 8){
 		$error[] = 'Password is too short';
 	}else if(strlen($_POST['passwordConfirm']) == 0){
 		$error[] = 'You must confirm your password';
@@ -138,7 +148,13 @@ if(isset($_POST['submit'])){
 			// redirect to profile page
       $user->login($_POST['username'], $_POST['password']);
       //header('Location: signup.php?action=joined');
-      header('Location: profile.php');
+      if(isset($_GET['joinEvent'])){
+  			$weeklongID = $_GET["joinEvent"];
+  			header('Location: profile.php?joinEvent='.$weeklongID);
+  		}
+  		else{
+  			header('Location: profile.php');
+  		}
 			exit;
 
 		// else catch the exception and show the error
@@ -172,7 +188,7 @@ $title = 'CU HvZ | ';
   <div class="row">
 
 	<!-- HEADLINE -->
-      <div class="five columns">
+      <div class="five columns hide-mobile">
       <h1 class="section-heading">Humans
       <span class="white">versus</span> Zombies</h1>
       <h2 class="grey subheader">University of Colorado <strong class="deeporange">Boulder</strong></h2>
@@ -205,27 +221,33 @@ $title = 'CU HvZ | ';
 
           <div class="row">
             <div class="twelve columns">
-            <input type="text" name="username" id="username" class="form-control input-lg u-full-width" placeholder="User Name" value="<?php if(isset($error)){ echo $_POST['username']; } ?>" tabindex="1">
-            <input type="text" name="phone" id="phone" class="form-control input-lg u-full-width" placeholder="Phone Number" value="<?php if(isset($error)){ echo $_POST['phone']; } ?>" tabindex="2">
-            <input type="email" name="email" id="email" class="form-control input-lg u-full-width" placeholder="Email Address" value="<?php if(isset($error)){ echo $_POST['email']; } ?>" tabindex="3">
+              <label class="small">Username (3-20 characters)</label>
+              <input type="text" name="username" id="username" class="form-control input-lg u-full-width" placeholder="Username" value="<?php if(isset($error)){ echo $_POST['username']; } ?>" tabindex="1">
+              <label class="small">Phone (optional)</label>
+              <input type="text" name="phone" id="phone" class="form-control input-lg u-full-width" placeholder="Phone Number" value="<?php if(isset($error)){ echo $_POST['phone']; } ?>" tabindex="2">
+              <label class="small">Email</label>
+              <input type="email" name="email" id="email" class="form-control input-lg u-full-width" placeholder="Email Address" value="<?php if(isset($error)){ echo $_POST['email']; } ?>" tabindex="3">
             </div>
           </div>
 
 		  <div class="row">
             <div class="six columns">
-                <input type="text" name="first_name" id="first_name" class="form-control input-lg u-full-width" placeholder="First Name" value="<?php if(isset($error)){ echo $_POST['first_name']; } ?>" tabindex="4">
+              <label class="small">First Name</label>
+              <input type="text" name="first_name" id="first_name" class="form-control input-lg u-full-width" placeholder="First Name" value="<?php if(isset($error)){ echo $_POST['first_name']; } ?>" tabindex="4">
             </div>
             <div class="six columns">
-                <input type="text" name="last_name" id="last_name" class="form-control input-lg u-full-width" placeholder="Last Name" value="<?php if(isset($error)){ echo $_POST['last_name']; } ?>" tabindex="5">
+              <label class="small">Last Name</label>
+              <input type="text" name="last_name" id="last_name" class="form-control input-lg u-full-width" placeholder="Last Name" value="<?php if(isset($error)){ echo $_POST['last_name']; } ?>" tabindex="5">
             </div>
           </div>
 
+          <label class="small">Password (Min 8 characters)</label>
           <div class="row">
             <div class="six columns">
-                <input type="password" name="password" id="password" class="form-control input-lg u-full-width" placeholder="Password" tabindex="6">
+              <input type="password" name="password" id="password" class="form-control input-lg u-full-width" placeholder="Password" tabindex="6">
             </div>
             <div class="six columns">
-                <input type="password" name="passwordConfirm" id="passwordConfirm" class="u-full-width form-control input-lg" placeholder="Confirm Password" tabindex="7">
+              <input type="password" name="passwordConfirm" id="passwordConfirm" class="u-full-width form-control input-lg" placeholder="Confirm" tabindex="7">
             </div>
           </div>
 

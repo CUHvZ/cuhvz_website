@@ -18,6 +18,7 @@ class Weeklong{
   			$stmt = $this->_db->prepare('SELECT * FROM weeklongs WHERE active>0 LIMIT 1');
   			$stmt->execute(array());
   			$row = $stmt->fetch();
+  			$_SESSION["weeklong_id"] = $row["id"];
   			$_SESSION["weeklong"] = $row["name"];
   			$_SESSION["title"] = $row["title"];
   			$_SESSION["started"] = $row["started"];
@@ -422,7 +423,7 @@ class Weeklong{
 	public function reset_all_players(){
     $db = new Database();
     $now = (new DateTime(date('Y-m-d H:i:s')))->format('Y-m-d H:i:s');
-    $query = "UPDATE ".$_SESSION['weeklong']." SET status='human', status_type=NULL, starve_date=('$now' + INTERVAL 2 DAY), kill_count=0, points=0;";
+    $query = "UPDATE ".$_SESSION['weeklong']." SET status='human', status_type='normal', starve_date=('$now' + INTERVAL 2 DAY), kill_count=0, points=0;";
     $db->executeQuery($query);
     // delete any used codes
     $query = "delete from ".$_SESSION['weeklong']."_used_codes;";
@@ -471,9 +472,13 @@ class Weeklong{
           array_push($zombieIDs, $OZ_ID);
       }
     }
-    $now = (new DateTime(date('Y-m-d H:i:s')))->format('Y-m-d H:i:s');
+    $now = new DateTime(date('Y-m-d H:i:s'));
+    $starveDate = date_add($now, date_interval_create_from_date_string("48 hours"));
+    $starveDate = $starveDate->format('Y-m-d H:i:s');
     foreach($zombieIDs as $zombie_id){
-      $query = "update $name set status='zombie', status_type='OZ', points=50, starve_date=($now + INTERVAL 2 DAY) where user_id=$zombie_id";
+
+      // update weeklongF19 set status='zombie', status_type='OZ', points=50, starve_date=(2019-11-01 13:31:52 + INTERVAL 2 DAY) where user_id=1001
+      $query = "update $name set status='zombie', status_type='OZ', points=50, starve_date='$starveDate' where user_id=$zombie_id";
       $error = $db->executeQuery($query);
       if(isset($error["error"]))
         error_log("could not make id $zombie_id into an OZ");

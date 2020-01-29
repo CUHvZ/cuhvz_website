@@ -11,12 +11,13 @@
 		$id = $_SESSION['id'];
 		$weeklongName = $_SESSION["weeklong"];
 		$weeklongTitle = $_SESSION["title"];
+		$weeklongID = $_SESSION["weeklong_id"];
 		$query = "SELECT $weeklongName.*, users.id FROM $weeklongName INNER JOIN users ON $weeklongName.user_id=users.id where users.id=$id";
 		$database = new Database();
 		$stats = $database->executeQueryFetch($query);
 		// $event = $weeklong->get_weeklong($_SESSION["weeklong"]);
 		echo "<div class='black'>";
-        echo "<h3 class='title-link-black' style='margin: 0;'><a href='weeklong/info.php?name=$weeklongName'>$weeklongTitle</a></h3>";
+        echo "<h3 class='title-link-black' style='margin: 0;'><a href='weeklong/info.php?id=$weeklongID'>$weeklongTitle</a></h3>";
         if($weeklong->is_active($weeklongName)){ // Displays if event options
               //echo "<h3 style='margin: 0;'>";
               if($user->is_logged_in()){
@@ -25,11 +26,11 @@
                           // echo "<a href='/profile.php?leave=".$event["title"]."&eventId=".$event["name"]."'' >Leave event</a>";
                     }else{
                           echo "Wanna play in this event?<h3 style='margin: 0;'>";
-                          echo "<a href='/profile.php?join=$weeklongTitle&eventId=$weeklongName'' >Join Now!</a>";
+                          echo "<a href='/profile.php?joinEvent=$weeklongID' >Join Now!</a>";
                     }
               }else{
                     echo "Wanna play in this event?<h3 style='margin: 0;'>";
-                    echo "<a href='/login.php?join=$weeklongTitle&eventId=$weeklongName' >Join Now!</a></td>";
+                    echo "<a href='/login.php?joinEvent=$weeklongID' >Join Now!</a></td>";
               }
                     echo "</h3>";
         }else{
@@ -40,18 +41,18 @@
               // }
         }
         echo "<p>".$_SESSION["weeklong_dates"]." | ";
-        echo "<a href='weeklong/info.php?name=$weeklongName' >mission details</a> | ";
-        echo "<a href='weeklong/stats.php?name=$weeklongName' >stats</a></p>";
+        echo "<a href='weeklong/info.php?id=$weeklongID' >mission details</a> | ";
+        echo "<a href='weeklong/stats.php?id=$weeklongID' >stats</a></p>";
         echo "</div>";
 
-				if($stats["status"] == "human"){
+				if($stats["status"] == "human" && $_SESSION["started"]){
 					echo "<div>";
 						echo "Getting bored of being a human? <a href='/kys.php' >Join the horde here.</a>";
 					echo "</div>";
 				}
 				if(!$_SESSION["started"] && $stats["status"] != "zombie"){
-					echo "<br/><div>";
-						echo "Want to start out a zombie? You get 50 bonus starting points if you do.";
+					echo "<div>";
+						echo "Want to start out as an original zombie?";
 						echo "<input class='button-primary' type='submit' name='oz' value='Become an Original Zombie' id='submit' onclick=\"window.location='/oz.php';\">\n";
 					echo "</div>";
 				}
@@ -65,13 +66,14 @@
 			<td class="subheadline">
 				<?php
 					echo $stats["status"];
-					if($stats["status"] == "zombie")
+					if($stats["status_type"] != "normal")
 						echo " (".$stats["status_type"].")";
 				?>
 			</td>
 		</tr>
 		<?php
-		$starveTimer = (new StarveDate($stats["starve_date"]))->getStarveTimer();
+		$eventStartDateString = $database->executeQueryFetch("select start_date from weeklongs where name='$weeklongName'")["start_date"];
+		$starveTimer = (new StarveDate($stats["starve_date"]))->getStarveTimer($eventStartDateString);
 		$points = $stats["points"];
 		echo "<tr>
 						<td class='subheader deeporange'>Starve Timer</td>
@@ -93,7 +95,7 @@
 		<div>
 			<input class='button-primary' type='submit' name='submit' value='Enter Code' id='submit' onclick="window.location='/entercode.php';">
 			<?php
-			if($stats["status"] == "zombie"){
+			if($stats["status"] == "zombie" && $_SESSION["started"]){
 				echo "<input class='button-primary' type='submit' name='submit' value='Log Kill' id='submit' onclick=\"window.location='/logkill.php';\">\n";
 			}
 			?>

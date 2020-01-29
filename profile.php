@@ -57,26 +57,49 @@ if(isset($_GET['action']) && $_GET['action']=="activated"){
 }
 
 
-if(isset($_GET['join']) && isset($_GET['eventId'])){
+if(isset($_GET['joinEvent'])){
+	error_log("join event", 0);
 	if(!$user->is_in_event($_SESSION["weeklong"])){
-	  $eventName = $_GET['join'];
-
-		$user_hex = substr(md5(uniqid(rand(),'')),0,5);
-		$weeklongName = $_GET['eventId'];
-		$username = $_SESSION['username'];
-		$userID = $_SESSION['id'];
-
 		$database = new Database();
-		$now = (new DateTime(date('Y-m-d H:i:s')))->format('Y-m-d H:i:s');
-		$query = "INSERT INTO $weeklongName (user_id,username, user_hex, starve_date) VALUES ($userID, '$username', '$user_hex', ('$now' + INTERVAL 2 DAY))";
-		if(isset($_GET['late']) && $_GET['late']=="zombie"){
-			$query = "INSERT INTO $weeklongName (user_id,username, user_hex, status, status_type, starve_date) VALUES ($userID, '$username', '$user_hex', 'zombie', 'normal', ('$now' + INTERVAL 2 DAY))";
+	  $weeklongID = $_GET['joinEvent'];
+		$query = "select title, name from weeklongs where id=$weeklongID";
+		$data = $database->executeQueryFetch($query);
+		$weeklongName = null;
+		$weeklongTitle = null;
+		if(!isset($data["error"])){
+			$weeklongName = $data["name"];
+			$weeklongTitle = $data["title"];
 		}
-		$error = $database->executeQuery($query);
-		if(!isset($error["error"])){
-			echo "<p class='bg-success' style='margin: 0;'> &#10003; <strong>Thanks for signing up for $eventName!</strong> <br> We'll send you daily updates, so makes sure to check your email and checkout the website!</p>";
-		}else{
-			echo "<p class='bg-danger' style='margin: 0;'> &#10003; <strong>Something went wrong tring to sign up for $event!</strong> <br> Try logging out and logging back in. Contact the mod team if this problem continues.</p>";
+		if($weeklongName != null){
+			$user_hex = substr(md5(uniqid(rand(),'')),0,5);
+
+			$query = "select user_hex from $weeklongName";
+			$data = $database->executeQueryFetchAll($query);
+			$takenHexes = [];
+			foreach($data as $row){
+				array_push($takenHexes, $row[0]);
+			}
+			while(in_array($user_hex, $takenHexes)){
+				$user_hex = substr(md5(uniqid(rand(),'')),0,5);
+			}
+
+			$username = $_SESSION['username'];
+			$userID = $_SESSION['id'];
+
+
+			$now = (new DateTime(date('Y-m-d H:i:s')))->format('Y-m-d H:i:s');
+			$status = "human";
+			if(isset($_GET['late']) && $_GET['late']=="zombie"){
+				$status = "zombie";
+			}
+			$query = "INSERT INTO $weeklongName (user_id,username, user_hex, status, status_type, starve_date) VALUES ($userID, '$username', '$user_hex', '$status', 'normal', ('$now' + INTERVAL 2 DAY))";
+
+			$error = $database->executeQuery($query);
+			if(!isset($error["error"])){
+				echo "<p class='bg-success' style='margin: 0;'> &#10003; <strong>Thanks for signing up for $weeklongTitle!</strong> <br> We'll send you daily updates, so makes sure to check your email and checkout the website!</p>";
+			}else{
+				echo "<p class='bg-danger' style='margin: 0;'> &#10003; <strong>Something went wrong tring to sign up for $weeklongTitle!</strong> <br> Try logging out and logging back in. Contact the mod team if this problem continues.</p>";
+			}
 		}
 	}
 }
@@ -135,11 +158,11 @@ if(isset($_GET['kill'])){
       include "components/weeklong/player-stats.php";
       echo "\n<script>\n";
       if($user->get_game_stats()["status"] == "human"){
-        echo "document.getElementById('kys_button').parentNode.style.display = 'block';\n";
-        echo "document.getElementById('logkill_button').parentNode.style.display = 'none';\n";
+        // echo "document.getElementById('kys_button').parentNode.style.display = 'block';\n";
+        // echo "document.getElementById('logkill_button').parentNode.style.display = 'none';\n";
       }else{
-        echo "document.getElementById('logkill_button').parentNode.style.display = 'block';\n";
-        echo "document.getElementById('kys_button').parentNode.style.display = 'none';\n";
+        // echo "document.getElementById('logkill_button').parentNode.style.display = 'block';\n";
+        // echo "document.getElementById('kys_button').parentNode.style.display = 'none';\n";
       }
       echo "</script>\n";
 
