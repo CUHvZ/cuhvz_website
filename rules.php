@@ -161,7 +161,7 @@ $title = 'CU HvZ | Rules';
 				<ul class="plain">
 					<li class="plain">No hard tipped darts (FVJ) or modified darts. Stefans are fine</li>
 					<li class="plain">No blow guns on any kind</li>
-					<li class="plain">130 FPS cap</li>
+					<li class="plain">120 FPS cap</li>
 					<li class="plain">No realistic paint jobs unless clearly marked with brightly colored ribbon or tape</li>
 				</ul>
 			</div>
