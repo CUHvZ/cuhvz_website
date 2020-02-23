@@ -1,6 +1,6 @@
 -- The script used to create the users table
 CREATE TABLE IF NOT EXISTS lockins (
-  id int(11) NOT NULL,
+  id int(11) NOT NULL AUTO_INCREMENT,
   title varchar(255) NOT NULL,
   event_date timestamp NULL DEFAULT NULL,
   waiver_link_path varchar(255),
