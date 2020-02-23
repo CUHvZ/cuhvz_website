@@ -36,8 +36,11 @@ function formatWeeklongDates($startDate){
 }
 
 function createWeeklong($semester, $title, $displayDates, $startDate, $endDate){
+  $weeklongName = "weeklong".$semester;
   $createWeeklongEntryQuery = "INSERT INTO weeklongs (name, title, display_dates, start_date, end_date) VALUES
-  ('weeklong".$semester."', '$title', '$displayDates', '$startDate', '$endDate');";
+  ('$weeklongName', '$title', '$displayDates', '$startDate', '$endDate');";
+  $createWeeklongDetailsEntryQuery = "INSERT INTO weeklong_details (weeklong_id) VALUES
+  ((select id from weeklongs where name = '$weeklongName'));";
 
   $createWeeklongTableQuery = "CREATE TABLE IF NOT EXISTS weeklong".$semester." (
     user_id int(11) NOT NULL,
@@ -83,6 +86,7 @@ function createWeeklong($semester, $title, $displayDates, $startDate, $endDate){
 
     $db = new Database();
     $db->executeQuery($createWeeklongEntryQuery);
+    $db->executeQuery($createWeeklongDetailsEntryQuery);
     $db->executeQuery($createWeeklongTableQuery);
     $db->executeQuery($createWeeklongCodesTableQuery);
     $db->executeQuery($createUsedCodesTable);
@@ -103,6 +107,7 @@ if(isset($_POST['submit'])){
     // drop table weeklongs; source scripts/sql/old_tables/weeklongs.sql;
     // drop table weeklongs; source scripts/sql/weeklongsNew.sql;
 
+    error_log("$semester, $title, $display_dates, $start_date, $end_date", 0);
     createWeeklong($semester, $title, $display_dates, $start_date, $end_date);
   }
 }
