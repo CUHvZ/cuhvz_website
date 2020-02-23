@@ -21,7 +21,7 @@
     </span>
     <span class="footer-box">
       Enjoy our events? <br/>
-      <a class="button button-primary" href="https://www.eventbrite.com/e/cu-hvz-2018-spring-donations-tickets-60673535177" target="_blank">Donate!</a>
+      <a class="button button-primary" href="https://www.eventbrite.com/e/cu-hvz-2020-donations-tickets-96358263159" target="_blank">Donate!</a>
     </span>
   </div>
 </div> <!-- end footer section -->
