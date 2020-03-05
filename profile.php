@@ -13,7 +13,14 @@ $title = 'CU HvZ | Profile';
 
 <?php
 //if not logged in redirect to login page
-if(!$user->is_logged_in()){ header('Location: login.php'); }
+if(!$user->is_logged_in()){
+	if (isset($_GET['action'])) {
+		$action = $_GET['action'];
+		header("Location: login.php?action=$action");
+	}else{
+		header('Location: login.php');
+	}
+}
 ?>
 
 
@@ -54,6 +61,32 @@ if(!$user->is_activated()){
 
 if(isset($_GET['action']) && $_GET['action']=="activated"){
 	echo "<p class='bg-success' style='margin: 0;'> &#10003; Your account has been activated.</p>";
+}
+
+if(isset($_GET['action']) && $_GET['action']=="subscribe"){
+	$database = new Database();
+	$userID = $_SESSION['id'];
+	// $query = "update users set subscribed=1 where id=$userID";
+	$data = $database->update("users", "subscribed=1", "id=$userID");
+	if(!isset($data["error"])){
+		$_SESSION['subscribed'] = 1;
+		echo "<p class='bg-success' style='margin: 0;'> &#10003; You have subscribed to the emailing list.</p>";
+	}else{
+		echo "<p class='bg-danger' style='margin: 0;'> &#10003; <strong>Something went wrong tring to subscribe to the emailing list.</strong> <br> Try logging out and logging back in. Contact the mod team if this problem continues.</p>";
+	}
+}
+
+if(isset($_GET['action']) && $_GET['action']=="unsubscribe"){
+	$database = new Database();
+	$userID = $_SESSION['id'];
+	// $query = "update users set subscribed=1 where id=$userID";
+	$data = $database->update("users", "subscribed=0", "id=$userID");
+	if(!isset($data["error"])){
+		$_SESSION['subscribed'] = 0;
+		echo "<p class='bg-success' style='margin: 0;'> &#10003; You have unsubscribed to the emailing list. We're sorry to see you go.</p>";
+	}else{
+		echo "<p class='bg-danger' style='margin: 0;'> &#10003; <strong>Something went wrong tring to unsubscribe from the emailing list.</strong> <br> Try logging out and logging back in. Contact the mod team if this problem continues.</p>";
+	}
 }
 
 

@@ -47,6 +47,7 @@ class User extends Password{
 		    $_SESSION['username'] = $row['username'];
 		    $_SESSION['email'] = $row['email'];
 		    $_SESSION['id'] = $row['id'];
+		    $_SESSION['subscribed'] = $row['subscribed'];
         $this->id = $row['id'];
 		    return true;
 		}

@@ -26,6 +26,9 @@ if(isset($_POST['submit'])){
 		if(isset($_GET['joinEvent'])){
 			$weeklongID = $_GET["joinEvent"];
 			header('Location: profile.php?joinEvent='.$weeklongID);
+		}elseif (isset($_GET['action'])) {
+			$action = $_GET['action'];
+			header("Location: profile.php?action=$action");
 		}
 		else{
 			header('Location: profile.php');
