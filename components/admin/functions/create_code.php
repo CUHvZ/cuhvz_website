@@ -58,6 +58,12 @@ if(isset($_POST['submit'])){
       }else{
         $expiration = "$expiration 23:59:59";
       }
+      if($type == "mission"){
+    		if($pointVal == 0)
+    			$pointVal = 10;
+    		if($val == 0)
+    			$val = 6;
+      }
 
       error_log("type: $type, val: $val, point val: $pointVal, name: $name, uses: $numUses, single use: $singleUse, hex: $hex, location: $location, expiration: $expiration", 0);
       $query = "INSERT INTO ".$_SESSION["weeklong"]."_codes (name, hex, effect, side_effect, val, point_val, location_id, num_uses, single_use, expiration) VALUES

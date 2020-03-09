@@ -3,7 +3,7 @@ update lockins set details=
 
 The blood benders made a deal with the dark spirits, allowing the spirits to inhabit their bodies in exchange for enhancing their blood bending capabilities beyond imagination. The dark spirits bestowed the ability to control anyone from anywhere as long as they have been infected with dark spirit energy.
 
-They have declared war on the Fire Nation and have begun to advance their brainwashed armies. Coming into contact with anyone infected with the dark spirit energy results in the infection immediatelly spreading and taking control of their mind, joining the Blood Nation.
+They have declared war on the Fire Nation and have begun to advance their brainwashed armies. Coming into contact with anyone infected with the dark spirit energy results in the infection immediately spreading and taking control of their mind, joining the Blood Nation.
 
 BOLD[Important note to all player under the age of 18:]
 Due to rules placed on us that are out of our control we require a parent/guardian to be present to sign your wavier in order to prove that a signature was not forged.

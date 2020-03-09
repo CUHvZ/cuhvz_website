@@ -10,7 +10,7 @@
 						<option value="supply">supply</option>
 						<option value="points">points</option>
 						<option value="feed">feed</option>
-						<!-- <option value="mission">mission</option> -->
+						<option value="mission">mission</option>
 						<!-- <option value="revive">revive</option> -->
 					</select>
 				</div>

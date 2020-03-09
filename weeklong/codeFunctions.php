@@ -113,6 +113,17 @@ function applyEffect($code, $user, $database){
 		if(isset($data["error"]))
 			return $data["error"];
 		echo "<p class='bg-success' style='margin: 0;'> &#10003; You've been fed $hours hours. Your new starve timer is $starveTimer!</p>";
+	}elseif($effect == "mission"){
+		$points = $code["point_val"];
+		$hours = $code["val"];
+		error_log("applying $points and adding $hours to user $userID", 0);
+		$starveDate = (new StarveDate($user["starve_date"]))->addHours($hours);
+		$query = "update $weeklongName set starve_date='$starveDate',points=points+$points where user_id=$userID";
+		$data = $database->executeQuery($query);
+		$starveTimer = (new StarveDate($starveDate))->getStarveTimer();
+		if(isset($data["error"]))
+			return $data["error"];
+		echo "<p class='bg-success' style='margin: 0;'> &#10003; You've been fed $hours hours and earned $points points. Your new starve timer is $starveTimer!</p>";
 	}else{
 		return "effect '$effect' not recognised";
 	}

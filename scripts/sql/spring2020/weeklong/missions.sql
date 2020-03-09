@@ -56,12 +56,12 @@ where weeklong_id=6;
 
 update weeklong_details set friday=
 '
-On-Campus mission
+[ON_CAMPUS]
 Mission: Sign the Notebook
 Time: 9 am - 5 pm
 Location: LINK_NEW_TAB[Rock with square hole][https://www.google.com/maps/@40.0079274,-105.2711151,3a,75y,35.01h,74.28t/data=!3m6!1e1!3m4!1sf2hKqkG6UyTgThoKv6XnOQ!2e0!7i13312!8i6656]
 
-Off-Campus mission
+[OFF_CAMPUS]
 Mission: Mobile defense
 Location: LINK_NEW_TAB[Martin park][https://www.google.com/maps/place/Martin+Park/@39.9889483,-105.2520282,17z/data=!3m1!4b1!4m12!1m6!3m5!1s0x876beda6c350f9cd:0xbfe19b6c4417032e!2sMartin+Park!8m2!3d39.9889442!4d-105.2498342!3m4!1s0x876beda6c350f9cd:0xbfe19b6c4417032e!8m2!3d39.9889442!4d-105.2498342]
 Start Time: 5:30 pm
