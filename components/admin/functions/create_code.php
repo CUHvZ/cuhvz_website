@@ -62,7 +62,7 @@ if(isset($_POST['submit'])){
     		if($pointVal == 0)
     			$pointVal = 10;
     		if($val == 0)
-    			$val = 6;
+    			$val = 12;
       }
 
       error_log("type: $type, val: $val, point val: $pointVal, name: $name, uses: $numUses, single use: $singleUse, hex: $hex, location: $location, expiration: $expiration", 0);
