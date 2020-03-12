@@ -7,10 +7,23 @@ A Blue Spirit imposter is wreaking havoc in the Fire Nation capital, setting fir
 
 - General Zuko
 
+[LINE]
+
+[SUPPLY_DROPS]
+One of these has been poisoned. Zombies can still steal but can not be poisoned.
+Sign #6: 10 supplies
+Sign #12: 10 supplies
+LINK_NEW_TAB[Sign Location Map][/images/signs-fall19.png]
+
 [ON_CAMPUS]
 Mission: Tower defense
 Time: 9 am - 5 pm
-Location: In front of the EC, Norlan Quad, Duane Lawn
+LINK_NEW_TAB[Tower locations][/images/control_tower_map.png]
+- Towers are made of PVC and are leaned against trees
+- Towers will be checked every half an hour and updates will be posted on Discord
+- Stations will be checked every half hour and points recorded
+- Humans must move the bandana above the line- Zombies must move the bandana below the line
+- Humans must have more points than zombies to winMission failure: Zombie stun timer reduced by 1 minute
 
 [OFF_CAMPUS]
 Mission: Egg-scort
